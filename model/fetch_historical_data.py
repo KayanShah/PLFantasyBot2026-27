@@ -21,14 +21,14 @@ TEST_SEASON = "2025-26"
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "data" / "historical"
 
 
-def download_season(season: str) -> Path:
-    url = f"{RAW_BASE}/{season}/gws/merged_gw.csv"
+def download_file(season: str, relative_path: str, out_name: str) -> Path:
+    url = f"{RAW_BASE}/{season}/{relative_path}"
     response = requests.get(url, timeout=60)
     response.raise_for_status()
 
     season_dir = OUTPUT_DIR / season
     season_dir.mkdir(parents=True, exist_ok=True)
-    out_path = season_dir / "merged_gw.csv"
+    out_path = season_dir / out_name
     out_path.write_bytes(response.content)
     return out_path
 
@@ -37,10 +37,11 @@ def main() -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     for season in TRAIN_SEASONS + [TEST_SEASON]:
-        path = download_season(season)
-        n_lines = sum(1 for _ in path.open(encoding="utf-8", errors="ignore")) - 1
+        gw_path = download_file(season, "gws/merged_gw.csv", "merged_gw.csv")
+        fixtures_path = download_file(season, "fixtures.csv", "fixtures.csv")
+        n_lines = sum(1 for _ in gw_path.open(encoding="utf-8", errors="ignore")) - 1
         role = "test (held out)" if season == TEST_SEASON else "train"
-        print(f"{season} [{role}] -> {path} ({n_lines} rows)")
+        print(f"{season} [{role}] -> {gw_path} ({n_lines} rows), {fixtures_path.name}")
 
 
 if __name__ == "__main__":
