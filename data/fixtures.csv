@@ -1,0 +1,381 @@
+gameweek,kickoff,home_team,away_team,home_short,away_short,home_difficulty,away_difficulty,finished,home_score,away_score,fixture_id
+1,2025-08-15 19:00 UTC,Liverpool,Bournemouth,LIV,BOU,3,4,True,4,2,1
+1,2025-08-16 11:30 UTC,Aston Villa,Newcastle,AVL,NEW,3,4,True,0,0,2
+1,2025-08-16 14:00 UTC,Brighton,Fulham,BHA,FUL,2,4,True,1,1,3
+1,2025-08-16 14:00 UTC,Spurs,Burnley,TOT,BUR,1,3,True,3,0,6
+1,2025-08-16 14:00 UTC,Sunderland,West Ham,SUN,WHU,2,3,True,3,0,5
+1,2025-08-16 16:30 UTC,Wolves,Man City,WOL,MCI,4,2,True,0,4,7
+1,2025-08-17 13:00 UTC,Chelsea,Crystal Palace,CHE,CRY,3,4,True,0,0,8
+1,2025-08-17 13:00 UTC,Nott'm Forest,Brentford,NFO,BRE,3,3,True,3,1,4
+1,2025-08-17 15:30 UTC,Man Utd,Arsenal,MUN,ARS,4,4,True,0,1,9
+1,2025-08-18 19:00 UTC,Leeds,Everton,LEE,EVE,3,3,True,1,0,10
+2,2025-08-22 19:00 UTC,West Ham,Chelsea,WHU,CHE,3,3,True,1,5,20
+2,2025-08-23 11:30 UTC,Man City,Spurs,MCI,TOT,3,5,True,0,2,18
+2,2025-08-23 14:00 UTC,Bournemouth,Wolves,BOU,WOL,1,3,True,1,0,12
+2,2025-08-23 14:00 UTC,Brentford,Aston Villa,BRE,AVL,3,3,True,1,0,13
+2,2025-08-23 14:00 UTC,Burnley,Sunderland,BUR,SUN,2,2,True,2,0,14
+2,2025-08-23 16:30 UTC,Arsenal,Leeds,ARS,LEE,2,5,True,5,0,11
+2,2025-08-24 13:00 UTC,Crystal Palace,Nott'm Forest,CRY,NFO,3,3,True,1,1,15
+2,2025-08-24 13:00 UTC,Everton,Brighton,EVE,BHA,3,3,True,2,0,16
+2,2025-08-24 15:30 UTC,Fulham,Man Utd,FUL,MUN,4,3,True,1,1,17
+2,2025-08-25 19:00 UTC,Newcastle,Liverpool,NEW,LIV,4,3,True,2,3,19
+3,2025-08-30 11:30 UTC,Chelsea,Fulham,CHE,FUL,2,4,True,2,0,23
+3,2025-08-30 14:00 UTC,Man Utd,Burnley,MUN,BUR,1,4,True,3,2,26
+3,2025-08-30 14:00 UTC,Spurs,Bournemouth,TOT,BOU,3,3,True,0,1,29
+3,2025-08-30 14:00 UTC,Sunderland,Brentford,SUN,BRE,3,3,True,2,1,28
+3,2025-08-30 14:00 UTC,Wolves,Everton,WOL,EVE,3,2,True,2,3,30
+3,2025-08-30 16:30 UTC,Leeds,Newcastle,LEE,NEW,3,3,True,0,0,24
+3,2025-08-31 13:00 UTC,Brighton,Man City,BHA,MCI,4,4,True,2,1,22
+3,2025-08-31 13:00 UTC,Nott'm Forest,West Ham,NFO,WHU,2,3,True,0,3,27
+3,2025-08-31 15:30 UTC,Liverpool,Arsenal,LIV,ARS,4,4,True,1,0,25
+3,2025-08-31 18:00 UTC,Aston Villa,Crystal Palace,AVL,CRY,3,4,True,0,3,21
+4,2025-09-13 11:30 UTC,Arsenal,Nott'm Forest,ARS,NFO,3,5,True,3,0,31
+4,2025-09-13 14:00 UTC,Bournemouth,Brighton,BOU,BHA,3,3,True,2,1,32
+4,2025-09-13 14:00 UTC,Crystal Palace,Sunderland,CRY,SUN,2,3,True,0,0,35
+4,2025-09-13 14:00 UTC,Everton,Aston Villa,EVE,AVL,3,3,True,0,0,36
+4,2025-09-13 14:00 UTC,Fulham,Leeds,FUL,LEE,2,3,True,1,0,37
+4,2025-09-13 14:00 UTC,Newcastle,Wolves,NEW,WOL,1,3,True,1,0,39
+4,2025-09-13 16:30 UTC,West Ham,Spurs,WHU,TOT,3,3,True,0,3,40
+4,2025-09-13 19:00 UTC,Brentford,Chelsea,BRE,CHE,3,3,True,2,2,33
+4,2025-09-14 13:00 UTC,Burnley,Liverpool,BUR,LIV,4,2,True,0,1,34
+4,2025-09-14 15:30 UTC,Man City,Man Utd,MCI,MUN,4,5,True,3,0,38
+5,2025-09-20 11:30 UTC,Liverpool,Everton,LIV,EVE,3,4,True,2,1,46
+5,2025-09-20 14:00 UTC,Brighton,Spurs,BHA,TOT,3,4,True,2,2,43
+5,2025-09-20 14:00 UTC,Burnley,Nott'm Forest,BUR,NFO,3,2,True,1,1,44
+5,2025-09-20 14:00 UTC,West Ham,Crystal Palace,WHU,CRY,3,3,True,1,2,49
+5,2025-09-20 14:00 UTC,Wolves,Leeds,WOL,LEE,2,2,True,1,3,50
+5,2025-09-20 16:30 UTC,Man Utd,Chelsea,MUN,CHE,3,4,True,2,1,47
+5,2025-09-20 19:00 UTC,Fulham,Brentford,FUL,BRE,3,3,True,3,1,45
+5,2025-09-21 13:00 UTC,Bournemouth,Newcastle,BOU,NEW,3,3,True,0,0,42
+5,2025-09-21 13:00 UTC,Sunderland,Aston Villa,SUN,AVL,3,3,True,1,1,48
+5,2025-09-21 15:30 UTC,Arsenal,Man City,ARS,MCI,4,5,True,1,1,41
+6,2025-09-27 11:30 UTC,Brentford,Man Utd,BRE,MUN,4,3,True,3,1,52
+6,2025-09-27 14:00 UTC,Chelsea,Brighton,CHE,BHA,3,4,True,1,3,53
+6,2025-09-27 14:00 UTC,Crystal Palace,Liverpool,CRY,LIV,4,3,True,2,1,54
+6,2025-09-27 14:00 UTC,Leeds,Bournemouth,LEE,BOU,3,3,True,2,2,56
+6,2025-09-27 14:00 UTC,Man City,Burnley,MCI,BUR,1,5,True,5,1,57
+6,2025-09-27 16:30 UTC,Nott'm Forest,Sunderland,NFO,SUN,2,3,True,0,1,59
+6,2025-09-27 19:00 UTC,Spurs,Wolves,TOT,WOL,1,3,True,1,1,60
+6,2025-09-28 13:00 UTC,Aston Villa,Fulham,AVL,FUL,2,4,True,3,1,51
+6,2025-09-28 15:30 UTC,Newcastle,Arsenal,NEW,ARS,4,3,True,1,2,58
+6,2025-09-29 19:00 UTC,Everton,West Ham,EVE,WHU,2,3,True,1,1,55
+7,2025-10-03 19:00 UTC,Bournemouth,Fulham,BOU,FUL,2,3,True,3,1,63
+7,2025-10-04 11:30 UTC,Leeds,Spurs,LEE,TOT,3,3,True,1,2,67
+7,2025-10-04 14:00 UTC,Arsenal,West Ham,ARS,WHU,2,5,True,2,0,61
+7,2025-10-04 14:00 UTC,Man Utd,Sunderland,MUN,SUN,2,4,True,2,0,68
+7,2025-10-04 16:30 UTC,Chelsea,Liverpool,CHE,LIV,4,4,True,2,1,65
+7,2025-10-05 13:00 UTC,Aston Villa,Burnley,AVL,BUR,1,4,True,2,1,62
+7,2025-10-05 13:00 UTC,Everton,Crystal Palace,EVE,CRY,3,3,True,2,1,66
+7,2025-10-05 13:00 UTC,Newcastle,Nott'm Forest,NEW,NFO,3,3,True,2,0,69
+7,2025-10-05 13:00 UTC,Wolves,Brighton,WOL,BHA,3,2,True,1,1,70
+7,2025-10-05 15:30 UTC,Brentford,Man City,BRE,MCI,4,3,True,0,1,64
+8,2025-10-18 11:30 UTC,Nott'm Forest,Chelsea,NFO,CHE,3,3,True,0,3,77
+8,2025-10-18 14:00 UTC,Brighton,Newcastle,BHA,NEW,3,4,True,2,1,71
+8,2025-10-18 14:00 UTC,Burnley,Leeds,BUR,LEE,2,2,True,2,0,72
+8,2025-10-18 14:00 UTC,Crystal Palace,Bournemouth,CRY,BOU,3,3,True,3,3,73
+8,2025-10-18 14:00 UTC,Man City,Everton,MCI,EVE,3,5,True,2,0,76
+8,2025-10-18 14:00 UTC,Sunderland,Wolves,SUN,WOL,1,3,True,2,0,78
+8,2025-10-18 16:30 UTC,Fulham,Arsenal,FUL,ARS,4,3,True,0,1,74
+8,2025-10-19 13:00 UTC,Spurs,Aston Villa,TOT,AVL,3,3,True,1,2,79
+8,2025-10-19 15:30 UTC,Liverpool,Man Utd,LIV,MUN,4,4,True,1,2,75
+8,2025-10-20 19:00 UTC,West Ham,Brentford,WHU,BRE,3,3,True,0,2,80
+9,2025-10-24 19:00 UTC,Leeds,West Ham,LEE,WHU,2,3,True,2,1,87
+9,2025-10-25 14:00 UTC,Chelsea,Sunderland,CHE,SUN,2,4,True,1,2,85
+9,2025-10-25 14:00 UTC,Newcastle,Fulham,NEW,FUL,2,3,True,2,1,89
+9,2025-10-25 16:30 UTC,Man Utd,Brighton,MUN,BHA,3,4,True,4,2,88
+9,2025-10-25 19:00 UTC,Brentford,Liverpool,BRE,LIV,4,3,True,3,2,84
+9,2025-10-26 14:00 UTC,Arsenal,Crystal Palace,ARS,CRY,3,5,True,1,0,81
+9,2025-10-26 14:00 UTC,Aston Villa,Man City,AVL,MCI,4,4,True,1,0,82
+9,2025-10-26 14:00 UTC,Bournemouth,Nott'm Forest,BOU,NFO,3,3,True,2,0,83
+9,2025-10-26 14:00 UTC,Wolves,Burnley,WOL,BUR,1,2,True,2,3,90
+9,2025-10-26 16:30 UTC,Everton,Spurs,EVE,TOT,3,3,True,0,3,86
+10,2025-11-01 15:00 UTC,Brighton,Leeds,BHA,LEE,2,4,True,3,0,91
+10,2025-11-01 15:00 UTC,Burnley,Arsenal,BUR,ARS,4,2,True,0,2,92
+10,2025-11-01 15:00 UTC,Crystal Palace,Brentford,CRY,BRE,3,3,True,2,0,93
+10,2025-11-01 15:00 UTC,Fulham,Wolves,FUL,WOL,1,3,True,3,0,94
+10,2025-11-01 15:00 UTC,Nott'm Forest,Man Utd,NFO,MUN,4,3,True,2,2,97
+10,2025-11-01 17:30 UTC,Spurs,Chelsea,TOT,CHE,3,3,True,0,1,99
+10,2025-11-01 20:00 UTC,Liverpool,Aston Villa,LIV,AVL,3,4,True,2,0,95
+10,2025-11-02 14:00 UTC,West Ham,Newcastle,WHU,NEW,3,3,True,3,1,100
+10,2025-11-02 16:30 UTC,Man City,Bournemouth,MCI,BOU,3,5,True,3,1,96
+10,2025-11-03 20:00 UTC,Sunderland,Everton,SUN,EVE,3,3,True,1,1,98
+11,2025-11-08 12:30 UTC,Spurs,Man Utd,TOT,MUN,4,3,True,2,2,109
+11,2025-11-08 15:00 UTC,Everton,Fulham,EVE,FUL,2,3,True,2,0,105
+11,2025-11-08 15:00 UTC,West Ham,Burnley,WHU,BUR,1,3,True,3,2,110
+11,2025-11-08 17:30 UTC,Sunderland,Arsenal,SUN,ARS,4,3,True,2,2,108
+11,2025-11-08 20:00 UTC,Chelsea,Wolves,CHE,WOL,1,4,True,3,0,103
+11,2025-11-09 14:00 UTC,Aston Villa,Bournemouth,AVL,BOU,3,4,True,4,0,101
+11,2025-11-09 14:00 UTC,Brentford,Newcastle,BRE,NEW,3,3,True,3,1,102
+11,2025-11-09 14:00 UTC,Crystal Palace,Brighton,CRY,BHA,3,3,True,0,0,104
+11,2025-11-09 14:00 UTC,Nott'm Forest,Leeds,NFO,LEE,2,3,True,3,1,107
+11,2025-11-09 16:30 UTC,Man City,Liverpool,MCI,LIV,4,5,True,3,0,106
+12,2025-11-22 12:30 UTC,Burnley,Chelsea,BUR,CHE,3,2,True,0,2,114
+12,2025-11-22 15:00 UTC,Bournemouth,West Ham,BOU,WHU,2,3,True,2,2,112
+12,2025-11-22 15:00 UTC,Brighton,Brentford,BHA,BRE,3,4,True,2,1,113
+12,2025-11-22 15:00 UTC,Fulham,Sunderland,FUL,SUN,2,3,True,1,0,115
+12,2025-11-22 15:00 UTC,Liverpool,Nott'm Forest,LIV,NFO,3,4,True,0,3,117
+12,2025-11-22 15:00 UTC,Wolves,Crystal Palace,WOL,CRY,3,2,True,0,2,120
+12,2025-11-22 17:30 UTC,Newcastle,Man City,NEW,MCI,4,3,True,2,1,119
+12,2025-11-23 14:00 UTC,Leeds,Aston Villa,LEE,AVL,3,3,True,1,2,116
+12,2025-11-23 16:30 UTC,Arsenal,Spurs,ARS,TOT,3,5,True,4,1,111
+12,2025-11-24 20:00 UTC,Man Utd,Everton,MUN,EVE,3,4,True,0,1,118
+13,2025-11-29 15:00 UTC,Brentford,Burnley,BRE,BUR,1,3,True,3,1,122
+13,2025-11-29 15:00 UTC,Man City,Leeds,MCI,LEE,2,5,True,3,2,126
+13,2025-11-29 15:00 UTC,Sunderland,Bournemouth,SUN,BOU,3,3,True,3,2,128
+13,2025-11-29 17:30 UTC,Everton,Newcastle,EVE,NEW,3,3,True,1,4,125
+13,2025-11-29 20:00 UTC,Spurs,Fulham,TOT,FUL,2,3,True,1,2,129
+13,2025-11-30 12:00 UTC,Crystal Palace,Man Utd,CRY,MUN,4,3,True,1,2,124
+13,2025-11-30 14:05 UTC,Aston Villa,Wolves,AVL,WOL,1,4,True,1,0,121
+13,2025-11-30 14:05 UTC,Nott'm Forest,Brighton,NFO,BHA,3,3,True,0,2,127
+13,2025-11-30 14:05 UTC,West Ham,Liverpool,WHU,LIV,4,3,True,0,2,130
+13,2025-11-30 16:30 UTC,Chelsea,Arsenal,CHE,ARS,4,4,True,1,1,123
+14,2025-12-02 19:30 UTC,Bournemouth,Everton,BOU,EVE,3,3,True,0,1,132
+14,2025-12-02 19:30 UTC,Fulham,Man City,FUL,MCI,4,3,True,4,5,135
+14,2025-12-02 20:15 UTC,Newcastle,Spurs,NEW,TOT,3,3,True,2,2,139
+14,2025-12-03 19:30 UTC,Arsenal,Brentford,ARS,BRE,3,5,True,2,0,131
+14,2025-12-03 19:30 UTC,Brighton,Aston Villa,BHA,AVL,3,4,True,3,4,133
+14,2025-12-03 19:30 UTC,Burnley,Crystal Palace,BUR,CRY,3,2,True,0,1,134
+14,2025-12-03 19:30 UTC,Wolves,Nott'm Forest,WOL,NFO,3,2,True,0,1,140
+14,2025-12-03 20:15 UTC,Leeds,Chelsea,LEE,CHE,3,3,True,3,1,136
+14,2025-12-03 20:15 UTC,Liverpool,Sunderland,LIV,SUN,2,4,True,1,1,137
+14,2025-12-04 20:00 UTC,Man Utd,West Ham,MUN,WHU,2,4,True,1,1,138
+15,2025-12-06 12:30 UTC,Aston Villa,Arsenal,AVL,ARS,4,4,True,2,1,141
+15,2025-12-06 15:00 UTC,Bournemouth,Chelsea,BOU,CHE,3,3,True,0,0,142
+15,2025-12-06 15:00 UTC,Everton,Nott'm Forest,EVE,NFO,3,3,True,3,0,144
+15,2025-12-06 15:00 UTC,Man City,Sunderland,MCI,SUN,2,5,True,3,0,147
+15,2025-12-06 15:00 UTC,Newcastle,Burnley,NEW,BUR,1,3,True,2,1,148
+15,2025-12-06 15:00 UTC,Spurs,Brentford,TOT,BRE,3,3,True,2,0,149
+15,2025-12-06 17:30 UTC,Leeds,Liverpool,LEE,LIV,4,3,True,3,3,146
+15,2025-12-07 14:00 UTC,Brighton,West Ham,BHA,WHU,2,4,True,1,1,143
+15,2025-12-07 16:30 UTC,Fulham,Crystal Palace,FUL,CRY,3,3,True,1,2,145
+15,2025-12-08 20:00 UTC,Wolves,Man Utd,WOL,MUN,4,2,True,1,4,150
+16,2025-12-13 15:00 UTC,Chelsea,Everton,CHE,EVE,3,4,True,2,0,154
+16,2025-12-13 15:00 UTC,Liverpool,Brighton,LIV,BHA,3,4,True,2,0,156
+16,2025-12-13 17:30 UTC,Burnley,Fulham,BUR,FUL,2,2,True,2,3,153
+16,2025-12-13 20:00 UTC,Arsenal,Wolves,ARS,WOL,1,5,True,2,1,151
+16,2025-12-14 14:00 UTC,Crystal Palace,Man City,CRY,MCI,4,3,True,0,3,155
+16,2025-12-14 14:00 UTC,Nott'm Forest,Spurs,NFO,TOT,3,3,True,3,0,158
+16,2025-12-14 14:00 UTC,Sunderland,Newcastle,SUN,NEW,3,3,True,1,0,159
+16,2025-12-14 14:00 UTC,West Ham,Aston Villa,WHU,AVL,3,3,True,2,3,160
+16,2025-12-14 16:30 UTC,Brentford,Leeds,BRE,LEE,2,3,True,1,1,152
+16,2025-12-15 20:00 UTC,Man Utd,Bournemouth,MUN,BOU,3,4,True,4,4,157
+17,2025-12-20 12:30 UTC,Newcastle,Chelsea,NEW,CHE,3,3,True,2,2,168
+17,2025-12-20 15:00 UTC,Bournemouth,Burnley,BOU,BUR,1,3,True,1,1,162
+17,2025-12-20 15:00 UTC,Brighton,Sunderland,BHA,SUN,2,4,True,0,0,163
+17,2025-12-20 15:00 UTC,Man City,West Ham,MCI,WHU,2,5,True,3,0,167
+17,2025-12-20 15:00 UTC,Wolves,Brentford,WOL,BRE,3,2,True,0,2,170
+17,2025-12-20 17:30 UTC,Spurs,Liverpool,TOT,LIV,4,3,True,1,2,169
+17,2025-12-20 20:00 UTC,Everton,Arsenal,EVE,ARS,4,3,True,0,1,164
+17,2025-12-20 20:00 UTC,Leeds,Crystal Palace,LEE,CRY,3,3,True,4,1,166
+17,2025-12-21 16:30 UTC,Aston Villa,Man Utd,AVL,MUN,4,4,True,2,1,161
+17,2025-12-22 20:00 UTC,Fulham,Nott'm Forest,FUL,NFO,3,3,True,1,0,165
+18,2025-12-26 20:00 UTC,Man Utd,Newcastle,MUN,NEW,3,4,True,1,0,177
+18,2025-12-27 12:30 UTC,Nott'm Forest,Man City,NFO,MCI,4,3,True,1,2,178
+18,2025-12-27 15:00 UTC,Arsenal,Brighton,ARS,BHA,3,5,True,2,1,171
+18,2025-12-27 15:00 UTC,Brentford,Bournemouth,BRE,BOU,3,3,True,4,1,172
+18,2025-12-27 15:00 UTC,Burnley,Everton,BUR,EVE,3,2,True,0,0,173
+18,2025-12-27 15:00 UTC,Liverpool,Wolves,LIV,WOL,1,4,True,2,1,176
+18,2025-12-27 15:00 UTC,West Ham,Fulham,WHU,FUL,2,3,True,0,1,180
+18,2025-12-27 17:30 UTC,Chelsea,Aston Villa,CHE,AVL,3,4,True,1,2,174
+18,2025-12-28 14:00 UTC,Sunderland,Leeds,SUN,LEE,2,3,True,1,1,179
+18,2025-12-28 16:30 UTC,Crystal Palace,Spurs,CRY,TOT,3,3,True,0,1,175
+19,2025-12-30 19:30 UTC,Burnley,Newcastle,BUR,NEW,3,2,True,1,3,183
+19,2025-12-30 19:30 UTC,Chelsea,Bournemouth,CHE,BOU,3,4,True,2,2,184
+19,2025-12-30 19:30 UTC,Nott'm Forest,Everton,NFO,EVE,3,3,True,0,2,188
+19,2025-12-30 19:30 UTC,West Ham,Brighton,WHU,BHA,3,3,True,2,2,190
+19,2025-12-30 20:15 UTC,Arsenal,Aston Villa,ARS,AVL,3,5,True,4,1,181
+19,2025-12-30 20:15 UTC,Man Utd,Wolves,MUN,WOL,1,4,True,1,1,187
+19,2026-01-01 17:30 UTC,Crystal Palace,Fulham,CRY,FUL,2,3,True,1,1,185
+19,2026-01-01 17:30 UTC,Liverpool,Leeds,LIV,LEE,2,4,True,0,0,186
+19,2026-01-01 20:00 UTC,Brentford,Spurs,BRE,TOT,3,3,True,0,0,182
+19,2026-01-01 20:00 UTC,Sunderland,Man City,SUN,MCI,4,3,True,0,0,189
+20,2026-01-03 12:30 UTC,Aston Villa,Nott'm Forest,AVL,NFO,3,4,True,3,1,191
+20,2026-01-03 15:00 UTC,Brighton,Burnley,BHA,BUR,1,4,True,2,0,193
+20,2026-01-03 15:00 UTC,Wolves,West Ham,WOL,WHU,2,2,True,3,0,200
+20,2026-01-03 17:30 UTC,Bournemouth,Arsenal,BOU,ARS,4,3,True,2,3,192
+20,2026-01-04 12:30 UTC,Leeds,Man Utd,LEE,MUN,4,3,True,1,1,196
+20,2026-01-04 15:00 UTC,Everton,Brentford,EVE,BRE,3,3,True,2,4,194
+20,2026-01-04 15:00 UTC,Newcastle,Crystal Palace,NEW,CRY,3,3,True,2,0,198
+20,2026-01-04 15:00 UTC,Spurs,Sunderland,TOT,SUN,2,3,True,1,1,199
+20,2026-01-04 15:15 UTC,Fulham,Liverpool,FUL,LIV,4,3,True,2,2,195
+20,2026-01-04 17:30 UTC,Man City,Chelsea,MCI,CHE,3,5,True,1,1,197
+21,2026-01-06 20:00 UTC,West Ham,Nott'm Forest,WHU,NFO,3,3,True,1,2,210
+21,2026-01-07 19:30 UTC,Bournemouth,Spurs,BOU,TOT,3,3,True,3,2,202
+21,2026-01-07 19:30 UTC,Brentford,Sunderland,BRE,SUN,2,3,True,3,0,203
+21,2026-01-07 19:30 UTC,Crystal Palace,Aston Villa,CRY,AVL,3,3,True,0,0,205
+21,2026-01-07 19:30 UTC,Everton,Wolves,EVE,WOL,1,3,True,1,1,206
+21,2026-01-07 19:30 UTC,Fulham,Chelsea,FUL,CHE,3,3,True,2,1,207
+21,2026-01-07 19:30 UTC,Man City,Brighton,MCI,BHA,3,5,True,1,1,208
+21,2026-01-07 20:15 UTC,Burnley,Man Utd,BUR,MUN,4,2,True,2,2,204
+21,2026-01-07 20:15 UTC,Newcastle,Leeds,NEW,LEE,2,3,True,4,3,209
+21,2026-01-08 20:00 UTC,Arsenal,Liverpool,ARS,LIV,4,5,True,0,0,201
+22,2026-01-17 12:30 UTC,Man Utd,Man City,MUN,MCI,4,4,True,2,0,216
+22,2026-01-17 15:00 UTC,Chelsea,Brentford,CHE,BRE,3,4,True,2,0,213
+22,2026-01-17 15:00 UTC,Leeds,Fulham,LEE,FUL,2,3,True,1,0,214
+22,2026-01-17 15:00 UTC,Liverpool,Burnley,LIV,BUR,1,4,True,1,1,215
+22,2026-01-17 15:00 UTC,Spurs,West Ham,TOT,WHU,2,3,True,1,2,219
+22,2026-01-17 15:00 UTC,Sunderland,Crystal Palace,SUN,CRY,3,3,True,2,1,218
+22,2026-01-17 17:30 UTC,Nott'm Forest,Arsenal,NFO,ARS,4,3,True,0,0,217
+22,2026-01-18 14:00 UTC,Wolves,Newcastle,WOL,NEW,3,2,True,0,0,220
+22,2026-01-18 16:30 UTC,Aston Villa,Everton,AVL,EVE,3,4,True,0,1,211
+22,2026-01-19 20:00 UTC,Brighton,Bournemouth,BHA,BOU,3,4,True,1,1,212
+23,2026-01-24 12:30 UTC,West Ham,Sunderland,WHU,SUN,2,3,True,3,1,230
+23,2026-01-24 15:00 UTC,Burnley,Spurs,BUR,TOT,3,2,True,2,2,224
+23,2026-01-24 15:00 UTC,Fulham,Brighton,FUL,BHA,3,3,True,2,1,227
+23,2026-01-24 15:00 UTC,Man City,Wolves,MCI,WOL,1,5,True,2,0,228
+23,2026-01-24 17:30 UTC,Bournemouth,Liverpool,BOU,LIV,4,3,True,3,2,222
+23,2026-01-25 14:00 UTC,Brentford,Nott'm Forest,BRE,NFO,3,3,True,0,2,223
+23,2026-01-25 14:00 UTC,Crystal Palace,Chelsea,CRY,CHE,3,3,True,1,3,225
+23,2026-01-25 14:00 UTC,Newcastle,Aston Villa,NEW,AVL,3,3,True,0,2,229
+23,2026-01-25 16:30 UTC,Arsenal,Man Utd,ARS,MUN,4,5,True,2,3,221
+23,2026-01-26 20:00 UTC,Everton,Leeds,EVE,LEE,2,3,True,1,1,226
+24,2026-01-31 15:00 UTC,Brighton,Everton,BHA,EVE,3,4,True,1,1,232
+24,2026-01-31 15:00 UTC,Leeds,Arsenal,LEE,ARS,4,3,True,0,4,234
+24,2026-01-31 15:00 UTC,Wolves,Bournemouth,WOL,BOU,3,2,True,0,2,240
+24,2026-01-31 17:30 UTC,Chelsea,West Ham,CHE,WHU,2,4,True,3,2,233
+24,2026-01-31 20:00 UTC,Liverpool,Newcastle,LIV,NEW,3,4,True,4,1,235
+24,2026-02-01 14:00 UTC,Aston Villa,Brentford,AVL,BRE,3,4,True,0,1,231
+24,2026-02-01 14:00 UTC,Man Utd,Fulham,MUN,FUL,2,4,True,3,2,236
+24,2026-02-01 14:00 UTC,Nott'm Forest,Crystal Palace,NFO,CRY,3,3,True,1,1,237
+24,2026-02-01 16:30 UTC,Spurs,Man City,TOT,MCI,4,3,True,2,2,239
+24,2026-02-02 20:00 UTC,Sunderland,Burnley,SUN,BUR,1,3,True,3,0,238
+25,2026-02-06 20:00 UTC,Leeds,Nott'm Forest,LEE,NFO,3,3,True,3,1,246
+25,2026-02-07 12:30 UTC,Man Utd,Spurs,MUN,TOT,3,4,True,2,0,248
+25,2026-02-07 15:00 UTC,Arsenal,Sunderland,ARS,SUN,2,5,True,3,0,241
+25,2026-02-07 15:00 UTC,Bournemouth,Aston Villa,BOU,AVL,3,3,True,1,1,242
+25,2026-02-07 15:00 UTC,Burnley,West Ham,BUR,WHU,2,2,True,0,2,244
+25,2026-02-07 15:00 UTC,Fulham,Everton,FUL,EVE,3,3,True,1,2,245
+25,2026-02-07 15:00 UTC,Wolves,Chelsea,WOL,CHE,3,2,True,1,3,250
+25,2026-02-07 17:30 UTC,Newcastle,Brentford,NEW,BRE,3,3,True,2,3,249
+25,2026-02-08 14:00 UTC,Brighton,Crystal Palace,BHA,CRY,3,4,True,0,1,243
+25,2026-02-08 16:30 UTC,Liverpool,Man City,LIV,MCI,4,4,True,1,2,247
+26,2026-02-10 19:30 UTC,Chelsea,Leeds,CHE,LEE,2,4,True,2,2,253
+26,2026-02-10 19:30 UTC,Everton,Bournemouth,EVE,BOU,3,3,True,1,2,255
+26,2026-02-10 19:30 UTC,Spurs,Newcastle,TOT,NEW,3,3,True,1,2,259
+26,2026-02-10 20:15 UTC,West Ham,Man Utd,WHU,MUN,4,3,True,1,1,260
+26,2026-02-11 19:30 UTC,Aston Villa,Brighton,AVL,BHA,3,4,True,1,0,251
+26,2026-02-11 19:30 UTC,Man City,Fulham,MCI,FUL,2,5,True,3,0,256
+26,2026-02-11 19:30 UTC,Nott'm Forest,Wolves,NFO,WOL,1,3,True,0,0,257
+26,2026-02-11 19:40 UTC,Crystal Palace,Burnley,CRY,BUR,1,3,True,2,3,254
+26,2026-02-11 20:15 UTC,Sunderland,Liverpool,SUN,LIV,4,3,True,0,1,258
+26,2026-02-12 20:00 UTC,Brentford,Arsenal,BRE,ARS,4,3,True,1,1,252
+26,2026-02-18 20:00 UTC,Wolves,Arsenal,WOL,ARS,4,2,True,2,2,310
+27,2026-02-21 15:00 UTC,Aston Villa,Leeds,AVL,LEE,2,4,True,1,1,261
+27,2026-02-21 15:00 UTC,Brentford,Brighton,BRE,BHA,3,3,True,0,2,262
+27,2026-02-21 15:00 UTC,Chelsea,Burnley,CHE,BUR,1,4,True,1,1,263
+27,2026-02-21 17:30 UTC,West Ham,Bournemouth,WHU,BOU,3,3,True,0,0,270
+27,2026-02-21 20:00 UTC,Man City,Newcastle,MCI,NEW,3,5,True,2,1,266
+27,2026-02-22 14:00 UTC,Crystal Palace,Wolves,CRY,WOL,1,3,True,1,0,264
+27,2026-02-22 14:00 UTC,Nott'm Forest,Liverpool,NFO,LIV,4,3,True,0,1,267
+27,2026-02-22 14:00 UTC,Sunderland,Fulham,SUN,FUL,2,3,True,1,3,268
+27,2026-02-22 16:30 UTC,Spurs,Arsenal,TOT,ARS,4,3,True,1,4,269
+27,2026-02-23 20:00 UTC,Everton,Man Utd,EVE,MUN,4,3,True,0,1,265
+28,2026-02-27 20:00 UTC,Wolves,Aston Villa,WOL,AVL,3,2,True,2,0,280
+28,2026-02-28 12:30 UTC,Bournemouth,Sunderland,BOU,SUN,2,3,True,1,1,272
+28,2026-02-28 15:00 UTC,Burnley,Brentford,BUR,BRE,3,2,True,3,4,274
+28,2026-02-28 15:00 UTC,Liverpool,West Ham,LIV,WHU,2,4,True,5,2,277
+28,2026-02-28 15:00 UTC,Newcastle,Everton,NEW,EVE,3,3,True,2,3,279
+28,2026-02-28 17:30 UTC,Leeds,Man City,LEE,MCI,4,3,True,0,1,276
+28,2026-03-01 14:00 UTC,Brighton,Nott'm Forest,BHA,NFO,3,4,True,2,1,273
+28,2026-03-01 14:00 UTC,Fulham,Spurs,FUL,TOT,3,3,True,2,1,275
+28,2026-03-01 14:00 UTC,Man Utd,Crystal Palace,MUN,CRY,3,4,True,2,1,278
+28,2026-03-01 16:30 UTC,Arsenal,Chelsea,ARS,CHE,3,5,True,2,1,271
+29,2026-03-03 19:30 UTC,Bournemouth,Brentford,BOU,BRE,3,3,True,0,0,282
+29,2026-03-03 19:30 UTC,Everton,Burnley,EVE,BUR,1,3,True,2,0,284
+29,2026-03-03 19:30 UTC,Leeds,Sunderland,LEE,SUN,2,3,True,0,1,286
+29,2026-03-03 20:15 UTC,Wolves,Liverpool,WOL,LIV,4,2,True,2,1,290
+29,2026-03-04 19:30 UTC,Aston Villa,Chelsea,AVL,CHE,3,4,True,1,4,281
+29,2026-03-04 19:30 UTC,Brighton,Arsenal,BHA,ARS,4,4,True,0,1,283
+29,2026-03-04 19:30 UTC,Fulham,West Ham,FUL,WHU,2,3,True,0,1,285
+29,2026-03-04 19:30 UTC,Man City,Nott'm Forest,MCI,NFO,3,5,True,2,2,287
+29,2026-03-04 20:15 UTC,Newcastle,Man Utd,NEW,MUN,4,3,True,2,1,288
+29,2026-03-05 20:00 UTC,Spurs,Crystal Palace,TOT,CRY,3,3,True,1,3,289
+30,2026-03-14 15:00 UTC,Burnley,Bournemouth,BUR,BOU,3,2,True,0,0,293
+30,2026-03-14 15:00 UTC,Sunderland,Brighton,SUN,BHA,3,3,True,0,1,299
+30,2026-03-14 17:30 UTC,Arsenal,Everton,ARS,EVE,3,5,True,2,0,291
+30,2026-03-14 17:30 UTC,Chelsea,Newcastle,CHE,NEW,3,4,True,0,1,294
+30,2026-03-14 20:00 UTC,West Ham,Man City,WHU,MCI,4,3,True,1,1,300
+30,2026-03-15 14:00 UTC,Crystal Palace,Leeds,CRY,LEE,2,3,True,0,0,295
+30,2026-03-15 14:00 UTC,Man Utd,Aston Villa,MUN,AVL,3,4,True,3,1,297
+30,2026-03-15 14:00 UTC,Nott'm Forest,Fulham,NFO,FUL,2,3,True,0,0,298
+30,2026-03-15 16:30 UTC,Liverpool,Spurs,LIV,TOT,3,4,True,1,1,296
+30,2026-03-16 20:00 UTC,Brentford,Wolves,BRE,WOL,1,3,True,2,2,292
+31,2026-03-20 20:00 UTC,Bournemouth,Man Utd,BOU,MUN,4,3,True,2,2,302
+31,2026-03-21 12:45 UTC,Brighton,Liverpool,BHA,LIV,4,4,True,2,1,303
+31,2026-03-21 15:00 UTC,Fulham,Burnley,FUL,BUR,1,3,True,3,1,305
+31,2026-03-21 17:30 UTC,Everton,Chelsea,EVE,CHE,3,3,True,3,0,304
+31,2026-03-21 20:00 UTC,Leeds,Brentford,LEE,BRE,3,3,True,0,0,306
+31,2026-03-22 12:00 UTC,Newcastle,Sunderland,NEW,SUN,2,3,True,1,2,308
+31,2026-03-22 14:15 UTC,Aston Villa,West Ham,AVL,WHU,2,4,True,2,0,301
+31,2026-03-22 14:15 UTC,Spurs,Nott'm Forest,TOT,NFO,3,3,True,0,3,309
+32,2026-04-10 19:00 UTC,West Ham,Wolves,WHU,WOL,1,3,True,4,0,320
+32,2026-04-11 11:30 UTC,Arsenal,Bournemouth,ARS,BOU,3,5,True,1,2,311
+32,2026-04-11 14:00 UTC,Brentford,Everton,BRE,EVE,3,3,True,2,2,312
+32,2026-04-11 14:00 UTC,Burnley,Brighton,BUR,BHA,3,2,True,0,2,313
+32,2026-04-11 16:30 UTC,Liverpool,Fulham,LIV,FUL,2,4,True,2,0,316
+32,2026-04-12 13:00 UTC,Crystal Palace,Newcastle,CRY,NEW,3,3,True,2,1,315
+32,2026-04-12 13:00 UTC,Nott'm Forest,Aston Villa,NFO,AVL,3,3,True,1,1,318
+32,2026-04-12 13:00 UTC,Sunderland,Spurs,SUN,TOT,3,3,True,1,0,319
+32,2026-04-12 15:30 UTC,Chelsea,Man City,CHE,MCI,4,4,True,0,3,314
+32,2026-04-13 19:00 UTC,Man Utd,Leeds,MUN,LEE,2,4,True,1,2,317
+33,2026-04-18 11:30 UTC,Brentford,Fulham,BRE,FUL,2,3,True,0,0,322
+33,2026-04-18 14:00 UTC,Leeds,Wolves,LEE,WOL,1,3,True,3,0,326
+33,2026-04-18 14:00 UTC,Newcastle,Bournemouth,NEW,BOU,3,3,True,1,2,328
+33,2026-04-18 16:30 UTC,Spurs,Brighton,TOT,BHA,3,3,True,2,2,330
+33,2026-04-18 19:00 UTC,Chelsea,Man Utd,CHE,MUN,4,4,True,0,1,323
+33,2026-04-19 13:00 UTC,Aston Villa,Sunderland,AVL,SUN,2,4,True,4,3,321
+33,2026-04-19 13:00 UTC,Everton,Liverpool,EVE,LIV,4,3,True,1,2,325
+33,2026-04-19 13:00 UTC,Nott'm Forest,Burnley,NFO,BUR,1,3,True,4,1,329
+33,2026-04-19 15:30 UTC,Man City,Arsenal,MCI,ARS,4,5,True,2,1,327
+33,2026-04-20 19:00 UTC,Crystal Palace,West Ham,CRY,WHU,2,3,True,0,0,324
+33,2026-04-21 19:00 UTC,Brighton,Chelsea,BHA,CHE,3,4,True,3,0,333
+33,2026-04-22 19:00 UTC,Bournemouth,Leeds,BOU,LEE,2,3,True,2,2,332
+33,2026-04-22 19:00 UTC,Burnley,Man City,BUR,MCI,4,2,True,0,1,334
+34,2026-04-24 19:00 UTC,Sunderland,Nott'm Forest,SUN,NFO,3,3,True,0,5,338
+34,2026-04-25 11:30 UTC,Fulham,Aston Villa,FUL,AVL,3,3,True,1,0,335
+34,2026-04-25 14:00 UTC,Liverpool,Crystal Palace,LIV,CRY,3,4,True,3,1,336
+34,2026-04-25 14:00 UTC,West Ham,Everton,WHU,EVE,3,3,True,2,1,339
+34,2026-04-25 14:00 UTC,Wolves,Spurs,WOL,TOT,3,2,True,0,1,340
+34,2026-04-25 16:30 UTC,Arsenal,Newcastle,ARS,NEW,3,5,True,1,0,331
+34,2026-04-27 19:00 UTC,Man Utd,Brentford,MUN,BRE,3,4,True,2,1,337
+35,2026-05-01 19:00 UTC,Leeds,Burnley,LEE,BUR,1,3,True,3,1,347
+35,2026-05-02 14:00 UTC,Brentford,West Ham,BRE,WHU,2,3,True,3,0,344
+35,2026-05-02 14:00 UTC,Newcastle,Brighton,NEW,BHA,3,3,True,3,1,349
+35,2026-05-02 14:00 UTC,Wolves,Sunderland,WOL,SUN,2,2,True,1,1,350
+35,2026-05-02 16:30 UTC,Arsenal,Fulham,ARS,FUL,2,5,True,3,0,341
+35,2026-05-03 13:00 UTC,Bournemouth,Crystal Palace,BOU,CRY,3,3,True,3,0,343
+35,2026-05-03 14:30 UTC,Man Utd,Liverpool,MUN,LIV,4,4,True,3,2,348
+35,2026-05-03 18:00 UTC,Aston Villa,Spurs,AVL,TOT,3,4,True,1,2,342
+35,2026-05-04 14:00 UTC,Chelsea,Nott'm Forest,CHE,NFO,3,4,True,1,3,345
+35,2026-05-04 19:00 UTC,Everton,Man City,EVE,MCI,4,3,True,3,3,346
+36,2026-05-09 11:30 UTC,Liverpool,Chelsea,LIV,CHE,3,4,True,1,1,355
+36,2026-05-09 14:00 UTC,Brighton,Wolves,BHA,WOL,1,4,True,3,0,351
+36,2026-05-09 14:00 UTC,Fulham,Bournemouth,FUL,BOU,3,3,True,0,1,354
+36,2026-05-09 14:00 UTC,Sunderland,Man Utd,SUN,MUN,4,3,True,0,0,358
+36,2026-05-09 16:30 UTC,Man City,Brentford,MCI,BRE,3,5,True,3,0,356
+36,2026-05-10 13:00 UTC,Burnley,Aston Villa,BUR,AVL,3,2,True,2,2,352
+36,2026-05-10 13:00 UTC,Crystal Palace,Everton,CRY,EVE,3,3,True,2,2,353
+36,2026-05-10 13:00 UTC,Nott'm Forest,Newcastle,NFO,NEW,3,3,True,1,1,357
+36,2026-05-10 15:30 UTC,West Ham,Arsenal,WHU,ARS,4,3,True,0,1,360
+36,2026-05-11 19:00 UTC,Spurs,Leeds,TOT,LEE,2,3,True,1,1,359
+36,2026-05-13 19:00 UTC,Man City,Crystal Palace,MCI,CRY,3,5,True,3,0,307
+37,2026-05-15 19:00 UTC,Aston Villa,Liverpool,AVL,LIV,4,4,True,4,2,362
+37,2026-05-17 11:30 UTC,Man Utd,Nott'm Forest,MUN,NFO,3,4,True,3,2,368
+37,2026-05-17 14:00 UTC,Brentford,Crystal Palace,BRE,CRY,3,3,True,2,2,364
+37,2026-05-17 14:00 UTC,Everton,Sunderland,EVE,SUN,2,3,True,1,3,366
+37,2026-05-17 14:00 UTC,Leeds,Brighton,LEE,BHA,3,3,True,1,0,367
+37,2026-05-17 14:00 UTC,Wolves,Fulham,WOL,FUL,2,2,True,1,1,370
+37,2026-05-17 16:30 UTC,Newcastle,West Ham,NEW,WHU,2,3,True,3,1,369
+37,2026-05-18 19:00 UTC,Arsenal,Burnley,ARS,BUR,1,5,True,1,0,361
+37,2026-05-19 18:30 UTC,Bournemouth,Man City,BOU,MCI,4,3,True,1,1,363
+37,2026-05-19 19:15 UTC,Chelsea,Spurs,CHE,TOT,3,4,True,2,1,365
+38,2026-05-24 15:00 UTC,Brighton,Man Utd,BHA,MUN,4,4,True,0,3,371
+38,2026-05-24 15:00 UTC,Burnley,Wolves,BUR,WOL,1,2,True,1,1,372
+38,2026-05-24 15:00 UTC,Crystal Palace,Arsenal,CRY,ARS,4,3,True,1,2,373
+38,2026-05-24 15:00 UTC,Fulham,Newcastle,FUL,NEW,3,3,True,2,0,374
+38,2026-05-24 15:00 UTC,Liverpool,Brentford,LIV,BRE,3,4,True,1,1,375
+38,2026-05-24 15:00 UTC,Man City,Aston Villa,MCI,AVL,3,5,True,1,2,376
+38,2026-05-24 15:00 UTC,Nott'm Forest,Bournemouth,NFO,BOU,3,3,True,1,1,377
+38,2026-05-24 15:00 UTC,Spurs,Everton,TOT,EVE,3,3,True,1,0,379
+38,2026-05-24 15:00 UTC,Sunderland,Chelsea,SUN,CHE,3,3,True,2,1,378
+38,2026-05-24 15:00 UTC,West Ham,Leeds,WHU,LEE,2,3,True,3,0,380
