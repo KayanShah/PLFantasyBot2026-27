@@ -24,7 +24,7 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 
 - [ ] **Player scraper** — pull `bootstrap-static` into a clean player table: id, name, team, position, price, ownership, current-season totals, ICT index, `ep_next`.
 - [ ] **Gameweek history scraper** — per-player, per-gameweek point breakdowns via `element-summary/{id}/`, so the model has granular training rows, not just season totals.
-- [ ] **Historical seasons loader** — ingest [vaastav's historical dataset](https://github.com/vaastav/Fantasy-Premier-League) so the model trains on multiple past seasons, not just the current one.
+- [x] **Historical seasons loader** — ingest [vaastav's historical dataset](https://github.com/vaastav/Fantasy-Premier-League) so the model trains on multiple past seasons, not just the current one. ([`model/fetch_historical_data.py`](model/fetch_historical_data.py))
 - [ ] **xG/xA scraper (Understat)** — supplemental features to smooth small-sample noise in raw FPL points.
 - [ ] **Storage layer** — decide how scraped data persists (flat CSV/Parquet files vs. a local SQLite/Postgres DB). A local DB pays off once multiple scrapers need to join on player/team/gameweek keys.
 
@@ -38,7 +38,7 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 
 ## Phase 2 — Feature Engineering
 
-- [ ] Rolling form features (points/minutes/xG over last 3/5/10 games).
+- [x] Rolling form features (points/minutes/ICT index over last 3/5 games), leakage-safe via `shift(1)` so a gameweek's features never see its own outcome. ([`model/train_model.py`](model/train_model.py))
 - [ ] Fixture difficulty features (opponent strength, home/away, congestion — games in the last N days).
 - [ ] Minutes/start-probability estimate, modeled separately from scoring output (see [research.md §3](research.md#3-predicting-player-points)).
 - [ ] Price-change and ownership-trend features (optional, weak signal but easy to add).
@@ -48,10 +48,10 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 
 ## Phase 3 — Prediction Model
 
-- [ ] **Baseline model** — simple heuristic (weighted recent form + FDR) to sanity-check everything downstream against before investing in ML.
-- [ ] **Benchmark against `ep_next`** — FPL's own expected-points figure is a free baseline; a real model should beat it, not just match it.
-- [ ] **Train a gradient-boosted model** (XGBoost/LightGBM) on the historical dataset from Phase 1–2.
-- [ ] **Backtest** across past gameweeks/seasons to measure real predictive accuracy, not just training fit.
+- [x] **Baseline model** — mean-points and last-5-gameweek-average baselines, to sanity-check everything downstream against before trusting the ML model. ([`model/train_model.py`](model/train_model.py))
+- [ ] **Benchmark against `ep_next`** — FPL's own expected-points figure is a free baseline; not available in the historical CSV dataset, so this needs live-season data to compare against (Phase 1's gameweek-history scraper).
+- [x] **Train a gradient-boosted model** (`sklearn.GradientBoostingRegressor`) on 2020-21 → 2024-25 (5 seasons, ~130k rows).
+- [x] **Backtest** against the full 2025-26 season, held out entirely from training. Beat both baselines: MAE 0.98 vs. 1.53 (mean) / 1.04 (last-5-avg); correlation 0.57 vs. 0.50. See `data/backtest_2025-26_predictions.csv`.
 - [ ] **Retraining cadence** — decide how often the model refits (weekly, during the season, is standard).
 
 > [!IMPORTANT]
