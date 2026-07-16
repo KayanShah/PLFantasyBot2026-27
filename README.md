@@ -34,7 +34,8 @@ This project pulls data from the official FPL API and other sources, predicts pl
 | [`FantasyRules.md`](FantasyRules.md) | Official FPL rules: squad/budget constraints, scoring system, transfers, chips. |
 | [`plan.md`](plan.md) | Ordered build plan from data collection through to a fully automated bot. |
 | [`scrapers/scrape_fixtures.py`](scrapers/scrape_fixtures.py) | Scrapes all season fixtures (teams, kickoff times, difficulty ratings, scores) from the FPL API. |
-| `data/` | Output from the scrapers (`fixtures.csv`, `fixtures.json`). |
+| [`scrapers/build_database.py`](scrapers/build_database.py) | Builds `data/fpl.db`, a full SQLite database of teams, players, gameweeks, and fixtures. |
+| `data/` | Output from the scrapers (`fixtures.csv`, `fixtures.json`, `fpl.db`). |
 | `requirements.txt` | Python dependencies. |
 
 ## Setup
@@ -52,6 +53,14 @@ python3 scrapers/scrape_fixtures.py
 ```
 
 Outputs `data/fixtures.csv` and `data/fixtures.json`.
+
+Build the full SQLite database:
+
+```bash
+python3 scrapers/build_database.py
+```
+
+Outputs `data/fpl.db` — open it directly in [DB Browser for SQLite](https://sqlitebrowser.org/) to explore. Tables: `positions`, `teams`, `gameweeks`, `players`, `fixtures`, all linked by foreign keys (`players.team_id → teams.id`, `players.position_id → positions.id`, `fixtures.team_h`/`team_a → teams.id`, `fixtures.event → gameweeks.id`).
 
 ## Data source
 
