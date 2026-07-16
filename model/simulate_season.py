@@ -55,6 +55,13 @@ SEASON_LAST_GW = 38
 # someone right before an easy run, or buy into a run of hard fixtures.
 LOOKAHEAD_GWS = 5
 
+# Each future gameweek's contribution to a lookahead score is weighted by
+# LOOKAHEAD_DECAY ** h (h = weeks ahead), so a -4 hit needs a clearer,
+# closer-in payoff to be worth it — without this, summing flat predictions
+# over 5 weeks made marginal gains look bigger than they really are and led
+# to over-aggressive hit-taking (see plan.md Phase 4).
+LOOKAHEAD_DECAY = 0.85
+
 OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "season_2025-26_simulation.csv"
 
 
@@ -98,13 +105,15 @@ def build_predictions(model) -> pd.DataFrame:
 
 def build_horizon_scores(model, predictions: pd.DataFrame, gw: int, horizon: int) -> pd.Series:
     """
-    For every player present at gameweek `gw`, sums predicted points across
-    gw .. gw+horizon-1. Each future week's prediction reuses the player's
-    rolling-form features exactly as known at `gw` (frozen — no peeking at
-    results that haven't happened yet), but plugs in that future week's real
-    fixture (home/away, FDR difficulty) — which, unlike results, is public
-    knowledge from the published fixture list. This is what makes it a fair
-    lookahead: schedule facts, not outcomes.
+    For every player present at gameweek `gw`, sums a *decayed* predicted
+    score across gw .. gw+horizon-1 (week h out contributes LOOKAHEAD_DECAY**h
+    of its raw prediction — a confidence discount, since a prediction 4 weeks
+    out is far less trustworthy than this week's). Each future week's
+    prediction reuses the player's rolling-form features exactly as known at
+    `gw` (frozen — no peeking at results that haven't happened yet), but
+    plugs in that future week's real fixture (home/away, FDR difficulty) —
+    which, unlike results, is public knowledge from the published fixture
+    list. This is what makes it a fair lookahead: schedule facts, not outcomes.
     """
     base = predictions[predictions["GW"] == gw].set_index("element")
     if base.empty:
@@ -122,7 +131,7 @@ def build_horizon_scores(model, predictions: pd.DataFrame, gw: int, horizon: int
         feat["was_home"] = future.loc[common, "was_home"]
         feat["difficulty"] = future.loc[common, "difficulty"]
         preds = pd.Series(model.predict(feat[train_model.FEATURE_COLUMNS]), index=common)
-        totals = totals.add(preds, fill_value=0)
+        totals = totals.add(preds * (LOOKAHEAD_DECAY ** h), fill_value=0)
 
     return totals
 
@@ -188,14 +197,19 @@ def apply_auto_subs(xi: pd.DataFrame, bench: pd.DataFrame, gw_pool: pd.DataFrame
     return final_ids
 
 
-def simulate() -> None:
-    print("Training model on 2020-21 -> 2024-25 (2025-26 never used in training)...")
-    model = train_model.train_baseline_model()
+def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = False) -> float:
+    log_print = (lambda *a, **k: None) if quiet else print
 
-    print("Building week-by-week 2025-26 predictions (rolling form only, no lookahead)...")
-    predictions = build_predictions(model)
+    if model is None:
+        log_print("Training model on 2020-21 -> 2024-25 (2025-26 never used in training)...")
+        model = train_model.train_baseline_model()
+
+    if predictions is None:
+        log_print("Building week-by-week 2025-26 predictions (rolling form only, no lookahead)...")
+        predictions = build_predictions(model)
+
     fwd_threshold = predictions.loc[predictions["position_label"] == "FWD", "predicted_points"].quantile(0.90)
-    print(f"Triple Captain trigger threshold (90th percentile FWD prediction): {fwd_threshold:.2f}\n")
+    log_print(f"Triple Captain trigger threshold (90th percentile FWD prediction): {fwd_threshold:.2f}\n")
 
     gameweeks = sorted(predictions["GW"].unique())
     current_squad = None
@@ -287,9 +301,9 @@ def simulate() -> None:
             "free_transfers_available": free_transfers, "gw_score": gw_score,
             "season_total": season_total,
         })
-        print(f"GW{gw:>2}  score={gw_score:>5.0f}  total={season_total:>6.0f}"
-              + (f"  [{chip}]" if chip else "")
-              + (f"  transfers={transfers_made} hits={hits}" if isinstance(transfers_made, int) and transfers_made else ""))
+        log_print(f"GW{gw:>2}  score={gw_score:>5.0f}  total={season_total:>6.0f}"
+                  + (f"  [{chip}]" if chip else "")
+                  + (f"  transfers={transfers_made} hits={hits}" if isinstance(transfers_made, int) and transfers_made else ""))
 
         current_squad = squad_resolved[["element", "name", "team", "position_label", "value"]].copy()
         if gw == 1 or gw in WILDCARD_GWS:
@@ -298,11 +312,13 @@ def simulate() -> None:
             used_free = min(transfers_made, free_transfers)
             free_transfers = min(5, (free_transfers - used_free) + 1)
 
-    log_df = pd.DataFrame(log)
-    log_df.to_csv(OUT_PATH, index=False)
+    if not quiet:
+        log_df = pd.DataFrame(log)
+        log_df.to_csv(OUT_PATH, index=False)
+        print(f"\n=== Final season total: {season_total:.0f} points ===")
+        print(f"Gameweek log saved -> {OUT_PATH}")
 
-    print(f"\n=== Final season total: {season_total:.0f} points ===")
-    print(f"Gameweek log saved -> {OUT_PATH}")
+    return season_total
 
 
 if __name__ == "__main__":
