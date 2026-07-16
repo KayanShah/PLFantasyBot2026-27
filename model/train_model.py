@@ -21,7 +21,17 @@ TRAIN_SEASONS = ["2020-21", "2021-22", "2022-23", "2023-24", "2024-25"]
 TEST_SEASON = "2025-26"
 
 COMMON_COLUMNS = [
-    "name", "position", "team", "opponent_team", "GW", "was_home", "value", "fixture",
+    "name", "position", "team", "opponent_team", "element", "GW", "was_home", "value", "fixture",
+    "minutes", "goals_scored", "assists", "clean_sheets", "goals_conceded",
+    "own_goals", "penalties_missed", "penalties_saved", "yellow_cards",
+    "red_cards", "saves", "bonus", "bps", "influence", "creativity",
+    "threat", "ict_index", "total_points",
+]
+
+# Per-match stats that must be summed (not averaged/first-taken) when a player
+# has two rows in the same gameweek because their club played twice (a "double
+# gameweek") — FPL adds both matches' points together for that gameweek.
+SUM_COLUMNS = [
     "minutes", "goals_scored", "assists", "clean_sheets", "goals_conceded",
     "own_goals", "penalties_missed", "penalties_saved", "yellow_cards",
     "red_cards", "saves", "bonus", "bps", "influence", "creativity",
@@ -59,14 +69,21 @@ def load_season(season: str) -> pd.DataFrame:
     # The difficulty of the opponent the player's own team is facing.
     df["difficulty"] = np.where(df["was_home"] == 1, df["team_h_difficulty"], df["team_a_difficulty"])
     df["difficulty"] = df["difficulty"].fillna(df["difficulty"].mean())
-    df = df.drop(columns=["team_h_difficulty", "team_a_difficulty"])
+    df = df.drop(columns=["team_h_difficulty", "team_a_difficulty", "fixture"])
+
+    # Collapse double-gameweek rows (same player, same GW, two fixtures) into one.
+    agg = {col: "sum" for col in SUM_COLUMNS if col in df.columns}
+    agg.update({"name": "first", "position": "first", "team": "first",
+                "opponent_team": "first", "was_home": "first", "value": "mean",
+                "difficulty": "mean"})
+    df = df.groupby(["season", "element", "GW"], as_index=False).agg(agg)
 
     return df
 
 
 def add_rolling_features(df: pd.DataFrame) -> pd.DataFrame:
-    df = df.sort_values(["season", "name", "GW"]).reset_index(drop=True)
-    grouped = df.groupby(["season", "name"], group_keys=False)
+    df = df.sort_values(["season", "element", "GW"]).reset_index(drop=True)
+    grouped = df.groupby(["season", "element"], group_keys=False)
 
     for stat in ROLLING_STATS:
         for window in ROLLING_WINDOWS:
@@ -95,6 +112,17 @@ def evaluate(y_true: np.ndarray, y_pred: np.ndarray, label: str) -> None:
     rmse = mean_squared_error(y_true, y_pred) ** 0.5
     corr = np.corrcoef(y_true, y_pred)[0, 1]
     print(f"{label}: MAE={mae:.3f}  RMSE={rmse:.3f}  correlation={corr:.3f}  n={len(y_true)}")
+
+
+def train_baseline_model() -> GradientBoostingRegressor:
+    """Fits the model on TRAIN_SEASONS only. Never sees TEST_SEASON (2025-26) data."""
+    train_df = pd.concat([load_season(s) for s in TRAIN_SEASONS], ignore_index=True)
+    train_df = prepare(train_df)
+    model = GradientBoostingRegressor(
+        n_estimators=200, max_depth=3, learning_rate=0.05, random_state=42
+    )
+    model.fit(train_df[FEATURE_COLUMNS], train_df["total_points"])
+    return model
 
 
 def main() -> None:
