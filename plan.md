@@ -39,7 +39,7 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 ## Phase 2 — Feature Engineering
 
 - [x] Rolling form features (points/minutes/ICT index over last 3/5 games), leakage-safe via `shift(1)` so a gameweek's features never see its own outcome. ([`model/train_model.py`](model/train_model.py))
-- [ ] Fixture difficulty features (opponent strength, home/away, congestion — games in the last N days).
+- [x] Fixture difficulty feature (official FPL FDR of the opponent, home/away-aware). Modest but real signal: 6th-most-important feature, +0.013 MAE improvement. Congestion (games in last N days) not yet added.
 - [ ] Minutes/start-probability estimate, modeled separately from scoring output (see [research.md §3](research.md#3-predicting-player-points)).
 - [ ] Price-change and ownership-trend features (optional, weak signal but easy to add).
 - [ ] Merge all sources into one training table keyed by `(player_id, gameweek, season)`.
