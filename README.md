@@ -37,7 +37,9 @@ This project pulls data from the official FPL API and other sources, predicts pl
 | [`scrapers/build_database.py`](scrapers/build_database.py) | Builds `data/fpl.db`, a full SQLite database of teams, players, gameweeks, and fixtures. |
 | [`model/fetch_historical_data.py`](model/fetch_historical_data.py) | Downloads past-season gameweek data (2020-21 → 2025-26) for model training and backtesting. |
 | [`model/train_model.py`](model/train_model.py) | Trains a points-prediction model on 2020-21 → 2024-25 and backtests it against the held-out 2025-26 season. |
-| `data/` | Output from the scrapers (`fixtures.csv`, `fixtures.json`, `fpl.db`, `historical/`, `backtest_2025-26_predictions.csv`). |
+| [`model/optimizer.py`](model/optimizer.py) | ILP squad selector + starting-XI/captain picker, enforcing every constraint in `FantasyRules.md`. |
+| [`model/simulate_season.py`](model/simulate_season.py) | Simulates managing a team through the full 2025-26 season gameweek-by-gameweek — transfers, chips, captaincy — using only pre-season-trained predictions. |
+| `data/` | Output from the scrapers (`fixtures.csv`, `fixtures.json`, `fpl.db`, `historical/`, `backtest_2025-26_predictions.csv`, `season_2025-26_simulation.csv`). |
 | `requirements.txt` | Python dependencies. |
 
 ## Setup
@@ -72,6 +74,14 @@ python3 model/train_model.py
 ```
 
 Trains a gradient-boosted model on 2020-21 → 2024-25 and backtests it against the full 2025-26 season (never seen during training), printing MAE/RMSE/correlation against baselines and saving per-gameweek predictions to `data/backtest_2025-26_predictions.csv`.
+
+Simulate managing a real team through the entire 2025-26 season:
+
+```bash
+python3 model/simulate_season.py
+```
+
+Picks a legal GW1 squad from scratch, then goes gameweek-by-gameweek making transfers (respecting free-transfer rollover and -4 hits), playing Wildcard/Bench Boost/Triple Captain at sensible points, and auto-subbing players who didn't play — using only predictions built from data available *before* each gameweek. Scores against the real 2025-26 results. First run: **1872 points**, vs. the real season's average-manager total of **1895** (see `plan.md` Phase 4 for the full breakdown). Saves a gameweek-by-gameweek log to `data/season_2025-26_simulation.csv`.
 
 ## Data source
 
