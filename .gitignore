@@ -1,2 +1,3 @@
 .claude/
 data/historical/
+__pycache__/
