@@ -4,10 +4,17 @@ by gameweek, using only a model trained on 2020-21 -> 2024-25 (the model
 never sees 2025-26 results during training).
 
 For each gameweek, the bot only ever uses predicted points built from
-*prior* gameweeks' data (no lookahead) to pick its squad, transfers,
-starting XI, and captain — then the actual real-world result for that
-gameweek (from the historical dataset) determines the score, exactly as
-it would for a real manager.
+*prior* gameweeks' data to pick its squad, transfers, starting XI, and
+captain — then the actual real-world result for that gameweek (from the
+historical dataset) determines the score, exactly as it would for a real
+manager.
+
+Squad-construction decisions (initial squad, wildcard, transfers) value
+players over the next LOOKAHEAD_GWS gameweeks, not just the immediate one
+— using frozen current-form features combined with each future week's
+already-published fixture (no result lookahead, just schedule facts).
+Starting XI and captaincy stay single-gameweek, since you always want
+your best lineup *this* week regardless of the run of form ahead.
 
 Rules encoded (see FantasyRules.md):
   - 15-man squad: 2 GKP / 5 DEF / 5 MID / 3 FWD, <=3 players/club, £100.0m budget.
@@ -42,6 +49,11 @@ BENCH_BOOST_GWS = {9, 21}
 CHIP_GWS = WILDCARD_GWS | BENCH_BOOST_GWS
 HALF1_LAST_GW = 19
 SEASON_LAST_GW = 38
+
+# How many gameweeks ahead squad-construction decisions (initial squad,
+# wildcard, transfers) look when valuing a player — so the bot doesn't sell
+# someone right before an easy run, or buy into a run of hard fixtures.
+LOOKAHEAD_GWS = 5
 
 OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "season_2025-26_simulation.csv"
 
@@ -82,6 +94,45 @@ def build_predictions(model) -> pd.DataFrame:
     rows = combined[combined["season"] == SEASON].copy()
     rows["predicted_points"] = model.predict(rows[train_model.FEATURE_COLUMNS])
     return rows
+
+
+def build_horizon_scores(model, predictions: pd.DataFrame, gw: int, horizon: int) -> pd.Series:
+    """
+    For every player present at gameweek `gw`, sums predicted points across
+    gw .. gw+horizon-1. Each future week's prediction reuses the player's
+    rolling-form features exactly as known at `gw` (frozen — no peeking at
+    results that haven't happened yet), but plugs in that future week's real
+    fixture (home/away, FDR difficulty) — which, unlike results, is public
+    knowledge from the published fixture list. This is what makes it a fair
+    lookahead: schedule facts, not outcomes.
+    """
+    base = predictions[predictions["GW"] == gw].set_index("element")
+    if base.empty:
+        return pd.Series(dtype=float)
+
+    totals = base["predicted_points"].copy()
+    frozen_features = base[train_model.FEATURE_COLUMNS].copy()
+
+    for h in range(1, horizon):
+        future = predictions[predictions["GW"] == gw + h].set_index("element")
+        common = frozen_features.index.intersection(future.index)
+        if len(common) == 0:
+            continue
+        feat = frozen_features.loc[common].copy()
+        feat["was_home"] = future.loc[common, "was_home"]
+        feat["difficulty"] = future.loc[common, "difficulty"]
+        preds = pd.Series(model.predict(feat[train_model.FEATURE_COLUMNS]), index=common)
+        totals = totals.add(preds, fill_value=0)
+
+    return totals
+
+
+def with_horizon_points(model, predictions: pd.DataFrame, gw: int, gw_pool: pd.DataFrame) -> pd.DataFrame:
+    """gw_pool with predicted_points replaced by the lookahead-summed score, for squad-construction decisions."""
+    horizon_scores = build_horizon_scores(model, predictions, gw, LOOKAHEAD_GWS)
+    pool = gw_pool.copy()
+    pool["predicted_points"] = pool["element"].map(horizon_scores).fillna(pool["predicted_points"])
+    return pool
 
 
 def squad_value(current_squad: pd.DataFrame, gw_pool: pd.DataFrame) -> int:
@@ -160,29 +211,29 @@ def simulate() -> None:
 
         hits = 0
         chip = None
+        horizon_pool = with_horizon_points(model, predictions, gw, gw_pool)
 
         if gw == 1:
-            squad = select_squad(gw_pool, budget=STARTING_BUDGET)
+            squad = select_squad(horizon_pool, budget=STARTING_BUDGET)
             transfers_made = 0
         elif gw in WILDCARD_GWS:
             budget = squad_value(current_squad, gw_pool)
-            squad = select_squad(gw_pool, budget=budget)
+            squad = select_squad(horizon_pool, budget=budget)
             transfers_made = None
             chip = "Wildcard"
         else:
             budget = squad_value(current_squad, gw_pool)
             current_ids = set(current_squad["element"])
-            best_k, best_net, best_squad = 0, -np.inf, current_squad
-            for k in range(0, min(free_transfers + 2, 5) + 1):
-                if k == 0:
-                    candidate = current_squad
-                else:
-                    candidate = select_squad(gw_pool, budget=budget, current_ids=current_ids, max_changes=k)
+            current_horizon = attach_this_week(current_ids, current_squad, horizon_pool)
+            best_k, best_net, best_squad = 0, current_horizon["predicted_points"].sum(), current_squad
+            for k in range(1, min(free_transfers + 2, 5) + 1):
+                candidate = select_squad(horizon_pool, budget=budget, current_ids=current_ids, max_changes=k)
                 if candidate is None:
                     continue
-                resolved = attach_this_week(set(candidate["element"]), current_squad, gw_pool)
-                xi, _ = pick_starting_xi(resolved)
-                net = xi["predicted_points"].sum() - 4 * max(0, k - free_transfers)
+                # Judge the transfer by its lookahead value (worth a hit only if the gain
+                # over the next LOOKAHEAD_GWS gameweeks outweighs the -4), not just this week.
+                resolved = attach_this_week(set(candidate["element"]), current_squad, horizon_pool)
+                net = resolved["predicted_points"].sum() - 4 * max(0, k - free_transfers)
                 if net > best_net:
                     best_k, best_net, best_squad = k, net, candidate
             squad = best_squad
