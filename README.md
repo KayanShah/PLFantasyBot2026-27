@@ -81,7 +81,23 @@ Simulate managing a real team through the entire 2025-26 season:
 python3 model/simulate_season.py
 ```
 
-Picks a legal GW1 squad from scratch, then goes gameweek-by-gameweek making transfers (respecting free-transfer rollover and -4 hits), playing Wildcard/Bench Boost/Triple Captain at sensible points, and auto-subbing players who didn't play — using only predictions built from data available *before* each gameweek. Squad-construction decisions look 5 gameweeks ahead (current form + each future week's published fixture difficulty) rather than judging transfers on the immediate week alone. Scores against the real 2025-26 results: **2055 points**, vs. the real season's average-manager total of **1895** (see `plan.md` Phase 4 for the full breakdown, including a caveat on hit-taking behavior). Saves a gameweek-by-gameweek log to `data/season_2025-26_simulation.csv`.
+Picks a legal GW1 squad from scratch, then goes gameweek-by-gameweek making transfers (respecting free-transfer rollover and -4 hits), playing Wildcard/Bench Boost/Triple Captain at sensible points, and auto-subbing players who didn't play — using only predictions built from data available *before* each gameweek. Saves a gameweek-by-gameweek log to `data/season_2025-26_simulation.csv`.
+
+## Results: 2025-26 full-season backtest
+
+The model was trained only on 2020-21 → 2024-25 — it has zero knowledge of any 2025-26 result. `simulate_season.py` then manages a team through the real 2025-26 season gameweek-by-gameweek, scored against what actually happened.
+
+| Version | Score | vs. real 2025-26 average manager (1895) |
+| --- | --- | --- |
+| Single-gameweek-only transfer decisions | 1872 | Below average |
+| **+ 5-gameweek lookahead** (current) | **2055** | **Above average** |
+
+**How the lookahead works:** squad-construction decisions (initial squad, wildcard, transfers) value each player by summing their projected points over the next 5 gameweeks, not just the immediate one — so the bot doesn't sell someone right before an easy run of fixtures, or buy into a run of hard ones. Each future week's prediction reuses the player's *current* rolling-form features (frozen — no peeking at results that haven't happened yet) combined with that future week's *already-published* fixture (home/away, FDR difficulty), which is public knowledge from the fixture list, not a result. Starting XI and captaincy stay single-gameweek on purpose — you always want your best lineup *this* week regardless of the run of form ahead.
+
+> [!CAUTION]
+> The lookahead version takes `-4` transfer hits far more often (2-3 transfers most weeks) than a cautious human manager would. Summing predicted points over 5 future weeks makes marginal gains look larger in absolute terms than a single week would, with no discount for prediction uncertainty compounding the further out it looks. This is a genuine result, not a bug — but the hit-taking behavior is more aggressive than ideal and would benefit from a confidence discount per week of lookahead before being fully trusted.
+
+See [plan.md](plan.md#phase-4--optimization-engine) for the full Phase 4 breakdown and next steps for improving the score further (minutes/rotation-risk modeling, richer xG/xA features, the missing Free Hit chip, and dynamic chip timing).
 
 ## Data source
 
