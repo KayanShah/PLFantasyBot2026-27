@@ -21,7 +21,7 @@ TRAIN_SEASONS = ["2020-21", "2021-22", "2022-23", "2023-24", "2024-25"]
 TEST_SEASON = "2025-26"
 
 COMMON_COLUMNS = [
-    "name", "position", "team", "opponent_team", "GW", "was_home", "value",
+    "name", "position", "team", "opponent_team", "GW", "was_home", "value", "fixture",
     "minutes", "goals_scored", "assists", "clean_sheets", "goals_conceded",
     "own_goals", "penalties_missed", "penalties_saved", "yellow_cards",
     "red_cards", "saves", "bonus", "bps", "influence", "creativity",
@@ -36,8 +36,14 @@ ROLLING_WINDOWS = [3, 5]
 
 FEATURE_COLUMNS = (
     [f"{stat}_avg{w}" for stat in ROLLING_STATS for w in ROLLING_WINDOWS]
-    + ["value", "was_home", "position_DEF", "position_FWD", "position_GKP", "position_MID"]
+    + ["value", "was_home", "difficulty", "position_DEF", "position_FWD", "position_GKP", "position_MID"]
 )
+
+
+def load_fixture_difficulty(season: str) -> pd.DataFrame:
+    path = DATA_DIR / season / "fixtures.csv"
+    fixtures = pd.read_csv(path, encoding="utf-8", encoding_errors="ignore")
+    return fixtures[["id", "team_h_difficulty", "team_a_difficulty"]].rename(columns={"id": "fixture"})
 
 
 def load_season(season: str) -> pd.DataFrame:
@@ -47,6 +53,14 @@ def load_season(season: str) -> pd.DataFrame:
     df["season"] = season
     df["position"] = df["position"].replace({"GK": "GKP"})
     df["was_home"] = df["was_home"].astype(bool).astype(int)
+
+    fixtures = load_fixture_difficulty(season)
+    df = df.merge(fixtures, on="fixture", how="left")
+    # The difficulty of the opponent the player's own team is facing.
+    df["difficulty"] = np.where(df["was_home"] == 1, df["team_h_difficulty"], df["team_a_difficulty"])
+    df["difficulty"] = df["difficulty"].fillna(df["difficulty"].mean())
+    df = df.drop(columns=["team_h_difficulty", "team_a_difficulty"])
+
     return df
 
 
