@@ -62,13 +62,18 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 ## Phase 4 — Optimization Engine
 
 - [x] Implement the core **ILP squad selector**: given predicted points + budget/formation/club-limit constraints, output the best legal 15-man squad and starting XI + captain. ([`model/optimizer.py`](model/optimizer.py), via `scipy.optimize.milp`)
-- [x] Extend to **multi-gameweek transfer planning** — re-solved every gameweek across a full season simulation, not single-gameweek-only. ([`model/simulate_season.py`](model/simulate_season.py))
-- [x] Add **transfer-hit logic** (-4 points) — searches 0..min(free transfers + 2, 5) transfers each week and only takes hits when the net predicted gain outweighs the cost.
+- [x] Extend to **multi-gameweek transfer planning** — re-solved every gameweek across a full season simulation, not single-gameweek-only. Squad-construction decisions (initial squad, wildcard, transfers) value players over the next 5 gameweeks (frozen current form + each future week's already-published fixture/difficulty — schedule facts, not result lookahead), not just the immediate week. ([`model/simulate_season.py`](model/simulate_season.py))
+- [x] Add **transfer-hit logic** (-4 points) — searches 0..min(free transfers + 2, 5) transfers each week and only takes hits when the net *lookahead* gain outweighs the cost.
 - [x] Add **chip-timing logic** for Wildcard / Bench Boost / Triple Captain (fixed heuristic weeks for WC/BB, online threshold rule for Triple Captain — "best striker, easy fixture"). **Free Hit is not simulated** — out of scope for now, kept simple per instruction.
 - [x] Validate every output squad against [FantasyRules.md](FantasyRules.md) constraints — enforced directly as ILP constraints, not checked after the fact.
 
 > [!IMPORTANT]
-> **First full-season backtest result:** simulating the entire 2025-26 season gameweek-by-gameweek — with the model trained only on 2020-21 → 2024-25 (zero knowledge of 2025-26 results) — the bot scored **1872 points**, versus the real 2025-26 average manager's actual total of **1895** (sum of `average_entry_score` from `data/fpl.db`). So: roughly average-manager level. Honest result for a first, simple model — not tuned or cherry-picked. Room to improve: minutes/rotation-risk modeling, smarter transfer-hit thresholds, Free Hit chip, and a stronger prediction model (Phase 3 items still open) would likely close the gap to a top-tier score (~2400+).
+> **Full-season backtest results** (model trained only on 2020-21 → 2024-25, zero knowledge of 2025-26 results):
+>
+> - Single-gameweek-only transfer decisions: **1872 points**.
+> - With 5-gameweek lookahead added to squad-construction decisions: **2055 points** — above the real 2025-26 average manager's actual total of **1895** (sum of `average_entry_score` from `data/fpl.db`).
+>
+> Caveat: the lookahead version takes `-4` hits far more often (2-3 transfers most weeks) because summing predicted points over 5 future weeks makes marginal gains look larger in absolute terms than a single week would, with no discount for prediction uncertainty compounding further out — more hit-happy than a cautious human manager. A real improvement, not a bug, but worth tightening (e.g. a confidence discount per week of lookahead) before trusting the hit-taking behavior fully.
 
 ---
 
