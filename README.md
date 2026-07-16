@@ -35,7 +35,9 @@ This project pulls data from the official FPL API and other sources, predicts pl
 | [`plan.md`](plan.md) | Ordered build plan from data collection through to a fully automated bot. |
 | [`scrapers/scrape_fixtures.py`](scrapers/scrape_fixtures.py) | Scrapes all season fixtures (teams, kickoff times, difficulty ratings, scores) from the FPL API. |
 | [`scrapers/build_database.py`](scrapers/build_database.py) | Builds `data/fpl.db`, a full SQLite database of teams, players, gameweeks, and fixtures. |
-| `data/` | Output from the scrapers (`fixtures.csv`, `fixtures.json`, `fpl.db`). |
+| [`model/fetch_historical_data.py`](model/fetch_historical_data.py) | Downloads past-season gameweek data (2020-21 → 2025-26) for model training and backtesting. |
+| [`model/train_model.py`](model/train_model.py) | Trains a points-prediction model on 2020-21 → 2024-25 and backtests it against the held-out 2025-26 season. |
+| `data/` | Output from the scrapers (`fixtures.csv`, `fixtures.json`, `fpl.db`, `historical/`, `backtest_2025-26_predictions.csv`). |
 | `requirements.txt` | Python dependencies. |
 
 ## Setup
@@ -61,6 +63,15 @@ python3 scrapers/build_database.py
 ```
 
 Outputs `data/fpl.db` — open it directly in [DB Browser for SQLite](https://sqlitebrowser.org/) to explore. Tables: `positions`, `teams`, `gameweeks`, `players`, `fixtures`, all linked by foreign keys (`players.team_id → teams.id`, `players.position_id → positions.id`, `fixtures.team_h`/`team_a → teams.id`, `fixtures.event → gameweeks.id`).
+
+Fetch historical seasons and train/backtest the points-prediction model:
+
+```bash
+python3 model/fetch_historical_data.py
+python3 model/train_model.py
+```
+
+Trains a gradient-boosted model on 2020-21 → 2024-25 and backtests it against the full 2025-26 season (never seen during training), printing MAE/RMSE/correlation against baselines and saving per-gameweek predictions to `data/backtest_2025-26_predictions.csv`.
 
 ## Data source
 
