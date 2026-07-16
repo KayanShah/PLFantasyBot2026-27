@@ -81,7 +81,7 @@ Simulate managing a real team through the entire 2025-26 season:
 python3 model/simulate_season.py
 ```
 
-Picks a legal GW1 squad from scratch, then goes gameweek-by-gameweek making transfers (respecting free-transfer rollover and -4 hits), playing Wildcard/Bench Boost/Triple Captain at sensible points, and auto-subbing players who didn't play — using only predictions built from data available *before* each gameweek. Scores against the real 2025-26 results. First run: **1872 points**, vs. the real season's average-manager total of **1895** (see `plan.md` Phase 4 for the full breakdown). Saves a gameweek-by-gameweek log to `data/season_2025-26_simulation.csv`.
+Picks a legal GW1 squad from scratch, then goes gameweek-by-gameweek making transfers (respecting free-transfer rollover and -4 hits), playing Wildcard/Bench Boost/Triple Captain at sensible points, and auto-subbing players who didn't play — using only predictions built from data available *before* each gameweek. Squad-construction decisions look 5 gameweeks ahead (current form + each future week's published fixture difficulty) rather than judging transfers on the immediate week alone. Scores against the real 2025-26 results: **2055 points**, vs. the real season's average-manager total of **1895** (see `plan.md` Phase 4 for the full breakdown, including a caveat on hit-taking behavior). Saves a gameweek-by-gameweek log to `data/season_2025-26_simulation.csv`.
 
 ## Data source
 
