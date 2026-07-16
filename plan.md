@@ -63,7 +63,7 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 
 - [x] Implement the core **ILP squad selector**: given predicted points + budget/formation/club-limit constraints, output the best legal 15-man squad and starting XI + captain. ([`model/optimizer.py`](model/optimizer.py), via `scipy.optimize.milp`)
 - [x] Extend to **multi-gameweek transfer planning** — re-solved every gameweek across a full season simulation, not single-gameweek-only. Squad-construction decisions (initial squad, wildcard, transfers) value players over the next 5 gameweeks (frozen current form + each future week's already-published fixture/difficulty — schedule facts, not result lookahead), not just the immediate week. ([`model/simulate_season.py`](model/simulate_season.py))
-- [x] Add **transfer-hit logic** (-4 points) — searches 0..min(free transfers + 2, 5) transfers each week and only takes hits when the net *lookahead* gain outweighs the cost.
+- [x] Add **transfer-hit logic** (-4 points) — searches 0..min(free transfers + 2, 5) transfers each week and only takes hits when the net *lookahead* gain outweighs the cost, with an exponential confidence discount (`LOOKAHEAD_DECAY = 0.85` per week ahead) so distant, less-trustworthy predictions can't inflate a hit's apparent value.
 - [x] Add **chip-timing logic** for Wildcard / Bench Boost / Triple Captain (fixed heuristic weeks for WC/BB, online threshold rule for Triple Captain — "best striker, easy fixture"). **Free Hit is not simulated** — out of scope for now, kept simple per instruction.
 - [x] Validate every output squad against [FantasyRules.md](FantasyRules.md) constraints — enforced directly as ILP constraints, not checked after the fact.
 
@@ -71,9 +71,10 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 > **Full-season backtest results** (model trained only on 2020-21 → 2024-25, zero knowledge of 2025-26 results):
 >
 > - Single-gameweek-only transfer decisions: **1872 points**.
-> - With 5-gameweek lookahead added to squad-construction decisions: **2055 points** — above the real 2025-26 average manager's actual total of **1895** (sum of `average_entry_score` from `data/fpl.db`).
+> - With 5-gameweek lookahead, no confidence discount: **2055 points**.
+> - With 5-gameweek lookahead and confidence discount (`LOOKAHEAD_DECAY = 0.85`): **2058 points** — above the real 2025-26 average manager's actual total of **1895** (sum of `average_entry_score` from `data/fpl.db`).
 >
-> Caveat: the lookahead version takes `-4` hits far more often (2-3 transfers most weeks) because summing predicted points over 5 future weeks makes marginal gains look larger in absolute terms than a single week would, with no discount for prediction uncertainty compounding further out — more hit-happy than a cautious human manager. A real improvement, not a bug, but worth tightening (e.g. a confidence discount per week of lookahead) before trusting the hit-taking behavior fully.
+> The confidence discount only nudged the score, and a sweep of decay values (0.2 → 1.0) came back **non-monotonic and noisy** (0.95 scored 2087, 0.9 scored 2015, 0.85 scored 2058, 1.0 scored 2055) — a single season's backtest is one data point, and a few early transfer decisions cascade into very different squad trajectories over 38 gameweeks. Picking whichever decay value scored highest here would be tuning against noise, not a real trend, so `0.85` was kept as a principled, non-cherry-picked default rather than chasing the single best-looking number. Properly validating a discount value would need backtesting across multiple seasons, not one — a good future improvement.
 
 ---
 
