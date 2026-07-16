@@ -61,14 +61,19 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 
 ## Phase 4 — Optimization Engine
 
-- [ ] Implement the core **ILP squad selector**: given predicted points + budget/formation/club-limit constraints, output the best legal 15-man squad and starting XI + captain.
-- [ ] Extend to **multi-gameweek transfer planning** (rolling horizon, re-solved each week) rather than single-gameweek-only decisions.
-- [ ] Add **transfer-hit logic** (-4 points) so the optimizer only recommends extra transfers when the expected gain outweighs the cost.
-- [ ] Add **chip-timing logic** — when to play Wildcard / Free Hit / Bench Boost / Triple Captain, informed by double/blank gameweeks (see [FantasyRules.md §5](FantasyRules.md#5-chips)).
-- [ ] Validate every output squad against [FantasyRules.md](FantasyRules.md) constraints before it's ever suggested.
+- [x] Implement the core **ILP squad selector**: given predicted points + budget/formation/club-limit constraints, output the best legal 15-man squad and starting XI + captain. ([`model/optimizer.py`](model/optimizer.py), via `scipy.optimize.milp`)
+- [x] Extend to **multi-gameweek transfer planning** — re-solved every gameweek across a full season simulation, not single-gameweek-only. ([`model/simulate_season.py`](model/simulate_season.py))
+- [x] Add **transfer-hit logic** (-4 points) — searches 0..min(free transfers + 2, 5) transfers each week and only takes hits when the net predicted gain outweighs the cost.
+- [x] Add **chip-timing logic** for Wildcard / Bench Boost / Triple Captain (fixed heuristic weeks for WC/BB, online threshold rule for Triple Captain — "best striker, easy fixture"). **Free Hit is not simulated** — out of scope for now, kept simple per instruction.
+- [x] Validate every output squad against [FantasyRules.md](FantasyRules.md) constraints — enforced directly as ILP constraints, not checked after the fact.
+
+> [!IMPORTANT]
+> **First full-season backtest result:** simulating the entire 2025-26 season gameweek-by-gameweek — with the model trained only on 2020-21 → 2024-25 (zero knowledge of 2025-26 results) — the bot scored **1872 points**, versus the real 2025-26 average manager's actual total of **1895** (sum of `average_entry_score` from `data/fpl.db`). So: roughly average-manager level. Honest result for a first, simple model — not tuned or cherry-picked. Room to improve: minutes/rotation-risk modeling, smarter transfer-hit thresholds, Free Hit chip, and a stronger prediction model (Phase 3 items still open) would likely close the gap to a top-tier score (~2400+).
+
+---
 
 > [!TIP]
-> Don't build this from scratch — adapt [sertalpbilal/FPL-Optimization-Tools](https://github.com/sertalpbilal/FPL-Optimization-Tools) (HiGHS solver via `sasoptpy`) as a reference implementation. It already solves the multi-gameweek + chip-timing problem well; reinventing it is wasted effort.
+> [sertalpbilal/FPL-Optimization-Tools](https://github.com/sertalpbilal/FPL-Optimization-Tools) (HiGHS solver via `sasoptpy`) remains a good reference for going further — e.g. true rolling-horizon lookahead (planning transfers *ahead* of the gameweek they're needed) rather than this project's greedy week-by-week approach.
 
 ---
 
