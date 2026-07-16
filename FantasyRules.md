@@ -96,7 +96,7 @@ For 2025/26, managers get **two full sets** of chips — one set for the first h
 
 ---
 
-## Sources
+## Sources (All official, from [Premier League](https://www.premierleague.com))
 
 - [FPL basics explained: Scoring points](https://www.premierleague.com/en/news/2174909)
 - [FPL basics explained: How to pick a squad](https://www.premierleague.com/en/news/2174419/fpl-basics-how-to-pick-a-squad)
