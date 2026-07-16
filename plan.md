@@ -7,6 +7,11 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 
 ---
 
+> [!CAUTION]
+> We are currently awaiting 2026/27 season data. Everything in `data/` right now (`fixtures.csv`, `fixtures.json`, `fpl.db`) is **2025/26 season data** — the FPL API hasn't reset for the new season yet. Do not build or trust any model/optimization output against the current dataset; re-run the scrapers once FPL officially launches 2026/27 (expected mid-to-late July 2026).
+
+---
+
 ## Phase 0 — Foundations ✅
 
 - [x] Research data sources and modeling approach ([research.md](research.md))
