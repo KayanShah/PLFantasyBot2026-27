@@ -25,6 +25,7 @@ This project pulls data from the official FPL API and other sources, predicts pl
 |---|---|
 | [`research.md`](research.md) | Research notes: FPL API endpoints, data sources, prediction approaches, optimization strategy. |
 | [`FantasyRules.md`](FantasyRules.md) | Official FPL rules: squad/budget constraints, scoring system, transfers, chips. |
+| [`plan.md`](plan.md) | Ordered build plan from data collection through to a fully automated bot. |
 | [`scrapers/scrape_fixtures.py`](scrapers/scrape_fixtures.py) | Scrapes all season fixtures (teams, kickoff times, difficulty ratings, scores) from the FPL API. |
 | `data/` | Output from the scrapers (`fixtures.csv`, `fixtures.json`). |
 | `requirements.txt` | Python dependencies. |
