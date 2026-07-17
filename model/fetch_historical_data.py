@@ -39,9 +39,10 @@ def main() -> None:
     for season in TRAIN_SEASONS + [TEST_SEASON]:
         gw_path = download_file(season, "gws/merged_gw.csv", "merged_gw.csv")
         fixtures_path = download_file(season, "fixtures.csv", "fixtures.csv")
+        teams_path = download_file(season, "teams.csv", "teams.csv")
         n_lines = sum(1 for _ in gw_path.open(encoding="utf-8", errors="ignore")) - 1
         role = "test (held out)" if season == TEST_SEASON else "train"
-        print(f"{season} [{role}] -> {gw_path} ({n_lines} rows), {fixtures_path.name}")
+        print(f"{season} [{role}] -> {gw_path} ({n_lines} rows), {fixtures_path.name}, {teams_path.name}")
 
 
 if __name__ == "__main__":
