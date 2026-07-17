@@ -5,7 +5,7 @@
 
 
 
-> [!Danger]
+> [!Caution]
 > All data currently pulled in this repository is from the last 2025/2026 season, and this season's fantasy API will only launch at the end of July
 
 
