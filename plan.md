@@ -116,6 +116,23 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 
 ---
 
+> [!WARNING]
+> **A third attempt — full-season lookahead (every remaining gameweek, not just 5) + double-gameweek-aware Triple Captain + an availability proxy to avoid starting/captaining low-recent-minutes players — was tried and reverted**, validated across all 3 seasons:
+>
+> | Season | Baseline (validated) | + full lookahead / DGW-TC / availability |
+> | --- | --- | --- |
+> | 2023-24 | 2056 (+53 vs avg) | 2160 (**+157** vs avg) |
+> | 2024-25 | 2149 (+141 vs avg) | 1953 (**-55** vs avg — below average) |
+> | 2025-26 | 2058 (+163 vs avg) | 2025 (+130 vs avg) |
+>
+> Mixed and net negative: better in 2023-24 by a real margin (+104), but worse in the other two, and 2024-25 actually dropped below the real average manager — 2 of 3 seasons regressed, and the total across all three fell (6263 → 6138). Per this project's own rule (commit only if better-or-equal across most seasons), reverted; not on `main`.
+>
+> Three changes were bundled together in this attempt, so the specific cause isn't isolated — a mistake this plan has flagged before (see the first reverted experiment above) and repeated here under time pressure. The Triple Captain fix along the way *is* correct and worth knowing regardless of the overall revert: the first version incorrectly fired the chip before a double gameweek arrived; the corrected version makes the bot wait, since the fixture schedule (unlike results) is legitimately public knowledge in advance — this logic is sound, just bundled with two other changes that muddy attribution of the net result.
+>
+> **Takeaway:** the 2023-24 improvement is a real, interesting signal that full-season lookahead *can* help — but bundling it with the DGW-TC fix and the availability proxy makes it impossible to tell whether lookahead, DGW-TC, availability, or some interaction between them is driving the 2024-25/2025-26 regression. Retrying each change in isolation, multi-season-validated one at a time, is the correct next step rather than reverting the whole idea.
+
+---
+
 > [!TIP]
 > [sertalpbilal/FPL-Optimization-Tools](https://github.com/sertalpbilal/FPL-Optimization-Tools) (HiGHS solver via `sasoptpy`) remains a good reference for going further — e.g. true rolling-horizon lookahead (planning transfers *ahead* of the gameweek they're needed) rather than this project's greedy week-by-week approach.
 
