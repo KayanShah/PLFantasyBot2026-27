@@ -81,7 +81,7 @@ Simulate managing a real team through the entire 2025-26 season:
 python3 model/simulate_season.py
 ```
 
-Picks a legal GW1 squad from scratch, then goes gameweek-by-gameweek making transfers (respecting free-transfer rollover and -4 hits), playing Wildcard/Bench Boost/Triple Captain at sensible points, and auto-subbing players who didn't play — using only predictions built from data available *before* each gameweek. Saves a gameweek-by-gameweek log to `data/season_2025-26_simulation.csv`.
+Picks a legal GW1 squad from scratch, then goes gameweek-by-gameweek making transfers (respecting free-transfer rollover and -4 hits), playing Wildcard/Bench Boost/Free Hit/Triple Captain at sensible points, and auto-subbing players who didn't play — using only predictions built from data available *before* each gameweek. Saves a gameweek-by-gameweek log to `data/season_2025-26_simulation.csv`.
 
 ## Results: 2025-26 full-season backtest
 
@@ -91,14 +91,18 @@ The model was trained only on 2020-21 → 2024-25 — it has zero knowledge of a
 | --- | --- | --- |
 | Single-gameweek-only transfer decisions | 1872 | Below average |
 | + 5-gameweek lookahead, no confidence discount | 2055 | Above average |
-| **+ 5-gameweek lookahead with confidence discount** (current) | **2058** | **Above average** |
+| + 5-gameweek lookahead with confidence discount (`LOOKAHEAD_DECAY = 0.85`) | **2058** (best so far) | Above average |
+| + richer features (xG involvement, opponent strength, start-rate), fixed chip weeks | 1980 | Above average |
+| **+ dynamic Wildcard timing + Free Hit chip** (current code) | **1906** | Above average, but lower than the 2058 checkpoint |
 
 **How the lookahead works:** squad-construction decisions (initial squad, wildcard, transfers) value each player by summing their projected points over the next 5 gameweeks, not just the immediate one — so the bot doesn't sell someone right before an easy run of fixtures, or buy into a run of hard ones. Each future week's prediction reuses the player's *current* rolling-form features (frozen — no peeking at results that haven't happened yet) combined with that future week's *already-published* fixture (home/away, FDR difficulty), which is public knowledge from the fixture list, not a result. Each week further out is also discounted (`LOOKAHEAD_DECAY = 0.85` per week) since a prediction 4 weeks out is less trustworthy than this week's — so a `-4` transfer hit needs a clearer, closer-in payoff to be worth taking. Starting XI and captaincy stay single-gameweek on purpose — you always want your best lineup *this* week regardless of the run of form ahead.
 
-> [!CAUTION]
-> A sweep of the confidence-discount value came back **non-monotonic and noisy** (0.95 → 2087, 0.9 → 2015, 0.85 → 2058, 1.0 → 2055) — a single season's backtest is one data point, and a handful of early transfer decisions cascade into very different squad trajectories over 38 gameweeks. `0.85` was kept as a principled, non-cherry-picked default rather than chasing whichever value happened to score highest here. Properly validating this would need backtesting across multiple seasons, not one.
+**Dynamic chip timing:** Wildcard now fires the first gameweek in a per-half window (GW6-10 / GW17-21) where a full squad reoptimization beats the best normal transfer by a set margin, falling back to the window's last gameweek if never triggered. Bench Boost follows the gameweek right after. Free Hit fires when 3+ of the current squad have no fixture that gameweek (a blank gameweek), reverting to the pre-Free-Hit squad the following week.
 
-See [plan.md](plan.md#phase-4--optimization-engine) for the full Phase 4 breakdown and next steps for improving the score further (minutes/rotation-risk modeling, richer xG/xA features, the missing Free Hit chip, and dynamic chip timing).
+> [!CAUTION]
+> **This is a regression, reported honestly rather than hidden.** The two additions above — richer features and dynamic chip timing — independently made the score *worse* than the 2058 checkpoint on this one season (isolated via a diagnostic run: richer features alone, with the old fixed chip schedule, already dropped it to 1980). Likely causes, not fully disentangled: the new features barely moved single-gameweek prediction accuracy (MAE 0.991 → 1.000), and that noise compounds across 38 sequential squad-selection decisions; separately, the Wildcard trigger margin was picked without tuning, and Free Hit never actually fired all season (no gameweek had 3+ blanked squad players), adding complexity with zero payoff here. The code was kept anyway — Free Hit and dynamic chip timing are correct, real FPL mechanics worth having even though they didn't help this specific backtest — rather than retuning parameters until the number looks good again, which would be tuning against single-season noise, not a real fix. Multi-season backtesting (`plan.md` Phase 6) is the right next step before trusting further tuning here.
+
+See [plan.md](plan.md#phase-4--optimization-engine) for the full Phase 4 breakdown, including the diagnostic that isolated where the regression came from.
 
 ## Data source
 
