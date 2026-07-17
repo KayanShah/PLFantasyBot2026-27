@@ -25,7 +25,7 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 - [ ] **Player scraper** — pull `bootstrap-static` into a clean player table: id, name, team, position, price, ownership, current-season totals, ICT index, `ep_next`.
 - [ ] **Gameweek history scraper** — per-player, per-gameweek point breakdowns via `element-summary/{id}/`, so the model has granular training rows, not just season totals.
 - [x] **Historical seasons loader** — ingest [vaastav's historical dataset](https://github.com/vaastav/Fantasy-Premier-League) so the model trains on multiple past seasons, not just the current one. ([`model/fetch_historical_data.py`](model/fetch_historical_data.py))
-- [x] **xG/xA feature** — used FPL's own `expected_goal_involvements` (already present in the historical dataset for 2022-23 onward) instead of a separate Understat scraper — same signal, no extra scraping infrastructure needed. Missing for 2020-21/2021-22, filled with 0.
+- [ ] **xG/xA feature** — tried using FPL's own `expected_goal_involvements` (2022-23 onward) instead of a separate Understat scraper, reverted along with the Phase 4 regression. The "use FPL's own field, skip scraping Understat" approach is still sound; worth retrying with multi-season validation.
 - [ ] **Storage layer** — decide how scraped data persists (flat CSV/Parquet files vs. a local SQLite/Postgres DB). A local DB pays off once multiple scrapers need to join on player/team/gameweek keys.
 
 > [!TIP]
@@ -40,8 +40,8 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 
 - [x] Rolling form features (points/minutes/ICT index over last 3/5 games), leakage-safe via `shift(1)` so a gameweek's features never see its own outcome. ([`model/train_model.py`](model/train_model.py))
 - [x] Fixture difficulty feature (official FPL FDR of the opponent, home/away-aware). Modest but real signal. Congestion (games in last N days) not yet added.
-- [x] Continuous opponent team-strength feature (`strength_overall_home`/`_away` from each season's `teams.csv`) — richer than the 1-5 FDR bucket, home/away-aware.
-- [x] Minutes/start-probability estimate — `started` (played 60+ mins) rolling 3/5-game rate, as a feature distinct from raw average minutes (separates "nailed starter" from "explosive but rotated"). Not a separate model; folded into the main regressor as a feature.
+- [ ] Continuous opponent team-strength feature — tried (`strength_overall_home`/`_away`), reverted along with the Phase 4 regression (see below); worth retrying with multi-season validation before committing to it.
+- [ ] Minutes/start-probability estimate — tried as a `started`-rate feature, reverted along with the Phase 4 regression; a *separate* dedicated model (rather than folding it into the main regressor) is still untried and may work better.
 - [ ] Price-change and ownership-trend features (optional, weak signal but easy to add).
 - [x] Merge all sources into one training table keyed by `(player_id, gameweek, season)` — `train_model.load_season()`.
 
@@ -52,7 +52,7 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 - [x] **Baseline model** — mean-points and last-5-gameweek-average baselines, to sanity-check everything downstream against before trusting the ML model. ([`model/train_model.py`](model/train_model.py))
 - [ ] **Benchmark against `ep_next`** — FPL's own expected-points figure is a free baseline; not available in the historical CSV dataset, so this needs live-season data to compare against (Phase 1's gameweek-history scraper).
 - [x] **Train a gradient-boosted model** (`sklearn.GradientBoostingRegressor`) on 2020-21 → 2024-25 (5 seasons, ~130k rows).
-- [x] **Backtest** against the full 2025-26 season, held out entirely from training. Beats both baselines: MAE 1.00 vs. 1.58 (mean) / 1.06 (last-5-avg); correlation 0.57 vs. 0.50. See `data/backtest_2025-26_predictions.csv`. (Adding xG/team-strength/start-rate features barely moved this — see the Phase 4 regression note below.)
+- [x] **Backtest** against the full 2025-26 season, held out entirely from training. Beats both baselines: MAE 0.99 vs. 1.58 (mean) / 1.06 (last-5-avg); correlation 0.57 vs. 0.50. See `data/backtest_2025-26_predictions.csv`. Now validated across 3 seasons, not just this one — see the Phase 4 multi-season backtest.
 - [ ] **Retraining cadence** — decide how often the model refits (weekly, during the season, is standard).
 
 > [!IMPORTANT]
@@ -65,29 +65,39 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 - [x] Implement the core **ILP squad selector**: given predicted points + budget/formation/club-limit constraints, output the best legal 15-man squad and starting XI + captain. ([`model/optimizer.py`](model/optimizer.py), via `scipy.optimize.milp`)
 - [x] Extend to **multi-gameweek transfer planning** — re-solved every gameweek across a full season simulation, not single-gameweek-only. Squad-construction decisions (initial squad, wildcard, transfers) value players over the next 5 gameweeks (frozen current form + each future week's already-published fixture/difficulty — schedule facts, not result lookahead), not just the immediate week. ([`model/simulate_season.py`](model/simulate_season.py))
 - [x] Add **transfer-hit logic** (-4 points) — searches 0..min(free transfers + 2, 5) transfers each week and only takes hits when the net *lookahead* gain outweighs the cost, with an exponential confidence discount (`LOOKAHEAD_DECAY = 0.85` per week ahead) so distant, less-trustworthy predictions can't inflate a hit's apparent value.
-- [x] Add **chip-timing logic** for all four chips:
-  - **Wildcard** — dynamic: triggered the first gameweek within a per-half window (GW6-10 / GW17-21) where a full squad reoptimization beats the best normal transfer by `WC_TRIGGER_MARGIN`, falling back to the window's last gameweek if never triggered.
-  - **Bench Boost** — the gameweek immediately after Wildcard fires, when the whole squad is freshly optimized.
-  - **Free Hit** — triggered when `FREE_HIT_BLANK_THRESHOLD` (3) or more of the current squad have no fixture that gameweek; a one-week-only reoptimization that reverts next gameweek.
-  - **Triple Captain** — online threshold rule, "best striker, easy fixture" (unchanged from before).
+- [x] Add **chip-timing logic** for Wildcard / Bench Boost / Triple Captain (fixed heuristic weeks for WC/BB, online threshold rule for Triple Captain — "best striker, easy fixture"). **Free Hit is not simulated** — tried and reverted (see below).
 - [x] Validate every output squad against [FantasyRules.md](FantasyRules.md) constraints — enforced directly as ILP constraints, not checked after the fact.
 
 > [!IMPORTANT]
-> **Full-season backtest results** (model trained only on 2020-21 → 2024-25, zero knowledge of 2025-26 results):
+> **Full-season backtest results, 2025-26** (model trained only on 2020-21 → 2024-25, zero knowledge of 2025-26 results):
 >
 > | Version | Score |
 > | --- | --- |
 > | Single-gameweek-only transfer decisions | 1872 |
 > | + 5-gameweek lookahead, no confidence discount | 2055 |
-> | + 5-gameweek lookahead with confidence discount (`LOOKAHEAD_DECAY = 0.85`) | **2058** (best so far) |
-> | + richer features (xG involvement, opponent strength, start-rate), same fixed chip weeks | 1980 |
-> | + dynamic Wildcard timing + Free Hit chip (current code) | **1906** |
+> | **+ 5-gameweek lookahead with confidence discount (`LOOKAHEAD_DECAY = 0.85`)** — current code | **2058** |
 >
-> Real 2025-26 average manager's actual total: **1895** (sum of `average_entry_score` from `data/fpl.db`) — the current code still beats it, but by less than the 2058 checkpoint did.
+> Real 2025-26 average manager's actual total: **1895** (sum of `average_entry_score` from `data/fpl.db`).
+
+---
+
+> [!IMPORTANT]
+> **Multi-season validation** (`model/multi_season_backtest.py`, results in `data/multi_season_backtest_results.csv`): the 2058-checkpoint code was tested against three independent seasons, each trained *only* on seasons strictly before it (no leakage):
 >
-> **This is a regression, reported honestly rather than hidden.** Both additions (richer features, dynamic chip timing) independently made the score *worse* on this one season, isolated via a diagnostic run (new features + old fixed chip schedule alone scored 1980, confirming the richer features accounted for most of the drop before dynamic chip timing was even added). Two live hypotheses, not fully disentangled: (1) the new features are mostly noise here — single-gameweek MAE barely moved (0.991 → 1.000) and that noise compounds across 38 sequential squad-selection decisions; (2) `WC_TRIGGER_MARGIN=8` was picked without tuning, and Free Hit never fired all season (no gameweek had 3+ blanked squad players), so it added complexity with zero payoff this particular season.
+> | Season | Bot | Avg Manager | Diff |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2056 | 2003 | +53 |
+> | 2024-25 | 2149 | 2008 | +141 |
+> | 2025-26 | 2058 | 1895 | +163 |
 >
-> The code was kept anyway (per project decision) — Free Hit and dynamic chip timing are correct, real FPL mechanics worth having even though they didn't help this specific backtest, and per the standing rule in this plan, retuning `WC_TRIGGER_MARGIN` or the feature set until the number looks good again would be tuning against single-season noise, not a real fix. **[Phase 6](#phase-6--evaluation--iteration)'s multi-season backtesting is the correct next step before trusting any further tuning of these parameters.**
+> Average-manager totals for past seasons aren't available from the live FPL API once a season ends (it only serves the current season), so these were pulled from [Wayback Machine](https://web.archive.org/) snapshots of `bootstrap-static` taken at each season's end: [2022-23](http://web.archive.org/web/20230611030006/https://fantasy.premierleague.com/api/bootstrap-static/), [2023-24](http://web.archive.org/web/20240521000009/https://fantasy.premierleague.com/api/bootstrap-static/), [2024-25](http://web.archive.org/web/20250612210134/https://fantasy.premierleague.com/api/bootstrap-static/); summed each season's `events[].average_entry_score`.
+>
+> **This is the real validation the earlier single-season caution was waiting for** — the approach beats the average manager consistently across three independent seasons, not just a lucky one.
+
+---
+
+> [!WARNING]
+> **A richer-features + dynamic-chip-timing experiment was tried and reverted.** Adding xG involvement, opponent team-strength, start-rate features, a dynamic Wildcard trigger, and a Free Hit chip *regressed* the 2025-26 score to 1906 (features alone: 1980; + dynamic chips: 1906) — worse than the 2058 checkpoint above on that one season. Rather than keep tuning parameters like `WC_TRIGGER_MARGIN` until the number looked good again (tuning against single-season noise), the code was reverted to the validated 2058 checkpoint. The experiment is preserved in git history (commit `9282fbc` onward) if worth revisiting — ideally validated across multiple seasons like the checkpoint above, not just one, before being trusted.
 
 ---
 

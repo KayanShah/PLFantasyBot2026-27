@@ -25,7 +25,7 @@ COMMON_COLUMNS = [
     "minutes", "goals_scored", "assists", "clean_sheets", "goals_conceded",
     "own_goals", "penalties_missed", "penalties_saved", "yellow_cards",
     "red_cards", "saves", "bonus", "bps", "influence", "creativity",
-    "threat", "ict_index", "total_points", "expected_goal_involvements",
+    "threat", "ict_index", "total_points",
 ]
 
 # Per-match stats that must be summed (not averaged/first-taken) when a player
@@ -35,20 +35,18 @@ SUM_COLUMNS = [
     "minutes", "goals_scored", "assists", "clean_sheets", "goals_conceded",
     "own_goals", "penalties_missed", "penalties_saved", "yellow_cards",
     "red_cards", "saves", "bonus", "bps", "influence", "creativity",
-    "threat", "ict_index", "total_points", "expected_goal_involvements",
+    "threat", "ict_index", "total_points",
 ]
 
 ROLLING_STATS = [
     "total_points", "minutes", "goals_scored", "assists", "bps",
     "ict_index", "influence", "creativity", "threat", "clean_sheets",
-    "expected_goal_involvements", "started",
 ]
 ROLLING_WINDOWS = [3, 5]
 
 FEATURE_COLUMNS = (
     [f"{stat}_avg{w}" for stat in ROLLING_STATS for w in ROLLING_WINDOWS]
-    + ["value", "was_home", "difficulty", "opponent_strength",
-       "position_DEF", "position_FWD", "position_GKP", "position_MID"]
+    + ["value", "was_home", "difficulty", "position_DEF", "position_FWD", "position_GKP", "position_MID"]
 )
 
 
@@ -58,20 +56,10 @@ def load_fixture_difficulty(season: str) -> pd.DataFrame:
     return fixtures[["id", "team_h_difficulty", "team_a_difficulty"]].rename(columns={"id": "fixture"})
 
 
-def load_team_strength(season: str) -> pd.DataFrame:
-    path = DATA_DIR / season / "teams.csv"
-    teams = pd.read_csv(path, encoding="utf-8", encoding_errors="ignore")
-    return teams[["id", "strength_overall_home", "strength_overall_away"]].rename(
-        columns={"id": "opponent_team"}
-    )
-
-
 def load_season(season: str) -> pd.DataFrame:
     path = DATA_DIR / season / "merged_gw.csv"
     df = pd.read_csv(path, encoding="utf-8", encoding_errors="ignore")
     df = df[[c for c in COMMON_COLUMNS if c in df.columns]].copy()
-    if "expected_goal_involvements" not in df.columns:
-        df["expected_goal_involvements"] = 0.0  # not tracked in 2020-21/2021-22 data
     df["season"] = season
     df["position"] = df["position"].replace({"GK": "GKP"})
     df["was_home"] = df["was_home"].astype(bool).astype(int)
@@ -83,36 +71,19 @@ def load_season(season: str) -> pd.DataFrame:
     df["difficulty"] = df["difficulty"].fillna(df["difficulty"].mean())
     df = df.drop(columns=["team_h_difficulty", "team_a_difficulty", "fixture"])
 
-    # A continuous team-strength signal (Elo-like FPL rating), richer than the 1-5 FDR bucket.
-    # Use the opponent's rating in the venue THEY are playing (away if we're home, and vice versa).
-    strength = load_team_strength(season)
-    df = df.merge(strength, on="opponent_team", how="left")
-    df["opponent_strength"] = np.where(
-        df["was_home"] == 1, df["strength_overall_away"], df["strength_overall_home"]
-    )
-    df["opponent_strength"] = df["opponent_strength"].fillna(df["opponent_strength"].mean())
-    df = df.drop(columns=["strength_overall_home", "strength_overall_away"])
-
     # Collapse double-gameweek rows (same player, same GW, two fixtures) into one.
     agg = {col: "sum" for col in SUM_COLUMNS if col in df.columns}
     agg.update({"name": "first", "position": "first", "team": "first",
                 "opponent_team": "first", "was_home": "first", "value": "mean",
-                "difficulty": "mean", "opponent_strength": "mean"})
+                "difficulty": "mean"})
     df = df.groupby(["season", "element", "GW"], as_index=False).agg(agg)
-
-    # "Started" = played 60+ minutes that gameweek — a start-reliability signal distinct from
-    # raw average minutes (separates "nailed starter" from "explosive but rotated").
-    df["started"] = (df["minutes"] >= 60).astype(int)
 
     return df
 
 
-def add_rolling_features(
-    df: pd.DataFrame, group_keys: tuple[str, ...] = ("season", "element"), presorted: bool = False
-) -> pd.DataFrame:
-    if not presorted:
-        df = df.sort_values(list(group_keys) + ["GW"]).reset_index(drop=True)
-    grouped = df.groupby(list(group_keys), group_keys=False)
+def add_rolling_features(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.sort_values(["season", "element", "GW"]).reset_index(drop=True)
+    grouped = df.groupby(["season", "element"], group_keys=False)
 
     for stat in ROLLING_STATS:
         for window in ROLLING_WINDOWS:

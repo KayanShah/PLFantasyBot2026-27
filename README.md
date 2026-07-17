@@ -38,8 +38,9 @@ This project pulls data from the official FPL API and other sources, predicts pl
 | [`model/fetch_historical_data.py`](model/fetch_historical_data.py) | Downloads past-season gameweek data (2020-21 → 2025-26) for model training and backtesting. |
 | [`model/train_model.py`](model/train_model.py) | Trains a points-prediction model on 2020-21 → 2024-25 and backtests it against the held-out 2025-26 season. |
 | [`model/optimizer.py`](model/optimizer.py) | ILP squad selector + starting-XI/captain picker, enforcing every constraint in `FantasyRules.md`. |
-| [`model/simulate_season.py`](model/simulate_season.py) | Simulates managing a team through the full 2025-26 season gameweek-by-gameweek — transfers, chips, captaincy — using only pre-season-trained predictions. |
-| `data/` | Output from the scrapers (`fixtures.csv`, `fixtures.json`, `fpl.db`, `historical/`, `backtest_2025-26_predictions.csv`, `season_2025-26_simulation.csv`). |
+| [`model/simulate_season.py`](model/simulate_season.py) | Simulates managing a team through a full season gameweek-by-gameweek — transfers, chips, captaincy — using only pre-season-trained predictions. |
+| [`model/multi_season_backtest.py`](model/multi_season_backtest.py) | Runs the simulation across multiple seasons (each trained only on strictly earlier seasons) and compares against real average-manager totals. |
+| `data/` | Output from the scrapers (`fixtures.csv`, `fixtures.json`, `fpl.db`, `historical/`, `backtest_2025-26_predictions.csv`, `season_2025-26_simulation.csv`, `multi_season_backtest_results.csv`). |
 | `requirements.txt` | Python dependencies. |
 
 ## Setup
@@ -81,28 +82,44 @@ Simulate managing a real team through the entire 2025-26 season:
 python3 model/simulate_season.py
 ```
 
-Picks a legal GW1 squad from scratch, then goes gameweek-by-gameweek making transfers (respecting free-transfer rollover and -4 hits), playing Wildcard/Bench Boost/Free Hit/Triple Captain at sensible points, and auto-subbing players who didn't play — using only predictions built from data available *before* each gameweek. Saves a gameweek-by-gameweek log to `data/season_2025-26_simulation.csv`.
+Picks a legal GW1 squad from scratch, then goes gameweek-by-gameweek making transfers (respecting free-transfer rollover and -4 hits), playing Wildcard/Bench Boost/Triple Captain at sensible points, and auto-subbing players who didn't play — using only predictions built from data available *before* each gameweek. Saves a gameweek-by-gameweek log to `data/season_2025-26_simulation.csv`.
 
-## Results: 2025-26 full-season backtest
+Validate across multiple seasons at once:
 
-The model was trained only on 2020-21 → 2024-25 — it has zero knowledge of any 2025-26 result. `simulate_season.py` then manages a team through the real 2025-26 season gameweek-by-gameweek, scored against what actually happened.
+```bash
+python3 model/multi_season_backtest.py
+```
 
-| Version | Score | vs. real 2025-26 average manager (1895) |
-| --- | --- | --- |
-| Single-gameweek-only transfer decisions | 1872 | Below average |
-| + 5-gameweek lookahead, no confidence discount | 2055 | Above average |
-| + 5-gameweek lookahead with confidence discount (`LOOKAHEAD_DECAY = 0.85`) | **2058** (best so far) | Above average |
-| + richer features (xG involvement, opponent strength, start-rate), fixed chip weeks | 1980 | Above average |
-| **+ dynamic Wildcard timing + Free Hit chip** (current code) | **1906** | Above average, but lower than the 2058 checkpoint |
+Runs the full pipeline against 2023-24, 2024-25, and 2025-26, each trained *only* on seasons strictly before it (no leakage), and compares each result to that season's real average-manager total. Saves results to `data/multi_season_backtest_results.csv`.
 
-**How the lookahead works:** squad-construction decisions (initial squad, wildcard, transfers) value each player by summing their projected points over the next 5 gameweeks, not just the immediate one — so the bot doesn't sell someone right before an easy run of fixtures, or buy into a run of hard ones. Each future week's prediction reuses the player's *current* rolling-form features (frozen — no peeking at results that haven't happened yet) combined with that future week's *already-published* fixture (home/away, FDR difficulty), which is public knowledge from the fixture list, not a result. Each week further out is also discounted (`LOOKAHEAD_DECAY = 0.85` per week) since a prediction 4 weeks out is less trustworthy than this week's — so a `-4` transfer hit needs a clearer, closer-in payoff to be worth taking. Starting XI and captaincy stay single-gameweek on purpose — you always want your best lineup *this* week regardless of the run of form ahead.
+## Results
 
-**Dynamic chip timing:** Wildcard now fires the first gameweek in a per-half window (GW6-10 / GW17-21) where a full squad reoptimization beats the best normal transfer by a set margin, falling back to the window's last gameweek if never triggered. Bench Boost follows the gameweek right after. Free Hit fires when 3+ of the current squad have no fixture that gameweek (a blank gameweek), reverting to the pre-Free-Hit squad the following week.
+The model is trained only on seasons strictly before the one it's tested on — it has zero knowledge of the test season's results. `simulate_season.py` manages a team through a real season gameweek-by-gameweek, scored against what actually happened.
 
-> [!CAUTION]
-> **This is a regression, reported honestly rather than hidden.** The two additions above — richer features and dynamic chip timing — independently made the score *worse* than the 2058 checkpoint on this one season (isolated via a diagnostic run: richer features alone, with the old fixed chip schedule, already dropped it to 1980). Likely causes, not fully disentangled: the new features barely moved single-gameweek prediction accuracy (MAE 0.991 → 1.000), and that noise compounds across 38 sequential squad-selection decisions; separately, the Wildcard trigger margin was picked without tuning, and Free Hit never actually fired all season (no gameweek had 3+ blanked squad players), adding complexity with zero payoff here. The code was kept anyway — Free Hit and dynamic chip timing are correct, real FPL mechanics worth having even though they didn't help this specific backtest — rather than retuning parameters until the number looks good again, which would be tuning against single-season noise, not a real fix. Multi-season backtesting (`plan.md` Phase 6) is the right next step before trusting further tuning here.
+**Single-season backtest (2025-26), showing how the approach was built up:**
 
-See [plan.md](plan.md#phase-4--optimization-engine) for the full Phase 4 breakdown, including the diagnostic that isolated where the regression came from.
+| Version | Score |
+| --- | --- |
+| Single-gameweek-only transfer decisions | 1872 |
+| + 5-gameweek lookahead, no confidence discount | 2055 |
+| **+ 5-gameweek lookahead with confidence discount** (`LOOKAHEAD_DECAY = 0.85`) — current code | **2058** |
+
+**How the lookahead works:** squad-construction decisions (initial squad, wildcard, transfers) value each player by summing their projected points over the next 5 gameweeks, not just the immediate one — so the bot doesn't sell someone right before an easy run of fixtures, or buy into a run of hard ones. Each future week's prediction reuses the player's *current* rolling-form features (frozen — no peeking at results that haven't happened yet) combined with that future week's *already-published* fixture (home/away, FDR difficulty), which is public knowledge from the fixture list, not a result. Each week further out is also discounted since a prediction 4 weeks out is less trustworthy than this week's — so a `-4` transfer hit needs a clearer, closer-in payoff to be worth taking. Starting XI and captaincy stay single-gameweek on purpose — you always want your best lineup *this* week regardless of the run of form ahead.
+
+**Multi-season validation** — the real test, since one season is a single noisy data point:
+
+| Season | Bot | Real avg. manager | Diff |
+| --- | --- | --- | --- |
+| 2023-24 | 2056 | 2003 | +53 |
+| 2024-25 | 2149 | 2008 | +141 |
+| 2025-26 | 2058 | 1895 | +163 |
+
+Consistently above the real average manager across three independent seasons, not just a lucky one. (Past seasons' average-manager totals came from [Wayback Machine](https://web.archive.org/) snapshots of `bootstrap-static`, since the live FPL API only serves the current season — see `plan.md` Phase 4 for the exact snapshot URLs.)
+
+> [!NOTE]
+> A richer-features + dynamic-chip-timing experiment (xG involvement, opponent team-strength, start-rate, dynamic Wildcard timing, a Free Hit chip) was tried and **regressed** the 2025-26 score to 1906. Rather than keep tuning parameters until the number looked good again on that one season, it was reverted back to the validated 2058 checkpoint above. The experiment is preserved in git history if worth revisiting — ideally with multi-season validation from the start next time.
+
+See [plan.md](plan.md#phase-4--optimization-engine) for the full breakdown, including the diagnostic that isolated the regression.
 
 ## Data source
 

@@ -19,20 +19,13 @@ your best lineup *this* week regardless of the run of form ahead.
 Rules encoded (see FantasyRules.md):
   - 15-man squad: 2 GKP / 5 DEF / 5 MID / 3 FWD, <=3 players/club, £100.0m budget.
   - 1 free transfer/gameweek, rolling over up to 5; extra transfers cost -4 each.
-  - Two chip sets (2025-26): Wildcard, Free Hit, Bench Boost, Triple Captain per half.
+  - Two chip sets (2025-26): Wildcard, Bench Boost, Triple Captain per half.
+    (Free Hit is not simulated — kept out of scope for simplicity.)
+  - Captain 2x, Triple Captain 3x, auto-subs for starters who didn't play.
 
-Chip timing (dynamic, all online decisions — no lookahead beyond the current
-gameweek's known state):
-  Wildcard: triggered the first gameweek within a per-half window where a full
-  squad reoptimization beats the best available normal transfer by at least
-  WC_TRIGGER_MARGIN — i.e. only when the squad has genuinely decayed enough to
-  be worth resetting — falling back to the last gameweek in the window if
-  never triggered, so the chip isn't wasted. Bench Boost is played the
-  gameweek immediately after Wildcard fires, when the whole squad (bench
-  included) is freshly optimized.
-  Free Hit: triggered when >= FREE_HIT_BLANK_THRESHOLD of the current squad
-  have no fixture that gameweek (a blank gameweek) — a full one-week-only
-  reoptimization that reverts to the pre-Free-Hit squad next gameweek.
+Chip schedule (fixed heuristic, avoids GW clashes):
+  Wildcard 1  -> GW8    Bench Boost 1 -> GW9
+  Wildcard 2  -> GW20   Bench Boost 2 -> GW21
   Triple Captain: played on the first gameweek in each half where the best
   available captain option is a forward with an easy fixture (FDR <= 2),
   per the "best strikers, easy game" brief — falls back to the best
@@ -51,19 +44,11 @@ SEASON = "2025-26"
 PRIOR_SEASON = "2024-25"
 STARTING_BUDGET = 1000  # £100.0m, in tenths
 
+WILDCARD_GWS = {8, 20}
+BENCH_BOOST_GWS = {9, 21}
+CHIP_GWS = WILDCARD_GWS | BENCH_BOOST_GWS
 HALF1_LAST_GW = 19
 SEASON_LAST_GW = 38
-
-# Windows within which each half's Wildcard may be triggered.
-WC1_WINDOW = list(range(6, 11))   # GW6-10
-WC2_WINDOW = list(range(17, 22))  # GW17-21
-# A full reoptimization must beat the best normal transfer by at least this
-# many (decayed, horizon-summed) points to justify resetting the squad.
-WC_TRIGGER_MARGIN = 8
-
-# Free Hit fires when at least this many of the current squad have no
-# fixture that gameweek (community-standard threshold — see research.md).
-FREE_HIT_BLANK_THRESHOLD = 3
 
 # How many gameweeks ahead squad-construction decisions (initial squad,
 # wildcard, transfers) look when valuing a player — so the bot doesn't sell
@@ -94,13 +79,20 @@ def build_predictions(model) -> pd.DataFrame:
     season_order = {PRIOR_SEASON: 0, SEASON: 1}
     combined["season_order"] = combined["season"].map(season_order)
     combined = combined.sort_values(["name", "season_order", "GW"]).reset_index(drop=True)
+    grouped = combined.groupby("name", group_keys=False)
 
-    combined = train_model.add_rolling_features(combined, group_keys=("name",), presorted=True)
     for stat in train_model.ROLLING_STATS:
         for window in train_model.ROLLING_WINDOWS:
             col = f"{stat}_avg{window}"
+            combined[col] = grouped[stat].transform(
+                lambda s, w=window: s.shift(1).rolling(w, min_periods=1).mean()
+            )
             combined[col] = combined[col].fillna(0)  # rookies/new arrivals: no known history
 
+    combined = pd.get_dummies(combined, columns=["position"], prefix="position")
+    for col in ["position_DEF", "position_FWD", "position_GKP", "position_MID"]:
+        if col not in combined.columns:
+            combined[col] = 0
     combined["position_label"] = (
         combined[["position_GKP", "position_DEF", "position_MID", "position_FWD"]]
         .idxmax(axis=1).str.replace("position_", "", regex=False)
@@ -150,24 +142,6 @@ def with_horizon_points(model, predictions: pd.DataFrame, gw: int, gw_pool: pd.D
     pool = gw_pool.copy()
     pool["predicted_points"] = pool["element"].map(horizon_scores).fillna(pool["predicted_points"])
     return pool
-
-
-def normal_transfer_search(
-    horizon_pool: pd.DataFrame, current_squad: pd.DataFrame, budget: int, free_transfers: int
-) -> tuple[int, float, pd.DataFrame]:
-    """Searches 0..min(free_transfers+2, 5) transfers, judged by lookahead value minus hit cost."""
-    current_ids = set(current_squad["element"])
-    current_horizon = attach_this_week(current_ids, current_squad, horizon_pool)
-    best_k, best_net, best_squad = 0, current_horizon["predicted_points"].sum(), current_squad
-    for k in range(1, min(free_transfers + 2, 5) + 1):
-        candidate = select_squad(horizon_pool, budget=budget, current_ids=current_ids, max_changes=k)
-        if candidate is None:
-            continue
-        resolved = attach_this_week(set(candidate["element"]), current_squad, horizon_pool)
-        net = resolved["predicted_points"].sum() - 4 * max(0, k - free_transfers)
-        if net > best_net:
-            best_k, best_net, best_squad = k, net, candidate
-    return best_k, best_net, best_squad
 
 
 def squad_value(current_squad: pd.DataFrame, gw_pool: pd.DataFrame) -> int:
@@ -241,10 +215,6 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
     current_squad = None
     free_transfers = 1
     tc_used = {1: False, 2: False}
-    wc_used = {1: False, 2: False}
-    bb_used = {1: False, 2: False}
-    fh_used = {1: False, 2: False}
-    bb_pending_gw = None
     season_total = 0
     log = []
 
@@ -256,46 +226,35 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
         hits = 0
         chip = None
         horizon_pool = with_horizon_points(model, predictions, gw, gw_pool)
-        half = 1 if gw <= HALF1_LAST_GW else 2
 
         if gw == 1:
             squad = select_squad(horizon_pool, budget=STARTING_BUDGET)
             transfers_made = 0
+        elif gw in WILDCARD_GWS:
+            budget = squad_value(current_squad, gw_pool)
+            squad = select_squad(horizon_pool, budget=budget)
+            transfers_made = None
+            chip = "Wildcard"
         else:
             budget = squad_value(current_squad, gw_pool)
             current_ids = set(current_squad["element"])
-            blanked_count = len(current_ids - set(gw_pool["element"]))
-            norm_k, norm_net, norm_squad = normal_transfer_search(horizon_pool, current_squad, budget, free_transfers)
-
-            if bb_pending_gw == gw and not bb_used[half]:
-                squad, transfers_made, hits = norm_squad, norm_k, max(0, norm_k - free_transfers)
+            current_horizon = attach_this_week(current_ids, current_squad, horizon_pool)
+            best_k, best_net, best_squad = 0, current_horizon["predicted_points"].sum(), current_squad
+            for k in range(1, min(free_transfers + 2, 5) + 1):
+                candidate = select_squad(horizon_pool, budget=budget, current_ids=current_ids, max_changes=k)
+                if candidate is None:
+                    continue
+                # Judge the transfer by its lookahead value (worth a hit only if the gain
+                # over the next LOOKAHEAD_GWS gameweeks outweighs the -4), not just this week.
+                resolved = attach_this_week(set(candidate["element"]), current_squad, horizon_pool)
+                net = resolved["predicted_points"].sum() - 4 * max(0, k - free_transfers)
+                if net > best_net:
+                    best_k, best_net, best_squad = k, net, candidate
+            squad = best_squad
+            transfers_made = best_k
+            hits = max(0, best_k - free_transfers)
+            if gw in BENCH_BOOST_GWS:
                 chip = "Bench Boost"
-                bb_used[half] = True
-                bb_pending_gw = None
-            elif blanked_count >= FREE_HIT_BLANK_THRESHOLD and not fh_used[half]:
-                fh_squad = select_squad(gw_pool, budget=budget)
-                if fh_squad is not None:
-                    squad, transfers_made, hits = fh_squad, "FH", 0
-                    chip = "Free Hit"
-                    fh_used[half] = True
-                else:
-                    squad, transfers_made, hits = norm_squad, norm_k, max(0, norm_k - free_transfers)
-            else:
-                window = WC1_WINDOW if half == 1 else WC2_WINDOW
-                full_reopt = select_squad(horizon_pool, budget=budget) if not wc_used[half] and gw in window else None
-                if full_reopt is not None:
-                    full_resolved = attach_this_week(set(full_reopt["element"]), current_squad, horizon_pool)
-                    full_value = full_resolved["predicted_points"].sum()
-                    is_last_in_window = gw == window[-1]
-                    if (full_value - norm_net) >= WC_TRIGGER_MARGIN or is_last_in_window:
-                        squad, transfers_made, hits = full_reopt, None, 0
-                        chip = "Wildcard"
-                        wc_used[half] = True
-                        bb_pending_gw = gw + 1
-                    else:
-                        squad, transfers_made, hits = norm_squad, norm_k, max(0, norm_k - free_transfers)
-                else:
-                    squad, transfers_made, hits = norm_squad, norm_k, max(0, norm_k - free_transfers)
 
         squad_ids = set(squad["element"])
         squad_resolved = attach_this_week(squad_ids, current_squad if current_squad is not None else squad, gw_pool)
@@ -303,6 +262,7 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
         captain_id, vice_id = pick_captains(xi)
 
         # Triple Captain: online decision using only this gameweek's predictions.
+        half = 1 if gw <= HALF1_LAST_GW else 2
         last_chance = (half == 1 and gw == HALF1_LAST_GW) or (half == 2 and gw == SEASON_LAST_GW)
         tc_this_week = False
         if chip is None and not tc_used[half]:
@@ -345,11 +305,8 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
                   + (f"  [{chip}]" if chip else "")
                   + (f"  transfers={transfers_made} hits={hits}" if isinstance(transfers_made, int) and transfers_made else ""))
 
-        if chip != "Free Hit":
-            # Free Hit's squad is temporary — reverts to the pre-Free-Hit squad next gameweek.
-            current_squad = squad_resolved[["element", "name", "team", "position_label", "value"]].copy()
-
-        if gw == 1 or chip in ("Wildcard", "Free Hit"):
+        current_squad = squad_resolved[["element", "name", "team", "position_label", "value"]].copy()
+        if gw == 1 or gw in WILDCARD_GWS:
             pass  # doesn't touch banked free transfers
         else:
             used_free = min(transfers_made, free_transfers)
