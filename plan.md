@@ -227,6 +227,28 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 
 ---
 
+> [!IMPORTANT]
+> **The placebo/noise-floor test.** Changed nothing except the model's random seed (42 → 43 — a functionally meaningless perturbation, same features, same data, same architecture) and reran the full multi-season backtest:
+>
+> | Season | Corrected baseline (seed 42) | Placebo (seed 43) | Pure noise |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2040 | 2054 | +14 |
+> | 2024-25 | 2118 | 2084 | -34 |
+> | 2025-26 | 2058 | 2030 | -28 |
+>
+> So the genuine noise floor for a season-total score, given nothing meaningfully changed, is roughly **±15 to ±35 points**. Reverted immediately after measuring — seed 43 was never meant for `main`.
+>
+> **Recalibrating every prior result against this floor** (using the pre-chip-fix baseline numbers each experiment was actually measured against, since that's what's comparable):
+>
+> - **Attempt 7** (0, 0, 0): a real, exact null — trivially below the noise floor, as expected (it's a provable no-op, not a measurement).
+> - **Attempts 5 and 6** (-15/-76/0 and -12/-70/0): the 2024-25 swing (-70 to -76) is roughly **2-5x the largest noise swing observed** — very likely a real effect, not noise. The 2023-24 figures (-12 to -15) and the 2025-26 zeros sit at or within the noise band and shouldn't be over-interpreted on their own — but they don't need to be, since 2024-25 alone is enough to trust the "this regressed" conclusion.
+> - **Attempt 8** (-6/-91/-33): the 2024-25 figure (-91) is far beyond the noise floor. The 2025-26 figure (-33) sits right at the edge of the noise band — plausibly a mix of real effect and noise. The 2023-24 figure (-6) is well within noise and shouldn't be treated as evidence either way.
+> - **Attempt 4** (-80/+81/-34, pre-chip-fix baseline): both the -80 and +81 are well beyond the noise floor, in *opposite* directions — a genuinely mixed, real effect, not noise. The 2025-26 figure (-34) sits at the noise floor's edge.
+>
+> **Bottom line: the noise floor is real and non-trivial (~15-35 points), but most of the larger swings across attempts 4-8 — especially the 2024-25 results — are still comfortably distinguishable from it.** The core conclusions (regressions in 4, 5, 6, 8; a genuine null in 7) survive this check. What the noise floor *does* invalidate is treating any single season's ±10-35 point figure as meaningful on its own — several individual per-season numbers in this plan (e.g. attempt 8's 2023-24 result) should be read as "not distinguishable from noise," not as evidence of a small real effect. Future attempts should be judged the same way: a swing has to clear roughly ±35 points in a season to be trusted as more than noise, not just be non-zero.
+
+---
+
 > [!TIP]
 > [sertalpbilal/FPL-Optimization-Tools](https://github.com/sertalpbilal/FPL-Optimization-Tools) (HiGHS solver via `sasoptpy`) remains a good reference for going further — e.g. true rolling-horizon lookahead (planning transfers *ahead* of the gameweek they're needed) rather than this project's greedy week-by-week approach.
 
