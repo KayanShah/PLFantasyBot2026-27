@@ -175,7 +175,24 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 >
 > Directionally correct — a stricter bar causes less damage, exactly as the fifth attempt's reasoning predicted — but still a net regression overall (6263 → 6181, worse in 2 of 3 seasons). Reverted; not on `main`.
 >
-> **Where this leaves things:** every threshold tried for a *pre-emptive, decision-time-only* XI/captaincy filter has been neutral-to-negative, because it's competing against a strictly better signal the simulation already has for free — the *actual, certain* outcome via auto-subs and vice-captain fallback. Tightening the threshold further would presumably keep approaching (but not exceed) the baseline as it excludes fewer and fewer players. This line of attempts (4th, 5th, 6th) is now reasonably exhausted for *this* application of the data (XI/captaincy). The unexplored, more promising application — informing which players to transfer in/out or wildcard onto the squad in the first place, where there's no reactive fallback mechanism already covering for a bad pick — remains open for a future attempt.
+> **Where this leaves things:** every threshold tried for a *pre-emptive, decision-time-only* XI/captaincy filter has been neutral-to-negative, because it's competing against a strictly better signal the simulation already has for free — the *actual, certain* outcome via auto-subs and vice-captain fallback. Tightening the threshold further would presumably keep approaching (but not exceed) the baseline as it excludes fewer and fewer players — confirmed directly by the seventh attempt below.
+
+---
+
+> [!NOTE]
+> **A seventh attempt tested the limiting case of attempt six's own logic: a signal that's (almost) never wrong instead of just "less wrong."** A red card is a near-certain suspension next gameweek — verified against real data first, not assumed: 79-96% of red-carded players got 0 minutes the following gameweek across three separate seasons (53/55 in 2023-24 alone). Unlike the probabilistic `chance_of_playing` field, this needed no external data at all — `red_cards` was already in the historical dataset from day one. Applied the same way as attempts 5-6 (decision-time-only, never fed to the model): never start or captain someone sent off last gameweek.
+>
+> | Season | Baseline (validated) | + red-card suspension filter |
+> | --- | --- | --- |
+> | 2023-24 | 2056 | 2056 (**exactly identical**) |
+> | 2024-25 | 2149 | 2149 (**exactly identical**) |
+> | 2025-26 | 2058 | 2058 (**exactly identical**) |
+>
+> A perfect null across all three seasons — not a regression (unlike attempts 4-6), but no improvement either. This is the cleanest possible confirmation of the theory from attempts 5-6: because red cards are *near*-certain, the pre-emptive filter and the reactive auto-sub/vice-captain fallback reach the *same* conclusion almost every time, so there's no downside (nothing gets wrongly guessed) but also no upside (auto-subs already caught these cases for free). Reverted — not because it hurt, but because it's provably dead code with zero behavioral effect, not worth the added complexity.
+>
+> **Open thread for a future attempt:** this only checked the immediately preceding gameweek, but serious-offense red cards carry 3-match bans, not 1 — a player suspended for games 2-3 of a longer ban wouldn't be caught by this check, and *that* case might not be covered by auto-subs either if the bot doesn't realize the ban is still active. Worth trying a 2-3 gameweek lookback specifically for that scenario.
+>
+> **The throughline across attempts 4-7:** every attempt to use injury/suspension data for *starting-XI or captaincy* selection on an already-fixed squad has landed somewhere between neutral and negative, because the simulation's existing auto-sub/vice-captain-fallback logic already captures most of the achievable value there for free. The unexplored, more promising application remains **transfer/wildcard decisions** — informing which players to own in the first place, where no equivalent free correction exists.
 
 ---
 
