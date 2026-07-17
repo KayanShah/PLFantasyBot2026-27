@@ -101,6 +101,21 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 
 ---
 
+> [!WARNING]
+> **A second attempt — full xG/xA/xG-conceded/starts/saves features, chip timing left untouched this time to isolate the cause — was also tried and reverted, this time validated across all 3 seasons from the start:**
+>
+> | Season | Baseline (validated) | + xG/xA/starts/saves |
+> | --- | --- | --- |
+> | 2023-24 | 2056 (+53 vs avg) | 1956 (**-47** vs avg) |
+> | 2024-25 | 2149 (+141 vs avg) | 1957 (**-51** vs avg) |
+> | 2025-26 | 2058 (+163 vs avg) | 1912 (+17 vs avg) |
+>
+> This regressed **consistently across all three independent seasons** — a much stronger, more confident negative result than the first attempt, since it isn't attributable to single-season noise. Most likely explanation: xG/xA/starts are highly correlated with signals the model already derives from `ict_index`/`threat`/`creativity`/`minutes`, and adding more correlated-but-noisier columns diluted the model rather than sharpening it. Reverted; not on `main`.
+>
+> **Takeaway for future attempts:** "more stats" isn't automatically better for a tree-based model already using strong composite features (ICT index already blends a lot of this signal) — the real gap is more likely in the *structure* of the model (e.g. a genuinely separate minutes/rotation-risk model, not just another input column) than in adding more raw columns to the existing one.
+
+---
+
 > [!TIP]
 > [sertalpbilal/FPL-Optimization-Tools](https://github.com/sertalpbilal/FPL-Optimization-Tools) (HiGHS solver via `sasoptpy`) remains a good reference for going further — e.g. true rolling-horizon lookahead (planning transfers *ahead* of the gameweek they're needed) rather than this project's greedy week-by-week approach.
 
