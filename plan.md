@@ -143,9 +143,39 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 > | 2024-25 | 2149 (+141 vs avg) | 2230 (**+222** vs avg) |
 > | 2025-26 | 2058 (+163 vs avg) | 2024 (+129 vs avg) |
 >
-> Single-gameweek prediction accuracy genuinely improved a lot from this feature — MAE 0.991 → **0.942**, the largest gain of any feature tried, with `availability` landing 5th in feature importance. But the full-season result was still mixed and net negative (6263 → 6230 total, 2 of 3 seasons worse). Most likely explanation: the MAE gain mostly comes from correctly predicting ~0 points for players the model already wouldn't have picked anyway (their cratered recent form already signals it), so it doesn't change many actual transfer/lineup decisions — while the hard `<50%` exclusion rule occasionally cuts off a viable pick too aggressively. Reverted; not on `main`.
+> Single-gameweek prediction accuracy genuinely improved a lot from this feature — MAE 0.991 → **0.942**, the largest gain of any feature tried, with `availability` landing 5th in feature importance. **Checked, not assumed:** splitting the test set into squad-relevant players (top 150 predicted/GW) vs. fringe players showed the MAE gain is real for both groups (+0.067 relevant, +0.045 fringe) — so "it's just free MAE from players nobody would pick anyway" is **not** the explanation; the model is genuinely better once it knows injury status. But the full-season result was still mixed and net negative (6263 → 6230 total, 2 of 3 seasons worse). Reverted; not on `main`. See the fifth attempt below for what actually explains the gap.
 >
-> **What was kept regardless:** `model/fetch_availability_data.py` and `data/historical/*/availability.csv` — genuine, hard-won historical injury data that didn't exist anywhere in this project before, fetched individually per gameweek (no bulk repo clone) via a single Git Trees API call plus ~190 small on-demand downloads. This is infrastructure worth having even though this particular integration didn't pay off — a future attempt could try the feature and the hard filter *separately* (multi-season-validated independently) rather than both at once, since it's not clear from this result which of the two actually helped 2024-25 and hurt 2023-24.
+> **What was kept regardless:** `model/fetch_availability_data.py` and `data/historical/*/availability.csv` — genuine, hard-won historical injury data that didn't exist anywhere in this project before, fetched individually per gameweek (no bulk repo clone) via a single Git Trees API call plus ~190 small on-demand downloads.
+
+---
+
+> [!WARNING]
+> **A fifth attempt isolated the two pieces of the fourth: real availability data used *only* as a decision-time filter for starting-XI/captaincy (never fed to the model as a training feature this time)** — so it can't affect predicted points at all, only which of an already-owned 15 gets started:
+>
+> | Season | Baseline (validated) | + isolated XI/captaincy filter only |
+> | --- | --- | --- |
+> | 2023-24 | 2056 (+53 vs avg) | 2041 (**-15**) |
+> | 2024-25 | 2149 (+141 vs avg) | 2073 (**-76**) |
+> | 2025-26 | 2058 (+163 vs avg) | 2058 (**exactly identical**) |
+>
+> The 2025-26 result being *exactly* unchanged (verified: zero cases of a flagged low-availability player actually being started) revealed something important: the simulation already has two after-the-fact corrections for blanked players — **auto-subs** (any starter with 0 real minutes gets swapped for a bench player who played) and **vice-captain fallback** (if the captain gets 0 minutes, the vice's score is used instead). A *pre-emptive* injury filter mostly duplicates what these reactive mechanisms already do. Where it differs — 2023-24 and 2024-25 — it's a **regression**, because `chance_of_playing < 50%` still means up to a 49% chance the player *does* play; pre-emptively benching them on that probability sometimes swaps away from someone who ends up playing and scoring, into a bench option who then blanks. Auto-subs only ever act on the *certain, real* outcome (0 actual minutes), which is a strictly better signal than a pre-game probability. Reverted; not on `main`.
+>
+> **This resolves the open question from the fourth attempt:** the fourth attempt's net-negative result isn't fully explained by "double-penalty" as first guessed — this fifth attempt shows the filter alone is *already* mildly negative on its own, before even combining with the model feature. The real opportunity for this data, per both attempts, is informing **transfer/wildcard decisions** (who to own in the first place) rather than XI selection on an already-fixed squad, where the existing auto-sub/vice-captain logic already covers most of the value.
+
+---
+
+> [!WARNING]
+> **A sixth attempt raised the exclusion bar** — only bench someone if there's a **>75% chance they're out** (`chance_of_playing < 25`, not `< 50` as in the fifth attempt), on the reasoning that a coin-flip-ish 50% doubt shouldn't override the model's own judgement, only a near-certain absence should:
+>
+> | Season | Baseline (validated) | 50%-threshold (5th attempt) | 75%-out threshold (6th attempt) |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2056 | 2041 (-15) | 2044 (**-12**) |
+> | 2024-25 | 2149 | 2073 (-76) | 2079 (**-70**) |
+> | 2025-26 | 2058 | 2058 (0) | 2058 (**0**) |
+>
+> Directionally correct — a stricter bar causes less damage, exactly as the fifth attempt's reasoning predicted — but still a net regression overall (6263 → 6181, worse in 2 of 3 seasons). Reverted; not on `main`.
+>
+> **Where this leaves things:** every threshold tried for a *pre-emptive, decision-time-only* XI/captaincy filter has been neutral-to-negative, because it's competing against a strictly better signal the simulation already has for free — the *actual, certain* outcome via auto-subs and vice-captain fallback. Tightening the threshold further would presumably keep approaching (but not exceed) the baseline as it excludes fewer and fewer players. This line of attempts (4th, 5th, 6th) is now reasonably exhausted for *this* application of the data (XI/captaincy). The unexplored, more promising application — informing which players to transfer in/out or wildcard onto the squad in the first place, where there's no reactive fallback mechanism already covering for a bad pick — remains open for a future attempt.
 
 ---
 
