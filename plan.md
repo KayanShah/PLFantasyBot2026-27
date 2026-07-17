@@ -196,6 +196,23 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 
 ---
 
+> [!WARNING]
+> **An eighth attempt finally moved the data to that unexplored application — transfer/wildcard value, not XI/captaincy — and it was still a net regression, this time consistently across all three seasons rather than mixed.** A player's *current* gameweek's real chance-of-playing scaled their contribution to their horizon score (the multi-gameweek value used only for initial-squad/wildcard/transfer decisions) as a **soft, proportional expected-value discount** (a 60%-fit player contributes 60% of their predicted points), not a hard yes/no cutoff like attempts 5-6 — a genuinely different mechanism, deliberately kept away from XI/captaincy this time. Future weeks in the horizon (h ≥ 1) were left undiscounted, since a real manager doesn't know next month's fitness news any more than the bot does.
+>
+> | Season | Baseline (validated) | + transfer/wildcard availability discount |
+> | --- | --- | --- |
+> | 2023-24 | 2056 | 2050 (**-6**) |
+> | 2024-25 | 2149 | 2058 (**-91**) |
+> | 2025-26 | 2058 | 2025 (**-33**) |
+>
+> Worse in **all three** seasons (total 6263 → 6133, down 130) — the most consistently negative result of any attempt so far, even though no single season's drop is as large as some earlier ones. Reverted; not on `main`.
+>
+> **Working hypothesis, not fully verified (time-boxed, unlike some earlier root-causes in this plan):** discounting only the *current* week while leaving the next 4 gameweeks undiscounted creates an inconsistency — a player with a minor, temporary knock (say 80% this week, back to 100% next week) gets just enough of a horizon-score dip to occasionally tip a marginal transfer-or-hold decision toward selling, but not enough to reflect that they'll likely be fine again in a week. Since this re-evaluates fresh every gameweek, a transient dip could plausibly cause the bot to sell low and want to buy back a gameweek later — spending a real transfer (or a `-4` hit) reacting to noise that would have resolved itself for free. This wasn't directly measured (e.g. counting extra transfers/hits attributable to availability swings) before reverting, so treat it as the leading hypothesis, not a confirmed cause.
+>
+> **Where this leaves the whole line of experiments (4-8):** every application of real injury/suspension data tried so far — hard XI filters at two thresholds, a near-certain suspension filter, a model feature, and now a soft transfer-value discount — has landed neutral-to-negative. That's a real, useful finding in itself: this project's existing mechanisms (auto-subs, vice-captain fallback, and the model's own rolling-minutes features already discounting out-of-form players) apparently capture most of the achievable value from "knowing about injuries" already, at least for the specific mechanisms tried. A genuinely new angle — not yet tried — would be needed to beat that: e.g. weighting the discount by *time until the next gameweek* (a knock reported 3 days before deadline is more informative than one reported 3 weeks out), or only discounting when a transfer is already otherwise attractive rather than always applying it.
+
+---
+
 > [!TIP]
 > [sertalpbilal/FPL-Optimization-Tools](https://github.com/sertalpbilal/FPL-Optimization-Tools) (HiGHS solver via `sasoptpy`) remains a good reference for going further — e.g. true rolling-horizon lookahead (planning transfers *ahead* of the gameweek they're needed) rather than this project's greedy week-by-week approach.
 
