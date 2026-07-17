@@ -26,6 +26,7 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 - [ ] **Gameweek history scraper** — per-player, per-gameweek point breakdowns via `element-summary/{id}/`, so the model has granular training rows, not just season totals.
 - [x] **Historical seasons loader** — ingest [vaastav's historical dataset](https://github.com/vaastav/Fantasy-Premier-League) so the model trains on multiple past seasons, not just the current one. ([`model/fetch_historical_data.py`](model/fetch_historical_data.py))
 - [ ] **xG/xA feature** — tried using FPL's own `expected_goal_involvements` (2022-23 onward) instead of a separate Understat scraper, reverted along with the Phase 4 regression. The "use FPL's own field, skip scraping Understat" approach is still sound; worth retrying with multi-season validation.
+- [x] **Historical injury/availability data** — the vaastav dataset has none (it records what *happened*, not what was known beforehand); fetched real point-in-time `status`/`chance_of_playing` from [Randdalf/fplcache](https://github.com/Randdalf/fplcache)'s 4x-daily archive of FPL's live API. ([`model/fetch_availability_data.py`](model/fetch_availability_data.py)) — feature itself tried and reverted (see Phase 4), but the data and fetcher are kept as a foundation.
 - [ ] **Storage layer** — decide how scraped data persists (flat CSV/Parquet files vs. a local SQLite/Postgres DB). A local DB pays off once multiple scrapers need to join on player/team/gameweek keys.
 
 > [!TIP]
@@ -130,6 +131,21 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 > Three changes were bundled together in this attempt, so the specific cause isn't isolated — a mistake this plan has flagged before (see the first reverted experiment above) and repeated here under time pressure. The Triple Captain fix along the way *is* correct and worth knowing regardless of the overall revert: the first version incorrectly fired the chip before a double gameweek arrived; the corrected version makes the bot wait, since the fixture schedule (unlike results) is legitimately public knowledge in advance — this logic is sound, just bundled with two other changes that muddy attribution of the net result.
 >
 > **Takeaway:** the 2023-24 improvement is a real, interesting signal that full-season lookahead *can* help — but bundling it with the DGW-TC fix and the availability proxy makes it impossible to tell whether lookahead, DGW-TC, availability, or some interaction between them is driving the 2024-25/2025-26 regression. Retrying each change in isolation, multi-season-validated one at a time, is the correct next step rather than reverting the whole idea.
+
+---
+
+> [!WARNING]
+> **A fourth attempt, isolating the availability piece from the third: real historical injury/availability data** (not a proxy this time — see [`model/fetch_availability_data.py`](model/fetch_availability_data.py), sourced from [Randdalf/fplcache](https://github.com/Randdalf/fplcache), which has archived FPL's live API 4x/day since April 2021) **was fetched, added as a genuine model feature, and used as a hard `<50%`-chance exclusion rule for starting XI/captaincy — also reverted:**
+>
+> | Season | Baseline (validated) | + real availability data |
+> | --- | --- | --- |
+> | 2023-24 | 2056 (+53 vs avg) | 1976 (**-80** vs avg — below average) |
+> | 2024-25 | 2149 (+141 vs avg) | 2230 (**+222** vs avg) |
+> | 2025-26 | 2058 (+163 vs avg) | 2024 (+129 vs avg) |
+>
+> Single-gameweek prediction accuracy genuinely improved a lot from this feature — MAE 0.991 → **0.942**, the largest gain of any feature tried, with `availability` landing 5th in feature importance. But the full-season result was still mixed and net negative (6263 → 6230 total, 2 of 3 seasons worse). Most likely explanation: the MAE gain mostly comes from correctly predicting ~0 points for players the model already wouldn't have picked anyway (their cratered recent form already signals it), so it doesn't change many actual transfer/lineup decisions — while the hard `<50%` exclusion rule occasionally cuts off a viable pick too aggressively. Reverted; not on `main`.
+>
+> **What was kept regardless:** `model/fetch_availability_data.py` and `data/historical/*/availability.csv` — genuine, hard-won historical injury data that didn't exist anywhere in this project before, fetched individually per gameweek (no bulk repo clone) via a single Git Trees API call plus ~190 small on-demand downloads. This is infrastructure worth having even though this particular integration didn't pay off — a future attempt could try the feature and the hard filter *separately* (multi-season-validated independently) rather than both at once, since it's not clear from this result which of the two actually helped 2024-25 and hurt 2023-24.
 
 ---
 

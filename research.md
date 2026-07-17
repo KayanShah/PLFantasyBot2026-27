@@ -51,7 +51,8 @@ Community wrappers worth using instead of hand-rolling HTTP calls: the [`fpl` Py
 
 ### 2.2 Historical Data
 
-- **[vaastav/Fantasy-Premier-League](https://github.com/vaastav/Fantasy-Premier-League)** — the standard historical dataset. Season-by-season and gameweek-by-gameweek CSVs of every player's points, minutes, ICT stats, etc., going back several seasons. Ideal for training a points-prediction model since the live API only exposes the current season well.
+- **[vaastav/Fantasy-Premier-League](https://github.com/vaastav/Fantasy-Premier-League)** — the standard historical dataset. Season-by-season and gameweek-by-gameweek CSVs of every player's points, minutes, ICT stats, etc., going back several seasons. Ideal for training a points-prediction model since the live API only exposes the current season well. Notably missing: any historical injury/availability data (see below) — it records what *happened* in a match, not what was known about a player's fitness beforehand.
+- **[Randdalf/fplcache](https://github.com/Randdalf/fplcache)** — solves the above gap. Archives FPL's live `bootstrap-static` endpoint 4x/day since April 2021, so for any past gameweek you can find the nearest pre-deadline snapshot and read that player's actual `status`/`chance_of_playing_next_round` *as it was known at the time* — real, leakage-free historical injury data, not a proxy. Used in [`model/fetch_availability_data.py`](model/fetch_availability_data.py).
 
 ### 2.3 Advanced Underlying Stats (xG, xA, etc.)
 
