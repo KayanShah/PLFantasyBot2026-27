@@ -19,17 +19,22 @@ your best lineup *this* week regardless of the run of form ahead.
 Rules encoded (see FantasyRules.md):
   - 15-man squad: 2 GKP / 5 DEF / 5 MID / 3 FWD, <=3 players/club, £100.0m budget.
   - 1 free transfer/gameweek, rolling over up to 5; extra transfers cost -4 each.
-  - Two chip sets (2025-26): Wildcard, Bench Boost, Triple Captain per half.
-    (Free Hit is not simulated — kept out of scope for simplicity.)
+  - Wildcard: always 2 per season (one per half), every season. Bench Boost and
+    Triple Captain: 2 per season (one per half) ONLY from 2025/26 onward — every
+    prior season only had 1 of each for the whole season, not 1 per half (see
+    SEASONS_WITH_SECOND_CHIP_SET; verified against the official rule-change
+    announcement before fixing a bug where older seasons were simulated with
+    twice their real chip allowance). Free Hit is not simulated at all, any season.
   - Captain 2x, Triple Captain 3x, auto-subs for starters who didn't play.
 
 Chip schedule (fixed heuristic, avoids GW clashes):
-  Wildcard 1  -> GW8    Bench Boost 1 -> GW9
-  Wildcard 2  -> GW20   Bench Boost 2 -> GW21
-  Triple Captain: played on the first gameweek in each half where the best
-  available captain option is a forward with an easy fixture (FDR <= 2),
-  per the "best strikers, easy game" brief — falls back to the best
-  available option on the last gameweek of the half if never triggered.
+  Wildcard 1  -> GW8    Bench Boost 1 -> GW9 (every season)
+  Wildcard 2  -> GW20   Bench Boost 2 -> GW21 (2025/26+ only)
+  Triple Captain: played on the first gameweek in its eligibility window (the
+  whole season pre-2025/26, each half from 2025/26) where the best available
+  captain option is a forward with an easy fixture (FDR <= 2), per the "best
+  strikers, easy game" brief — falls back to the best available option on the
+  window's last gameweek if never triggered, so it isn't wasted.
 """
 
 import json
@@ -45,9 +50,14 @@ SEASON = "2025-26"
 PRIOR_SEASON = "2024-25"
 STARTING_BUDGET = 1000  # £100.0m, in tenths
 
+# Wildcard has always been 2-per-season (one per half). Free Hit, Bench Boost,
+# and Triple Captain getting a SECOND copy is new for 2025/26 — every prior
+# season only had 1 of each for the whole season, not 1 per half. Verified
+# against https://www.premierleague.com/en/news/4362027 before fixing this;
+# simulating 2 of each for older seasons overstated the bot's edge there.
+SEASONS_WITH_SECOND_CHIP_SET = {"2025-26"}
+
 WILDCARD_GWS = {8, 20}
-BENCH_BOOST_GWS = {9, 21}
-CHIP_GWS = WILDCARD_GWS | BENCH_BOOST_GWS
 HALF1_LAST_GW = 19
 SEASON_LAST_GW = 38
 
@@ -241,6 +251,10 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
     fwd_threshold = predictions.loc[predictions["position_label"] == "FWD", "predicted_points"].quantile(0.90)
     log_print(f"Triple Captain trigger threshold (90th percentile FWD prediction): {fwd_threshold:.2f}\n")
 
+    has_second_chip_set = SEASON in SEASONS_WITH_SECOND_CHIP_SET
+    bench_boost_gws = {9, 21} if has_second_chip_set else {9}
+    log_print(f"Chip rules this season: {'two sets (2025/26+)' if has_second_chip_set else 'one set (pre-2025/26)'}\n")
+
     team_names = load_team_names()
     gameweeks = sorted(predictions["GW"].unique())
     current_squad = None
@@ -285,7 +299,7 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
             squad = best_squad
             transfers_made = best_k
             hits = max(0, best_k - free_transfers)
-            if gw in BENCH_BOOST_GWS:
+            if gw in bench_boost_gws:
                 chip = "Bench Boost"
 
         squad_ids = set(squad["element"])
@@ -294,8 +308,11 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
         captain_id, vice_id = pick_captains(xi)
 
         # Triple Captain: online decision using only this gameweek's predictions.
-        half = 1 if gw <= HALF1_LAST_GW else 2
-        last_chance = (half == 1 and gw == HALF1_LAST_GW) or (half == 2 and gw == SEASON_LAST_GW)
+        # Pre-2025/26 seasons only ever had one Triple Captain for the whole season
+        # (see SEASONS_WITH_SECOND_CHIP_SET) — treat the whole season as "half 1" then.
+        half = (1 if gw <= HALF1_LAST_GW else 2) if has_second_chip_set else 1
+        half_end = (HALF1_LAST_GW if half == 1 else SEASON_LAST_GW) if has_second_chip_set else SEASON_LAST_GW
+        last_chance = gw == half_end
         tc_this_week = False
         if chip is None and not tc_used[half]:
             easy_fwds = xi[(xi["position_label"] == "FWD") & (xi["difficulty"] <= 2)]

@@ -66,7 +66,7 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 - [x] Implement the core **ILP squad selector**: given predicted points + budget/formation/club-limit constraints, output the best legal 15-man squad and starting XI + captain. ([`model/optimizer.py`](model/optimizer.py), via `scipy.optimize.milp`)
 - [x] Extend to **multi-gameweek transfer planning** — re-solved every gameweek across a full season simulation, not single-gameweek-only. Squad-construction decisions (initial squad, wildcard, transfers) value players over the next 5 gameweeks (frozen current form + each future week's already-published fixture/difficulty — schedule facts, not result lookahead), not just the immediate week. ([`model/simulate_season.py`](model/simulate_season.py))
 - [x] Add **transfer-hit logic** (-4 points) — searches 0..min(free transfers + 2, 5) transfers each week and only takes hits when the net *lookahead* gain outweighs the cost, with an exponential confidence discount (`LOOKAHEAD_DECAY = 0.85` per week ahead) so distant, less-trustworthy predictions can't inflate a hit's apparent value.
-- [x] Add **chip-timing logic** for Wildcard / Bench Boost / Triple Captain (fixed heuristic weeks for WC/BB, online threshold rule for Triple Captain — "best striker, easy fixture"). **Free Hit is not simulated** — tried and reverted (see below).
+- [x] Add **chip-timing logic** for Wildcard / Bench Boost / Triple Captain (fixed heuristic weeks for WC/BB, online threshold rule for Triple Captain — "best striker, easy fixture"), **season-aware since a real bug fix**: Wildcard has always been 2/season, but Bench Boost and Triple Captain only became 2/season (one per half) from 2025/26 onward — every earlier season only had 1 of each for the whole season. Simulating 2/each for older seasons was a real bug that inflated their results (see the correction note below). **Free Hit is not simulated** — tried and reverted (see below).
 - [x] Validate every output squad against [FantasyRules.md](FantasyRules.md) constraints — enforced directly as ILP constraints, not checked after the fact.
 
 > [!IMPORTANT]
@@ -87,13 +87,15 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 >
 > | Season | Bot | Avg Manager | Diff |
 > | --- | --- | --- | --- |
-> | 2023-24 | 2056 | 2003 | +53 |
-> | 2024-25 | 2149 | 2008 | +141 |
+> | 2023-24 | 2040 | 2003 | +37 |
+> | 2024-25 | 2118 | 2008 | +110 |
 > | 2025-26 | 2058 | 1895 | +163 |
 >
 > Average-manager totals for past seasons aren't available from the live FPL API once a season ends (it only serves the current season), so these were pulled from [Wayback Machine](https://web.archive.org/) snapshots of `bootstrap-static` taken at each season's end: [2022-23](http://web.archive.org/web/20230611030006/https://fantasy.premierleague.com/api/bootstrap-static/), [2023-24](http://web.archive.org/web/20240521000009/https://fantasy.premierleague.com/api/bootstrap-static/), [2024-25](http://web.archive.org/web/20250612210134/https://fantasy.premierleague.com/api/bootstrap-static/); summed each season's `events[].average_entry_score`.
 >
 > **This is the real validation the earlier single-season caution was waiting for** — the approach beats the average manager consistently across three independent seasons, not just a lucky one.
+>
+> **Correction (see below the 8 reverted experiments for the full writeup):** the 2023-24/2024-25 numbers above were originally 2056/2149 — both inflated by a real bug where the simulator gave the bot 2 Bench Boosts and 2 Triple Captains in seasons that historically only allowed 1 of each for the whole season (that rule only became 2-per-season from 2025/26 onward). Fixed; these are the corrected, accurate numbers. The bot still beats the average manager in every season under the correct rules, just by a smaller margin in the two older ones.
 
 ---
 
@@ -210,6 +212,18 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 > **Working hypothesis, not fully verified (time-boxed, unlike some earlier root-causes in this plan):** discounting only the *current* week while leaving the next 4 gameweeks undiscounted creates an inconsistency — a player with a minor, temporary knock (say 80% this week, back to 100% next week) gets just enough of a horizon-score dip to occasionally tip a marginal transfer-or-hold decision toward selling, but not enough to reflect that they'll likely be fine again in a week. Since this re-evaluates fresh every gameweek, a transient dip could plausibly cause the bot to sell low and want to buy back a gameweek later — spending a real transfer (or a `-4` hit) reacting to noise that would have resolved itself for free. This wasn't directly measured (e.g. counting extra transfers/hits attributable to availability swings) before reverting, so treat it as the leading hypothesis, not a confirmed cause.
 >
 > **Where this leaves the whole line of experiments (4-8):** every application of real injury/suspension data tried so far — hard XI filters at two thresholds, a near-certain suspension filter, a model feature, and now a soft transfer-value discount — has landed neutral-to-negative. That's a real, useful finding in itself: this project's existing mechanisms (auto-subs, vice-captain fallback, and the model's own rolling-minutes features already discounting out-of-form players) apparently capture most of the achievable value from "knowing about injuries" already, at least for the specific mechanisms tried. A genuinely new angle — not yet tried — would be needed to beat that: e.g. weighting the discount by *time until the next gameweek* (a knock reported 3 days before deadline is more informative than one reported 3 weeks out), or only discounting when a transfer is already otherwise attractive rather than always applying it.
+
+---
+
+> [!IMPORTANT]
+> **External review of attempts 1-8** (a "hard thinking" pass by another model, given the full context in [`HardThinkingPrompt.md`](HardThinkingPrompt.md)) surfaced two falsifiable claims and several concrete leads. Both claims were checked against the actual code/data before acting on either — one held up, one didn't:
+>
+> - **Claimed: auto-sub "leakage"** — that `apply_auto_subs` picks whichever bench player scored *most* in hindsight, giving the backtest an unrealistic advantage real managers don't have. **Checked against the code and this is not what it does**: the substitution loop breaks on the *first* eligible bench player while iterating in a fixed priority order (bench is ranked by `predicted_points` in `optimizer.pick_starting_xi`, decided *before* results are known), not the best-in-hindsight one. This already matches FPL's real first-eligible-in-order substitution rule. Not changed.
+> - **Claimed: the simulator gives every backtested season the same chip allowance as 2025/26.** **Checked against the official rules and this was correct** — see the correction above. Fixed.
+>
+> Concrete leads accepted and being worked through (in priority order): re-test attempt 4's model feature in complete isolation (no hard filter at all this time — the one combination never tried); investigate attempt 8's "sell-then-rebuy churn" hypothesis directly rather than leaving it unverified; check whether a price-timing angle is worth building (**precondition checked first, as suggested**: does a real availability flag actually predict a price drop in the next 2 gameweeks? Diluted to near-zero across the whole player pool, since most players are barely owned and can't move price regardless — but restricted to the top 10% most-owned players, flagged players lost **-0.27** in value over the next 2 gameweeks vs. **+0.05** for non-flagged ones. Real, meaningful effect for popular players specifically — worth pursuing); and building a placebo/noise-floor test (perturb something functionally meaningless — e.g. the model's random seed — and see how much the season score moves on its own, to judge whether the ±50-150 point swings seen across attempts 1-8 are distinguishable from noise at all, given only 3 validation seasons).
+>
+> The review's sharpest methodological point: **"better-or-equal across most of 3 seasons" passes about 50% of the time by pure chance under a true null effect** — this project's own validation bar has never been checked against a noise floor. The placebo test above is designed to establish exactly that before trusting any future attempt's multi-season result at face value.
 
 ---
 
