@@ -40,7 +40,8 @@ This project pulls data from the official FPL API and other sources, predicts pl
 | [`model/optimizer.py`](model/optimizer.py) | ILP squad selector + starting-XI/captain picker, enforcing every constraint in `FantasyRules.md`. |
 | [`model/simulate_season.py`](model/simulate_season.py) | Simulates managing a team through a full season gameweek-by-gameweek — transfers, chips, captaincy — using only pre-season-trained predictions. |
 | [`model/multi_season_backtest.py`](model/multi_season_backtest.py) | Runs the simulation across multiple seasons (each trained only on strictly earlier seasons) and compares against real average-manager totals. |
-| `data/` | Output from the scrapers (`fixtures.csv`, `fixtures.json`, `fpl.db`, `historical/`, `backtest_2025-26_predictions.csv`, `season_2025-26_simulation.csv`, `multi_season_backtest_results.csv`). |
+| [`website/build_site.py`](website/build_site.py) / [`website/index.html`](website/index.html) | Builds a self-contained, single-file website showing the bot's team for every 2025-26 gameweek — pitch view, captaincy, chips, difficulty-coded fixtures — scrollable gameweek by gameweek. |
+| `data/` | Output from the scrapers (`fixtures.csv`, `fixtures.json`, `fpl.db`, `historical/`, `backtest_2025-26_predictions.csv`, `season_2025-26_simulation.csv`, `season_2025-26_squads.json`, `multi_season_backtest_results.csv`). |
 | `requirements.txt` | Python dependencies. |
 
 ## Setup
@@ -82,7 +83,16 @@ Simulate managing a real team through the entire 2025-26 season:
 python3 model/simulate_season.py
 ```
 
-Picks a legal GW1 squad from scratch, then goes gameweek-by-gameweek making transfers (respecting free-transfer rollover and -4 hits), playing Wildcard/Bench Boost/Triple Captain at sensible points, and auto-subbing players who didn't play — using only predictions built from data available *before* each gameweek. Saves a gameweek-by-gameweek log to `data/season_2025-26_simulation.csv`.
+Picks a legal GW1 squad from scratch, then goes gameweek-by-gameweek making transfers (respecting free-transfer rollover and -4 hits), playing Wildcard/Bench Boost/Triple Captain at sensible points, and auto-subbing players who didn't play — using only predictions built from data available *before* each gameweek. Saves a gameweek-by-gameweek log to `data/season_2025-26_simulation.csv`, and full squad detail (every player, opponent, difficulty, captaincy) to `data/season_2025-26_squads.json`.
+
+View the team pick for every gameweek in a browser:
+
+```bash
+python3 website/build_site.py
+open website/index.html
+```
+
+Builds a single self-contained HTML file (no server needed) from `data/season_2025-26_squads.json` — a pitch-view layout you scroll through gameweek by gameweek, showing every starter and bench player with their opponent, fixture-difficulty colour coding, captain (C)/vice-captain (V)/triple-captain (3x) badges, and points scored. Rebuild it any time after re-running `simulate_season.py`.
 
 Validate across multiple seasons at once:
 

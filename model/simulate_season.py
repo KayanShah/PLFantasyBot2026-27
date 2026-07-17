@@ -32,6 +32,7 @@ Chip schedule (fixed heuristic, avoids GW clashes):
   available option on the last gameweek of the half if never triggered.
 """
 
+import json
 from pathlib import Path
 
 import numpy as np
@@ -63,6 +64,13 @@ LOOKAHEAD_GWS = 5
 LOOKAHEAD_DECAY = 0.85
 
 OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "season_2025-26_simulation.csv"
+SQUADS_OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "season_2025-26_squads.json"
+TEAMS_PATH = Path(__file__).resolve().parent.parent / "data" / "historical" / SEASON / "teams.csv"
+
+
+def load_team_names() -> dict[int, str]:
+    teams = pd.read_csv(TEAMS_PATH, encoding="utf-8", encoding_errors="ignore")
+    return dict(zip(teams["id"], teams["short_name"]))
 
 
 def build_predictions(model) -> pd.DataFrame:
@@ -197,6 +205,28 @@ def apply_auto_subs(xi: pd.DataFrame, bench: pd.DataFrame, gw_pool: pd.DataFrame
     return final_ids
 
 
+def player_entry(
+    row: pd.Series, gw_pool: pd.DataFrame, team_names: dict[int, str],
+    captain_id, vice_id, effective_captain_id, tc_this_week: bool,
+) -> dict:
+    points, minutes = real_outcome(row["element"], gw_pool)
+    opponent = team_names.get(row.get("opponent_team"), "—")
+    venue = "H" if row.get("was_home") == 1 else "A"
+    return {
+        "name": row["name"],
+        "team": row["team"],
+        "position": row["position_label"],
+        "opponent": f"{opponent} ({venue})" if row.get("opponent_team") else "-",
+        "difficulty": int(row["difficulty"]) if pd.notna(row.get("difficulty")) else None,
+        "points": int(points),
+        "played": bool(minutes > 0),
+        "is_captain": bool(row["element"] == captain_id),
+        "is_vice_captain": bool(row["element"] == vice_id),
+        "is_effective_captain": bool(row["element"] == effective_captain_id),
+        "is_triple_captain": bool(tc_this_week and row["element"] == effective_captain_id),
+    }
+
+
 def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = False) -> float:
     log_print = (lambda *a, **k: None) if quiet else print
 
@@ -211,12 +241,14 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
     fwd_threshold = predictions.loc[predictions["position_label"] == "FWD", "predicted_points"].quantile(0.90)
     log_print(f"Triple Captain trigger threshold (90th percentile FWD prediction): {fwd_threshold:.2f}\n")
 
+    team_names = load_team_names()
     gameweeks = sorted(predictions["GW"].unique())
     current_squad = None
     free_transfers = 1
     tc_used = {1: False, 2: False}
     season_total = 0
     log = []
+    squads_log = []
 
     for gw in gameweeks:
         gw_pool = predictions[predictions["GW"] == gw].copy()
@@ -285,6 +317,21 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
             if vice_mins > 0:
                 effective_captain, captain_pts = vice_id, vice_pts
 
+        squads_log.append({
+            "gw": int(gw),
+            "chip": chip or "",
+            "transfers": transfers_made if isinstance(transfers_made, int) else None,
+            "hits": hits,
+            "starting_xi": [
+                player_entry(row, gw_pool, team_names, captain_id, vice_id, effective_captain, tc_this_week)
+                for _, row in xi.iterrows()
+            ],
+            "bench": [
+                player_entry(row, gw_pool, team_names, captain_id, vice_id, effective_captain, tc_this_week)
+                for _, row in bench.iterrows()
+            ],
+        })
+
         multiplier = 3 if tc_this_week else 2
         starting_points = sum(real_outcome(e, gw_pool)[0] for e in final_xi_ids)
         gw_score = starting_points + captain_pts * (multiplier - 1)
@@ -295,6 +342,8 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
 
         gw_score -= 4 * hits
         season_total += gw_score
+        squads_log[-1]["gw_score"] = round(gw_score)
+        squads_log[-1]["season_total"] = round(season_total)
 
         log.append({
             "GW": gw, "chip": chip or "", "transfers": transfers_made, "hits": hits,
@@ -315,8 +364,13 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
     if not quiet:
         log_df = pd.DataFrame(log)
         log_df.to_csv(OUT_PATH, index=False)
+
+        with SQUADS_OUT_PATH.open("w", encoding="utf-8") as f:
+            json.dump({"season": SEASON, "final_score": round(season_total), "gameweeks": squads_log}, f, indent=2)
+
         print(f"\n=== Final season total: {season_total:.0f} points ===")
         print(f"Gameweek log saved -> {OUT_PATH}")
+        print(f"Squad-by-gameweek detail saved -> {SQUADS_OUT_PATH}")
 
     return season_total
 

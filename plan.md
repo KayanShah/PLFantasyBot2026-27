@@ -124,7 +124,7 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 ## Phase 5 — Automation & Interface
 
 - [ ] **Scheduled pipeline** — scrape → feature-build → predict → optimize, run automatically each gameweek before the transfer deadline.
-- [ ] **Output/reporting** — a simple weekly report (console output, file, or notification) showing recommended transfers, captain, and chip usage with reasoning.
+- [x] **Output/reporting** — [`website/build_site.py`](website/build_site.py) builds a self-contained, single-file website showing the bot's pick for every gameweek (pitch view, opponent, difficulty colour-coding, captaincy, chips) from the best validated simulation run. Currently a one-shot build from a completed season's log, not yet a live weekly report — see the scheduled-pipeline item above.
 - [ ] *(Optional)* **Live team sync** — authenticate against your own FPL team via `/my-team/{manager_id}/` to compare the bot's recommendation against your actual squad.
 - [ ] *(Optional)* **Auto-apply transfers** — only if you're comfortable letting the bot act without a manual approval step; recommend keeping a human-in-the-loop confirmation initially.
 
