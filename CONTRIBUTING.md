@@ -2,6 +2,8 @@
 
 Thanks for taking an interest in this project. It's a hobby build, but the bar for changes is real — the codebase has already been through several rounds of "this seemed like a good idea and turned out not to be," and the whole point of the discipline below is to catch that honestly instead of just keeping whatever number looks best.
 
+Please also read the [Code of Conduct](CODE_OF_CONDUCT.md) — participation in this project means agreeing to it.
+
 > [!IMPORTANT]
 > **Read [`plan.md`](plan.md) before proposing anything.** It documents every experiment tried so far — including a dozen reverted ones, each with the exact numbers and the reasoning for why it didn't work. If your idea overlaps with something already tried and reverted there, it'll save you the work of re-discovering the same result. If it doesn't overlap, `plan.md` is still the best map of what's already validated vs. still open.
 
