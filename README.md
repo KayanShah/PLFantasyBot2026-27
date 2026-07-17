@@ -5,6 +5,12 @@
 
 
 
+> [!Danger]
+> All data currently pulled in this repository is from the last 2025/2026 season, and this season's fantasy API will only launch at the end of July
+
+
+
+
 <p align="center">
   <img src="https://fantasy.premierleague.com/img/favicons/apple-touch-icon.png" width="120" alt="Fantasy Premier League logo" />
 </p>
