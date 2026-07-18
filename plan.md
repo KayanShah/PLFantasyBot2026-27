@@ -2,6 +2,8 @@
 
 A logical, ordered build plan for PLFantasyBot, from raw data to a fully automated squad-picking bot. Each phase builds on the last — see [research.md](research.md) for the reasoning behind these choices and [FantasyRules.md](FantasyRules.md) for the constraints the optimizer must respect.
 
+Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
+
 > [!NOTE]
 > This plan is sequential by design: a prediction model is only as good as its data, and an optimizer is only as good as its predictions. Don't skip ahead to optimization with fake/placeholder point projections and expect the results to mean anything.
 
@@ -251,6 +253,127 @@ A logical, ordered build plan for PLFantasyBot, from raw data to a fully automat
 
 > [!TIP]
 > [sertalpbilal/FPL-Optimization-Tools](https://github.com/sertalpbilal/FPL-Optimization-Tools) (HiGHS solver via `sasoptpy`) remains a good reference for going further — e.g. true rolling-horizon lookahead (planning transfers *ahead* of the gameweek they're needed) rather than this project's greedy week-by-week approach.
+
+---
+
+> [!IMPORTANT]
+> **A follow-up review of the whole project (not just injury data) turned up two more real bugs, both fixed:**
+>
+> - **Cold-start bug.** Players with no rolling-form history yet (a promoted club's players, a fresh transfer's first gameweek) had every rolling-stat feature filled with `0` — an input the model was never actually trained on, since `train_model.prepare()` drops exactly these no-history rows during training (`dropna` on the first rolling column). A `0` reads to the model as "this player never plays," not "unknown." Fixed to fall back to the **position's average** for that stat instead — a more reasonable "unknown, treat as an average player of this position" prior (`simulate_season.build_predictions`). Verified the fix actually engages (362 affected rows in 2025-26 alone) but produced a **byte-identical multi-season backtest score** (2040/2118/2058), which is consistent with either "the fix has no opportunity to matter this season" or "the fix isn't actually reaching the optimizer" — checked directly rather than assuming: sampled true cold-start players at 2025-26 GW1 (raw-NaN rolling history, not a real average that happens to equal zero) and compared `predicted_points` before/after. All moved clearly off near-zero (e.g. Thierno Barry 0.25→1.73, Josh Laurent 0.09→1.48, Tom Watson 0.11→1.50) — the fix reaches the optimizer correctly, it just never happened to flip an actual squad/transfer decision in these three seasons, since the affected players are mostly £40-60m fringe/promoted-squad picks that weren't competitive even at the corrected prediction. Genuine null, confirmed rather than assumed. Kept anyway, since this is a correctness fix for *live* use, not a speculative feature — 2026-27 will have real promoted-club first-teamers (Leeds, Burnley, Sunderland) this backtest can't stress-test, and going into the season predicting near-zero points for them regardless of ability was a real gap.
+> - **Sell-price rule bug.** `squad_value()` used every owned player's full *current live market value* as the funds available for transfers/wildcard. Real FPL only refunds a price **rise** since purchase at half profit (rounded down) — a price fall is passed on in full, but a rise is not fully realized until you actually cash it in gradually. The old code effectively let the bot treat price gains as instantly, fully liquid, which no real manager gets. Fixed by tracking each squad member's purchase price (`carry_purchase_prices`) and pricing transfers/wildcard candidates by real sell value (`sell_value`, `squad_sell_value`, `with_sell_cost` in `simulate_season.py`; `optimizer.select_squad` gained a `cost_col` param so retained players can be priced differently from new buys in the same budget constraint).
+>
+>   | Season | Before | After | Diff |
+>   | --- | --- | --- | --- |
+>   | 2023-24 | 2040 | 2093 | **+53** |
+>   | 2024-25 | 2118 | 2042 | **-76** |
+>   | 2025-26 | 2058 | 1987 | **-71** |
+>
+>   Mixed direction, and two of the three swings are well beyond the ~±35 noise floor — on its face this looks like a regression by this project's own "better-or-equal in most of 3 seasons" bar. **Kept anyway, for the same reason as the chip-count bug fix (above): this isn't a speculative feature that either helps or doesn't, it's a correction to a budget rule that was previously wrong in a specific, structural direction** (overstating available funds), so the score moving — in either direction, since a tighter budget can force a *different* candidate squad at the same transfer count, not just fewer transfers — is expected, not evidence the fix is bad. The chip-count fix set this precedent already: it also lowered two of three season scores and was kept as "the corrected figures." These are the new corrected figures.
+>
+> **Isolation check, since cold-start + sell-price were originally reported as a bundled swing (the same mistake as attempts 1 and 3 if left unverified):** re-ran each fix alone against the chip-fix-only baseline (2040/2118/2058).
+>
+> | Season | Baseline | Cold-start alone | Sell-price alone | Both combined |
+> | --- | --- | --- | --- | --- |
+> | 2023-24 | 2040 | 2040 (+0) | 2093 (+53) | 2093 (+53) |
+> | 2024-25 | 2118 | 2118 (+0) | 2042 (-76) | 2042 (-76) |
+> | 2025-26 | 2058 | 2058 (+0) | 1987 (-71) | 1987 (-71) |
+>
+> Clean result: sell-price-alone matches the combined number exactly in all three seasons. Cold-start contributes exactly zero both alone and stacked with sell-price — no interaction effect, and the entire swing is attributable to the sell-price fix by itself, not a second bug hiding in the bundle.
+>
+> Multi-season results as currently validated (both fixes applied): **2023-24 → 2093 (+90 vs avg)**, **2024-25 → 2042 (+34 vs avg)**, **2025-26 → 1987 (+92 vs avg)**. Still beats the average manager in every season, by a real but smaller and more honest margin than before either fix.
+>
+> **The +53/-76/-71 swing above was initially explained away as "the same phenomenon as the established ±15-35 noise floor" — that was an unchecked assertion, not a measurement, and it turned out to be wrong.** Ran 2 more placebo seeds (43, 44) on the corrected pipeline specifically, rather than assuming the old noise-floor measurement (taken before any of these fixes existed) still applied:
+>
+> | Season | Sell-price-fix baseline (seed 42) | Seed 43 | Seed 44 |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2093 | 1973 (**-120**) | 1968 (**-125**) |
+> | 2024-25 | 2042 | 2020 (**-22**) | 1995 (**-47**) |
+> | 2025-26 | 1987 | 2065 (**+78**) | 1978 (**-9**) |
+>
+> This pipeline's own noise floor is **far larger** than the ±15-35 measured pre-fix — up to ±125 in 2023-24 alone. Isolated the cause by re-running the same seed swap on the sell-price fix alone (no cold-start, no name-matching, which are already known to contribute ~0): nearly identical amplified noise (-120/-22/+78), confirming the sell-price fix itself, not the other two fixes, is the source.
+>
+> Consequence: the originally reported **+53 in 2023-24 is not distinguishable from this pipeline's own noise** (noise alone reaches -120 to -125 in that season). The **-76 in 2024-25** is more likely a real effect (76 > the 22-47 noise observed there, though only 2 extra samples). The **-71 in 2025-26** is ambiguous (noise ranged from -9 to +78 there). **The per-season point totals should not be read as precise measurements of the sell-price fix's effect size** — only 2023-24's headline "+53" claim is now actively retracted as unsupported; the fix itself stays (it corrects a genuinely wrong budget rule, and that correctness doesn't depend on knowing the exact score impact), but the specific magnitude claims made about it above should be read with this much wider uncertainty band, not at face value.
+>
+> **Likely mechanism, not yet confirmed:** the sell-price fix introduces path dependency that the old flat full-market-value budget never had — tracking purchase price per player means an early transfer decision permanently changes future gameweeks' available budget, so a small prediction difference early in the season (e.g. from a seed swap) can compound and diverge across 38 gameweeks of transfer decisions, rather than being reset each week the way the old budget calculation implicitly was. Plausible, not yet verified against the actual squad/transfer divergence between seeds.
+>
+> **Supporting context gathered before the noise floor was re-measured** (now read with the caveat above in mind): plotted the cumulative point differential (sell-price-fix minus baseline) week by week for 2023-24, seed 42 only. Mostly steady, small per-week gains (0-20 points), no single gameweek dominating the total, accelerating in the back third of the season (roughly GW23-38, where the cumulative gap grew from +29 to +53) — consistent with a genuine, compounding, season-long effect rather than one lucky transfer window, *for this one seed's trajectory specifically*. Given the noise floor just found, this is one sample from what's now known to be a much wider distribution of possible trajectories, not proof the effect is real — just evidence that, when it manifests, it doesn't hinge on a single decision point.
+>
+> **Extended to 8 seeds (43-50) across all 3 seasons, confirming this is worse than a wide floor — the distribution is not smooth, it's clustered/bimodal in the worst season:**
+>
+> | Season | n | min | max | range | mean | stdev | sorted values |
+> | --- | --- | --- | --- | --- | --- | --- | --- |
+> | 2023-24 | 9 (incl. seed 42) | 1960 | 2172 | 212 | 2020.1 | 81.7 | 1960, 1968, 1968, 1968, 1968, 1973, **2093**, 2111, 2172 |
+> | 2024-25 | 9 | 1972 | 2042 | 70 | 2014.2 | 25.9 | 1972, 1995, 1995, 1995, 2020, 2025, 2042, **2042**, 2042 |
+> | 2025-26 | 9 | 1978 | 2063 | 85 | 1989.8 | 27.6 | **1978**, 1978, 1978, 1978, 1981, 1981, 1984, 1987, 2063 |
+>
+> (Corrected after an initial version of this table wrongly bolded 2063 — seed 43's value — instead of seed 42's actual 1978 for 2025-26, which is tied for the *most common* value in that season, not an outlier. Verified by rerunning seed 42 directly: 1978, confirmed, matches the officially validated number. Not a determinism bug — a table-formatting mistake, caught before being trusted further.)
+>
+> 2023-24 is the striking one: **6 of 9 seeds land in a tight cluster around 1968**, while 3 (including the officially-reported seed 42, at 2093) land in a distinctly higher cluster around 2093-2172. That's not a smooth ±spread around a true mean — it looks like two qualitatively different outcomes ("basins"), and which one a given seed lands in depends on an essentially arbitrary tie-break. **The seed this project has used as its headline number all along (42) is the minority/atypical outcome for 2023-24** specifically — 2024-25 (2042) and 2025-26 (1978) are both squarely modal, not outliers. Going forward, a median/mean across several seeds is a more honest headline number than a single arbitrary seed, until the underlying fragility (below) is addressed.
+>
+> **Root cause traced to source, confirmed rather than inferred.** Compared full prediction arrays for seed-42 vs seed-43 models on the actual 2023-24 `build_predictions()` output (28,742 rows): only **17 rows differ at all**, max difference **0.74 points** (`GradientBoostingRegressor` with `subsample=1.0`, no `max_features` restriction has almost no genuine random component — `random_state` only affects rare internal tie-breaks). The very first and largest of those 17 differences is **Kieran Trippier's GW9 prediction, off by 0.74** — landing right at GW8, the Wildcard gameweek. Tracked squad composition week-by-week for seed 42 vs 43: **identical for GW1-7, first diverge at GW8 (the Wildcard rebuild)**, then the gap widens steadily for the rest of the season (squad-name differences climbing from 3 players at GW8 to 8-9 by GW34+, cumulative score gap growing from -3 to over -120) — a genuine compounding path, not a single unlucky week. Ran the identical seed42-vs-43 divergence check on the **old, no-sell-price-fix budget model**: **zero divergence at any gameweek, all 38 weeks identical** — confirming the sell-price fix's purchase-price path dependency is precisely what turns a 0.74-point, single-player tie-break into a 100+ point season-level swing. Without it, the same tiny prediction difference at the same Wildcard week apparently wasn't enough to flip the decision at all.
+>
+> **This is a genuine live-deployment risk, not just a backtest-measurement problem.** A production run gets exactly one draw — if essentially arbitrary, floating-point-level prediction noise can flip a Wildcard-week transfer decision that then compounds for the rest of the season, the bot's real-world performance is far less predictable than the pre-sell-price-fix pipeline was. A natural mitigation (not yet built, not yet validated): a stability threshold on transfer decisions — only take a transfer if its lookahead gain clears a minimum margin over holding, not just "marginally better," so razor-thin, untrustworthy margins don't get acted on. Worth investigating once there's confidence in what's driving the fragility (now confirmed: the sell-price fix's budget path-dependency), since building a fix for a described-but-unconfirmed fragility would have been premature.
+>
+> **Before picking a threshold: characterized how common near-zero-gap decisions actually are.** Extracted the gap between the chosen option and its next-best alternative at every squad-construction decision (GW1, both Wildcards, and every ordinary transfer week) across all 3 seasons — for GW1/Wildcard, by re-solving the ILP with the chosen 15-player squad excluded (forcing ≥1 player to differ) to find the true next-best squad; for transfer weeks, from the existing k=0..5 candidate search already computed.
+>
+> | Decision kind | n | mean gap | median gap | max gap | # under 1.0pt | # under 0.74pt (the Trippier-sized diff) |
+> | --- | --- | --- | --- | --- | --- | --- |
+> | GW1 | 3 | 0.14 | 0.04 | 0.36 | 3/3 | 3/3 |
+> | Wildcard | 6 | 0.08 | 0.03 | 0.20 | 6/6 | 6/6 |
+> | Transfer | 104 | 1.22 | 0.91 | 11.31 | 59/104 (57%) | 46/104 (44%) |
+>
+> **Every single GW1 and Wildcard decision across all three seasons — 9 of 9 — sits under a full point from its next-best alternative, with a median gap around 0.03-0.04.** This isn't occasional fragility; it's the norm for full squad-rebuild decisions. A 0.74-point prediction noise level (the actual size of the Trippier discrepancy above) isn't a rare unlucky draw clearing some threshold — it's comfortably larger than the *typical* GW1/Wildcard gap, meaning essentially every Wildcard decision this project has ever simulated was decided by a margin smaller than ordinary model noise. Ordinary transfer weeks are meaningfully different: a majority (57%) are also under 1 point, but there's a real tail out to 11+ points where the decision is genuinely clear-cut — transfers are not uniformly fragile the way full rebuilds are.
+>
+> **Consequence for the stability-threshold idea:** a single fixed margin sized to filter out sub-1-point gaps would barely touch ordinary transfer weeks (46% still clear it) but would functionally neuter GW1/Wildcard decision-making, since the "winning" option is essentially always statistically tied with several others there — there's rarely a genuinely dominant squad choice at a full rebuild, just a huge number of near-equivalent 15-player combinations differing by fractions of a point. A margin large enough to matter at Wildcard weeks specifically would need its own, larger threshold than routine transfer weeks — exactly the asymmetry flagged as worth checking before picking one number. This also reframes the problem slightly: the danger isn't that Wildcard decisions are *unusually* fragile compared to some normal baseline, it's that the combinatorial optimization landscape for a full 15-player rebuild inherently produces many near-tied optima, and the sell-price fix's path dependency is what turns "arbitrarily picking among near-ties" from a harmless quirk into a season-defining, hard-to-reverse commitment.
+>
+> **A margin doesn't fit GW1/Wildcard structurally — there's no "hold" alternative at a full rebuild, and Wildcard currently fires unconditionally on the calendar rather than as a data-driven choice.** Built the alternative instead: average predictions from a 5-model ensemble (canonical model + 4 more, seeds 101-104, same features, independently trained) specifically for GW1 and Wildcard squad construction only — `ensemble_predict()`/`ENSEMBLE_EXTRA_SEEDS` in `simulate_season.py`. Ordinary transfer weeks keep using the single canonical model, since their gap distribution (above) is meaningfully different, not uniformly razor-thin.
+>
+> **Validated before trusting it, not after:** reran the same canonical-seed-42-through-50 sweep on 2023-24 with the ensemble fix in place, to see whether it actually collapsed the 1968/2093 split.
+>
+> | Canonical seed | Before ensemble fix | After ensemble fix |
+> | --- | --- | --- |
+> | 42 | 2093 | **1973** (moved) |
+> | 43 | 1973 | 1973 |
+> | 44 | 1968 | 1968 |
+> | 45 | 2172 | **2172** (unchanged) |
+> | 46 | 1960 | 1960 |
+> | 47 | 1968 | 1968 |
+> | 48 | 1968 | 1968 |
+> | 49 | 2111 | **2111** (unchanged) |
+> | 50 | 1968 | 1968 |
+>
+> **Honest result: partial, not a fix.** Only seed 42 moved out of the high cluster; seeds 45 and 49 landed at *exactly* their pre-fix values, meaning the extra 4 models in the ensemble didn't change those specific GW1/Wildcard decisions at all. The range is unchanged (1960-2172, still 212 points) and the split is still bimodal — the fix reduced the high cluster from 3 of 9 to 2 of 9 seeds, not to zero. Kept as a genuine partial improvement (one fewer seed lands in the unstable-fork territory, at a real computational cost of training 5x the models), but this doesn't resolve the underlying fragility — some GW1/Wildcard decisions are apparently decided by a difference robust enough to survive 5-model averaging, not just single-model noise. Not escalating the ensemble size further without more evidence that a bigger ensemble would help rather than just being more expensive for the same partial result.
+
+---
+
+> [!NOTE]
+> **Precondition check: is a two-stage model (predict minutes, then points-per-90 conditional on playing) worth building?** The suggested cheap test: bucket the current model's residuals by real minutes played — if error is *dramatically worse specifically in the 1-45 minute band* than at 0 or 90, that points at a real mixed-distribution problem (a single model straining to fit both "did they play at all" and "how well did they play" at once) worth splitting into two stages. Result on the 2025-26 backtest:
+>
+> | Minutes band | MAE | n |
+> | --- | --- | --- |
+> | 0 (didn't play) | 0.36 | 17,476 |
+> | 1-45 (sub/partial) | 1.13 | 3,216 |
+> | 46-89 (most of game) | 2.04 | 2,575 |
+> | 90 (full game) | 2.50 | 5,230 |
+>
+> No spike — error rises **smoothly and monotonically** with minutes played, not disproportionately in the partial-minutes zone. This is largely the expected, mundane pattern: players who play a full 90 have a much wider range of possible outcomes (0 to 20+ points via goals/assists/bonus), so naturally larger absolute error; players who don't play are close to deterministically zero, so naturally tiny error — that shape shows up whether or not a two-stage split would actually help, so on its own this isn't strong evidence *against* the mixed-distribution theory either. **No strong evidence either way; the test is likely underpowered to fully separate the two stories.** One detail is mildly reassuring, not confirmatory: the 1-45 band — despite being the messiest population (cameos, early subs, doubtful returns all mixed together) — came in comfortably *below* both the 46-89 and 90 bands, not above them, which is closer to where a severe conflation problem would show up worst if it were real. **Shelving the two-stage build** on that basis, but a sharper version of this test exists if it's ever worth revisiting: bucket by a recent-minutes-*volatility* feature instead of realized minutes, which tests the actual hypothesis (does uncertainty about playing time predict error?) rather than a proxy for it.
+
+---
+
+> [!IMPORTANT]
+> **The cold-start fix above was declared done too early.** Auditing it turned up two players (Alisson Becker, Garnacho) showing up as false zero-history cases — the right reaction, per feedback, was to treat that as the *signature* of a systematic join bug, not two isolated flukes, and audit properly before calling it fixed: every player with real Premier League minutes last season, checked against this season's feature table for a fully zero-filled row.
+>
+> **Root cause found.** `simulate_season.build_predictions()` carried a player's rolling form across the season boundary by grouping on their **name string** (`combined.groupby("name")`). Names are not stable: `merged_gw.csv`'s own `second_name` field changes format between seasons for the same player (Alisson's was `"Ramses Becker"` in 2024-25, `"Becker"` in 2025-26 — confirmed via `players_raw.csv`, which also has an `element`/`id` field that's re-numbered every season, so that wasn't a safe join key either). Auditing every 2024-25 player with real minutes against 2025-26's name list: **193 of 562 (34%) had no exact-string match.** A stricter accent-normalized word-subset check (not naive fuzzy-string matching, which produced false positives like "Ashley Young" → "Ashley Barnes") confirmed **41 of those 193 were still-active, clearly-identifiable players** miscounted as debutants purely from a name-format change (`Adama Traoré` → `Adama Traoré Diarra`, `İlkay Gündoğan` vs `Ilkay Gündogan`, etc.) — real information lost on assets a manager might actually want to own, not fringe players.
+>
+> **Fixed properly**, not patched: `players_raw.csv` (one more file per season, now fetched by `fetch_historical_data.py` alongside `merged_gw.csv`/`fixtures.csv`/`teams.csv`) has a `code` field — FPL's actual permanent player identifier, constant across a player's whole career, unlike `element`/`id` which resets every season. `train_model.load_player_codes()` maps `element → code` for a given season; `build_predictions()` now joins prior/current season data and groups the rolling-form carry-over on `player_code`, not `name`. Verified zero unmatched rows across both 2024-25 and 2025-26 (29,338+27,231 rows, 0 missing `player_code`). Re-running the same audit by stable code instead of name: only **147 of 562** now show as "missing" (down from 193) — the 46-player gap closing is exactly the previously-hidden format-mismatch cases (the 41 found by hand, plus a few the manual check couldn't catch, e.g. Turkish dotless-ı vs regular-i in `Bayındır`/`Bayindir`). The remaining 147 are the genuine turnover — relegations, retirements, transfers abroad — expected in any real Premier League season.
+>
+> | Season | Before this fix | After | Diff |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2093 | 2093 | 0 |
+> | 2024-25 | 2042 | 2042 | 0 |
+> | 2025-26 | 1987 | **1978** | **-9** |
+>
+> 2023-24 and 2024-25 are untouched — their specific prior/current season boundaries didn't happen to include one of these name-format mismatches. 2025-26 moved by a small, real amount (Alisson/Garnacho-style mismatches were specific to the 2024-25→2025-26 boundary). Multi-season results as now validated (all three fixes applied): **2023-24 → 2093 (+90 vs avg)**, **2024-25 → 2042 (+34 vs avg)**, **2025-26 → 1978 (+83 vs avg)**.
 
 ---
 

@@ -126,16 +126,16 @@ The model is trained only on seasons strictly before the one it's tested on — 
 
 | Season | Bot | Real avg. manager | Diff |
 | --- | --- | --- | --- |
-| 2023-24 | 2040 | 2003 | +37 |
-| 2024-25 | 2118 | 2008 | +110 |
-| 2025-26 | 2058 | 1895 | +163 |
+| 2023-24 | 2093 | 2003 | +90 |
+| 2024-25 | 2042 | 2008 | +34 |
+| 2025-26 | 1978 | 1895 | +83 |
 
 Consistently above the real average manager across three independent seasons, not just a lucky one. (Past seasons' average-manager totals came from [Wayback Machine](https://web.archive.org/) snapshots of `bootstrap-static`, since the live FPL API only serves the current season — see `plan.md` Phase 4 for the exact snapshot URLs.)
 
 > [!NOTE]
 > A richer-features + dynamic-chip-timing experiment (xG involvement, opponent team-strength, start-rate, dynamic Wildcard timing, a Free Hit chip) was tried and **regressed** the 2025-26 score to 1906. Rather than keep tuning parameters until the number looked good again on that one season, it was reverted back to the validated 2058 checkpoint above. The experiment is preserved in git history if worth revisiting — ideally with multi-season validation from the start next time.
 >
-> Several more attempts using real injury/suspension data (starting-XI filters, a model feature, a transfer-value discount) were also tried and reverted — see `plan.md` Phase 4 for all eight. A real bug was also found and fixed along the way: Bench Boost and Triple Captain were being simulated as 2-per-season for every year tested, but that's only true from 2025/26 onward — every earlier season only had 1 of each. The 2023-24/2024-25 numbers above are the corrected figures (previously 2056/+53 and 2149/+141 — both inflated by the bug).
+> Several more attempts using real injury/suspension data (starting-XI filters, a model feature, a transfer-value discount) were also tried and reverted — see `plan.md` Phase 4 for all eight. A real bug was also found and fixed along the way: Bench Boost and Triple Captain were being simulated as 2-per-season for every year tested, but that's only true from 2025/26 onward — every earlier season only had 1 of each. Three more bugs were fixed in a later pass: a cold-start bug where players with no rolling-form history (promoted-club players, fresh transfers) predicted near-zero instead of an average-for-position prior; a sell-price bug where the budget model gave full credit for a player's price rise instead of FPL's real half-profit-on-sale rule; and a player-identity bug where rolling form was carried across the season boundary by matching on name string, which isn't stable (a player's own recorded name format can change season to season) — fixed by joining on FPL's actual permanent player `code` instead. The numbers above are the corrected figures after all fixes — see `plan.md` Phase 4 for the full writeup and before/after numbers on each.
 
 See [plan.md](plan.md#phase-4--optimization-engine) for the full breakdown, including the diagnostic that isolated the regression.
 

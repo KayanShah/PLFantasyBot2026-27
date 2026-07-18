@@ -42,7 +42,7 @@ def main() -> None:
 
         print(f"\n=== Testing on {cfg['test']} (trained on {cfg['train']}) ===")
         model = train_model.train_baseline_model()
-        predictions = simulate_season.build_predictions(model)
+        predictions = simulate_season.build_predictions([model])
         total = simulate_season.simulate(model=model, predictions=predictions, quiet=True)
         avg = AVERAGE_MANAGER[cfg["test"]]
         print(f"{cfg['test']}: bot={total:.0f}  avg_manager={avg}  diff={total - avg:+.0f}")

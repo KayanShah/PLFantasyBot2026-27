@@ -24,6 +24,7 @@ def select_squad(
     budget: int,
     current_ids: set[int] | None = None,
     max_changes: int | None = None,
+    cost_col: str = "value",
 ) -> pd.DataFrame | None:
     """
     Picks 15 players maximizing total predicted_points, subject to budget,
@@ -31,6 +32,9 @@ def select_squad(
 
     If current_ids + max_changes are given, at most max_changes players may
     differ from the current squad (used to model limited weekly transfers).
+    `cost_col` lets the caller price retained players at their FPL sell value
+    (which can be less than their live market value) rather than the live
+    buy price everyone else in the pool is priced at.
     Returns None if no legal squad exists under the constraints.
     """
     pool = pool.reset_index(drop=True)
@@ -39,7 +43,7 @@ def select_squad(
 
     constraints = [
         LinearConstraint(np.ones((1, n)), SQUAD_SIZE, SQUAD_SIZE),
-        LinearConstraint(pool["value"].to_numpy().reshape(1, n), -np.inf, budget),
+        LinearConstraint(pool[cost_col].to_numpy().reshape(1, n), -np.inf, budget),
     ]
     for pos, count in POSITION_REQUIREMENTS.items():
         mask = (pool["position_label"] == pos).astype(float).to_numpy().reshape(1, n)

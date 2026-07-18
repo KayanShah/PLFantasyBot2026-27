@@ -40,9 +40,15 @@ def main() -> None:
         gw_path = download_file(season, "gws/merged_gw.csv", "merged_gw.csv")
         fixtures_path = download_file(season, "fixtures.csv", "fixtures.csv")
         teams_path = download_file(season, "teams.csv", "teams.csv")
+        # players_raw.csv's `code` column is the one stable player identifier across
+        # seasons — `element`/`id` are re-numbered every season, and even a player's
+        # own name string can change format season to season (e.g. Alisson's
+        # second_name was "Ramses Becker" in 2024-25 vs "Becker" in 2025-26). Used to
+        # carry rolling form across a season boundary without a fragile name-string join.
+        players_path = download_file(season, "players_raw.csv", "players_raw.csv")
         n_lines = sum(1 for _ in gw_path.open(encoding="utf-8", errors="ignore")) - 1
         role = "test (held out)" if season == TEST_SEASON else "train"
-        print(f"{season} [{role}] -> {gw_path} ({n_lines} rows), {fixtures_path.name}, {teams_path.name}")
+        print(f"{season} [{role}] -> {gw_path} ({n_lines} rows), {fixtures_path.name}, {teams_path.name}, {players_path.name}")
 
 
 if __name__ == "__main__":

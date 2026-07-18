@@ -73,6 +73,28 @@ LOOKAHEAD_GWS = 5
 # to over-aggressive hit-taking (see plan.md Phase 4).
 LOOKAHEAD_DECAY = 0.85
 
+# GW1 and Wildcard squad-construction decisions were found to be decided by
+# sub-1-point margins between hundreds of near-tied 15-player combinations
+# (median next-best-alternative gap ~0.03-0.04 across all 9 tested instances,
+# 3 seasons — see plan.md Phase 4). A single model's idiosyncratic prediction
+# noise can tip that tie-break onto a materially different squad that then
+# compounds for the rest of the season. Only these two full-rebuild decision
+# points use an ensemble average of several independently-trained models;
+# ordinary transfer weeks keep using the single canonical model, since their
+# gaps are much less uniformly razor-thin (44% under the same noise-sized gap,
+# but a real tail out past 11 points where a single model's call is trustworthy).
+ENSEMBLE_EXTRA_SEEDS = [101, 102, 103, 104]
+
+# Ordinary transfer weeks showed a real split in how decisive the choice was:
+# 44% of tested decisions had a next-best-alternative gap under 0.74 points (the
+# same order of magnitude as pure model noise), but a genuine tail out past 11
+# points where a transfer's advantage over holding was clear-cut. Unlike GW1/
+# Wildcard, "hold" is always a real, well-defined alternative here, so a margin
+# is the right tool: only take a transfer if it beats holding by more than this
+# many points, not just "any amount at all." Size empirically (see plan.md Phase
+# 4 for the sweep), not from first principles — 0.0 preserves prior behavior.
+TRANSFER_MARGIN = 0.0
+
 OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "season_2025-26_simulation.csv"
 SQUADS_OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "season_2025-26_squads.json"
 TEAMS_PATH = Path(__file__).resolve().parent.parent / "data" / "historical" / SEASON / "teams.csv"
@@ -83,21 +105,51 @@ def load_team_names() -> dict[int, str]:
     return dict(zip(teams["id"], teams["short_name"]))
 
 
-def build_predictions(model) -> pd.DataFrame:
+def ensemble_predict(models: list, X: pd.DataFrame) -> np.ndarray:
+    """Mean prediction across models. A single-model list is just that model's own prediction."""
+    return np.mean([m.predict(X) for m in models], axis=0)
+
+
+def build_predictions(models: list) -> pd.DataFrame:
     """
     Builds a predicted_points column for every 2025-26 (player, gameweek) row,
     using rolling form carried over from the end of 2024-25 for early-season
     gameweeks (so GW1 predictions reflect real known form, not zero-knowledge —
-    the model itself still never trains on any 2025-26 result).
+    the model itself still never trains on any 2025-26 result). `models` is a
+    list so callers can pass either the single canonical model or an ensemble
+    (see GW1/Wildcard handling in simulate() — full-squad-rebuild decisions turned
+    out to be decided by sub-1-point margins between hundreds of near-tied 15-player
+    combinations, so a single model's idiosyncratic wobble on one player could tip
+    the whole rest of the season onto a different, compounding path; averaging
+    several independently-trained models makes that specific tie-break less arbitrary).
     """
     prior = train_model.load_season(PRIOR_SEASON)
     current = train_model.load_season(SEASON)
     combined = pd.concat([prior, current], ignore_index=True)
 
+    # Join each row to its stable player_code (not element, which is re-numbered
+    # every season, and not name, which can change format season to season —
+    # see load_player_codes). Without this, a player whose name string changed
+    # between PRIOR_SEASON and SEASON silently loses their carried-over rolling
+    # form and gets treated as a zero-history debutant instead.
+    codes = pd.concat([
+        train_model.load_player_codes(PRIOR_SEASON).assign(season=PRIOR_SEASON),
+        train_model.load_player_codes(SEASON).assign(season=SEASON),
+    ], ignore_index=True)
+    combined = combined.merge(codes, on=["season", "element"], how="left")
+    # Fall back to a season-scoped synthetic code for the rare row with no
+    # players_raw.csv match, so it degrades to old (name-less) behavior for
+    # just that row rather than losing it or crashing the join.
+    missing = combined["player_code"].isna()
+    if missing.any():
+        combined.loc[missing, "player_code"] = (
+            "unmatched_" + combined.loc[missing, "season"] + "_" + combined.loc[missing, "element"].astype(str)
+        )
+
     season_order = {PRIOR_SEASON: 0, SEASON: 1}
     combined["season_order"] = combined["season"].map(season_order)
-    combined = combined.sort_values(["name", "season_order", "GW"]).reset_index(drop=True)
-    grouped = combined.groupby("name", group_keys=False)
+    combined = combined.sort_values(["player_code", "season_order", "GW"]).reset_index(drop=True)
+    grouped = combined.groupby("player_code", group_keys=False)
 
     for stat in train_model.ROLLING_STATS:
         for window in train_model.ROLLING_WINDOWS:
@@ -105,7 +157,14 @@ def build_predictions(model) -> pd.DataFrame:
             combined[col] = grouped[stat].transform(
                 lambda s, w=window: s.shift(1).rolling(w, min_periods=1).mean()
             )
-            combined[col] = combined[col].fillna(0)  # rookies/new arrivals: no known history
+            # Rookies/promoted-team players/fresh arrivals have no rolling history yet.
+            # Filling with 0 told the model "this player never plays" — an input the
+            # model never actually trained on, since prepare() drops exactly these
+            # no-history rows during training (train_model.py). Fall back to the
+            # position's average instead: a reasonable "unknown, treat as an average
+            # player of this position" prior until real form accumulates.
+            position_avg = combined.groupby("position")[col].transform("mean")
+            combined[col] = combined[col].fillna(position_avg).fillna(0)
 
     combined = pd.get_dummies(combined, columns=["position"], prefix="position")
     for col in ["position_DEF", "position_FWD", "position_GKP", "position_MID"]:
@@ -117,11 +176,11 @@ def build_predictions(model) -> pd.DataFrame:
     )
 
     rows = combined[combined["season"] == SEASON].copy()
-    rows["predicted_points"] = model.predict(rows[train_model.FEATURE_COLUMNS])
+    rows["predicted_points"] = ensemble_predict(models, rows[train_model.FEATURE_COLUMNS])
     return rows
 
 
-def build_horizon_scores(model, predictions: pd.DataFrame, gw: int, horizon: int) -> pd.Series:
+def build_horizon_scores(models: list, predictions: pd.DataFrame, gw: int, horizon: int) -> pd.Series:
     """
     For every player present at gameweek `gw`, sums a *decayed* predicted
     score across gw .. gw+horizon-1 (week h out contributes LOOKAHEAD_DECAY**h
@@ -148,27 +207,77 @@ def build_horizon_scores(model, predictions: pd.DataFrame, gw: int, horizon: int
         feat = frozen_features.loc[common].copy()
         feat["was_home"] = future.loc[common, "was_home"]
         feat["difficulty"] = future.loc[common, "difficulty"]
-        preds = pd.Series(model.predict(feat[train_model.FEATURE_COLUMNS]), index=common)
+        preds = pd.Series(ensemble_predict(models, feat[train_model.FEATURE_COLUMNS]), index=common)
         totals = totals.add(preds * (LOOKAHEAD_DECAY ** h), fill_value=0)
 
     return totals
 
 
-def with_horizon_points(model, predictions: pd.DataFrame, gw: int, gw_pool: pd.DataFrame) -> pd.DataFrame:
+def with_horizon_points(models: list, predictions: pd.DataFrame, gw: int, gw_pool: pd.DataFrame) -> pd.DataFrame:
     """gw_pool with predicted_points replaced by the lookahead-summed score, for squad-construction decisions."""
-    horizon_scores = build_horizon_scores(model, predictions, gw, LOOKAHEAD_GWS)
+    horizon_scores = build_horizon_scores(models, predictions, gw, LOOKAHEAD_GWS)
     pool = gw_pool.copy()
     pool["predicted_points"] = pool["element"].map(horizon_scores).fillna(pool["predicted_points"])
     return pool
 
 
+def sell_value(purchase_price: float, current_value: float) -> float:
+    """
+    FPL's real sell-price rule: a price *rise* since purchase is only half
+    refunded (rounded down), not paid out in full — selling is not perfectly
+    reversible. A price *fall* is passed on in full (no penalty). Values are
+    in tenths of a million, so integer division rounds down correctly.
+    """
+    if current_value <= purchase_price:
+        return current_value
+    profit = current_value - purchase_price
+    return purchase_price + profit // 2
+
+
 def squad_value(current_squad: pd.DataFrame, gw_pool: pd.DataFrame) -> int:
+    """Live market value of the squad (for display/logging) — NOT what selling it would raise."""
     live_prices = gw_pool.set_index("element")["value"]
     fallback_prices = current_squad.set_index("element")["value"]
     total = 0.0
     for element in current_squad["element"]:
         total += live_prices[element] if element in live_prices.index else fallback_prices[element]
     return int(round(total))
+
+
+def squad_sell_value(current_squad: pd.DataFrame, gw_pool: pd.DataFrame) -> int:
+    """Total funds available for a rebuild: what selling every owned player would actually raise."""
+    live_prices = gw_pool.set_index("element")["value"]
+    total = 0.0
+    for _, row in current_squad.iterrows():
+        current_value = live_prices[row["element"]] if row["element"] in live_prices.index else row["value"]
+        total += sell_value(row["purchase_price"], current_value)
+    return int(round(total))
+
+
+def with_sell_cost(pool: pd.DataFrame, current_squad: pd.DataFrame, gw_pool: pd.DataFrame) -> pd.DataFrame:
+    """pool with a `cost` column: retained players priced at sell value, everyone else at live buy value."""
+    live_prices = gw_pool.set_index("element")["value"]
+    purchase_prices = dict(zip(current_squad["element"], current_squad["purchase_price"]))
+    pool = pool.copy()
+
+    def cost(row):
+        if row["element"] in purchase_prices:
+            current_value = live_prices[row["element"]] if row["element"] in live_prices.index else row["value"]
+            return sell_value(purchase_prices[row["element"]], current_value)
+        return row["value"]
+
+    pool["cost"] = pool.apply(cost, axis=1)
+    return pool
+
+
+def carry_purchase_prices(new_squad_ids: set[int], prior_squad: pd.DataFrame | None, gw_pool: pd.DataFrame) -> dict:
+    """Retained players keep their original purchase price; newly bought players are priced at today's buy value."""
+    prior_prices = dict(zip(prior_squad["element"], prior_squad["purchase_price"])) if prior_squad is not None else {}
+    live_prices = gw_pool.set_index("element")["value"]
+    return {
+        element: prior_prices[element] if element in prior_prices else float(live_prices.get(element, 0))
+        for element in new_squad_ids
+    }
 
 
 def attach_this_week(squad_ids: set[int], current_squad: pd.DataFrame, gw_pool: pd.DataFrame) -> pd.DataFrame:
@@ -237,7 +346,10 @@ def player_entry(
     }
 
 
-def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = False) -> float:
+def simulate(
+    model=None, predictions: pd.DataFrame | None = None, quiet: bool = False,
+    ensemble_models: list | None = None, predictions_ensemble: pd.DataFrame | None = None,
+) -> float:
     log_print = (lambda *a, **k: None) if quiet else print
 
     if model is None:
@@ -246,7 +358,14 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
 
     if predictions is None:
         log_print("Building week-by-week 2025-26 predictions (rolling form only, no lookahead)...")
-        predictions = build_predictions(model)
+        predictions = build_predictions([model])
+
+    if ensemble_models is None:
+        log_print(f"Training {1 + len(ENSEMBLE_EXTRA_SEEDS)}-model ensemble for GW1/Wildcard squad construction...")
+        ensemble_models = [model] + [train_model.train_baseline_model(seed=s) for s in ENSEMBLE_EXTRA_SEEDS]
+
+    if predictions_ensemble is None:
+        predictions_ensemble = build_predictions(ensemble_models)
 
     fwd_threshold = predictions.loc[predictions["position_label"] == "FWD", "predicted_points"].quantile(0.90)
     log_print(f"Triple Captain trigger threshold (90th percentile FWD prediction): {fwd_threshold:.2f}\n")
@@ -271,23 +390,28 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
 
         hits = 0
         chip = None
-        horizon_pool = with_horizon_points(model, predictions, gw, gw_pool)
+        horizon_pool = with_horizon_points([model], predictions, gw, gw_pool)
 
         if gw == 1:
-            squad = select_squad(horizon_pool, budget=STARTING_BUDGET)
+            horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool)
+            squad = select_squad(horizon_pool_ensemble, budget=STARTING_BUDGET)
             transfers_made = 0
         elif gw in WILDCARD_GWS:
-            budget = squad_value(current_squad, gw_pool)
-            squad = select_squad(horizon_pool, budget=budget)
+            budget = squad_sell_value(current_squad, gw_pool)
+            horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool)
+            priced_pool = with_sell_cost(horizon_pool_ensemble, current_squad, gw_pool)
+            squad = select_squad(priced_pool, budget=budget, cost_col="cost")
             transfers_made = None
             chip = "Wildcard"
         else:
-            budget = squad_value(current_squad, gw_pool)
+            budget = squad_sell_value(current_squad, gw_pool)
+            priced_pool = with_sell_cost(horizon_pool, current_squad, gw_pool)
             current_ids = set(current_squad["element"])
             current_horizon = attach_this_week(current_ids, current_squad, horizon_pool)
-            best_k, best_net, best_squad = 0, current_horizon["predicted_points"].sum(), current_squad
+            hold_net = current_horizon["predicted_points"].sum()
+            best_k, best_net, best_squad = 0, hold_net, current_squad
             for k in range(1, min(free_transfers + 2, 5) + 1):
-                candidate = select_squad(horizon_pool, budget=budget, current_ids=current_ids, max_changes=k)
+                candidate = select_squad(priced_pool, budget=budget, current_ids=current_ids, max_changes=k, cost_col="cost")
                 if candidate is None:
                     continue
                 # Judge the transfer by its lookahead value (worth a hit only if the gain
@@ -296,6 +420,11 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
                 net = resolved["predicted_points"].sum() - 4 * max(0, k - free_transfers)
                 if net > best_net:
                     best_k, best_net, best_squad = k, net, candidate
+            # Only actually take a transfer if it clears TRANSFER_MARGIN over holding —
+            # "hold" is always a well-defined alternative here (unlike GW1/Wildcard),
+            # so a stability margin is the right tool for this decision specifically.
+            if best_k != 0 and best_net <= hold_net + TRANSFER_MARGIN:
+                best_k, best_net, best_squad = 0, hold_net, current_squad
             squad = best_squad
             transfers_made = best_k
             hits = max(0, best_k - free_transfers)
@@ -371,7 +500,9 @@ def simulate(model=None, predictions: pd.DataFrame | None = None, quiet: bool = 
                   + (f"  [{chip}]" if chip else "")
                   + (f"  transfers={transfers_made} hits={hits}" if isinstance(transfers_made, int) and transfers_made else ""))
 
+        new_purchase_prices = carry_purchase_prices(squad_ids, current_squad, gw_pool)
         current_squad = squad_resolved[["element", "name", "team", "position_label", "value"]].copy()
+        current_squad["purchase_price"] = current_squad["element"].map(new_purchase_prices)
         if gw == 1 or gw in WILDCARD_GWS:
             pass  # doesn't touch banked free transfers
         else:

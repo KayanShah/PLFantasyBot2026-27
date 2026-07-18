@@ -50,6 +50,20 @@ FEATURE_COLUMNS = (
 )
 
 
+def load_player_codes(season: str) -> pd.DataFrame:
+    """
+    Maps that season's `element` (FPL's per-season player index, re-numbered
+    every season) to `code` (FPL's actual stable player identifier, constant
+    for a player across every season of their career). Needed to carry a
+    player's rolling form across a season boundary without joining on their
+    name string, which can change format season to season (nicknames,
+    added/dropped middle names, transliteration of accented characters).
+    """
+    path = DATA_DIR / season / "players_raw.csv"
+    players = pd.read_csv(path, encoding="utf-8", encoding_errors="ignore")
+    return players[["id", "code"]].rename(columns={"id": "element", "code": "player_code"})
+
+
 def load_fixture_difficulty(season: str) -> pd.DataFrame:
     path = DATA_DIR / season / "fixtures.csv"
     fixtures = pd.read_csv(path, encoding="utf-8", encoding_errors="ignore")
@@ -114,12 +128,12 @@ def evaluate(y_true: np.ndarray, y_pred: np.ndarray, label: str) -> None:
     print(f"{label}: MAE={mae:.3f}  RMSE={rmse:.3f}  correlation={corr:.3f}  n={len(y_true)}")
 
 
-def train_baseline_model() -> GradientBoostingRegressor:
+def train_baseline_model(seed: int = 42) -> GradientBoostingRegressor:
     """Fits the model on TRAIN_SEASONS only. Never sees TEST_SEASON (2025-26) data."""
     train_df = pd.concat([load_season(s) for s in TRAIN_SEASONS], ignore_index=True)
     train_df = prepare(train_df)
     model = GradientBoostingRegressor(
-        n_estimators=200, max_depth=3, learning_rate=0.05, random_state=42
+        n_estimators=200, max_depth=3, learning_rate=0.05, random_state=seed
     )
     model.fit(train_df[FEATURE_COLUMNS], train_df["total_points"])
     return model
