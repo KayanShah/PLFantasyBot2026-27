@@ -99,12 +99,17 @@ ENSEMBLE_EXTRA_SEEDS = [101, 102, 103, 104]
 # Wildcard, "hold" is always a real, well-defined alternative here, so a margin
 # is the right tool: only take a transfer if it beats holding by more than this
 # many points, not just "any amount at all." Sized empirically via a 5-seed x
-# 3-season sweep (plan.md Phase 4), not from first principles: 1.0 was chosen
-# because it's strictly better-or-equal to 0.0 in every season on every metric
-# (2023-24's score-distribution spread across seeds collapsed from 204 points
-# to 6; the other two seasons were byte-identical to no margin at all) — 2.0
-# pushed further in two seasons but caused a real regression in the third.
-TRANSFER_MARGIN = 1.0
+# 3-season sweep (plan.md Phase 4), re-run after Free Hit was added since it
+# changed the sweep's results materially. 1.5 was chosen over 1.0 for
+# consistency with how Free Hit's own keep/revert decision was made: judged
+# by aggregate median across all 3 seasons and "better in most," not by a
+# stricter unstated "reject anything with any confirmed regression" rule.
+# 1.5 has the highest aggregate median (6105 vs 1.0's 6056) and is better in
+# 2 of 3 seasons — its one loss (2025-26, real and confirmed, not noise: the
+# score distributions at 1.0 and 1.5 don't overlap at all) is outweighed by
+# larger, also-confirmed gains in the other two, the same trade-off already
+# accepted for Free Hit just below.
+TRANSFER_MARGIN = 1.5
 
 # Free Hit: unlimited free transfers for exactly one gameweek, squad reverts
 # automatically the following week (no lasting cost, no purchase-price impact).

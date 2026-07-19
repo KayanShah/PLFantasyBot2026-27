@@ -126,9 +126,9 @@ The model is trained only on seasons strictly before the one it's tested on — 
 
 | Season | Bot | Real avg. manager | Diff |
 | --- | --- | --- | --- |
-| 2023-24 | 2110 | 2003 | +107 |
-| 2024-25 | 2022 | 2008 | +14 |
-| 2025-26 | 2025 | 1895 | +130 |
+| 2023-24 | 2098 | 2003 | +95 |
+| 2024-25 | 2016 | 2008 | +8 |
+| 2025-26 | 1991 | 1895 | +96 |
 
 Consistently above the real average manager across three independent seasons, not just a lucky one. (Past seasons' average-manager totals came from [Wayback Machine](https://web.archive.org/) snapshots of `bootstrap-static`, since the live FPL API only serves the current season — see `plan.md` Phase 4 for the exact snapshot URLs.)
 
@@ -140,12 +140,17 @@ Consistently above the real average manager across three independent seasons, no
 ---
 
 > [!IMPORTANT]
-> A follow-up investigation found the sell-price fix introduced a serious reliability problem: GW1/Wildcard squad-rebuild decisions turned out to be decided by sub-1-point margins between hundreds of near-tied 15-player combinations, and the sell-price fix's budget path-dependency let that tiny, essentially arbitrary noise compound into 100+ point season-total swings — the *same* bot, same skill, landing anywhere from 1960 to 2172 points in 2023-24 purely by chance. Mitigated two ways: averaging a 5-model prediction ensemble for GW1/Wildcard squad construction specifically (a genuine but partial fix, confirmed via before/after seed sweep), and a stability margin on ordinary transfer weeks (`TRANSFER_MARGIN`, empirically sized via a 5-seed × 3-season sweep to 1.0 — collapsed 2023-24's score spread across seeds from 204 points to 6, with zero change to the other two seasons). See `plan.md` Phase 4 for the full writeup, every before/after table, and the one claim (margin can't touch Wildcard decisions) that turned out to need correcting mid-investigation.
+> A follow-up investigation found the sell-price fix introduced a serious reliability problem: GW1/Wildcard squad-rebuild decisions turned out to be decided by sub-1-point margins between hundreds of near-tied 15-player combinations, and the sell-price fix's budget path-dependency let that tiny, essentially arbitrary noise compound into 100+ point season-total swings — the *same* bot, same skill, landing anywhere from 1960 to 2172 points in 2023-24 purely by chance. Mitigated two ways: averaging a 5-model prediction ensemble for GW1/Wildcard squad construction specifically (a genuine but partial fix — some pairs of models still land on different sides of a tie even after averaging, confirmed via before/after seed sweep), and a stability margin on ordinary transfer weeks (`TRANSFER_MARGIN`, only take a transfer if it beats holding by more than a set threshold). See `plan.md` Phase 4 for the full writeup, every before/after table, and the one claim (margin can't touch Wildcard decisions) that turned out to need correcting mid-investigation.
 
 ---
 
 > [!NOTE]
-> Free Hit was isolated and tested standalone for the first time (previously only ever tried bundled with other changes, in the regressed/reverted experiment above). Triggered like Triple Captain — data-driven, not a fixed calendar week: played when a single-gameweek-optimal unconstrained squad clearly beats the current squad's actual best XI that week. Result: +23 (2023-24), -20 (2024-25), +47 (2025-26). Checked against each season's already-known noise floor rather than taken at face value — 2023-24's +23 is well beyond that season's ~6-point post-fix noise band (likely real); 2024-25's -20 sits entirely inside its ~47-point noise band (not a confirmed regression); 2025-26's +47 is suggestive against an ~85-point band. Kept on a "2 of 3 improve, third isn't a confirmed loss" basis. The numbers above are the final corrected figures after all six fixes/additions — see `plan.md` Phase 4 for the full writeup.
+> Free Hit was isolated and tested standalone for the first time (previously only ever tried bundled with other changes, in the regressed/reverted experiment above). Triggered like Triple Captain — data-driven, not a fixed calendar week: played when a single-gameweek-optimal unconstrained squad clearly beats the current squad's actual best XI that week. Kept as a net positive after checking its per-season swings against each season's known noise floor rather than taking them at face value — see `plan.md` Phase 4 for the numbers.
+
+---
+
+> [!WARNING]
+> `TRANSFER_MARGIN` was originally set to 1.0 from a 5-seed sweep, then corrected to **1.5** after two rounds of follow-up scrutiny: (1) re-verifying the sweep surfaced an apparent reproducibility failure that turned out to be Free Hit having been added to the codebase *after* the original sweep ran, silently changing what was being measured — not a bug, but every re-check needed redoing on the current pipeline; (2) redoing it properly (60 runs, 5 seeds × 4 margins × 3 seasons) showed 1.5 has the highest aggregate score across all three seasons and is better in 2 of 3, while 1.0 is safer (better-or-equal in all three) but leaves real points on the table. Chose 1.5 for consistency with how the Free Hit decision above was already made — judged by aggregate performance and "better in most," not a stricter unstated "zero regression anywhere" rule applied only to this one decision. The numbers above are the final corrected figures after all seven fixes/additions and this correction — see `plan.md` Phase 4 for the full writeup, including the exact reproducibility-mystery diagnosis.
 
 See [plan.md](plan.md#phase-4--optimization-engine) for the full breakdown, including the diagnostic that isolated the regression.
 

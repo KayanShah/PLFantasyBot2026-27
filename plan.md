@@ -385,6 +385,36 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!WARNING]
+> **The `TRANSFER_MARGIN = 1.0` decision above was reconsidered — a real reproducibility scare turned out to have a mundane cause, and re-checking properly then exposed an inconsistency in how the decision itself was made.**
+>
+> **The scare:** re-verifying the original margin sweep found the exact same config (seed 42, margin 1.5, 2024-25) giving 1968 in the original run but 2016 on every re-check — including two independent fresh-process runs that agreed with *each other* (ruling out solver/model non-determinism) and a same-process sequential-margin run (ruling out state contamination between margin values). The actual cause: **Free Hit was added to the codebase (commit `2ffbe4e`) *after* the original margin sweep ran (`922c924`)**, so every re-verification in this investigation was unknowingly testing margin's effect on a different pipeline — one where Free Hit competes for the same weekly decision slots — than the one that produced the original numbers. Confirmed directly: disabling Free Hit (`FREE_HIT_TRIGGER_MARGIN = 1e9`) reproduced 1963, matching the original 1968 almost exactly. Not a bug, not non-determinism — an experimental design oversight (re-testing an old result against a codebase that had since changed underneath it).
+>
+> **Since Free Hit is now permanent, the margin sweep needed a full, honest re-run on the current pipeline, not a reconciliation against stale numbers.** Re-ran the same 5-seed × 3-season methodology, now with margin 1.5 included alongside 0.0/1.0/2.0 (60 runs total):
+>
+> | Season | Margin | min | max | range | median |
+> | --- | --- | --- | --- | --- | --- |
+> | 2023-24 | 0.0 | 1986 | 2120 | 134 | 2025 |
+> | 2023-24 | 1.0 | 2040 | 2153 | 113 | 2045 |
+> | 2023-24 | 1.5 | 2098 | 2116 | 18 | 2098 |
+> | 2023-24 | 2.0 | 2099 | 2116 | 17 | 2099 |
+> | 2024-25 | 0.0 | 1986 | 2022 | 36 | 1986 |
+> | 2024-25 | 1.0 | 1986 | 2022 | 36 | 1986 |
+> | 2024-25 | 1.5 | 1981 | 2016 | 35 | **2016** |
+> | 2024-25 | 2.0 | 1966 | 2007 | 41 | 1997 |
+> | 2025-26 | 0.0 | 2012 | 2028 | 16 | 2025 |
+> | 2025-26 | 1.0 | 2012 | 2028 | 16 | 2025 |
+> | 2025-26 | 1.5 | 1932 | 1993 | 61 | **1991 (regression)** |
+> | 2025-26 | 2.0 | 1928 | 1998 | 70 | 1996 |
+>
+> **Aggregate median sum across all 3 seasons: 0.0 → 6036, 1.0 → 6056, 1.5 → 6105 (highest), 2.0 → 6092.**
+>
+> **The inconsistency this surfaced:** margin=1.0 is better-or-equal to 0.0 in *all three* seasons (a strict, riskless improvement), but margin=1.5 has the highest aggregate score and is better in 2 of 3 seasons — its one loss (2025-26, -34) is real and confirmed, not noise (the score distributions at margin 1.0 and 1.5 for 2025-26 don't overlap at all: 1.0's range is 2012-2028, 1.5's is 1932-1993). The original write-up picked 1.0 anyway, using an unstated stricter standard ("reject anything with any confirmed regression, even outweighed elsewhere") that was never applied to the Free Hit decision made in the very same investigation — Free Hit was kept on a "2-of-3-improved, better aggregate" basis despite its own real 2024-25 dip. **Corrected: `TRANSFER_MARGIN` is now `1.5`, chosen by the same standard actually used elsewhere in this project** (aggregate performance across the 3-season backtest, better-or-equal in most, not zero-regression-anywhere). This is a judgment call about how much to weight one season's confirmed loss against two seasons' confirmed gains, not a purely empirical result — flagging it as a stated choice, per the standard this project has otherwise used, rather than a default that fell out of how the result happened to be framed.
+>
+> Multi-season headline updated again: canonical seed 42 — **2023-24: 2110 → 2098**, **2024-25: 2022 → 2016**, **2025-26: 2025 → 1991**.
+
+---
+
 > [!NOTE]
 > **Precondition check: is a two-stage model (predict minutes, then points-per-90 conditional on playing) worth building?** The suggested cheap test: bucket the current model's residuals by real minutes played — if error is *dramatically worse specifically in the 1-45 minute band* than at 0 or 90, that points at a real mixed-distribution problem (a single model straining to fit both "did they play at all" and "how well did they play" at once) worth splitting into two stages. Result on the 2025-26 backtest:
 >
