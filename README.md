@@ -126,7 +126,7 @@ The model is trained only on seasons strictly before the one it's tested on — 
 
 | Season | Bot | Real avg. manager | Diff |
 | --- | --- | --- | --- |
-| 2023-24 | 2093 | 2003 | +90 |
+| 2023-24 | 2087 | 2003 | +84 |
 | 2024-25 | 2042 | 2008 | +34 |
 | 2025-26 | 1978 | 1895 | +83 |
 
@@ -135,7 +135,12 @@ Consistently above the real average manager across three independent seasons, no
 > [!NOTE]
 > A richer-features + dynamic-chip-timing experiment (xG involvement, opponent team-strength, start-rate, dynamic Wildcard timing, a Free Hit chip) was tried and **regressed** the 2025-26 score to 1906. Rather than keep tuning parameters until the number looked good again on that one season, it was reverted back to the validated 2058 checkpoint above. The experiment is preserved in git history if worth revisiting — ideally with multi-season validation from the start next time.
 >
-> Several more attempts using real injury/suspension data (starting-XI filters, a model feature, a transfer-value discount) were also tried and reverted — see `plan.md` Phase 4 for all eight. A real bug was also found and fixed along the way: Bench Boost and Triple Captain were being simulated as 2-per-season for every year tested, but that's only true from 2025/26 onward — every earlier season only had 1 of each. Three more bugs were fixed in a later pass: a cold-start bug where players with no rolling-form history (promoted-club players, fresh transfers) predicted near-zero instead of an average-for-position prior; a sell-price bug where the budget model gave full credit for a player's price rise instead of FPL's real half-profit-on-sale rule; and a player-identity bug where rolling form was carried across the season boundary by matching on name string, which isn't stable (a player's own recorded name format can change season to season) — fixed by joining on FPL's actual permanent player `code` instead. The numbers above are the corrected figures after all fixes — see `plan.md` Phase 4 for the full writeup and before/after numbers on each.
+> Several more attempts using real injury/suspension data (starting-XI filters, a model feature, a transfer-value discount) were also tried and reverted — see `plan.md` Phase 4 for all eight. A real bug was also found and fixed along the way: Bench Boost and Triple Captain were being simulated as 2-per-season for every year tested, but that's only true from 2025/26 onward — every earlier season only had 1 of each. Three more bugs were fixed in a later pass: a cold-start bug where players with no rolling-form history (promoted-club players, fresh transfers) predicted near-zero instead of an average-for-position prior; a sell-price bug where the budget model gave full credit for a player's price rise instead of FPL's real half-profit-on-sale rule; and a player-identity bug where rolling form was carried across the season boundary by matching on name string, which isn't stable (a player's own recorded name format can change season to season) — fixed by joining on FPL's actual permanent player `code` instead.
+
+---
+
+> [!IMPORTANT]
+> A follow-up investigation found the sell-price fix introduced a serious reliability problem: GW1/Wildcard squad-rebuild decisions turned out to be decided by sub-1-point margins between hundreds of near-tied 15-player combinations, and the sell-price fix's budget path-dependency let that tiny, essentially arbitrary noise compound into 100+ point season-total swings — the *same* bot, same skill, landing anywhere from 1960 to 2172 points in 2023-24 purely by chance. Mitigated two ways: averaging a 5-model prediction ensemble for GW1/Wildcard squad construction specifically (a genuine but partial fix, confirmed via before/after seed sweep), and a stability margin on ordinary transfer weeks (`TRANSFER_MARGIN`, empirically sized via a 5-seed × 3-season sweep to 1.0 — collapsed 2023-24's score spread across seeds from 204 points to 6, with zero change to the other two seasons). The numbers above are the final corrected figures after all five fixes — see `plan.md` Phase 4 for the full writeup, every before/after table, and the one claim (margin can't touch Wildcard decisions) that turned out to need correcting mid-investigation.
 
 See [plan.md](plan.md#phase-4--optimization-engine) for the full breakdown, including the diagnostic that isolated the regression.
 

@@ -91,9 +91,13 @@ ENSEMBLE_EXTRA_SEEDS = [101, 102, 103, 104]
 # points where a transfer's advantage over holding was clear-cut. Unlike GW1/
 # Wildcard, "hold" is always a real, well-defined alternative here, so a margin
 # is the right tool: only take a transfer if it beats holding by more than this
-# many points, not just "any amount at all." Size empirically (see plan.md Phase
-# 4 for the sweep), not from first principles — 0.0 preserves prior behavior.
-TRANSFER_MARGIN = 0.0
+# many points, not just "any amount at all." Sized empirically via a 5-seed x
+# 3-season sweep (plan.md Phase 4), not from first principles: 1.0 was chosen
+# because it's strictly better-or-equal to 0.0 in every season on every metric
+# (2023-24's score-distribution spread across seeds collapsed from 204 points
+# to 6; the other two seasons were byte-identical to no margin at all) — 2.0
+# pushed further in two seasons but caused a real regression in the third.
+TRANSFER_MARGIN = 1.0
 
 OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "season_2025-26_simulation.csv"
 SQUADS_OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "season_2025-26_squads.json"

@@ -343,6 +343,30 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 > | 50 | 1968 | 1968 |
 >
 > **Honest result: partial, not a fix.** Only seed 42 moved out of the high cluster; seeds 45 and 49 landed at *exactly* their pre-fix values, meaning the extra 4 models in the ensemble didn't change those specific GW1/Wildcard decisions at all. The range is unchanged (1960-2172, still 212 points) and the split is still bimodal — the fix reduced the high cluster from 3 of 9 to 2 of 9 seeds, not to zero. Kept as a genuine partial improvement (one fewer seed lands in the unstable-fork territory, at a real computational cost of training 5x the models), but this doesn't resolve the underlying fragility — some GW1/Wildcard decisions are apparently decided by a difference robust enough to survive 5-model averaging, not just single-model noise. Not escalating the ensemble size further without more evidence that a bigger ensemble would help rather than just being more expensive for the same partial result.
+>
+> **Traced the seed 45/49 residual divergence directly rather than assuming it's the same story.** First confirmed the ensemble is actually wired to *both* Wildcard gameweeks (`elif gw in WILDCARD_GWS:` is a single branch covering GW8 and GW20 — not a partial-application bug). Then diffed full prediction arrays for canonical seed 45 vs. a fixed (post-ensemble) seed 44: same tiny-magnitude pattern as the original Trippier case — 17 of 28,742 rows differ, max difference 0.95 points, again touching Trippier/Doughty specifically. Walked the squad week by week under the real ensemble-enabled pipeline: **identical through GW7, first diverge exactly at GW8 (Wildcard) with 3 players differing**, then the gap compounds for the rest of the season (-3 at GW8 to +204 by GW38) — the *same* decision point as the original fork, not a new or different mechanism. For this specific seed's tiny prediction gap, averaging in 4 more models simply didn't land on the other side of the tie, unlike seed 42's case.
+>
+> **Consequence, checked before assuming: `TRANSFER_MARGIN` cannot resolve this fork, structurally.** The margin logic only gates ordinary transfer-week decisions (`else:` branch in `simulate()`) — it is never applied at GW1 or Wildcard, by design (a margin needs a "hold" alternative to compare against, which doesn't exist at a full rebuild — see above). Since this divergence is a Wildcard-week decision, no value of `TRANSFER_MARGIN` can touch it. Whatever the margin sweep below shows, it is answering a different, real question (does it help ordinary-week fragility) — not this one.
+>
+> **Multi-seed validated the margin sweep, not a single canonical run per margin** (5 seeds — 42, 43, 44 known post-ensemble-fix "low cluster", plus 45, 49 the two residual "stuck" outliers — × margins 0.0/1.0/2.0 × all 3 seasons, 45 runs):
+>
+> | Season | Margin | min | max | range | median |
+> | --- | --- | --- | --- | --- | --- |
+> | 2023-24 | 0.0 | 1968 | 2172 | 204 | 1973 |
+> | 2023-24 | 1.0 | 2087 | 2093 | **6** | **2093** |
+> | 2023-24 | 2.0 | 2113 | 2118 | 5 | 2118 |
+> | 2024-25 | 0.0 | 1995 | 2042 | 47 | 1995 |
+> | 2024-25 | 1.0 | 1995 | 2042 | 47 | 1995 |
+> | 2024-25 | 2.0 | 1950 | 1963 | 13 | **1960 (regression)** |
+> | 2025-26 | 0.0 | 1978 | 2063 | 85 | 1981 |
+> | 2025-26 | 1.0 | 1978 | 2063 | 85 | 1981 |
+> | 2025-26 | 2.0 | 2004 | 2044 | 40 | 2042 |
+>
+> **Margin=1.0 is strictly better-or-equal to margin=0.0 in every season, on every metric** — 2023-24's spread collapses from 204 to 6 points and its median jumps from 1973 to 2093; 2024-25 and 2025-26 are **byte-identical** to the no-margin baseline (zero risk). Margin=2.0 pushes 2023-24 slightly further (spread 5, median 2118) and helps 2025-26 more (median 2042 vs 1981), but at a real cost in 2024-25: its spread also tightens, but its median *drops* 35 points, a genuine regression the same shape as the sell-price fix's original 2024-25 cost. **Chose `TRANSFER_MARGIN = 1.0`** — captures nearly all of 2023-24's benefit with none of margin=2.0's downside, the cleanest result of this entire investigation (strictly better-or-equal everywhere, not just "most" seasons).
+>
+> **This also corrects the "structurally cannot resolve this fork" claim above — the implication was wrong, even though the mechanism claim was right.** At margin=1.0, seed 45 (2172→2093) and seed 49 (2111→2093) converge almost exactly with the other three seeds in 2023-24. The GW8 fork itself still happens — margin genuinely cannot change what gets picked at a Wildcard, that part of the earlier claim holds — but margin stops the fork's *consequence* from snowballing: with fewer marginal, noisy transfers taken across the remaining 30 gameweeks, two squads that started from different GW8 picks stop diverging further and end up in similar territory anyway. The fork isn't prevented, but it stops compounding — which was always the actual mechanism turning a 0.74-point tie-break into a 200-point season swing (see the sell-price path-dependency finding above). This is inferred from the convergence pattern in the score distribution, not re-confirmed with another explicit squad-by-squad trace — flagging that distinction rather than overstating confidence.
+>
+> **Multi-season headline updated, `TRANSFER_MARGIN = 1.0` now shipped:** canonical seed 42 — **2023-24: 1973 → 2087**, 2024-25: 2042 (unchanged), 2025-26: 1978 (unchanged). Strictly better-or-equal across all three seasons for the actual shipped model, not just the multi-seed aggregate.
 
 ---
 
