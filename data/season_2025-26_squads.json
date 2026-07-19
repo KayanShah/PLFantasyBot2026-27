@@ -1,6 +1,6 @@
 {
   "season": "2025-26",
-  "final_score": 1978,
+  "final_score": 2025,
   "gameweeks": [
     {
       "gw": 1,
@@ -3730,9 +3730,9 @@
     },
     {
       "gw": 19,
-      "chip": "",
-      "transfers": 3,
-      "hits": 2,
+      "chip": "Free Hit",
+      "transfers": null,
+      "hits": 0,
       "starting_xi": [
         {
           "name": "Gianluigi Donnarumma",
@@ -3748,38 +3748,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Virgil van Dijk",
-          "team": "Liverpool",
-          "position": "DEF",
-          "opponent": "LEE (H)",
-          "difficulty": 2,
-          "points": 6,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "James Tarkowski",
-          "team": "Everton",
-          "position": "DEF",
-          "opponent": "NFO (A)",
-          "difficulty": 3,
-          "points": 9,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "R\u00faben dos Santos Gato Alves Dias",
+          "name": "Jo\u0161ko Gvardiol",
           "team": "Man City",
           "position": "DEF",
           "opponent": "SUN (A)",
           "difficulty": 3,
-          "points": 6,
+          "points": 1,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -3787,15 +3761,67 @@
           "is_triple_captain": false
         },
         {
-          "name": "Matheus Santos Carneiro da Cunha",
+          "name": "Patrick Dorgu",
           "team": "Man Utd",
-          "position": "MID",
+          "position": "DEF",
           "opponent": "WOL (H)",
           "difficulty": 1,
           "points": 2,
           "played": true,
           "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Diogo Dalot Teixeira",
+          "team": "Man Utd",
+          "position": "DEF",
+          "opponent": "WOL (H)",
+          "difficulty": 1,
+          "points": 2,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Bukayo Saka",
+          "team": "Arsenal",
+          "position": "MID",
+          "opponent": "AVL (H)",
+          "difficulty": 3,
+          "points": 6,
+          "played": true,
+          "is_captain": true,
+          "is_vice_captain": false,
+          "is_effective_captain": true,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Bruno Borges Fernandes",
+          "team": "Man Utd",
+          "position": "MID",
+          "opponent": "WOL (H)",
+          "difficulty": 1,
+          "points": 0,
+          "played": false,
+          "is_captain": false,
           "is_vice_captain": true,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Rayan Cherki",
+          "team": "Man City",
+          "position": "MID",
+          "opponent": "SUN (A)",
+          "difficulty": 3,
+          "points": 5,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false
         },
@@ -3807,19 +3833,6 @@
           "difficulty": 3,
           "points": 0,
           "played": false,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Bruno Guimar\u00e3es Rodriguez Moura",
-          "team": "Newcastle",
-          "position": "MID",
-          "opponent": "BUR (A)",
-          "difficulty": 2,
-          "points": 10,
-          "played": true,
           "is_captain": false,
           "is_vice_captain": false,
           "is_effective_captain": false,
@@ -3839,16 +3852,16 @@
           "is_triple_captain": false
         },
         {
-          "name": "Erling Haaland",
-          "team": "Man City",
+          "name": "Hugo Ekitik\u00e9",
+          "team": "Liverpool",
           "position": "FWD",
-          "opponent": "SUN (A)",
-          "difficulty": 3,
+          "opponent": "LEE (H)",
+          "difficulty": 2,
           "points": 2,
           "played": true,
-          "is_captain": true,
+          "is_captain": false,
           "is_vice_captain": false,
-          "is_effective_captain": true,
+          "is_effective_captain": false,
           "is_triple_captain": false
         },
         {
@@ -3863,12 +3876,14 @@
           "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false
-        },
+        }
+      ],
+      "bench": [
         {
-          "name": "Richarlison de Andrade",
-          "team": "Spurs",
+          "name": "Ra\u00fal Jim\u00e9nez Rodr\u00edguez",
+          "team": "Fulham",
           "position": "FWD",
-          "opponent": "BRE (A)",
+          "opponent": "CRY (A)",
           "difficulty": 3,
           "points": 2,
           "played": true,
@@ -3876,9 +3891,20 @@
           "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false
-        }
-      ],
-      "bench": [
+        },
+        {
+          "name": "Piero Hincapi\u00e9",
+          "team": "Arsenal",
+          "position": "DEF",
+          "opponent": "AVL (H)",
+          "difficulty": 3,
+          "points": 2,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
         {
           "name": "Keane Lewis-Potter",
           "team": "Brentford",
@@ -3893,38 +3919,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Anton Stach",
-          "team": "Leeds",
-          "position": "MID",
-          "opponent": "LIV (A)",
-          "difficulty": 4,
-          "points": 5,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Maxim De Cuyper",
-          "team": "Brighton",
-          "position": "DEF",
-          "opponent": "WHU (A)",
-          "difficulty": 3,
-          "points": 0,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Robin Roefs",
-          "team": "Sunderland",
+          "name": "Alisson Becker",
+          "team": "Liverpool",
           "position": "GKP",
-          "opponent": "MCI (H)",
-          "difficulty": 4,
-          "points": 7,
+          "opponent": "LEE (H)",
+          "difficulty": 2,
+          "points": 6,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -3932,8 +3932,8 @@
           "is_triple_captain": false
         }
       ],
-      "gw_score": 47,
-      "season_total": 1033
+      "gw_score": 38,
+      "season_total": 1024
     },
     {
       "gw": 20,
@@ -4126,12 +4126,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
+          "name": "Robin Roefs",
+          "team": "Sunderland",
           "position": "GKP",
-          "opponent": "SUN (H)",
-          "difficulty": 2,
-          "points": 2,
+          "opponent": "TOT (A)",
+          "difficulty": 3,
+          "points": 3,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -4140,7 +4140,7 @@
         }
       ],
       "gw_score": 49,
-      "season_total": 1082
+      "season_total": 1073
     },
     {
       "gw": 21,
@@ -4333,12 +4333,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
+          "name": "Robin Roefs",
+          "team": "Sunderland",
           "position": "GKP",
-          "opponent": "BOU (A)",
-          "difficulty": 4,
-          "points": 1,
+          "opponent": "BRE (A)",
+          "difficulty": 3,
+          "points": 2,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -4346,8 +4346,8 @@
           "is_triple_captain": false
         }
       ],
-      "gw_score": 59,
-      "season_total": 1141
+      "gw_score": 60,
+      "season_total": 1133
     },
     {
       "gw": 22,
@@ -4356,12 +4356,12 @@
       "hits": 2,
       "starting_xi": [
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
+          "name": "Robin Roefs",
+          "team": "Sunderland",
           "position": "GKP",
-          "opponent": "WHU (H)",
-          "difficulty": 2,
-          "points": 1,
+          "opponent": "CRY (H)",
+          "difficulty": 3,
+          "points": 2,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -4553,8 +4553,8 @@
           "is_triple_captain": false
         }
       ],
-      "gw_score": 23,
-      "season_total": 1164
+      "gw_score": 24,
+      "season_total": 1157
     },
     {
       "gw": 23,
@@ -4747,11 +4747,11 @@
           "is_triple_captain": false
         },
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
+          "name": "Robin Roefs",
+          "team": "Sunderland",
           "position": "GKP",
-          "opponent": "BUR (A)",
-          "difficulty": 2,
+          "opponent": "WHU (A)",
+          "difficulty": 3,
           "points": 1,
           "played": true,
           "is_captain": false,
@@ -4761,7 +4761,7 @@
         }
       ],
       "gw_score": 63,
-      "season_total": 1227
+      "season_total": 1220
     },
     {
       "gw": 24,
@@ -4770,12 +4770,12 @@
       "hits": 2,
       "starting_xi": [
         {
-          "name": "Jordan Pickford",
-          "team": "Everton",
+          "name": "Robin Roefs",
+          "team": "Sunderland",
           "position": "GKP",
-          "opponent": "BHA (A)",
-          "difficulty": 4,
-          "points": 2,
+          "opponent": "BUR (H)",
+          "difficulty": 1,
+          "points": 6,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -4954,12 +4954,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
+          "name": "Jordan Pickford",
+          "team": "Everton",
           "position": "GKP",
-          "opponent": "MCI (H)",
+          "opponent": "BHA (A)",
           "difficulty": 4,
-          "points": 1,
+          "points": 2,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -4967,8 +4967,8 @@
           "is_triple_captain": false
         }
       ],
-      "gw_score": 34,
-      "season_total": 1261
+      "gw_score": 38,
+      "season_total": 1258
     },
     {
       "gw": 25,
@@ -5161,12 +5161,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
+          "name": "Robin Roefs",
+          "team": "Sunderland",
           "position": "GKP",
-          "opponent": "MUN (A)",
-          "difficulty": 4,
-          "points": 3,
+          "opponent": "ARS (A)",
+          "difficulty": 5,
+          "points": 1,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -5175,7 +5175,7 @@
         }
       ],
       "gw_score": 46,
-      "season_total": 1307
+      "season_total": 1304
     },
     {
       "gw": 26,
@@ -5368,10 +5368,10 @@
           "is_triple_captain": false
         },
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
+          "name": "Robin Roefs",
+          "team": "Sunderland",
           "position": "GKP",
-          "opponent": "NEW (H)",
+          "opponent": "LIV (H)",
           "difficulty": 3,
           "points": 2,
           "played": true,
@@ -5382,7 +5382,7 @@
         }
       ],
       "gw_score": 63,
-      "season_total": 1370
+      "season_total": 1367
     },
     {
       "gw": 27,
@@ -5575,12 +5575,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
+          "name": "Robin Roefs",
+          "team": "Sunderland",
           "position": "GKP",
-          "opponent": "ARS (H)",
-          "difficulty": 4,
-          "points": 0,
+          "opponent": "FUL (H)",
+          "difficulty": 3,
+          "points": 1,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -5589,7 +5589,7 @@
         }
       ],
       "gw_score": 40,
-      "season_total": 1410
+      "season_total": 1407
     },
     {
       "gw": 28,
@@ -5782,12 +5782,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
+          "name": "Robin Roefs",
+          "team": "Sunderland",
           "position": "GKP",
-          "opponent": "FUL (A)",
-          "difficulty": 3,
-          "points": 1,
+          "opponent": "BOU (A)",
+          "difficulty": 4,
+          "points": 2,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -5796,7 +5796,7 @@
         }
       ],
       "gw_score": 55,
-      "season_total": 1465
+      "season_total": 1462
     },
     {
       "gw": 29,
@@ -5989,13 +5989,13 @@
           "is_triple_captain": false
         },
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
+          "name": "Robin Roefs",
+          "team": "Sunderland",
           "position": "GKP",
-          "opponent": "CRY (H)",
+          "opponent": "LEE (A)",
           "difficulty": 3,
-          "points": 1,
-          "played": true,
+          "points": 0,
+          "played": false,
           "is_captain": false,
           "is_vice_captain": false,
           "is_effective_captain": false,
@@ -6003,7 +6003,7 @@
         }
       ],
       "gw_score": 41,
-      "season_total": 1506
+      "season_total": 1503
     },
     {
       "gw": 30,
@@ -6012,11 +6012,11 @@
       "hits": 1,
       "starting_xi": [
         {
-          "name": "Jordan Pickford",
-          "team": "Everton",
+          "name": "Senne Lammens",
+          "team": "Man Utd",
           "position": "GKP",
-          "opponent": "ARS (A)",
-          "difficulty": 5,
+          "opponent": "AVL (H)",
+          "difficulty": 3,
           "points": 2,
           "played": true,
           "is_captain": false,
@@ -6044,19 +6044,6 @@
           "opponent": "TOT (H)",
           "difficulty": 3,
           "points": 2,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Sepp van den Berg",
-          "team": "Brentford",
-          "position": "DEF",
-          "opponent": "WOL (H)",
-          "difficulty": 1,
-          "points": 1,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6116,12 +6103,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Alex Iwobi",
-          "team": "Fulham",
+          "name": "Alexis Mac Allister",
+          "team": "Liverpool",
           "position": "MID",
-          "opponent": "NFO (A)",
+          "opponent": "TOT (H)",
           "difficulty": 3,
-          "points": 3,
+          "points": 8,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6153,9 +6140,7 @@
           "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false
-        }
-      ],
-      "bench": [
+        },
         {
           "name": "Ra\u00fal Jim\u00e9nez Rodr\u00edguez",
           "team": "Fulham",
@@ -6168,7 +6153,9 @@
           "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false
-        },
+        }
+      ],
+      "bench": [
         {
           "name": "James Hill",
           "team": "Bournemouth",
@@ -6196,12 +6183,25 @@
           "is_triple_captain": false
         },
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
+          "name": "Yerson Mosquera Valdelamar",
+          "team": "Wolves",
+          "position": "DEF",
+          "opponent": "BRE (A)",
+          "difficulty": 3,
+          "points": 1,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Jordan Pickford",
+          "team": "Everton",
           "position": "GKP",
-          "opponent": "LIV (A)",
-          "difficulty": 4,
-          "points": 3,
+          "opponent": "ARS (A)",
+          "difficulty": 5,
+          "points": 2,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6209,14 +6209,14 @@
           "is_triple_captain": false
         }
       ],
-      "gw_score": 51,
-      "season_total": 1557
+      "gw_score": 57,
+      "season_total": 1560
     },
     {
       "gw": 31,
       "chip": "",
-      "transfers": 2,
-      "hits": 1,
+      "transfers": 3,
+      "hits": 2,
       "starting_xi": [
         {
           "name": "Jordan Pickford",
@@ -6271,19 +6271,6 @@
           "is_triple_captain": false
         },
         {
-          "name": "Alex Iwobi",
-          "team": "Fulham",
-          "position": "MID",
-          "opponent": "BUR (H)",
-          "difficulty": 1,
-          "points": 1,
-          "played": true,
-          "is_captain": true,
-          "is_vice_captain": false,
-          "is_effective_captain": true,
-          "is_triple_captain": false
-        },
-        {
           "name": "Morgan Gibbs-White",
           "team": "Nott'm Forest",
           "position": "MID",
@@ -6291,9 +6278,9 @@
           "difficulty": 3,
           "points": 8,
           "played": true,
-          "is_captain": false,
-          "is_vice_captain": true,
-          "is_effective_captain": false,
+          "is_captain": true,
+          "is_vice_captain": false,
+          "is_effective_captain": true,
           "is_triple_captain": false
         },
         {
@@ -6323,6 +6310,19 @@
           "is_triple_captain": false
         },
         {
+          "name": "Alexis Mac Allister",
+          "team": "Liverpool",
+          "position": "MID",
+          "opponent": "BHA (A)",
+          "difficulty": 4,
+          "points": 1,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
           "name": "Bryan Mbeumo",
           "team": "Man Utd",
           "position": "MID",
@@ -6344,7 +6344,7 @@
           "points": 4,
           "played": true,
           "is_captain": false,
-          "is_vice_captain": false,
+          "is_vice_captain": true,
           "is_effective_captain": false,
           "is_triple_captain": false
         },
@@ -6377,10 +6377,10 @@
           "is_triple_captain": false
         },
         {
-          "name": "Sepp van den Berg",
-          "team": "Brentford",
+          "name": "Ola Aina",
+          "team": "Nott'm Forest",
           "position": "DEF",
-          "opponent": "LEE (A)",
+          "opponent": "TOT (A)",
           "difficulty": 3,
           "points": 6,
           "played": true,
@@ -6403,11 +6403,11 @@
           "is_triple_captain": false
         },
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
+          "name": "Senne Lammens",
+          "team": "Man Utd",
           "position": "GKP",
-          "opponent": "NFO (H)",
-          "difficulty": 3,
+          "opponent": "BOU (A)",
+          "difficulty": 4,
           "points": 2,
           "played": true,
           "is_captain": false,
@@ -6416,8 +6416,8 @@
           "is_triple_captain": false
         }
       ],
-      "gw_score": 37,
-      "season_total": 1594
+      "gw_score": 40,
+      "season_total": 1600
     },
     {
       "gw": 32,
@@ -6465,12 +6465,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Sepp van den Berg",
-          "team": "Brentford",
+          "name": "Ola Aina",
+          "team": "Nott'm Forest",
           "position": "DEF",
-          "opponent": "EVE (H)",
+          "opponent": "AVL (H)",
           "difficulty": 3,
-          "points": 3,
+          "points": 2,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6517,12 +6517,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Morgan Rogers",
-          "team": "Aston Villa",
+          "name": "Elliot Anderson",
+          "team": "Nott'm Forest",
           "position": "MID",
-          "opponent": "NFO (A)",
+          "opponent": "AVL (H)",
           "difficulty": 3,
-          "points": 5,
+          "points": 4,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6530,12 +6530,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Alex Iwobi",
-          "team": "Fulham",
+          "name": "Morgan Rogers",
+          "team": "Aston Villa",
           "position": "MID",
-          "opponent": "LIV (A)",
-          "difficulty": 4,
-          "points": 2,
+          "opponent": "NFO (A)",
+          "difficulty": 3,
+          "points": 5,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6610,35 +6610,35 @@
           "is_triple_captain": false
         },
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
+          "name": "Senne Lammens",
+          "team": "Man Utd",
           "position": "GKP",
-          "opponent": "SUN (A)",
-          "difficulty": 3,
-          "points": 0,
-          "played": false,
+          "opponent": "LEE (H)",
+          "difficulty": 2,
+          "points": 2,
+          "played": true,
           "is_captain": false,
           "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false
         }
       ],
-      "gw_score": 68,
-      "season_total": 1662
+      "gw_score": 69,
+      "season_total": 1669
     },
     {
       "gw": 33,
-      "chip": "",
-      "transfers": 3,
-      "hits": 2,
+      "chip": "Free Hit",
+      "transfers": null,
+      "hits": 0,
       "starting_xi": [
         {
-          "name": "Jordan Pickford",
-          "team": "Everton",
+          "name": "\u0110or\u0111e Petrovi\u0107",
+          "team": "Bournemouth",
           "position": "GKP",
-          "opponent": "LIV (H)",
-          "difficulty": 3,
-          "points": 1,
+          "opponent": "NEW (A)",
+          "difficulty": 2,
+          "points": 2,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6654,17 +6654,17 @@
           "points": 13,
           "played": true,
           "is_captain": false,
-          "is_vice_captain": true,
+          "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false
         },
         {
-          "name": "James Hill",
-          "team": "Bournemouth",
+          "name": "Pascal Struijk",
+          "team": "Leeds",
           "position": "DEF",
-          "opponent": "NEW (A)",
+          "opponent": "WOL (H)",
           "difficulty": 2,
-          "points": 5,
+          "points": 10,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6672,25 +6672,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Neco Williams",
-          "team": "Nott'm Forest",
+          "name": "Jaka Bijol",
+          "team": "Leeds",
           "position": "DEF",
-          "opponent": "BUR (H)",
-          "difficulty": 1,
-          "points": 2,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Virgil van Dijk",
-          "team": "Liverpool",
-          "position": "DEF",
-          "opponent": "EVE (A)",
-          "difficulty": 3,
-          "points": 8,
+          "opponent": "WOL (H)",
+          "difficulty": 2,
+          "points": 10,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6708,6 +6695,19 @@
           "is_captain": true,
           "is_vice_captain": false,
           "is_effective_captain": true,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Cole Palmer",
+          "team": "Chelsea",
+          "position": "MID",
+          "opponent": "MUN (H)",
+          "difficulty": 3,
+          "points": 2,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": true,
+          "is_effective_captain": false,
           "is_triple_captain": false
         },
         {
@@ -6724,12 +6724,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Dominik Szoboszlai",
-          "team": "Liverpool",
+          "name": "Jaidon Anthony",
+          "team": "Burnley",
           "position": "MID",
-          "opponent": "EVE (A)",
+          "opponent": "NFO (A)",
           "difficulty": 3,
-          "points": 5,
+          "points": 4,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6737,25 +6737,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Alex Iwobi",
-          "team": "Fulham",
-          "position": "MID",
-          "opponent": "BRE (A)",
-          "difficulty": 3,
-          "points": 1,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Igor Thiago Nascimento Rodrigues",
-          "team": "Brentford",
+          "name": "Francisco Evanilson de Lima Barbosa",
+          "team": "Bournemouth",
           "position": "FWD",
-          "opponent": "FUL (H)",
-          "difficulty": 3,
-          "points": 2,
+          "opponent": "NEW (A)",
+          "difficulty": 2,
+          "points": 6,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6763,12 +6750,25 @@
           "is_triple_captain": false
         },
         {
-          "name": "Jarrod Bowen",
-          "team": "West Ham",
+          "name": "Jo\u00e3o Pedro Junqueira de Jesus",
+          "team": "Chelsea",
           "position": "FWD",
-          "opponent": "CRY (A)",
+          "opponent": "MUN (H)",
           "difficulty": 3,
-          "points": 2,
+          "points": 0,
+          "played": false,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Zian Flemming",
+          "team": "Burnley",
+          "position": "FWD",
+          "opponent": "NFO (A)",
+          "difficulty": 3,
+          "points": 9,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6778,36 +6778,10 @@
       ],
       "bench": [
         {
-          "name": "Carlos Henrique Casimiro",
-          "team": "Man Utd",
+          "name": "James Ward-Prowse",
+          "team": "Burnley",
           "position": "MID",
-          "opponent": "CHE (A)",
-          "difficulty": 3,
-          "points": 5,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Valent\u00edn Castellanos",
-          "team": "West Ham",
-          "position": "FWD",
-          "opponent": "CRY (A)",
-          "difficulty": 3,
-          "points": 2,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Sepp van den Berg",
-          "team": "Brentford",
-          "position": "DEF",
-          "opponent": "FUL (H)",
+          "opponent": "NFO (A)",
           "difficulty": 3,
           "points": 6,
           "played": true,
@@ -6817,21 +6791,47 @@
           "is_triple_captain": false
         },
         {
-          "name": "Guglielmo Vicario",
-          "team": "Spurs",
-          "position": "GKP",
-          "opponent": "BHA (H)",
+          "name": "Marc Cucurella Saseta",
+          "team": "Chelsea",
+          "position": "DEF",
+          "opponent": "MUN (H)",
           "difficulty": 3,
-          "points": 0,
-          "played": false,
+          "points": 3,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Neco Williams",
+          "team": "Nott'm Forest",
+          "position": "DEF",
+          "opponent": "BUR (H)",
+          "difficulty": 1,
+          "points": 2,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Karl Darlow",
+          "team": "Leeds",
+          "position": "GKP",
+          "opponent": "WOL (H)",
+          "difficulty": 2,
+          "points": 8,
+          "played": true,
           "is_captain": false,
           "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false
         }
       ],
-      "gw_score": 63,
-      "season_total": 1725
+      "gw_score": 94,
+      "season_total": 1763
     },
     {
       "gw": 34,
@@ -6840,12 +6840,25 @@
       "hits": 2,
       "starting_xi": [
         {
-          "name": "Jordan Pickford",
-          "team": "Everton",
+          "name": "Senne Lammens",
+          "team": "Man Utd",
           "position": "GKP",
-          "opponent": "WHU (A)",
+          "opponent": "BRE (H)",
           "difficulty": 3,
-          "points": 1,
+          "points": 3,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Gabriel dos Santos Magalh\u00e3es",
+          "team": "Arsenal",
+          "position": "DEF",
+          "opponent": "NEW (H)",
+          "difficulty": 3,
+          "points": 8,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6866,25 +6879,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Neco Williams",
-          "team": "Nott'm Forest",
+          "name": "Pedro Porro Sauceda",
+          "team": "Spurs",
           "position": "DEF",
-          "opponent": "SUN (A)",
-          "difficulty": 3,
-          "points": 5,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Konstantinos Mavropanos",
-          "team": "West Ham",
-          "position": "DEF",
-          "opponent": "EVE (H)",
-          "difficulty": 3,
-          "points": 4,
+          "opponent": "WOL (A)",
+          "difficulty": 2,
+          "points": 8,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6918,12 +6918,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Bruno Borges Fernandes",
-          "team": "Man Utd",
+          "name": "Morgan Rogers",
+          "team": "Aston Villa",
           "position": "MID",
-          "opponent": "BRE (H)",
+          "opponent": "FUL (A)",
           "difficulty": 3,
-          "points": 5,
+          "points": 2,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6931,12 +6931,25 @@
           "is_triple_captain": false
         },
         {
-          "name": "Carlos Henrique Casimiro",
-          "team": "Man Utd",
+          "name": "Elliot Anderson",
+          "team": "Nott'm Forest",
           "position": "MID",
-          "opponent": "BRE (H)",
+          "opponent": "SUN (A)",
           "difficulty": 3,
-          "points": 12,
+          "points": 9,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Kiernan Dewsbury-Hall",
+          "team": "Everton",
+          "position": "MID",
+          "opponent": "WHU (A)",
+          "difficulty": 3,
+          "points": 8,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -6968,6 +6981,21 @@
           "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false
+        }
+      ],
+      "bench": [
+        {
+          "name": "Konstantinos Mavropanos",
+          "team": "West Ham",
+          "position": "DEF",
+          "opponent": "EVE (H)",
+          "difficulty": 3,
+          "points": 4,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
         },
         {
           "name": "Valent\u00edn Castellanos",
@@ -6981,55 +7009,27 @@
           "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false
-        }
-      ],
-      "bench": [
-        {
-          "name": "Alex Iwobi",
-          "team": "Fulham",
-          "position": "MID",
-          "opponent": "AVL (H)",
-          "difficulty": 3,
-          "points": 0,
-          "played": false,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
         },
         {
-          "name": "Omar Alderete",
-          "team": "Sunderland",
-          "position": "DEF",
-          "opponent": "NFO (H)",
-          "difficulty": 3,
-          "points": 0,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Sepp van den Berg",
-          "team": "Brentford",
-          "position": "DEF",
-          "opponent": "MUN (A)",
-          "difficulty": 4,
-          "points": 0,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Matz Sels",
+          "name": "Ola Aina",
           "team": "Nott'm Forest",
-          "position": "GKP",
+          "position": "DEF",
           "opponent": "SUN (A)",
           "difficulty": 3,
-          "points": 7,
+          "points": 9,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Jordan Pickford",
+          "team": "Everton",
+          "position": "GKP",
+          "opponent": "WHU (A)",
+          "difficulty": 3,
+          "points": 1,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7037,8 +7037,8 @@
           "is_triple_captain": false
         }
       ],
-      "gw_score": 62,
-      "season_total": 1787
+      "gw_score": 72,
+      "season_total": 1835
     },
     {
       "gw": 35,
@@ -7047,12 +7047,12 @@
       "hits": 0,
       "starting_xi": [
         {
-          "name": "Matz Sels",
-          "team": "Nott'm Forest",
+          "name": "Senne Lammens",
+          "team": "Man Utd",
           "position": "GKP",
-          "opponent": "CHE (A)",
+          "opponent": "LIV (H)",
           "difficulty": 3,
-          "points": 8,
+          "points": 2,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7060,12 +7060,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Neco Williams",
-          "team": "Nott'm Forest",
+          "name": "Gabriel dos Santos Magalh\u00e3es",
+          "team": "Arsenal",
           "position": "DEF",
-          "opponent": "CHE (A)",
+          "opponent": "FUL (H)",
           "difficulty": 3,
-          "points": 1,
+          "points": 6,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7086,29 +7086,16 @@
           "is_triple_captain": false
         },
         {
-          "name": "Sepp van den Berg",
-          "team": "Brentford",
+          "name": "Ola Aina",
+          "team": "Nott'm Forest",
           "position": "DEF",
-          "opponent": "WHU (H)",
-          "difficulty": 2,
-          "points": 6,
-          "played": true,
+          "opponent": "CHE (A)",
+          "difficulty": 3,
+          "points": 0,
+          "played": false,
           "is_captain": false,
           "is_vice_captain": false,
           "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Bruno Borges Fernandes",
-          "team": "Man Utd",
-          "position": "MID",
-          "opponent": "LIV (H)",
-          "difficulty": 3,
-          "points": 5,
-          "played": true,
-          "is_captain": true,
-          "is_vice_captain": false,
-          "is_effective_captain": true,
           "is_triple_captain": false
         },
         {
@@ -7119,9 +7106,9 @@
           "difficulty": 3,
           "points": 4,
           "played": true,
-          "is_captain": false,
-          "is_vice_captain": true,
-          "is_effective_captain": false,
+          "is_captain": true,
+          "is_vice_captain": false,
+          "is_effective_captain": true,
           "is_triple_captain": false
         },
         {
@@ -7133,17 +7120,17 @@
           "points": 2,
           "played": true,
           "is_captain": false,
-          "is_vice_captain": false,
+          "is_vice_captain": true,
           "is_effective_captain": false,
           "is_triple_captain": false
         },
         {
-          "name": "Carlos Henrique Casimiro",
-          "team": "Man Utd",
+          "name": "Morgan Rogers",
+          "team": "Aston Villa",
           "position": "MID",
-          "opponent": "LIV (H)",
+          "opponent": "TOT (H)",
           "difficulty": 3,
-          "points": 4,
+          "points": 1,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7188,9 +7175,7 @@
           "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false
-        }
-      ],
-      "bench": [
+        },
         {
           "name": "Valent\u00edn Castellanos",
           "team": "West Ham",
@@ -7198,6 +7183,21 @@
           "opponent": "BRE (A)",
           "difficulty": 3,
           "points": 1,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        }
+      ],
+      "bench": [
+        {
+          "name": "Kiernan Dewsbury-Hall",
+          "team": "Everton",
+          "position": "MID",
+          "opponent": "MCI (H)",
+          "difficulty": 4,
+          "points": 2,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7218,11 +7218,11 @@
           "is_triple_captain": false
         },
         {
-          "name": "Omar Alderete",
-          "team": "Sunderland",
+          "name": "Pedro Porro Sauceda",
+          "team": "Spurs",
           "position": "DEF",
-          "opponent": "WOL (A)",
-          "difficulty": 2,
+          "opponent": "AVL (A)",
+          "difficulty": 4,
           "points": 4,
           "played": true,
           "is_captain": false,
@@ -7244,8 +7244,8 @@
           "is_triple_captain": false
         }
       ],
-      "gw_score": 55,
-      "season_total": 1842
+      "gw_score": 41,
+      "season_total": 1876
     },
     {
       "gw": 36,
@@ -7254,12 +7254,38 @@
       "hits": 0,
       "starting_xi": [
         {
-          "name": "Matz Sels",
-          "team": "Nott'm Forest",
+          "name": "Senne Lammens",
+          "team": "Man Utd",
           "position": "GKP",
-          "opponent": "NEW (H)",
+          "opponent": "SUN (A)",
           "difficulty": 3,
-          "points": 3,
+          "points": 9,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Gabriel dos Santos Magalh\u00e3es",
+          "team": "Arsenal",
+          "position": "DEF",
+          "opponent": "WHU (A)",
+          "difficulty": 3,
+          "points": 11,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Pedro Porro Sauceda",
+          "team": "Spurs",
+          "position": "DEF",
+          "opponent": "LEE (H)",
+          "difficulty": 2,
+          "points": 1,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7280,42 +7306,16 @@
           "is_triple_captain": false
         },
         {
-          "name": "Ferdi Kad\u0131o\u011flu",
-          "team": "Brighton",
+          "name": "Adrien Truffert",
+          "team": "Bournemouth",
           "position": "DEF",
-          "opponent": "WOL (H)",
-          "difficulty": 1,
-          "points": 6,
+          "opponent": "FUL (A)",
+          "difficulty": 3,
+          "points": 9,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
           "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Neco Williams",
-          "team": "Nott'm Forest",
-          "position": "DEF",
-          "opponent": "NEW (H)",
-          "difficulty": 3,
-          "points": 2,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Bruno Borges Fernandes",
-          "team": "Man Utd",
-          "position": "MID",
-          "opponent": "SUN (A)",
-          "difficulty": 3,
-          "points": 3,
-          "played": true,
-          "is_captain": true,
-          "is_vice_captain": false,
-          "is_effective_captain": true,
           "is_triple_captain": false
         },
         {
@@ -7326,9 +7326,9 @@
           "difficulty": 3,
           "points": 2,
           "played": true,
-          "is_captain": false,
-          "is_vice_captain": true,
-          "is_effective_captain": false,
+          "is_captain": true,
+          "is_vice_captain": false,
+          "is_effective_captain": true,
           "is_triple_captain": false
         },
         {
@@ -7340,7 +7340,7 @@
           "points": 0,
           "played": false,
           "is_captain": false,
-          "is_vice_captain": false,
+          "is_vice_captain": true,
           "is_effective_captain": false,
           "is_triple_captain": false
         },
@@ -7358,13 +7358,26 @@
           "is_triple_captain": false
         },
         {
-          "name": "Carlos Henrique Casimiro",
-          "team": "Man Utd",
+          "name": "Morgan Rogers",
+          "team": "Aston Villa",
           "position": "MID",
-          "opponent": "SUN (A)",
+          "opponent": "BUR (A)",
+          "difficulty": 2,
+          "points": 2,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Kiernan Dewsbury-Hall",
+          "team": "Everton",
+          "position": "MID",
+          "opponent": "CRY (A)",
           "difficulty": 3,
-          "points": 0,
-          "played": false,
+          "points": 5,
+          "played": true,
           "is_captain": false,
           "is_vice_captain": false,
           "is_effective_captain": false,
@@ -7382,7 +7395,9 @@
           "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false
-        },
+        }
+      ],
+      "bench": [
         {
           "name": "Igor Thiago Nascimento Rodrigues",
           "team": "Brentford",
@@ -7395,9 +7410,7 @@
           "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false
-        }
-      ],
-      "bench": [
+        },
         {
           "name": "Valent\u00edn Castellanos",
           "team": "West Ham",
@@ -7425,19 +7438,6 @@
           "is_triple_captain": false
         },
         {
-          "name": "Omar Alderete",
-          "team": "Sunderland",
-          "position": "DEF",
-          "opponent": "MUN (H)",
-          "difficulty": 3,
-          "points": 8,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
           "name": "Jordan Pickford",
           "team": "Everton",
           "position": "GKP",
@@ -7451,8 +7451,8 @@
           "is_triple_captain": false
         }
       ],
-      "gw_score": 36,
-      "season_total": 1878
+      "gw_score": 53,
+      "season_total": 1929
     },
     {
       "gw": 37,
@@ -7461,11 +7461,11 @@
       "hits": 0,
       "starting_xi": [
         {
-          "name": "Jordan Pickford",
-          "team": "Everton",
+          "name": "Senne Lammens",
+          "team": "Man Utd",
           "position": "GKP",
-          "opponent": "SUN (H)",
-          "difficulty": 2,
+          "opponent": "NFO (H)",
+          "difficulty": 3,
           "points": 1,
           "played": true,
           "is_captain": false,
@@ -7474,12 +7474,25 @@
           "is_triple_captain": false
         },
         {
-          "name": "Ferdi Kad\u0131o\u011flu",
-          "team": "Brighton",
+          "name": "Gabriel dos Santos Magalh\u00e3es",
+          "team": "Arsenal",
           "position": "DEF",
-          "opponent": "LEE (A)",
+          "opponent": "BUR (H)",
+          "difficulty": 1,
+          "points": 6,
+          "played": true,
+          "is_captain": true,
+          "is_vice_captain": false,
+          "is_effective_captain": true,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Pedro Porro Sauceda",
+          "team": "Spurs",
+          "position": "DEF",
+          "opponent": "CHE (A)",
           "difficulty": 3,
-          "points": 2,
+          "points": 0,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7497,32 +7510,6 @@
           "is_captain": false,
           "is_vice_captain": false,
           "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Omar Alderete",
-          "team": "Sunderland",
-          "position": "DEF",
-          "opponent": "EVE (A)",
-          "difficulty": 3,
-          "points": 1,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Bruno Borges Fernandes",
-          "team": "Man Utd",
-          "position": "MID",
-          "opponent": "NFO (H)",
-          "difficulty": 3,
-          "points": 9,
-          "played": true,
-          "is_captain": true,
-          "is_vice_captain": false,
-          "is_effective_captain": true,
           "is_triple_captain": false
         },
         {
@@ -7552,12 +7539,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Dominik Szoboszlai",
-          "team": "Liverpool",
+          "name": "Morgan Rogers",
+          "team": "Aston Villa",
           "position": "MID",
-          "opponent": "AVL (A)",
-          "difficulty": 4,
-          "points": 9,
+          "opponent": "LIV (H)",
+          "difficulty": 3,
+          "points": 12,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7565,12 +7552,25 @@
           "is_triple_captain": false
         },
         {
-          "name": "Carlos Henrique Casimiro",
-          "team": "Man Utd",
+          "name": "Kiernan Dewsbury-Hall",
+          "team": "Everton",
           "position": "MID",
-          "opponent": "NFO (H)",
-          "difficulty": 3,
-          "points": 1,
+          "opponent": "SUN (H)",
+          "difficulty": 2,
+          "points": 2,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Dominik Szoboszlai",
+          "team": "Liverpool",
+          "position": "MID",
+          "opponent": "AVL (A)",
+          "difficulty": 4,
+          "points": 9,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7606,6 +7606,19 @@
       ],
       "bench": [
         {
+          "name": "Adrien Truffert",
+          "team": "Bournemouth",
+          "position": "DEF",
+          "opponent": "MCI (H)",
+          "difficulty": 4,
+          "points": 4,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
           "name": "Valent\u00edn Castellanos",
           "team": "West Ham",
           "position": "FWD",
@@ -7632,25 +7645,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Neco Williams",
-          "team": "Nott'm Forest",
-          "position": "DEF",
-          "opponent": "MUN (A)",
-          "difficulty": 4,
-          "points": 1,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Matz Sels",
-          "team": "Nott'm Forest",
+          "name": "Jordan Pickford",
+          "team": "Everton",
           "position": "GKP",
-          "opponent": "MUN (A)",
-          "difficulty": 4,
-          "points": 2,
+          "opponent": "SUN (H)",
+          "difficulty": 2,
+          "points": 1,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7658,8 +7658,8 @@
           "is_triple_captain": false
         }
       ],
-      "gw_score": 44,
-      "season_total": 1922
+      "gw_score": 48,
+      "season_total": 1977
     },
     {
       "gw": 38,
@@ -7668,12 +7668,25 @@
       "hits": 0,
       "starting_xi": [
         {
-          "name": "Matz Sels",
-          "team": "Nott'm Forest",
+          "name": "Jordan Pickford",
+          "team": "Everton",
           "position": "GKP",
-          "opponent": "BOU (H)",
+          "opponent": "TOT (A)",
           "difficulty": 3,
-          "points": 3,
+          "points": 2,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
+          "name": "Gabriel dos Santos Magalh\u00e3es",
+          "team": "Arsenal",
+          "position": "DEF",
+          "opponent": "CRY (A)",
+          "difficulty": 3,
+          "points": 1,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7694,12 +7707,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Ferdi Kad\u0131o\u011flu",
-          "team": "Brighton",
+          "name": "Pedro Porro Sauceda",
+          "team": "Spurs",
           "position": "DEF",
-          "opponent": "MUN (H)",
+          "opponent": "EVE (H)",
           "difficulty": 3,
-          "points": 1,
+          "points": 10,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7707,12 +7720,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Konstantinos Mavropanos",
-          "team": "West Ham",
+          "name": "Adrien Truffert",
+          "team": "Bournemouth",
           "position": "DEF",
-          "opponent": "LEE (H)",
-          "difficulty": 2,
-          "points": 8,
+          "opponent": "NFO (A)",
+          "difficulty": 3,
+          "points": 6,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7746,37 +7759,24 @@
           "is_triple_captain": false
         },
         {
+          "name": "Rayan Cherki",
+          "team": "Man City",
+          "position": "MID",
+          "opponent": "AVL (H)",
+          "difficulty": 3,
+          "points": 1,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
           "name": "Pascal Gro\u00df",
           "team": "Brighton",
           "position": "MID",
           "opponent": "MUN (H)",
           "difficulty": 3,
-          "points": 2,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Bruno Borges Fernandes",
-          "team": "Man Utd",
-          "position": "MID",
-          "opponent": "BHA (A)",
-          "difficulty": 4,
-          "points": 14,
-          "played": true,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Jaidon Anthony",
-          "team": "Burnley",
-          "position": "MID",
-          "opponent": "WOL (H)",
-          "difficulty": 1,
           "points": 2,
           "played": true,
           "is_captain": false,
@@ -7813,6 +7813,19 @@
       ],
       "bench": [
         {
+          "name": "Kiernan Dewsbury-Hall",
+          "team": "Everton",
+          "position": "MID",
+          "opponent": "TOT (A)",
+          "difficulty": 3,
+          "points": 2,
+          "played": true,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false
+        },
+        {
           "name": "Igor Thiago Nascimento Rodrigues",
           "team": "Brentford",
           "position": "FWD",
@@ -7826,12 +7839,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Neco Williams",
-          "team": "Nott'm Forest",
+          "name": "Konstantinos Mavropanos",
+          "team": "West Ham",
           "position": "DEF",
-          "opponent": "BOU (H)",
-          "difficulty": 3,
-          "points": 2,
+          "opponent": "LEE (H)",
+          "difficulty": 2,
+          "points": 8,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7839,25 +7852,12 @@
           "is_triple_captain": false
         },
         {
-          "name": "Omar Alderete",
-          "team": "Sunderland",
-          "position": "DEF",
-          "opponent": "CHE (H)",
-          "difficulty": 3,
-          "points": 0,
-          "played": false,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false
-        },
-        {
-          "name": "Jordan Pickford",
-          "team": "Everton",
+          "name": "Senne Lammens",
+          "team": "Man Utd",
           "position": "GKP",
-          "opponent": "TOT (A)",
-          "difficulty": 3,
-          "points": 2,
+          "opponent": "BHA (A)",
+          "difficulty": 4,
+          "points": 6,
           "played": true,
           "is_captain": false,
           "is_vice_captain": false,
@@ -7865,8 +7865,8 @@
           "is_triple_captain": false
         }
       ],
-      "gw_score": 56,
-      "season_total": 1978
+      "gw_score": 48,
+      "season_total": 2025
     }
   ]
 }

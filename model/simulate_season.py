@@ -19,13 +19,15 @@ your best lineup *this* week regardless of the run of form ahead.
 Rules encoded (see FantasyRules.md):
   - 15-man squad: 2 GKP / 5 DEF / 5 MID / 3 FWD, <=3 players/club, £100.0m budget.
   - 1 free transfer/gameweek, rolling over up to 5; extra transfers cost -4 each.
-  - Wildcard: always 2 per season (one per half), every season. Bench Boost and
-    Triple Captain: 2 per season (one per half) ONLY from 2025/26 onward — every
-    prior season only had 1 of each for the whole season, not 1 per half (see
-    SEASONS_WITH_SECOND_CHIP_SET; verified against the official rule-change
-    announcement before fixing a bug where older seasons were simulated with
-    twice their real chip allowance). Free Hit is not simulated at all, any season.
+  - Wildcard: always 2 per season (one per half), every season. Bench Boost,
+    Triple Captain, and Free Hit: 2 per season (one per half) ONLY from 2025/26
+    onward — every prior season only had 1 of each for the whole season, not 1
+    per half (see SEASONS_WITH_SECOND_CHIP_SET; verified against the official
+    rule-change announcement before fixing a bug where older seasons were
+    simulated with twice their real chip allowance).
   - Captain 2x, Triple Captain 3x, auto-subs for starters who didn't play.
+  - Free Hit: unlimited free transfers for exactly one gameweek, squad reverts
+    automatically the following week — no lasting budget/transfer-count cost.
 
 Chip schedule (fixed heuristic, avoids GW clashes):
   Wildcard 1  -> GW8    Bench Boost 1 -> GW9 (every season)
@@ -35,6 +37,11 @@ Chip schedule (fixed heuristic, avoids GW clashes):
   captain option is a forward with an easy fixture (FDR <= 2), per the "best
   strikers, easy game" brief — falls back to the best available option on the
   window's last gameweek if never triggered, so it isn't wasted.
+  Free Hit: played the first ordinary gameweek (Wildcard/Bench Boost weeks
+  excluded) where an unconstrained single-gameweek-optimal squad clearly beats
+  the current squad's actual best XI (FREE_HIT_TRIGGER_MARGIN) — falls back to
+  the best remaining option on the half's last gameweek if never triggered,
+  same "don't waste it" logic as Triple Captain.
 """
 
 import json
@@ -98,6 +105,17 @@ ENSEMBLE_EXTRA_SEEDS = [101, 102, 103, 104]
 # to 6; the other two seasons were byte-identical to no margin at all) — 2.0
 # pushed further in two seasons but caused a real regression in the third.
 TRANSFER_MARGIN = 1.0
+
+# Free Hit: unlimited free transfers for exactly one gameweek, squad reverts
+# automatically the following week (no lasting cost, no purchase-price impact).
+# Tested previously only bundled with several other changes (which regressed
+# and was reverted as a whole — see plan.md Phase 4) and never in isolation.
+# Triggered like Triple Captain (data-driven, not a fixed calendar week): only
+# worth playing when the single-gameweek-optimal unconstrained squad clearly
+# beats the current squad's actual best XI this week, using this week's
+# predictions only — matching the project's rule that starting-XI-scale
+# decisions stay single-gameweek, not horizon-valued.
+FREE_HIT_TRIGGER_MARGIN = 10.0
 
 OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "season_2025-26_simulation.csv"
 SQUADS_OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "season_2025-26_squads.json"
@@ -383,6 +401,7 @@ def simulate(
     current_squad = None
     free_transfers = 1
     tc_used = {1: False, 2: False}
+    fh_used = {1: False, 2: False}
     season_total = 0
     log = []
     squads_log = []
@@ -394,7 +413,15 @@ def simulate(
 
         hits = 0
         chip = None
+        is_free_hit = False
+        pre_chip_squad = current_squad
         horizon_pool = with_horizon_points([model], predictions, gw, gw_pool)
+
+        # Pre-2025/26 seasons only ever had one of each chip for the whole season
+        # (see SEASONS_WITH_SECOND_CHIP_SET) — treat the whole season as "half 1" then.
+        half = (1 if gw <= HALF1_LAST_GW else 2) if has_second_chip_set else 1
+        half_end = (HALF1_LAST_GW if half == 1 else SEASON_LAST_GW) if has_second_chip_set else SEASON_LAST_GW
+        last_chance = gw == half_end
 
         if gw == 1:
             horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool)
@@ -408,32 +435,63 @@ def simulate(
             transfers_made = None
             chip = "Wildcard"
         else:
-            budget = squad_sell_value(current_squad, gw_pool)
-            priced_pool = with_sell_cost(horizon_pool, current_squad, gw_pool)
-            current_ids = set(current_squad["element"])
-            current_horizon = attach_this_week(current_ids, current_squad, horizon_pool)
-            hold_net = current_horizon["predicted_points"].sum()
-            best_k, best_net, best_squad = 0, hold_net, current_squad
-            for k in range(1, min(free_transfers + 2, 5) + 1):
-                candidate = select_squad(priced_pool, budget=budget, current_ids=current_ids, max_changes=k, cost_col="cost")
-                if candidate is None:
-                    continue
-                # Judge the transfer by its lookahead value (worth a hit only if the gain
-                # over the next LOOKAHEAD_GWS gameweeks outweighs the -4), not just this week.
-                resolved = attach_this_week(set(candidate["element"]), current_squad, horizon_pool)
-                net = resolved["predicted_points"].sum() - 4 * max(0, k - free_transfers)
-                if net > best_net:
-                    best_k, best_net, best_squad = k, net, candidate
-            # Only actually take a transfer if it clears TRANSFER_MARGIN over holding —
-            # "hold" is always a well-defined alternative here (unlike GW1/Wildcard),
-            # so a stability margin is the right tool for this decision specifically.
-            if best_k != 0 and best_net <= hold_net + TRANSFER_MARGIN:
+            # Free Hit check first: a single-gameweek-optimal unconstrained squad,
+            # valued on *this week's* predictions only (not horizon), compared
+            # against the current squad's actual best XI this week. Triggered like
+            # Triple Captain — data-driven, forced on the half's last gameweek if
+            # never triggered so it isn't wasted (safe to force: by construction
+            # the free-hit squad's this-week score is never worse than holding).
+            current_xi_score = pick_starting_xi(
+                attach_this_week(set(current_squad["element"]), current_squad, gw_pool)
+            )[0]["predicted_points"].sum()
+            fh_budget = squad_sell_value(current_squad, gw_pool)
+            fh_priced_pool = with_sell_cost(gw_pool, current_squad, gw_pool)
+            fh_candidate = select_squad(fh_priced_pool, budget=fh_budget, cost_col="cost")
+            free_hit_gain = None
+            if fh_candidate is not None:
+                fh_xi_score = pick_starting_xi(
+                    attach_this_week(set(fh_candidate["element"]), current_squad, gw_pool)
+                )[0]["predicted_points"].sum()
+                free_hit_gain = fh_xi_score - current_xi_score
+
+            # Excludes bench_boost_gws: that's a fixed calendar week with no
+            # re-trigger window, so Free Hit claiming it would silently skip
+            # Bench Boost for the rest of the half instead of just deferring it.
+            if gw not in bench_boost_gws and not fh_used[half] and fh_candidate is not None and (
+                free_hit_gain > FREE_HIT_TRIGGER_MARGIN or (last_chance and free_hit_gain > 0)
+            ):
+                squad = fh_candidate
+                transfers_made = None
+                is_free_hit = True
+                chip = "Free Hit"
+                fh_used[half] = True
+            else:
+                budget = squad_sell_value(current_squad, gw_pool)
+                priced_pool = with_sell_cost(horizon_pool, current_squad, gw_pool)
+                current_ids = set(current_squad["element"])
+                current_horizon = attach_this_week(current_ids, current_squad, horizon_pool)
+                hold_net = current_horizon["predicted_points"].sum()
                 best_k, best_net, best_squad = 0, hold_net, current_squad
-            squad = best_squad
-            transfers_made = best_k
-            hits = max(0, best_k - free_transfers)
-            if gw in bench_boost_gws:
-                chip = "Bench Boost"
+                for k in range(1, min(free_transfers + 2, 5) + 1):
+                    candidate = select_squad(priced_pool, budget=budget, current_ids=current_ids, max_changes=k, cost_col="cost")
+                    if candidate is None:
+                        continue
+                    # Judge the transfer by its lookahead value (worth a hit only if the gain
+                    # over the next LOOKAHEAD_GWS gameweeks outweighs the -4), not just this week.
+                    resolved = attach_this_week(set(candidate["element"]), current_squad, horizon_pool)
+                    net = resolved["predicted_points"].sum() - 4 * max(0, k - free_transfers)
+                    if net > best_net:
+                        best_k, best_net, best_squad = k, net, candidate
+                # Only actually take a transfer if it clears TRANSFER_MARGIN over holding —
+                # "hold" is always a well-defined alternative here (unlike GW1/Wildcard),
+                # so a stability margin is the right tool for this decision specifically.
+                if best_k != 0 and best_net <= hold_net + TRANSFER_MARGIN:
+                    best_k, best_net, best_squad = 0, hold_net, current_squad
+                squad = best_squad
+                transfers_made = best_k
+                hits = max(0, best_k - free_transfers)
+                if gw in bench_boost_gws:
+                    chip = "Bench Boost"
 
         squad_ids = set(squad["element"])
         squad_resolved = attach_this_week(squad_ids, current_squad if current_squad is not None else squad, gw_pool)
@@ -441,11 +499,6 @@ def simulate(
         captain_id, vice_id = pick_captains(xi)
 
         # Triple Captain: online decision using only this gameweek's predictions.
-        # Pre-2025/26 seasons only ever had one Triple Captain for the whole season
-        # (see SEASONS_WITH_SECOND_CHIP_SET) — treat the whole season as "half 1" then.
-        half = (1 if gw <= HALF1_LAST_GW else 2) if has_second_chip_set else 1
-        half_end = (HALF1_LAST_GW if half == 1 else SEASON_LAST_GW) if has_second_chip_set else SEASON_LAST_GW
-        last_chance = gw == half_end
         tc_this_week = False
         if chip is None and not tc_used[half]:
             easy_fwds = xi[(xi["position_label"] == "FWD") & (xi["difficulty"] <= 2)]
@@ -504,10 +557,15 @@ def simulate(
                   + (f"  [{chip}]" if chip else "")
                   + (f"  transfers={transfers_made} hits={hits}" if isinstance(transfers_made, int) and transfers_made else ""))
 
-        new_purchase_prices = carry_purchase_prices(squad_ids, current_squad, gw_pool)
-        current_squad = squad_resolved[["element", "name", "team", "position_label", "value"]].copy()
-        current_squad["purchase_price"] = current_squad["element"].map(new_purchase_prices)
-        if gw == 1 or gw in WILDCARD_GWS:
+        if is_free_hit:
+            # Squad reverts automatically — persist the pre-Free-Hit squad unchanged,
+            # as if this gameweek's temporary rebuild never happened for future weeks.
+            current_squad = pre_chip_squad
+        else:
+            new_purchase_prices = carry_purchase_prices(squad_ids, current_squad, gw_pool)
+            current_squad = squad_resolved[["element", "name", "team", "position_label", "value"]].copy()
+            current_squad["purchase_price"] = current_squad["element"].map(new_purchase_prices)
+        if gw == 1 or gw in WILDCARD_GWS or is_free_hit:
             pass  # doesn't touch banked free transfers
         else:
             used_free = min(transfers_made, free_transfers)

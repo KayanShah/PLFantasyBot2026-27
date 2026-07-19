@@ -126,9 +126,9 @@ The model is trained only on seasons strictly before the one it's tested on — 
 
 | Season | Bot | Real avg. manager | Diff |
 | --- | --- | --- | --- |
-| 2023-24 | 2087 | 2003 | +84 |
-| 2024-25 | 2042 | 2008 | +34 |
-| 2025-26 | 1978 | 1895 | +83 |
+| 2023-24 | 2110 | 2003 | +107 |
+| 2024-25 | 2022 | 2008 | +14 |
+| 2025-26 | 2025 | 1895 | +130 |
 
 Consistently above the real average manager across three independent seasons, not just a lucky one. (Past seasons' average-manager totals came from [Wayback Machine](https://web.archive.org/) snapshots of `bootstrap-static`, since the live FPL API only serves the current season — see `plan.md` Phase 4 for the exact snapshot URLs.)
 
@@ -140,7 +140,12 @@ Consistently above the real average manager across three independent seasons, no
 ---
 
 > [!IMPORTANT]
-> A follow-up investigation found the sell-price fix introduced a serious reliability problem: GW1/Wildcard squad-rebuild decisions turned out to be decided by sub-1-point margins between hundreds of near-tied 15-player combinations, and the sell-price fix's budget path-dependency let that tiny, essentially arbitrary noise compound into 100+ point season-total swings — the *same* bot, same skill, landing anywhere from 1960 to 2172 points in 2023-24 purely by chance. Mitigated two ways: averaging a 5-model prediction ensemble for GW1/Wildcard squad construction specifically (a genuine but partial fix, confirmed via before/after seed sweep), and a stability margin on ordinary transfer weeks (`TRANSFER_MARGIN`, empirically sized via a 5-seed × 3-season sweep to 1.0 — collapsed 2023-24's score spread across seeds from 204 points to 6, with zero change to the other two seasons). The numbers above are the final corrected figures after all five fixes — see `plan.md` Phase 4 for the full writeup, every before/after table, and the one claim (margin can't touch Wildcard decisions) that turned out to need correcting mid-investigation.
+> A follow-up investigation found the sell-price fix introduced a serious reliability problem: GW1/Wildcard squad-rebuild decisions turned out to be decided by sub-1-point margins between hundreds of near-tied 15-player combinations, and the sell-price fix's budget path-dependency let that tiny, essentially arbitrary noise compound into 100+ point season-total swings — the *same* bot, same skill, landing anywhere from 1960 to 2172 points in 2023-24 purely by chance. Mitigated two ways: averaging a 5-model prediction ensemble for GW1/Wildcard squad construction specifically (a genuine but partial fix, confirmed via before/after seed sweep), and a stability margin on ordinary transfer weeks (`TRANSFER_MARGIN`, empirically sized via a 5-seed × 3-season sweep to 1.0 — collapsed 2023-24's score spread across seeds from 204 points to 6, with zero change to the other two seasons). See `plan.md` Phase 4 for the full writeup, every before/after table, and the one claim (margin can't touch Wildcard decisions) that turned out to need correcting mid-investigation.
+
+---
+
+> [!NOTE]
+> Free Hit was isolated and tested standalone for the first time (previously only ever tried bundled with other changes, in the regressed/reverted experiment above). Triggered like Triple Captain — data-driven, not a fixed calendar week: played when a single-gameweek-optimal unconstrained squad clearly beats the current squad's actual best XI that week. Result: +23 (2023-24), -20 (2024-25), +47 (2025-26). Checked against each season's already-known noise floor rather than taken at face value — 2023-24's +23 is well beyond that season's ~6-point post-fix noise band (likely real); 2024-25's -20 sits entirely inside its ~47-point noise band (not a confirmed regression); 2025-26's +47 is suggestive against an ~85-point band. Kept on a "2 of 3 improve, third isn't a confirmed loss" basis. The numbers above are the final corrected figures after all six fixes/additions — see `plan.md` Phase 4 for the full writeup.
 
 See [plan.md](plan.md#phase-4--optimization-engine) for the full breakdown, including the diagnostic that isolated the regression.
 

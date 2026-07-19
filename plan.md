@@ -370,6 +370,21 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!IMPORTANT]
+> **Free Hit, isolated for the first time.** Every prior test of Free Hit was bundled with several other changes (the very first Phase-4 experiment, which regressed as a whole and was reverted — its Free Hit component's standalone value was never actually known). Implemented cleanly: unlimited free transfers for exactly one gameweek, squad reverts automatically the next week with no lasting budget/transfer-count cost (`is_free_hit` handling in `simulate()`). Triggered like Triple Captain — data-driven, not a fixed calendar week: play it when a single-gameweek-optimal unconstrained squad clearly beats the current squad's actual best XI *this week only* (`FREE_HIT_TRIGGER_MARGIN = 10.0`, this week's predictions, not horizon-valued — matches the project's existing rule that starting-XI-scale decisions stay single-gameweek), forced on the half's last gameweek if never triggered so it isn't wasted. Explicitly excludes `bench_boost_gws` — Bench Boost is a fixed calendar week with no re-trigger window, so letting Free Hit claim it would silently skip Bench Boost for the rest of the half rather than just deferring it.
+>
+> | Season | Before | After | Diff |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2087 | 2110 | **+23** |
+> | 2024-25 | 2042 | 2022 | **-20** |
+> | 2025-26 | 1978 | 2025 | **+47** |
+>
+> Mixed, but checked against each season's already-known noise floor rather than taken at face value: 2023-24's score-distribution spread was collapsed to just 6 points by the margin fix above, so +23 there is comfortably beyond noise — likely real. 2024-25's spread was still ~47 points even post-margin-fix, so the -20 "regression" sits entirely inside that existing noise band — not a confirmed regression, just not distinguishable from it either way. 2025-26's spread was ~85 points, so +47 is suggestive of a real effect without being conclusive on its own. **Kept**, on a "2 of 3 improve, the third isn't a confirmed loss" basis consistent with this project's validation bar — not multi-seed-swept the way the margin fix was, given the noise floors for these specific seasons were already characterized in the sell-price/ensemble investigation above and a fresh 45-run sweep wasn't judged worth the time for a result this directionally clear.
+>
+> Multi-season headline now: **2023-24 → 2110 (+107 vs avg)**, **2024-25 → 2022 (+14 vs avg)**, **2025-26 → 2025 (+130 vs avg)**.
+
+---
+
 > [!NOTE]
 > **Precondition check: is a two-stage model (predict minutes, then points-per-90 conditional on playing) worth building?** The suggested cheap test: bucket the current model's residuals by real minutes played — if error is *dramatically worse specifically in the 1-45 minute band* than at 0 or 90, that points at a real mixed-distribution problem (a single model straining to fit both "did they play at all" and "how well did they play" at once) worth splitting into two stages. Result on the 2025-26 backtest:
 >
