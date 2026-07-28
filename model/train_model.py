@@ -121,6 +121,65 @@ def prepare(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def build_season_features(season: str, prior_season: str) -> pd.DataFrame:
+    """
+    Feature table covering *every* (player, gameweek) row of `season`, unlike
+    prepare(), which drops each player's first appearance because shift(1)
+    leaves it with no rolling history.
+
+    Two things close that gap: rolling form carries over from `prior_season`
+    on the stable player `code` (not `element`, re-numbered every season, nor
+    `name`, whose format can change season to season — see load_player_codes),
+    and a player with no history anywhere falls back to their position's
+    average rather than 0, which would read to the model as "never plays" — an
+    input it never trained on, since prepare() drops exactly those rows.
+
+    Gameweeks where a club had no fixture stay absent: there is no opponent,
+    venue or difficulty to predict against, and those players score nothing.
+    """
+    prior = load_season(prior_season)
+    current = load_season(season)
+    combined = pd.concat([prior, current], ignore_index=True)
+
+    codes = pd.concat([
+        load_player_codes(prior_season).assign(season=prior_season),
+        load_player_codes(season).assign(season=season),
+    ], ignore_index=True)
+    combined = combined.merge(codes, on=["season", "element"], how="left")
+    # Fall back to a season-scoped synthetic code for the rare row with no
+    # players_raw.csv match, so it degrades to old (name-less) behavior for
+    # just that row rather than losing it or crashing the join.
+    missing = combined["player_code"].isna()
+    if missing.any():
+        combined.loc[missing, "player_code"] = (
+            "unmatched_" + combined.loc[missing, "season"] + "_" + combined.loc[missing, "element"].astype(str)
+        )
+
+    combined["season_order"] = combined["season"].map({prior_season: 0, season: 1})
+    combined = combined.sort_values(["player_code", "season_order", "GW"]).reset_index(drop=True)
+    grouped = combined.groupby("player_code", group_keys=False)
+
+    for stat in ROLLING_STATS:
+        for window in ROLLING_WINDOWS:
+            col = f"{stat}_avg{window}"
+            combined[col] = grouped[stat].transform(
+                lambda s, w=window: s.shift(1).rolling(w, min_periods=1).mean()
+            )
+            position_avg = combined.groupby("position")[col].transform("mean")
+            combined[col] = combined[col].fillna(position_avg).fillna(0)
+
+    combined = pd.get_dummies(combined, columns=["position"], prefix="position")
+    for col in ["position_DEF", "position_FWD", "position_GKP", "position_MID"]:
+        if col not in combined.columns:
+            combined[col] = 0
+    combined["position_label"] = (
+        combined[["position_GKP", "position_DEF", "position_MID", "position_FWD"]]
+        .idxmax(axis=1).str.replace("position_", "", regex=False)
+    )
+
+    return combined[combined["season"] == season].copy()
+
+
 def evaluate(y_true: np.ndarray, y_pred: np.ndarray, label: str) -> None:
     mae = mean_absolute_error(y_true, y_pred)
     rmse = mean_squared_error(y_true, y_pred) ** 0.5
@@ -175,13 +234,24 @@ def main() -> None:
     for name, importance in importances[:10]:
         print(f"  {name:<20} {importance:.3f}")
 
-    out_path = DATA_DIR.parent / "backtest_2025-26_predictions.csv"
-    test_df = test_df.copy()
-    test_df["predicted_points"] = model_pred
-    test_df[["season", "name", "GW", "total_points", "predicted_points"]].to_csv(
-        out_path, index=False
+    # Written from build_season_features, not the metrics table above: prepare()
+    # drops every player's first appearance, so a CSV built from it silently
+    # omits all of GW1 (plus any later debut), which also makes a per-player
+    # season total wrong. These are the same predictions simulate_season acts on.
+    out_path = DATA_DIR.parent / f"backtest_{TEST_SEASON}_predictions.csv"
+    complete = build_season_features(TEST_SEASON, TRAIN_SEASONS[-1])
+    complete["predicted_points"] = model.predict(complete[FEATURE_COLUMNS])
+    complete["total_season_predicted_points"] = (
+        complete.groupby("element")["predicted_points"].transform("sum")
     )
+    complete[[
+        "season", "name", "GW", "total_points",
+        "predicted_points", "total_season_predicted_points",
+    ]].to_csv(out_path, index=False)
+
     print(f"\nPer-gameweek predictions saved -> {out_path}")
+    print(f"  {len(complete)} rows, covering every player-gameweek in {TEST_SEASON}.")
+    print(f"  Metrics above cover the {len(test_df)} rows with within-season rolling history.")
 
 
 if __name__ == "__main__":
