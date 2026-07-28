@@ -538,6 +538,26 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!IMPORTANT]
+> **The lookahead could not see future double gameweeks. Fixing that repairs the 2023-24 regression the `fixture_count` change left unexplained, at a small aggregate cost.**
+>
+> `build_horizon_scores()` freezes a player's form at the current gameweek and swaps in each future week's *schedule facts* — that is what makes it a fair lookahead rather than result-peeking. It swapped `was_home` and `difficulty`, but once `fixture_count` became a feature it was left frozen too. Two consequences, both wrong: a player with a double this week was valued as though they had a double every week for the next five, and an upcoming double four weeks out was completely invisible, so the bot never planned a transfer to be in place for one.
+>
+> | Season | `fixture_count` only | + future fixture counts in the horizon | Diff |
+> | --- | --- | --- | --- |
+> | 2023-24 | 1963 | **2065** | **+102** |
+> | 2024-25 | 2110 | 2080 | -30 |
+> | 2025-26 | 2148 | 2003 | **-145** |
+> | **aggregate** | **6221** | **6148** | **-73** |
+>
+> **Kept, and the reasoning matters more than the aggregate here.** Judged on total alone this fails. Judged on margin against the average manager it is clearly better: **+62 / +72 / +108**, every season above, where the previous step was **-40** in 2023-24 — actually below the average manager. The +102 recovery lands in the season with by far the most doubles (983 player-gameweeks against 374 and 419), which is exactly where an unaware lookahead should hurt most, so the mechanism and the result agree.
+>
+> It also puts the previous step's 2148 in perspective: part of that came from the inflation described above, not from genuinely better decisions. Measured against the pre-`fixture_count` baseline, the two changes together are **6148 vs 6105 (+43)**, better in 2 of 3 seasons, and never below the average manager in any of them. That is a smaller headline than 6221 and a more honest one.
+>
+> **The pattern worth noticing, since this is now the third time:** the crude version of a behaviour keeps turning out to be load-bearing. Freezing fixture count meant "buy players who have a double now and keep them", which is decent FPL strategy by accident. Making it correct removed that and cost points in two seasons even though the information is strictly better. Same shape as appearance-based form (attempt 9) and the sell-price fix. Anything replacing a crude heuristic here should be checked for what the crude version was quietly doing.
+
+---
+
 ## Phase 5 — Automation & Interface
 
 - [x] **Scheduled pipeline** — scrape → feature-build → predict → optimize, run automatically each gameweek before the transfer deadline. ([`model/live_pipeline.py`](model/live_pipeline.py)) Pulls the live season from the FPL API into the same four per-season files [`model/fetch_historical_data.py`](model/fetch_historical_data.py) writes, so `build_season_features`/`optimizer`/`build_horizon_scores` are reused unchanged rather than reimplemented for live. Self-gates with `--only-if-due` so one hourly cron entry covers a season of irregular kickoff times.
