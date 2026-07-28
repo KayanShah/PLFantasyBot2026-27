@@ -46,7 +46,8 @@ ROLLING_WINDOWS = [3, 5]
 
 FEATURE_COLUMNS = (
     [f"{stat}_avg{w}" for stat in ROLLING_STATS for w in ROLLING_WINDOWS]
-    + ["value", "was_home", "difficulty", "position_DEF", "position_FWD", "position_GKP", "position_MID"]
+    + ["value", "was_home", "difficulty", "fixture_count",
+       "position_DEF", "position_FWD", "position_GKP", "position_MID"]
 )
 
 
@@ -86,10 +87,16 @@ def load_season(season: str) -> pd.DataFrame:
     df = df.drop(columns=["team_h_difficulty", "team_a_difficulty", "fixture"])
 
     # Collapse double-gameweek rows (same player, same GW, two fixtures) into one.
+    # Summing fixture_count is what survives the collapse to tell the model a
+    # double happened: the points columns get summed across both matches, but
+    # difficulty is averaged and was_home taken from the first, so without this
+    # a double is indistinguishable from a single against an average opponent.
+    # Doubles score roughly twice as much (2.37 vs 1.16 mean points in 2025-26).
+    df["fixture_count"] = 1
     agg = {col: "sum" for col in SUM_COLUMNS if col in df.columns}
     agg.update({"name": "first", "position": "first", "team": "first",
                 "opponent_team": "first", "was_home": "first", "value": "mean",
-                "difficulty": "mean"})
+                "difficulty": "mean", "fixture_count": "sum"})
     df = df.groupby(["season", "element", "GW"], as_index=False).agg(agg)
 
     return df
@@ -121,8 +128,49 @@ def prepare(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def blank_gameweek_rows(rows: pd.DataFrame) -> pd.DataFrame:
+    """
+    A row per gameweek a player's club didn't play, from the gameweek that
+    player enters the league onward.
+
+    The source data simply omits these, which makes a blank indistinguishable
+    from a player who left, and makes any per-player season total silently
+    incomparable -- Haaland's 2025-26 total covers 36 gameweeks, not 38,
+    because City blanked in GW31 and GW34. They carry fixture_count 0 and
+    score nothing.
+
+    Kept out of the frame the optimizer sees: a zero-point player with no
+    fixture must never be selectable as cheap bench filler.
+    """
+    club_played = set(zip(rows["team"], rows["GW"]))
+    all_gws = range(int(rows["GW"].min()), int(rows["GW"].max()) + 1)
+    blanks = []
+
+    for _, group in rows.groupby("element", sort=False):
+        template = group.iloc[-1]
+        present = set(group["GW"])
+        for gw in all_gws:
+            if gw < group["GW"].min() or gw in present:
+                continue
+            # The club played, so this player just has no row that week (sold,
+            # unregistered). Not a blank gameweek.
+            if (template["team"], gw) in club_played:
+                continue
+            blank = template.copy()
+            blank["GW"] = gw
+            blank["fixture_count"] = 0
+            blank["opponent_team"] = pd.NA
+            for stat in SUM_COLUMNS:
+                if stat in blank.index:
+                    blank[stat] = 0
+            blanks.append(blank)
+
+    return pd.DataFrame(blanks) if blanks else pd.DataFrame(columns=rows.columns)
+
+
 def build_season_features(
-    season: str, prior_season: str, extra_rows: pd.DataFrame | None = None
+    season: str, prior_season: str, extra_rows: pd.DataFrame | None = None,
+    include_blanks: bool = False,
 ) -> pd.DataFrame:
     """
     Feature table for `season` that keeps every row, unlike prepare(), which
@@ -182,7 +230,11 @@ def build_season_features(
         .idxmax(axis=1).str.replace("position_", "", regex=False)
     )
 
-    return combined[combined["season"] == season].copy()
+    rows = combined[combined["season"] == season].copy()
+    if include_blanks:
+        rows = pd.concat([rows, blank_gameweek_rows(rows)], ignore_index=True)
+        rows = rows.sort_values(["player_code", "GW"]).reset_index(drop=True)
+    return rows
 
 
 def evaluate(y_true: np.ndarray, y_pred: np.ndarray, label: str) -> None:
@@ -239,13 +291,29 @@ def main() -> None:
     for name, importance in importances[:10]:
         print(f"  {name:<20} {importance:.3f}")
 
-    out_path = DATA_DIR.parent / "backtest_2025-26_predictions.csv"
-    test_df = test_df.copy()
-    test_df["predicted_points"] = model_pred
-    test_df[["season", "name", "GW", "total_points", "predicted_points"]].to_csv(
-        out_path, index=False
+    # Built from build_season_features, not the metrics table above. prepare()
+    # drops every player's first appearance, so a CSV built from it silently
+    # omits all of GW1 plus any later debut, and blank gameweeks are missing
+    # outright -- either alone makes a per-player season total wrong.
+    out_path = DATA_DIR.parent / f"backtest_{TEST_SEASON}_predictions.csv"
+    complete = build_season_features(TEST_SEASON, TRAIN_SEASONS[-1], include_blanks=True)
+    complete["predicted_points"] = model.predict(complete[FEATURE_COLUMNS])
+    # No fixture, no points. Predicting from a blank row's carried-forward
+    # features would invent a score for a match that never gets played.
+    complete.loc[complete["fixture_count"] == 0, "predicted_points"] = 0.0
+    complete["total_season_predicted_points"] = (
+        complete.groupby("element")["predicted_points"].transform("sum")
     )
+    complete[[
+        "season", "name", "GW", "fixture_count", "total_points",
+        "predicted_points", "total_season_predicted_points",
+    ]].to_csv(out_path, index=False)
+
+    blanks = int((complete["fixture_count"] == 0).sum())
     print(f"\nPer-gameweek predictions saved -> {out_path}")
+    print(f"  {len(complete)} rows, every gameweek of {TEST_SEASON} for every player,")
+    print(f"  including {blanks} blank-gameweek rows scoring 0.")
+    print(f"  Metrics above cover the {len(test_df)} rows with within-season rolling history.")
 
 
 if __name__ == "__main__":

@@ -490,6 +490,32 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!IMPORTANT]
+> **Double gameweeks were invisible to the model. Adding a `fixture_count` feature is the largest single gain measured in this project so far — and also its largest confirmed single-season regression.**
+>
+> `load_season()` collapses a double gameweek into one row: the points columns are summed across both matches, but `difficulty` is averaged and `was_home` taken from the first. Nothing survived the collapse to say a double had happened, so the model saw a double as a single against an average opponent. Measured in 2025-26: doubles average **2.37 points against 1.16** for singles — almost exactly 2x — across 419 player-gameweeks.
+>
+> The fix is one column. `fixture_count` (summed through the same collapse) lands **5th in feature importance at 0.070**, ahead of `difficulty` at 0.028. Single-gameweek accuracy improves for the first time since the availability feature: **MAE 0.991 → 0.973**, correlation 0.573 → 0.578.
+>
+> | Season | Baseline | + `fixture_count` | Diff |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2098 | 1963 | **-135** |
+> | 2024-25 | 2016 | 2110 | **+94** |
+> | 2025-26 | 1991 | 2148 | **+157** |
+> | **aggregate** | **6105** | **6221** | **+116** |
+>
+> 2025-26 reaches **+253 against the average manager**, the highest single-season margin this project has recorded.
+>
+> **All three swings were checked against their own season's noise floor, and the 2023-24 loss is real.** 2024-25's +94 and 2025-26's +157 both clear their measured floors (±22-47 and ±85). For 2023-24 the old ±125 bimodal figure no longer applies — `TRANSFER_MARGIN = 1.5` collapsed that season's baseline spread to 18 points (2098-2116) — so a 4-seed sweep was run rather than assuming either way: **1963, 1975, 2018, 2000** (range 55). The distributions do not overlap at all, with an 80-point gap to the baseline's floor. This is a genuine ~110-point regression in 2023-24, not a seed landing in the low basin.
+>
+> **Kept**, on the standard this project has actually used elsewhere — aggregate performance and better-in-most, not zero-regression-anywhere. That is the same trade-off accepted for Free Hit (2 of 3, one real dip) and for `TRANSFER_MARGIN = 1.5` (2 of 3, one confirmed -34). The gains here are far larger than that precedent and so is the loss; the aggregate is +116 either way.
+>
+> **Not explained: why 2023-24 specifically regresses.** That season has the most doubles of the three (983 player-gameweeks across 6 gameweeks, versus 374 and 419), so the feature is most active exactly where it hurts. A plausible reading is that chasing doubles pulls the squad toward fixture-count rather than quality in a season where the doubles were spread across six separate gameweeks rather than concentrated. Untested — flagging it as a lead, not a finding.
+>
+> **Also landed here:** the predictions CSV is now a genuine 38-row-per-player grid. Blank gameweeks previously had no row at all, which made a blank indistinguishable from a player who had left and made per-player season totals silently incomparable — Haaland's 2025-26 total covered 36 gameweeks, not 38, because City blanked in GW31 and GW34. Blanks now appear explicitly with `fixture_count = 0` and score zero. They are deliberately kept **out** of the frame the optimizer sees (`include_blanks` defaults to `False`), since a zero-point player with no fixture must never be selectable as cheap bench filler.
+
+---
+
 ## Phase 5 — Automation & Interface
 
 - [x] **Scheduled pipeline** — scrape → feature-build → predict → optimize, run automatically each gameweek before the transfer deadline. ([`model/live_pipeline.py`](model/live_pipeline.py)) Pulls the live season from the FPL API into the same four per-season files [`model/fetch_historical_data.py`](model/fetch_historical_data.py) writes, so `build_season_features`/`optimizer`/`build_horizon_scores` are reused unchanged rather than reimplemented for live. Self-gates with `--only-if-due` so one hourly cron entry covers a season of irregular kickoff times.
