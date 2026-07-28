@@ -121,6 +121,70 @@ def prepare(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def build_season_features(
+    season: str, prior_season: str, extra_rows: pd.DataFrame | None = None
+) -> pd.DataFrame:
+    """
+    Feature table for `season` that keeps every row, unlike prepare(), which
+    drops each player's first appearance because shift(1) leaves it with no
+    rolling history.
+
+    Two things close that gap: rolling form carries over from `prior_season`
+    on the stable player `code` (not `element`, re-numbered every season, nor
+    `name`, whose format can change season to season — see load_player_codes),
+    and a player with no history anywhere falls back to their position's
+    average rather than 0, which would read to the model as "never plays" —
+    an input it never trained on, since prepare() drops exactly those rows.
+
+    `extra_rows` appends gameweeks that have not been played yet, which the
+    live pipeline needs so there is something to predict against before a
+    fixture happens. Their stat columns must be NaN rather than 0 so a rolling
+    window skips them, instead of counting an unplayed week as a scoreless one.
+    """
+    frames = [load_season(prior_season), load_season(season)]
+    if extra_rows is not None and not extra_rows.empty:
+        frames.append(extra_rows)
+    combined = pd.concat(frames, ignore_index=True)
+
+    codes = pd.concat([
+        load_player_codes(prior_season).assign(season=prior_season),
+        load_player_codes(season).assign(season=season),
+    ], ignore_index=True)
+    combined = combined.merge(codes, on=["season", "element"], how="left")
+    # Fall back to a season-scoped synthetic code for the rare row with no
+    # players_raw.csv match, so it degrades to old (name-less) behavior for
+    # just that row rather than losing it or crashing the join.
+    missing = combined["player_code"].isna()
+    if missing.any():
+        combined.loc[missing, "player_code"] = (
+            "unmatched_" + combined.loc[missing, "season"] + "_" + combined.loc[missing, "element"].astype(str)
+        )
+
+    combined["season_order"] = combined["season"].map({prior_season: 0, season: 1})
+    combined = combined.sort_values(["player_code", "season_order", "GW"]).reset_index(drop=True)
+    grouped = combined.groupby("player_code", group_keys=False)
+
+    for stat in ROLLING_STATS:
+        for window in ROLLING_WINDOWS:
+            col = f"{stat}_avg{window}"
+            combined[col] = grouped[stat].transform(
+                lambda s, w=window: s.shift(1).rolling(w, min_periods=1).mean()
+            )
+            position_avg = combined.groupby("position")[col].transform("mean")
+            combined[col] = combined[col].fillna(position_avg).fillna(0)
+
+    combined = pd.get_dummies(combined, columns=["position"], prefix="position")
+    for col in ["position_DEF", "position_FWD", "position_GKP", "position_MID"]:
+        if col not in combined.columns:
+            combined[col] = 0
+    combined["position_label"] = (
+        combined[["position_GKP", "position_DEF", "position_MID", "position_FWD"]]
+        .idxmax(axis=1).str.replace("position_", "", regex=False)
+    )
+
+    return combined[combined["season"] == season].copy()
+
+
 def evaluate(y_true: np.ndarray, y_pred: np.ndarray, label: str) -> None:
     mae = mean_absolute_error(y_true, y_pred)
     rmse = mean_squared_error(y_true, y_pred) ** 0.5

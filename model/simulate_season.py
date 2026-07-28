@@ -150,59 +150,7 @@ def build_predictions(models: list) -> pd.DataFrame:
     the whole rest of the season onto a different, compounding path; averaging
     several independently-trained models makes that specific tie-break less arbitrary).
     """
-    prior = train_model.load_season(PRIOR_SEASON)
-    current = train_model.load_season(SEASON)
-    combined = pd.concat([prior, current], ignore_index=True)
-
-    # Join each row to its stable player_code (not element, which is re-numbered
-    # every season, and not name, which can change format season to season —
-    # see load_player_codes). Without this, a player whose name string changed
-    # between PRIOR_SEASON and SEASON silently loses their carried-over rolling
-    # form and gets treated as a zero-history debutant instead.
-    codes = pd.concat([
-        train_model.load_player_codes(PRIOR_SEASON).assign(season=PRIOR_SEASON),
-        train_model.load_player_codes(SEASON).assign(season=SEASON),
-    ], ignore_index=True)
-    combined = combined.merge(codes, on=["season", "element"], how="left")
-    # Fall back to a season-scoped synthetic code for the rare row with no
-    # players_raw.csv match, so it degrades to old (name-less) behavior for
-    # just that row rather than losing it or crashing the join.
-    missing = combined["player_code"].isna()
-    if missing.any():
-        combined.loc[missing, "player_code"] = (
-            "unmatched_" + combined.loc[missing, "season"] + "_" + combined.loc[missing, "element"].astype(str)
-        )
-
-    season_order = {PRIOR_SEASON: 0, SEASON: 1}
-    combined["season_order"] = combined["season"].map(season_order)
-    combined = combined.sort_values(["player_code", "season_order", "GW"]).reset_index(drop=True)
-    grouped = combined.groupby("player_code", group_keys=False)
-
-    for stat in train_model.ROLLING_STATS:
-        for window in train_model.ROLLING_WINDOWS:
-            col = f"{stat}_avg{window}"
-            combined[col] = grouped[stat].transform(
-                lambda s, w=window: s.shift(1).rolling(w, min_periods=1).mean()
-            )
-            # Rookies/promoted-team players/fresh arrivals have no rolling history yet.
-            # Filling with 0 told the model "this player never plays" — an input the
-            # model never actually trained on, since prepare() drops exactly these
-            # no-history rows during training (train_model.py). Fall back to the
-            # position's average instead: a reasonable "unknown, treat as an average
-            # player of this position" prior until real form accumulates.
-            position_avg = combined.groupby("position")[col].transform("mean")
-            combined[col] = combined[col].fillna(position_avg).fillna(0)
-
-    combined = pd.get_dummies(combined, columns=["position"], prefix="position")
-    for col in ["position_DEF", "position_FWD", "position_GKP", "position_MID"]:
-        if col not in combined.columns:
-            combined[col] = 0
-    combined["position_label"] = (
-        combined[["position_GKP", "position_DEF", "position_MID", "position_FWD"]]
-        .idxmax(axis=1).str.replace("position_", "", regex=False)
-    )
-
-    rows = combined[combined["season"] == SEASON].copy()
+    rows = train_model.build_season_features(SEASON, PRIOR_SEASON)
     rows["predicted_points"] = ensemble_predict(models, rows[train_model.FEATURE_COLUMNS])
     return rows
 

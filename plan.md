@@ -10,7 +10,9 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 ---
 
 > [!CAUTION]
-> We are currently awaiting 2026/27 season data. Everything in `data/` right now (`fixtures.csv`, `fixtures.json`, `fpl.db`) is **2025/26 season data** — the FPL API hasn't reset for the new season yet. Do not build or trust any model/optimization output against the current dataset; re-run the scrapers once FPL officially launches 2026/27 (expected mid-to-late July 2026).
+> **The FPL API has now reset for 2026/27** — 38 gameweeks, 563 players, GW1 deadline `2026-08-21T17:30Z`, with Coventry/Hull/Ipswich promoted and Burnley/Wolves relegated. [`model/live_pipeline.py`](model/live_pipeline.py) reads it directly.
+>
+> The committed files in `data/` (`fixtures.csv`, `fixtures.json`, `fpl.db`) are **still 2025/26 data** — the scrapers haven't been re-run since the reset. Don't trust those specific files for 2026/27 until they are.
 
 ---
 
@@ -448,7 +450,7 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Phase 5 — Automation & Interface
 
-- [ ] **Scheduled pipeline** — scrape → feature-build → predict → optimize, run automatically each gameweek before the transfer deadline.
+- [x] **Scheduled pipeline** — scrape → feature-build → predict → optimize, run automatically each gameweek before the transfer deadline. ([`model/live_pipeline.py`](model/live_pipeline.py)) Pulls the live season from the FPL API into the same four per-season files [`model/fetch_historical_data.py`](model/fetch_historical_data.py) writes, so `build_season_features`/`optimizer`/`build_horizon_scores` are reused unchanged rather than reimplemented for live. Self-gates with `--only-if-due` so one hourly cron entry covers a season of irregular kickoff times.
 - [x] **Output/reporting** — [`website/build_site.py`](website/build_site.py) builds a self-contained, single-file website showing the bot's pick for every gameweek (pitch view, opponent, difficulty colour-coding, captaincy, chips) from the best validated simulation run. Currently a one-shot build from a completed season's log, not yet a live weekly report — see the scheduled-pipeline item above.
 - [ ] *(Optional)* **Live team sync** — authenticate against your own FPL team via `/my-team/{manager_id}/` to compare the bot's recommendation against your actual squad.
 - [ ] *(Optional)* **Auto-apply transfers** — only if you're comfortable letting the bot act without a manual approval step; recommend keeping a human-in-the-loop confirmation initially.
