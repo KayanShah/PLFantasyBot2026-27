@@ -261,6 +261,28 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!WARNING]
+> **A ninth attempt finally tried the one mechanism attempts 4-8 never touched — changing how the form *feature itself* is built, rather than filtering or discounting a decision made from it. It is the most consistently negative result in this project's history.**
+>
+> Every earlier attempt applied availability at decision time, competing with auto-subs and vice-captain fallback, which already act on the certain outcome. This one changed the feature construction instead: performance stats (`total_points`, `goals_scored`, `assists`, `bps`, ICT and friends) averaged over a player's last N **appearances** rather than last N calendar gameweeks, with `minutes` deliberately left calendar-based so "how good are they when they play" and "are they playing at all" become separate signals the model can weigh independently.
+>
+> The motivating case: Salah missed six straight gameweeks at AFCON in 2025-26 (GW17-22, and 11 of 38 overall). Under calendar rolling his form window filled with zeros, so on his GW23 return the model read him as out of form when he had not played badly — he had not played. The fix worked mechanically, verified before measuring: his `total_points_avg3` holds at **3.33** across the absence (the mean of his last three appearances: GW12=2, GW14=1, GW16=7) instead of decaying to 0, while `minutes_avg3` correctly falls to 0.00.
+>
+> | Season | Baseline | + appearance-based form | Diff |
+> | --- | --- | --- | --- |
+> | 2023-24 | 1963 | 1917 | **-46** |
+> | 2024-25 | 2110 | 2077 | **-33** |
+> | 2025-26 | 2148 | 1948 | **-200** |
+> | **aggregate** | **6221** | **5942** | **-279** |
+>
+> Worse in all three seasons, and 2025-26's -200 is far outside that season's ~±85 floor. Reverted.
+>
+> **Why it backfired, and it is worth understanding rather than filing away.** Form decaying to zero during an absence was *accidentally load-bearing*. It was the mechanism that made the bot shed players who had stopped playing — crude, but it worked, because a player who misses three gameweeks sees their form collapse and gets transferred out. Holding form constant across an absence removes that pressure: an injured or absent player keeps looking good on the horizon score used for transfer and wildcard decisions, and `minutes_avg` alone does not outweigh it. The bot ends up holding players who are not playing.
+>
+> **What this says about the whole line, attempts 4-9.** The theory after attempt 8 was that the existing mechanisms capture most of the achievable value from knowing about injuries, and that a genuinely new mechanism would be needed to beat them. This *was* that new mechanism — the one thing left untried, aimed at the prediction rather than the decision — and it lost by more than any of the eight before it. The stronger reading now available: this architecture does not merely fail to gain from availability information, it is **quietly relying on the crude version it already has**. Anything that makes absence handling more "correct" in isolation risks removing a load-bearing signal without replacing what it did. A tenth attempt should start by asking what replaces the sell-pressure that decaying form provides, not by making the form itself more accurate.
+
+---
+
 > [!IMPORTANT]
 > **External review of attempts 1-8** (a "hard thinking" pass by another model, given the full context in [`HardThinkingPrompt.md`](HardThinkingPrompt.md)) surfaced two falsifiable claims and several concrete leads. Both claims were checked against the actual code/data before acting on either — one held up, one didn't:
 >
