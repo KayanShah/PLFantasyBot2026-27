@@ -558,6 +558,52 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!IMPORTANT]
+> **Transfers: a missing rule, a cap on hits, and a price model used only to break ties. Three changes, measured separately.**
+>
+> The bot lost **108 points to hits in 2025-26** — 27 hits at -4, more than its entire margin over the average manager that season — while `free_transfers_available` sat at 1 in almost every gameweek. It burned its free transfer weekly and took hits on top, essentially never banking.
+>
+> **1. The GW16 AFCON top-up was never implemented.** [`FantasyRules.md`](FantasyRules.md) section 4 documents free transfers being topped up to 5 at Gameweek 16, covering players leaving for the Africa Cup of Nations. `simulate()` did not do it. Scoped to 2025/26 only, since granting it to earlier seasons would repeat the chip-count bug of applying a newer rule retroactively.
+>
+> | Season | Before | After | Diff |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2065 | 2065 | 0 |
+> | 2024-25 | 2080 | 2080 | 0 |
+> | 2025-26 | 2003 | 2016 | **+13** |
+>
+> Only the season the rule applies to moves, which is the isolation you want from a correctly scoped rules fix. +13 sits inside that season's ~±85 floor, so this is **not** claimed as a gain — it is kept because the bot is entitled to those transfers, the same basis as the chip-count fix.
+>
+> **2. Capped the transfer search at one hit per gameweek** (`MAX_HITS_PER_GW`), down from two. This limits how far the search may reach rather than penalising hits harder, which would distort the comparison — a -4 that gains 10 is a good hit and should still be taken.
+>
+> | Season | Before | After | Diff |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2065 | 2064 | -1 |
+> | 2024-25 | 2080 | **2193** | **+113** |
+> | 2025-26 | 2016 | 1941 | -75 |
+> | **aggregate** | **6161** | **6198** | **+37** |
+>
+> One confirmed gain (+113 against 2024-25's ~±47 floor), one exact null, one loss inside 2025-26's ~±85 floor. Kept on aggregate and better-or-equal in 2 of 3.
+>
+> **3. A price model, wired in as a tie-break only** ([`model/price_model.py`](model/price_model.py)). Prices follow net transfer traffic, not performance, and the lag is plainly visible: Salah's net transfers ran -652k/-708k/-715k/-845k from GW6 of 2025-26 and his price fell 14.5 → 14.2 across GW8-10. A gradient-boosted model on `transfers_balance`, ownership and net-transfer-share gets **95.8% of price-move directions right** on the 2,118 rows that actually moved in 2025-26, with `transfers_balance` (0.476) and `net_transfer_share` (0.313) dominating.
+>
+> Worth stating plainly: its raw MAE (0.109) is **worse** than always predicting no change (0.076), because 92.6% of rows do not move. For a tie-break, direction on the rows that move is the metric that matters — but nobody should quote the MAE as a win.
+>
+> It contributes `PRICE_TIEBREAK_WEIGHT = 0.05` points per 0.1m of predicted movement — sized against the measured 0.03-0.04 median gap between near-tied squads, so it settles ties without ever overriding a real difference in predicted points. Money is not points, and `plan.md` traced this pipeline's worst instability to budget path-dependency, so letting price drive selection outright would amplify exactly the wrong thing.
+>
+> | Season | Before | After | Diff |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2064 | 2083 | **+19** |
+> | 2024-25 | 2193 | 2193 | 0 |
+> | 2025-26 | 1941 | 1941 | 0 |
+>
+> **Better-or-equal in all three** — the cleanest possible shape for a tie-break, and the same "strictly riskless" result that justified `TRANSFER_MARGIN = 1.0` originally. It only acts where the points model is indifferent, so it has no room to hurt.
+>
+> **All three together: 6148 → 6217 (+69)**, margins of +80 / +185 / +46 against the average manager.
+>
+> **Open question, not acted on.** `MAX_FREE_TRANSFERS = 5` is applied to every season, but banking up to five is a 2025/26-era rule — earlier seasons capped the stockpile far lower. That is the same shape as the chip-count bug this project already found and fixed. It was left alone here because the exact per-season history could not be verified from the sources in `FantasyRules.md`, and guessing at a rule is worse than a documented inconsistency. Worth confirming against the official rules pages before the next backtest is trusted.
+
+---
+
 ## Phase 5 — Automation & Interface
 
 - [x] **Scheduled pipeline** — scrape → feature-build → predict → optimize, run automatically each gameweek before the transfer deadline. ([`model/live_pipeline.py`](model/live_pipeline.py)) Pulls the live season from the FPL API into the same four per-season files [`model/fetch_historical_data.py`](model/fetch_historical_data.py) writes, so `build_season_features`/`optimizer`/`build_horizon_scores` are reused unchanged rather than reimplemented for live. Self-gates with `--only-if-due` so one hourly cron entry covers a season of irregular kickoff times.
