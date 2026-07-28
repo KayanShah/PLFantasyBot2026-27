@@ -65,6 +65,48 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!NOTE]
+> **Investigated whether the model's predictions are too compressed to separate good players from mediocre ones — they aren't, and the investigation ended up disproving its own starting hypothesis. No code changed.**
+>
+> **The observation that started it.** Sweeping `total_points_avg3` with every other feature held at a fixed player-gameweek shows the model is *flat* across the range where most decisions live:
+>
+> | recent form | 0 | 1 | **2** | **3** | **4** | **5** | **6** | 8 | 10 |
+> | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+> | predicted | 4.92 | 5.91 | **6.36** | **6.36** | **6.36** | **6.36** | **6.36** | 6.46 | 6.46 |
+>
+> A player averaging 2 points and one averaging 6 get an identical prediction. Switching home→away moves the prediction −0.52, more than a four-point swing in form does. Predicted spread is also far tighter than reality (sd 1.28 vs 2.39; p99 4.54 vs 11.00). The initial theory was that this compression starves premium players under a budget constraint, and explained why the bot went whole seasons without owning the highest-ceiling forward.
+>
+> **Hypothesis 1 — the 58% of training rows with zero minutes eat the tree splits. Falsified.** Retraining on `minutes > 0` rows only made resolution *worse*, not better: the sweep's span fell from 1.54 to 0.53, with more flat stretches, not fewer.
+>
+> **Hypothesis 2 — it's an artifact of squared-error loss on a skewed target. Falsified.** Four model families, same features, same data:
+>
+> | model | MAE | pearson | spearman | sd | top-15 hit rate | sweep span |
+> | --- | --- | --- | --- | --- | --- | --- |
+> | GBR squared-error (current) | 1.009 | 0.564 | 0.703 | 1.28 | 15.1% | 1.54 |
+> | GBR depth 5 | 1.007 | 0.562 | 0.703 | 1.30 | 16.0% | 0.87 |
+> | HistGBR Poisson | 1.013 | 0.560 | 0.701 | 1.30 | 14.9% | 2.66 |
+> | HistGBR squared-error | 1.011 | 0.560 | 0.702 | 1.29 | 14.6% | 1.51 |
+>
+> Statistically indistinguishable on every metric that drives squad choice, and *all four* are flat over the same form range — including Poisson, which suits skewed count data. The flat zone is a property of the data, not of the model family: past this threshold, recent points form genuinely stops carrying information once the other features are known.
+>
+> **The decisive test — calibration, which reversed the conclusion outright.** Under-dispersion only distorts squad selection if the model is *miscalibrated*. It isn't. Predicted deciles track actuals within −0.07 to +0.25 across the whole pool. And by price tier, restricted to `pred > 1.5` so bench fodder doesn't dominate:
+>
+> | tier | predicted | actual | actual/predicted |
+> | --- | --- | --- | --- |
+> | <5.0m | 2.409 | 2.678 | **1.112** |
+> | 5.0-6.5m | 2.716 | 2.807 | 1.034 |
+> | 6.5-8.0m | 3.384 | 3.378 | 0.998 |
+> | 8.0-10.0m | 3.733 | 3.682 | 0.986 |
+> | >10.0m | 4.752 | 4.411 | **0.928** |
+>
+> The model **over-values premiums and under-values cheap players** — the exact opposite of the compression theory. A recalibration would push the bot *further away* from expensive players, not toward them.
+>
+> **What this means for the "best player never owned" problem.** It is not a prediction problem. The predictions already rate premiums generously. Whatever keeps a high-ceiling forward out of the squad for most of a season lives in the *transfer mechanics* — one free transfer a week cannot reach a £14m striker except at a full rebuild — which points at transfer planning and chip pre-positioning, not the model.
+>
+> **Nothing shipped**, deliberately: no model change survived contact with the evidence, and a recalibration sized at ratio 0.93-1.11 would be far below this pipeline's ±15-125 noise floor even if its direction were desirable, which it isn't. Recorded here so the next person doesn't re-derive it — the sweep looks alarming, and it is genuinely tempting to spend a week on it.
+
+---
+
 ## Phase 4 — Optimization Engine
 
 - [x] Implement the core **ILP squad selector**: given predicted points + budget/formation/club-limit constraints, output the best legal 15-man squad and starting XI + captain. ([`model/optimizer.py`](model/optimizer.py), via `scipy.optimize.milp`)
