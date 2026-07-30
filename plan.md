@@ -261,6 +261,34 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!WARNING]
+> **A tenth attempt ran the one combination this plan had explicitly listed as never tried — availability as an isolated model feature, no filter, no change to how form is computed. It produced the best single-gameweek accuracy ever measured here and still lost on the season score.**
+>
+> The lead from the external review below was to "re-test attempt 4's model feature in complete isolation (no hard filter at all this time — the one combination never tried)". Attempt 9 had also shown *why* the previous attempt failed: rewriting form to be appearance-based removed the sell-pressure that decaying form quietly provides. So this attempt deliberately left form alone and only added a signal beside it, letting the model separate "low form because injured, now fit again" from "low form because playing badly".
+>
+> `chance_of_playing` joins from the fplcache archive on `(name, GW)` — **99.8-99.9% match rate for players who actually appeared** (the name instability documented elsewhere in this plan is a *cross-season* problem; within a season names are stable). FPL leaves the percentage null for players it has no concerns about (58.8% of `status = 'a'` rows, always 100 where present), and every flagged status carries an explicit number, so the encoding is lossless.
+>
+> **The mechanism works exactly as intended,** verified before measuring. Salah's AFCON block reads `chance_of_playing = 0` for GW17-22 and snaps back to 100 at GW23 the week he returns, while his rolling form still decays through the absence — so the sell-pressure attempt 9 destroyed is fully preserved. The feature is strongly monotonic against outcome: mean points by availability band run **0.004 / 0.033 / 0.585 / 1.343 / 1.721**, and the `chance = 0` band is 30% of all rows and scores essentially never.
+>
+> **Accuracy improved more than any change in this project's history: MAE 0.972 → 0.929, correlation 0.578 → 0.603.**
+>
+> | Season | Baseline | + availability feature | + also assuming recovery in the horizon |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2083 | 2103 (+20) | 2086 (+3) |
+> | 2024-25 | **2193** | 2146 (-47) | 2110 (-83) |
+> | 2025-26 | **2049** | 2022 (-27) | 2049 (0) |
+> | **aggregate** | **6325** | **6271 (-54)** | **6245 (-80)** |
+>
+> **The second column tested a specific hypothesis and falsified it.** `build_horizon_scores()` freezes every feature across the five-week lookahead, so an injured player was valued at zero for five consecutive weeks — sold, then bought back once fit, burning transfers on news that resolves itself. That is exactly the churn attempt 8 hypothesised but never verified. Assuming recovery in future weeks (a real manager knows this week's team news and nothing beyond it) made the result **worse, not better**. Churn is not the mechanism. Reverted.
+>
+> **What ten attempts now establish.** This is no longer "we haven't found the right mechanism yet". Availability data has been applied as a hard XI filter at two thresholds, a near-certain suspension filter, a bundled model feature, a soft transfer-value discount, a rewrite of form itself, an isolated model feature, and that feature with a corrected horizon. Every single one landed neutral-to-negative. The isolated feature is the cleanest test of all — it is strictly more information, correctly encoded, verified to behave as designed, and it improves prediction accuracy by the largest margin ever recorded here.
+>
+> **The sharpest finding is the decoupling itself: a 4.4% MAE improvement produced a 0.9% season-score regression.** Single-gameweek accuracy and season score are not merely weakly related in this architecture — on this evidence they can point in opposite directions. Any future change justified by MAE alone should be treated as unsupported until it is scored, and this plan already contains two other examples (attempt 4's MAE 0.991 → 0.942, and the xG feature set) pointing the same way.
+>
+> One honest caveat against reverting: the availability variant has a *tighter and higher floor* (+100/+138/+127 against the average manager, spread 38) than the baseline it loses to (+80/+185/+154, spread 105). For a single live season — which is one draw, not an average — that is a real argument. It was reverted anyway, because keeping a change that loses 54 points aggregate and wins in 1 of 3 seasons would be applying a standard this project has not applied elsewhere.
+
+---
+
 > [!IMPORTANT]
 > **External review of attempts 1-8** (a "hard thinking" pass by another model, given the full context in [`HardThinkingPrompt.md`](HardThinkingPrompt.md)) surfaced two falsifiable claims and several concrete leads. Both claims were checked against the actual code/data before acting on either — one held up, one didn't:
 >
