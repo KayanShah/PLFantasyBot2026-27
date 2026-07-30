@@ -136,24 +136,26 @@ def played_rows(bootstrap: dict, fixtures: list[dict], finished_gws: list[int]) 
             if not played:
                 continue  # club blanked this gameweek -- no row, same as the historical data
             stats = stats_by_element.get(element["id"], {})
-            # In a double gameweek the live stats are already the gameweek total
-            # across both matches, which is what FPL scores; only the opponent
-            # and venue below describe just the first. That matches how
-            # load_season() collapses a historical double ("first" for those
-            # fields), so nothing downstream sees a new shape.
-            first = played[0]
-            rows.append({
-                "name": f"{element['first_name']} {element['second_name']}",
-                "position": POSITIONS[element["element_type"]],
-                "team": teams[element["team"]],
-                "opponent_team": first["opponent"],
-                "element": element["id"],
-                "GW": gw,
-                "was_home": first["was_home"],
-                "value": element["now_cost"],
-                "fixture": first["fixture"],
-                **{col: stats.get(col, 0) for col in STAT_COLUMNS},
-            })
+            # One row per fixture, matching the historical files, so
+            # load_season() derives fixture_count correctly and a double is
+            # visible to the model. The live endpoint already reports gameweek
+            # totals across both matches, so those go on the first row and the
+            # rest carry zeros -- summing the collapse then reproduces exactly
+            # the gameweek total FPL scores, rather than double-counting it.
+            for index, fixture in enumerate(played):
+                rows.append({
+                    "name": f"{element['first_name']} {element['second_name']}",
+                    "position": POSITIONS[element["element_type"]],
+                    "team": teams[element["team"]],
+                    "opponent_team": fixture["opponent"],
+                    "element": element["id"],
+                    "GW": gw,
+                    "was_home": fixture["was_home"],
+                    "value": element["now_cost"],
+                    "fixture": fixture["fixture"],
+                    **{col: (stats.get(col, 0) if index == 0 else 0)
+                       for col in STAT_COLUMNS},
+                })
     return rows
 
 
@@ -183,7 +185,10 @@ def upcoming_rows(bootstrap: dict, fixtures: list[dict], gws: list[int]) -> pd.D
                 "GW": gw,
                 "was_home": int(first["was_home"]),
                 "value": element["now_cost"],
-                "difficulty": first["difficulty"],
+                # Averaged over both fixtures of a double, matching how
+                # load_season() collapses one.
+                "difficulty": sum(f["difficulty"] for f in upcoming) / len(upcoming),
+                "fixture_count": len(upcoming),
                 **{col: float("nan") for col in STAT_COLUMNS},
             })
     return pd.DataFrame(rows)
