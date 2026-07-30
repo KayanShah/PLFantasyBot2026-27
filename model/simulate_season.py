@@ -163,9 +163,10 @@ def build_horizon_scores(models: list, predictions: pd.DataFrame, gw: int, horiz
     out is far less trustworthy than this week's). Each future week's
     prediction reuses the player's rolling-form features exactly as known at
     `gw` (frozen — no peeking at results that haven't happened yet), but
-    plugs in that future week's real fixture (home/away, FDR difficulty) —
-    which, unlike results, is public knowledge from the published fixture
-    list. This is what makes it a fair lookahead: schedule facts, not outcomes.
+    plugs in that future week's real fixture (home/away, FDR difficulty, and
+    how many matches that club plays) — which, unlike results, is public
+    knowledge from the published fixture list. This is what makes it a fair
+    lookahead: schedule facts, not outcomes.
     """
     base = predictions[predictions["GW"] == gw].set_index("element")
     if base.empty:
@@ -182,6 +183,10 @@ def build_horizon_scores(models: list, predictions: pd.DataFrame, gw: int, horiz
         feat = frozen_features.loc[common].copy()
         feat["was_home"] = future.loc[common, "was_home"]
         feat["difficulty"] = future.loc[common, "difficulty"]
+        # Also a published schedule fact, and the one that matters most: without
+        # it the lookahead cannot see an upcoming double gameweek at all, so the
+        # bot never plans a transfer to be in place for one.
+        feat["fixture_count"] = future.loc[common, "fixture_count"]
         preds = pd.Series(ensemble_predict(models, feat[train_model.FEATURE_COLUMNS]), index=common)
         totals = totals.add(preds * (LOOKAHEAD_DECAY ** h), fill_value=0)
 
