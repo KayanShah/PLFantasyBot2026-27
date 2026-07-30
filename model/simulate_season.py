@@ -50,6 +50,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+import price_model
 import train_model
 from optimizer import pick_captains, pick_starting_xi, select_squad
 
@@ -67,6 +68,30 @@ SEASONS_WITH_SECOND_CHIP_SET = {"2025-26"}
 WILDCARD_GWS = {8, 20}
 HALF1_LAST_GW = 19
 SEASON_LAST_GW = 38
+
+# FantasyRules.md section 4: free transfers are topped up to the maximum of 5 at
+# Gameweek 16, covering players leaving for the Africa Cup of Nations. Documented
+# for 2025/26 only — granting it in earlier seasons would repeat the chip-count
+# bug of simulating a newer rule against older ones (see SEASONS_WITH_SECOND_CHIP_SET).
+AFCON_TOPUP_GW = 16
+SEASONS_WITH_AFCON_TOPUP = {"2025-26"}
+MAX_FREE_TRANSFERS = 5
+
+# How many -4 hits a single gameweek's transfer search may consider. The search
+# was allowed two, and took 27 hits across 2025-26 -- 108 points, more than the
+# margin over the average manager that season. A hit is not automatically bad
+# (a -4 that gains 10 is a good hit), so this caps how far the search can reach
+# rather than penalising hits harder, which would distort the comparison.
+MAX_HITS_PER_GW = 1
+
+# A predicted price rise is worth this many points per 0.1m when valuing a
+# squad. Deliberately tiny: GW1 and Wildcard decisions were found to be settled
+# by median gaps of 0.03-0.04 points between hundreds of near-tied squads, so a
+# term this size decides those in favour of a player about to rise without ever
+# overriding a real difference in predicted points. Money is not points, and
+# plan.md traced this pipeline's worst instability to budget path-dependency,
+# so letting price drive selection outright would amplify exactly the wrong thing.
+PRICE_TIEBREAK_WEIGHT = 0.05
 
 # How many gameweeks ahead squad-construction decisions (initial squad,
 # wildcard, transfers) look when valuing a player — so the bot doesn't sell
@@ -193,11 +218,20 @@ def build_horizon_scores(models: list, predictions: pd.DataFrame, gw: int, horiz
     return totals
 
 
-def with_horizon_points(models: list, predictions: pd.DataFrame, gw: int, gw_pool: pd.DataFrame) -> pd.DataFrame:
+def with_horizon_points(
+    models: list, predictions: pd.DataFrame, gw: int, gw_pool: pd.DataFrame,
+    price_deltas: pd.DataFrame | None = None,
+) -> pd.DataFrame:
     """gw_pool with predicted_points replaced by the lookahead-summed score, for squad-construction decisions."""
     horizon_scores = build_horizon_scores(models, predictions, gw, LOOKAHEAD_GWS)
     pool = gw_pool.copy()
     pool["predicted_points"] = pool["element"].map(horizon_scores).fillna(pool["predicted_points"])
+
+    if price_deltas is not None:
+        week = price_deltas[price_deltas["GW"] == gw].set_index("element")["predicted_price_delta"]
+        pool["predicted_points"] += (
+            pool["element"].map(week).fillna(0) * PRICE_TIEBREAK_WEIGHT
+        )
     return pool
 
 
@@ -329,6 +363,7 @@ def player_entry(
 def simulate(
     model=None, predictions: pd.DataFrame | None = None, quiet: bool = False,
     ensemble_models: list | None = None, predictions_ensemble: pd.DataFrame | None = None,
+    price_deltas: pd.DataFrame | None = None,
 ) -> float:
     log_print = (lambda *a, **k: None) if quiet else print
 
@@ -346,6 +381,14 @@ def simulate(
 
     if predictions_ensemble is None:
         predictions_ensemble = build_predictions(ensemble_models)
+
+    if price_deltas is None:
+        # Trained on the same seasons as the points model, which multi_season_backtest
+        # keeps strictly earlier than SEASON, so this inherits the same no-leakage rule.
+        log_print("Training price model for transfer tie-breaks...")
+        price_deltas = price_model.predicted_price_delta(
+            price_model.train_price_model(train_model.TRAIN_SEASONS), SEASON
+        )
 
     fwd_threshold = predictions.loc[predictions["position_label"] == "FWD", "predicted_points"].quantile(0.90)
     log_print(f"Triple Captain trigger threshold (90th percentile FWD prediction): {fwd_threshold:.2f}\n")
@@ -369,11 +412,14 @@ def simulate(
         if gw_pool.empty:
             continue
 
+        if gw == AFCON_TOPUP_GW and SEASON in SEASONS_WITH_AFCON_TOPUP:
+            free_transfers = MAX_FREE_TRANSFERS
+
         hits = 0
         chip = None
         is_free_hit = False
         pre_chip_squad = current_squad
-        horizon_pool = with_horizon_points([model], predictions, gw, gw_pool)
+        horizon_pool = with_horizon_points([model], predictions, gw, gw_pool, price_deltas)
 
         # Pre-2025/26 seasons only ever had one of each chip for the whole season
         # (see SEASONS_WITH_SECOND_CHIP_SET) — treat the whole season as "half 1" then.
@@ -382,12 +428,12 @@ def simulate(
         last_chance = gw == half_end
 
         if gw == 1:
-            horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool)
+            horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool, price_deltas)
             squad = select_squad(horizon_pool_ensemble, budget=STARTING_BUDGET)
             transfers_made = 0
         elif gw in WILDCARD_GWS:
             budget = squad_sell_value(current_squad, gw_pool)
-            horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool)
+            horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool, price_deltas)
             priced_pool = with_sell_cost(horizon_pool_ensemble, current_squad, gw_pool)
             squad = select_squad(priced_pool, budget=budget, cost_col="cost")
             transfers_made = None
@@ -430,7 +476,7 @@ def simulate(
                 current_horizon = attach_this_week(current_ids, current_squad, horizon_pool)
                 hold_net = current_horizon["predicted_points"].sum()
                 best_k, best_net, best_squad = 0, hold_net, current_squad
-                for k in range(1, min(free_transfers + 2, 5) + 1):
+                for k in range(1, min(free_transfers + MAX_HITS_PER_GW, MAX_FREE_TRANSFERS) + 1):
                     candidate = select_squad(priced_pool, budget=budget, current_ids=current_ids, max_changes=k, cost_col="cost")
                     if candidate is None:
                         continue
@@ -527,7 +573,7 @@ def simulate(
             pass  # doesn't touch banked free transfers
         else:
             used_free = min(transfers_made, free_transfers)
-            free_transfers = min(5, (free_transfers - used_free) + 1)
+            free_transfers = min(MAX_FREE_TRANSFERS, (free_transfers - used_free) + 1)
 
     if not quiet:
         log_df = pd.DataFrame(log)
