@@ -40,6 +40,7 @@ from pathlib import Path
 
 import pandas as pd
 import requests
+from dotenv import load_dotenv
 
 import train_model
 from optimizer import pick_captains, pick_starting_xi, select_squad
@@ -522,6 +523,13 @@ def main() -> None:
                         help="exit quietly unless the next deadline is inside the run "
                              "window, so a plain hourly cron entry can do the scheduling")
     args = parser.parse_args()
+
+    # A .env file is documented (and gitignored) as the credential workflow,
+    # but nothing previously loaded it -- os.environ alone only sees vars a
+    # shell or cron entry actually exported. load_dotenv() is a no-op if no
+    # .env file exists, so this doesn't change behavior for anyone already
+    # exporting real environment variables.
+    load_dotenv()
 
     # Checked before any network work, so a missing credential fails in a second
     # rather than after a model train.
