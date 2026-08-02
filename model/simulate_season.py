@@ -65,6 +65,7 @@ STARTING_BUDGET = 1000  # £100.0m, in tenths
 # simulating 2 of each for older seasons overstated the bot's edge there.
 SEASONS_WITH_SECOND_CHIP_SET = {"2025-26"}
 
+WILDCARD_GWS = {8, 20}
 HALF1_LAST_GW = 19
 SEASON_LAST_GW = 38
 
@@ -91,36 +92,6 @@ MAX_HITS_PER_GW = 1
 # plan.md traced this pipeline's worst instability to budget path-dependency,
 # so letting price drive selection outright would amplify exactly the wrong thing.
 PRICE_TIEBREAK_WEIGHT = 0.05
-
-# How exceptional a captain has to look before Triple Captain fires on an
-# ordinary week. Taken over every player's prediction rather than forwards only,
-# so it sits far out in the tail: the vast majority of the pool are fringe
-# players predicted near zero. A double gameweek fires the chip regardless.
-TC_TRIGGER_QUANTILE = 0.995
-
-# Bench Boost fired on fixed calendar weeks (GW9/21, the week after each
-# Wildcard) regardless of whether the bench was worth boosting. It now waits
-# until the four bench players are collectively predicted this many points,
-# which is what the chip actually pays out, and is forced on the half's last
-# gameweek so it is never wasted.
-BENCH_BOOST_TRIGGER = 10.0
-
-# No data-driven chip fires before this gameweek. Every trigger below compares
-# against what has been seen so far this season, which is close to meaningless
-# in the opening weeks: with one gameweek of history the bar is set by a sample
-# of one. Left unguarded, Bench Boost fired in GW1 on a freshly built squad and
-# Triple Captain in GW2 on a 29-point week. The forced last-chance fallbacks are
-# exempt, since those exist precisely to avoid wasting a chip.
-MIN_CHIP_GW = 5
-
-# Wildcard likewise fired on fixed weeks (GW8/20). It now plays when a full
-# rebuild is worth this many horizon points over holding the current squad --
-# which is what "the team is full of injuries or underperformers" looks like
-# numerically. A first cut: unlike TRANSFER_MARGIN this has never been swept, and
-# it is the parameter most likely to want tuning. At 40 it never fired naturally
-# in the first half of 2025-26 and fell through to the forced GW19 fallback,
-# which is a fixed calendar week by another name.
-WILDCARD_TRIGGER_MARGIN = 20.0
 
 # How many gameweeks ahead squad-construction decisions (initial squad,
 # wildcard, transfers) look when valuing a player — so the bot doesn't sell
@@ -245,57 +216,6 @@ def build_horizon_scores(models: list, predictions: pd.DataFrame, gw: int, horiz
         totals = totals.add(preds * (LOOKAHEAD_DECAY ** h), fill_value=0)
 
     return totals
-
-
-def wildcard_worth_playing(
-    horizon_pool: pd.DataFrame, current_squad: pd.DataFrame | None,
-    gw_pool: pd.DataFrame, already_used: bool, last_chance: bool, gw: int,
-) -> bool:
-    """
-    Whether a full rebuild is worth the Wildcard this week.
-
-    Replaces firing on fixed calendar weeks (GW8 and GW20) with the question the
-    chip actually answers: how far has the squad drifted from the best one the
-    budget can buy? A squad full of injuries and underperformers shows up as a
-    large gap; a healthy squad shows up as a small one. Forced on the half's
-    last gameweek so the chip is never wasted.
-    """
-    if already_used or current_squad is None:
-        return False
-    if gw < MIN_CHIP_GW and not last_chance:
-        return False
-
-    budget = squad_sell_value(current_squad, gw_pool)
-    priced = with_sell_cost(horizon_pool, current_squad, gw_pool)
-    candidate = select_squad(priced, budget=budget, cost_col="cost")
-    if candidate is None:
-        return False
-    if last_chance:
-        return True
-
-    holding = attach_this_week(
-        set(current_squad["element"]), current_squad, horizon_pool
-    )["predicted_points"].sum()
-    return candidate["predicted_points"].sum() - holding > WILDCARD_TRIGGER_MARGIN
-
-
-def tc_threshold(predictions: pd.DataFrame, gw: int) -> float:
-    """
-    The bar a captain must clear to be worth the Triple Captain chip, measured
-    only over gameweeks already played.
-
-    The previous version took the 90th percentile of every forward's prediction
-    across all 38 gameweeks and computed it once, before GW1. That was not
-    result leakage — those predictions are built from prior form only — but a
-    real manager in GW1 has no idea where the season's 90th percentile will
-    land, so it was a mild peek at the distribution. An expanding window over
-    gameweeks already seen answers the same question using only what is known
-    at the time.
-    """
-    seen = predictions[predictions["GW"] < gw]
-    if seen.empty:
-        return float("inf")  # nothing to calibrate against yet, so never fire
-    return seen["predicted_points"].quantile(TC_TRIGGER_QUANTILE)
 
 
 def with_horizon_points(
@@ -470,10 +390,11 @@ def simulate(
             price_model.train_price_model(train_model.TRAIN_SEASONS), SEASON
         )
 
-    log_print(f"Triple Captain fires on a double gameweek, or above the "
-              f"{TC_TRIGGER_QUANTILE:.1%} quantile of predictions seen so far.\n")
+    fwd_threshold = predictions.loc[predictions["position_label"] == "FWD", "predicted_points"].quantile(0.90)
+    log_print(f"Triple Captain trigger threshold (90th percentile FWD prediction): {fwd_threshold:.2f}\n")
 
     has_second_chip_set = SEASON in SEASONS_WITH_SECOND_CHIP_SET
+    bench_boost_gws = {9, 21} if has_second_chip_set else {9}
     log_print(f"Chip rules this season: {'two sets (2025/26+)' if has_second_chip_set else 'one set (pre-2025/26)'}\n")
 
     team_names = load_team_names()
@@ -482,10 +403,6 @@ def simulate(
     free_transfers = 1
     tc_used = {1: False, 2: False}
     fh_used = {1: False, 2: False}
-    bb_used = {1: False, 2: False}
-    # Wildcard has always been two per season, one per half, in every season --
-    # unlike the other three chips it does not depend on SEASONS_WITH_SECOND_CHIP_SET.
-    wc_used = {1: False, 2: False}
     season_total = 0
     log = []
     squads_log = []
@@ -510,28 +427,17 @@ def simulate(
         half_end = (HALF1_LAST_GW if half == 1 else SEASON_LAST_GW) if has_second_chip_set else SEASON_LAST_GW
         last_chance = gw == half_end
 
-        # Wildcard halves are their own thing: two per season in every season,
-        # regardless of the second-chip-set rule that governs the other three.
-        wc_half = 1 if gw <= HALF1_LAST_GW else 2
-        wc_half_end = HALF1_LAST_GW if wc_half == 1 else SEASON_LAST_GW
-
         if gw == 1:
             horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool, price_deltas)
             squad = select_squad(horizon_pool_ensemble, budget=STARTING_BUDGET)
             transfers_made = 0
-        elif wildcard_worth_playing(
-            horizon_pool, current_squad, gw_pool, wc_used[wc_half], gw == wc_half_end, gw
-        ):
-            # Trigger judged on the single model (cheap enough to run weekly), but
-            # the rebuild itself uses the ensemble, since a full 15-player rebuild
-            # is exactly the near-tied decision the ensemble exists to stabilise.
+        elif gw in WILDCARD_GWS:
             budget = squad_sell_value(current_squad, gw_pool)
             horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool, price_deltas)
             priced_pool = with_sell_cost(horizon_pool_ensemble, current_squad, gw_pool)
             squad = select_squad(priced_pool, budget=budget, cost_col="cost")
             transfers_made = None
             chip = "Wildcard"
-            wc_used[wc_half] = True
         else:
             # Free Hit check first: a single-gameweek-optimal unconstrained squad,
             # valued on *this week's* predictions only (not horizon), compared
@@ -552,10 +458,10 @@ def simulate(
                 )[0]["predicted_points"].sum()
                 free_hit_gain = fh_xi_score - current_xi_score
 
-            # Bench Boost no longer owns fixed calendar weeks, so there is no
-            # longer a week for Free Hit to accidentally consume -- both now
-            # re-trigger, and whichever does not fire this week can fire later.
-            if not fh_used[half] and fh_candidate is not None and (
+            # Excludes bench_boost_gws: that's a fixed calendar week with no
+            # re-trigger window, so Free Hit claiming it would silently skip
+            # Bench Boost for the rest of the half instead of just deferring it.
+            if gw not in bench_boost_gws and not fh_used[half] and fh_candidate is not None and (
                 free_hit_gain > FREE_HIT_TRIGGER_MARGIN or (last_chance and free_hit_gain > 0)
             ):
                 squad = fh_candidate
@@ -588,42 +494,21 @@ def simulate(
                 squad = best_squad
                 transfers_made = best_k
                 hits = max(0, best_k - free_transfers)
+                if gw in bench_boost_gws:
+                    chip = "Bench Boost"
 
         squad_ids = set(squad["element"])
         squad_resolved = attach_this_week(squad_ids, current_squad if current_squad is not None else squad, gw_pool)
         xi, bench = pick_starting_xi(squad_resolved)
         captain_id, vice_id = pick_captains(xi)
 
-        # Bench Boost: decided on what the bench is actually predicted to score,
-        # rather than on the calendar. It used to fire in GW9 and GW21 — the week
-        # after each Wildcard — whether or not the bench was worth boosting, which
-        # is only a good guess because a freshly rebuilt squad tends to have a
-        # decent bench. Now it waits for a bench that clears the bar, and is
-        # forced on the half's last gameweek so it is never wasted.
-        if chip is None and not bb_used[half] and not is_free_hit:
-            bench_points = bench["predicted_points"].sum()
-            if (bench_points >= BENCH_BOOST_TRIGGER and gw >= MIN_CHIP_GW) or last_chance:
-                chip = "Bench Boost"
-                bb_used[half] = True
-
         # Triple Captain: online decision using only this gameweek's predictions.
-        # Any position, not just forwards — a midfielder on a double gameweek is
-        # routinely a better captain than a striker with one easy fixture, and
-        # restricting to FWD/FDR<=2 threw those away. The chip triples whoever
-        # scores most, so the only question is who that is.
         tc_this_week = False
         if chip is None and not tc_used[half]:
-            best = xi.sort_values("predicted_points", ascending=False).iloc[0]
-            # No special case for double gameweeks: fixture_count is a model
-            # feature, so a double already raises that player's prediction on its
-            # own. An explicit "fire on any double" rule is also brittle — it fired
-            # in GW2 of 2025-26, a 29-point week, on the single player whose
-            # duplicated source rows made him look like a double. Reading the
-            # prediction rather than the fixture count keeps one bad row from
-            # deciding a chip.
-            if gw >= MIN_CHIP_GW and best["predicted_points"] >= tc_threshold(predictions, gw):
+            easy_fwds = xi[(xi["position_label"] == "FWD") & (xi["difficulty"] <= 2)]
+            if not easy_fwds.empty and easy_fwds["predicted_points"].max() >= fwd_threshold:
                 tc_this_week = True
-                captain_id = best["element"]
+                captain_id = easy_fwds.sort_values("predicted_points", ascending=False).iloc[0]["element"]
             elif last_chance:
                 tc_this_week = True  # don't waste the chip — force it on the best remaining option
             if tc_this_week:
@@ -684,10 +569,7 @@ def simulate(
             new_purchase_prices = carry_purchase_prices(squad_ids, current_squad, gw_pool)
             current_squad = squad_resolved[["element", "name", "team", "position_label", "value"]].copy()
             current_squad["purchase_price"] = current_squad["element"].map(new_purchase_prices)
-        # Keyed off the chip actually played, not a fixed calendar week, now that
-        # Wildcard can fire anywhere. transfers_made is None on those weeks, so
-        # getting this wrong would raise rather than silently miscount.
-        if gw == 1 or chip == "Wildcard" or is_free_hit:
+        if gw == 1 or gw in WILDCARD_GWS or is_free_hit:
             pass  # doesn't touch banked free transfers
         else:
             used_free = min(transfers_made, free_transfers)
