@@ -45,7 +45,8 @@ from dotenv import load_dotenv
 import train_model
 from optimizer import pick_captains, pick_starting_xi, select_squad
 from simulate_season import (
-    LOOKAHEAD_GWS, STARTING_BUDGET, TRANSFER_MARGIN, build_horizon_scores, sell_value,
+    ENSEMBLE_EXTRA_SEEDS, LOOKAHEAD_GWS, STARTING_BUDGET, TRANSFER_MARGIN,
+    build_horizon_scores, ensemble_predict, sell_value,
 )
 
 # Player names contain accents; a cp1252 Windows console would otherwise raise
@@ -247,13 +248,42 @@ def next_gameweek(bootstrap: dict, override: int | None = None) -> dict:
     return upcoming[0]
 
 
-def build_predictions(model, bootstrap: dict, fixtures: list[dict], gw: int) -> pd.DataFrame:
-    """Predictions for `gw` and the lookahead window, from live data."""
-    horizon = [g for g in range(gw, gw + LOOKAHEAD_GWS) if g <= 38]
+def build_predictions(
+    models: list, bootstrap: dict, fixtures: list[dict], gw: int,
+    lookahead: int = LOOKAHEAD_GWS,
+) -> pd.DataFrame:
+    """
+    Predictions for `gw` and the lookahead window, from live data.
+
+    `models` is a list so callers can pass the single canonical model or an
+    ensemble, exactly as simulate_season.build_predictions() does.
+    """
+    horizon = [g for g in range(gw, gw + lookahead) if g <= 38]
     extra = upcoming_rows(bootstrap, fixtures, horizon)
     rows = train_model.build_season_features(SEASON, PRIOR_SEASON, extra_rows=extra)
-    rows["predicted_points"] = model.predict(rows[train_model.FEATURE_COLUMNS])
+    rows["predicted_points"] = ensemble_predict(models, rows[train_model.FEATURE_COLUMNS])
     return rows
+
+
+def unavailable_elements(bootstrap: dict) -> dict[int, str]:
+    """
+    Players the API says are *certainly* out: transferred/left the league, or
+    injured/suspended with an explicit 0% chance of playing the next round.
+
+    Deliberately certainty-only. plan.md attempts 5, 6 and 8 all showed that
+    excluding players on a *probability* (<50%, <25%, or a proportional
+    discount) is neutral-to-negative in the backtest, because the simulation's
+    auto-sub and vice-captain fallback already act on the certain outcome for
+    free. This filter is narrower than any of those: it only ever removes
+    someone FPL has already declared a non-starter, and only from the buy pool.
+    An owned player is never force-sold on this signal.
+    """
+    out = {}
+    for element in bootstrap["elements"]:
+        status, chance = element["status"], element["chance_of_playing_next_round"]
+        if status == "u" or (status in ("i", "s") and chance == 0):
+            out[element["id"]] = (element.get("news") or status).strip()
+    return out
 
 
 def my_team(session: requests.Session, manager_id: str) -> dict | None:
@@ -322,19 +352,40 @@ def plan_transfers(
 
 
 def choose_team(
-    predictions: pd.DataFrame, gw: int, model,
+    predictions: pd.DataFrame, gw: int, models: list,
     current: dict | None = None, free_transfers: int = 1, bank: int = 0,
+    unavailable: dict[int, str] | None = None, lookahead: int = LOOKAHEAD_GWS,
+    unlimited_transfers: bool = False,
 ) -> dict:
     gw_pool = predictions[predictions["GW"] == gw].copy()
     if gw_pool.empty:
         raise SystemExit(f"no players with a fixture in GW{gw}")
 
-    horizon = build_horizon_scores([model], predictions, gw, LOOKAHEAD_GWS)
+    horizon = build_horizon_scores(models, predictions, gw, lookahead)
     pool = gw_pool.copy()
     pool["predicted_points"] = pool["element"].map(horizon).fillna(pool["predicted_points"])
 
+    # Only ever narrows what may be *bought*. Anyone already owned stays in the
+    # pool so the squad can still be scored and fielded around them.
+    owned_ids = {p["element"] for p in current["picks"]} if current else set()
+    buyable = pool
+    if unavailable:
+        blocked = set(unavailable) - owned_ids
+        buyable = pool[~pool["element"].isin(blocked)]
+
+    # Before the GW1 deadline FPL lets you rewrite the whole squad for free, so
+    # an auto-picked starting team is not something to transfer away one player
+    # at a time -- plan_transfers() would cap out at a handful of changes and a
+    # -4 hit that isn't actually charged. Treat it as the full build it is.
+    if current is not None and unlimited_transfers:
+        squad = select_squad(buyable, budget=STARTING_BUDGET)
+        if squad is None:
+            raise SystemExit("no legal squad found within budget")
+        changed = len(set(squad["element"]) - {p["element"] for p in current["picks"]})
+        return _finish(gw_pool, squad, changed, STARTING_BUDGET, free_transfers=changed)
+
     if current is None:
-        squad, transfers, budget = select_squad(pool, budget=STARTING_BUDGET), 0, STARTING_BUDGET
+        squad, transfers, budget = select_squad(buyable, budget=STARTING_BUDGET), 0, STARTING_BUDGET
         if squad is None:
             raise SystemExit("no legal squad found within budget")
     else:
@@ -346,8 +397,15 @@ def choose_team(
                 "Handling blanks needs the fixture-aware grid; refusing to act on a "
                 "partial squad."
             )
-        squad, transfers, budget = plan_transfers(pool, current, free_transfers, bank)
+        squad, transfers, budget = plan_transfers(buyable, current, free_transfers, bank)
 
+    return _finish(gw_pool, squad, transfers, budget, free_transfers)
+
+
+def _finish(
+    gw_pool: pd.DataFrame, squad: pd.DataFrame, transfers: int, budget: int,
+    free_transfers: int,
+) -> dict:
     # Starting XI and captaincy use this week's prediction, not the horizon --
     # you always want the best lineup for the week actually being played.
     resolved = gw_pool[gw_pool["element"].isin(set(squad["element"]))]
@@ -522,6 +580,11 @@ def main() -> None:
     parser.add_argument("--only-if-due", action="store_true",
                         help="exit quietly unless the next deadline is inside the run "
                              "window, so a plain hourly cron entry can do the scheduling")
+    parser.add_argument("--lookahead", type=int, default=LOOKAHEAD_GWS,
+                        help=f"gameweeks the transfer/squad valuation looks ahead "
+                             f"(default {LOOKAHEAD_GWS})")
+    parser.add_argument("--no-availability-filter", action="store_true",
+                        help="buy players FPL has already declared out (off by default)")
     args = parser.parse_args()
 
     # A .env file is documented (and gitignored) as the credential workflow,
@@ -592,13 +655,41 @@ def main() -> None:
     if current is None:
         print("No existing squad found -- building an initial 15 from scratch.")
 
-    print(f"Training model on {LIVE_TRAIN_SEASONS[0]} -> {LIVE_TRAIN_SEASONS[-1]}...")
-    train_model.TRAIN_SEASONS = LIVE_TRAIN_SEASONS
-    model = train_model.train_baseline_model()
+    # Nothing has been played yet, so any existing squad is a provisional pick
+    # (FPL auto-fills one on signup) that can be rewritten in full for free.
+    unlimited = current is not None and not finished
+    if unlimited:
+        print("Before the GW1 deadline -- unlimited free transfers, so the "
+              "existing squad is rebuilt from scratch rather than nudged.")
 
-    print("Building live predictions...")
-    predictions = build_predictions(model, bootstrap, fixtures, gw)
-    choice = choose_team(predictions, gw, model, current, free_transfers, bank)
+    train_model.TRAIN_SEASONS = LIVE_TRAIN_SEASONS
+    # A full 15-player build is the decision plan.md Phase 4 traced this
+    # pipeline's worst instability to: hundreds of near-tied squads separated by
+    # sub-1-point margins, where one model's idiosyncratic wobble on one player
+    # tips the whole season onto a different, compounding path (a 0.74-point
+    # difference on a single player moved a season total by over 100 points).
+    # simulate_season already answers that with an ensemble at exactly these two
+    # decision points; live was still building GW1 off a single model.
+    full_rebuild = current is None or unlimited
+    if full_rebuild:
+        print(f"Training {1 + len(ENSEMBLE_EXTRA_SEEDS)}-model ensemble on "
+              f"{LIVE_TRAIN_SEASONS[0]} -> {LIVE_TRAIN_SEASONS[-1]} (full squad build)...")
+        models = [train_model.train_baseline_model()] + [
+            train_model.train_baseline_model(seed=s) for s in ENSEMBLE_EXTRA_SEEDS
+        ]
+    else:
+        print(f"Training model on {LIVE_TRAIN_SEASONS[0]} -> {LIVE_TRAIN_SEASONS[-1]}...")
+        models = [train_model.train_baseline_model()]
+
+    unavailable = {} if args.no_availability_filter else unavailable_elements(bootstrap)
+    if unavailable:
+        print(f"{len(unavailable)} player(s) flagged unavailable by the API and "
+              f"excluded from the buy pool (owned players are never force-sold).")
+
+    print(f"Building live predictions (lookahead {args.lookahead} GWs)...")
+    predictions = build_predictions(models, bootstrap, fixtures, gw, args.lookahead)
+    choice = choose_team(predictions, gw, models, current, free_transfers, bank,
+                         unavailable, args.lookahead, unlimited)
 
     problems = validate(choice["squad"], choice["budget"])
     print()
@@ -611,6 +702,11 @@ def main() -> None:
         "captain": int(choice["captain"]), "vice": int(choice["vice"]),
         "transfers": choice["transfers"], "hits": choice["hits"],
         "problems": problems,
+        # Provenance: which of the two model paths ran, how far the valuation
+        # looked, and exactly who was withheld from the buy pool and why -- so a
+        # squad can be explained after the fact without re-running anything.
+        "models": len(models), "lookahead": args.lookahead,
+        "excluded": {int(e): why for e, why in sorted(unavailable.items())},
     })
 
     if problems:
