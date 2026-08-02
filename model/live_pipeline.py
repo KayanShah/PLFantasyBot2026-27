@@ -26,8 +26,10 @@ is due, rather than scheduling one job per deadline:
 
     0 * * * * cd /path/to/repo && python3 model/live_pipeline.py --only-if-due --apply
 
-Environment (only needed for --apply):
-    FPL_EMAIL, FPL_PASSWORD, FPL_MANAGER_ID
+Environment (only needed for --apply and --check-auth):
+    FPL_MANAGER_ID  your entry id, from /entry/<id>/event/1 once signed in
+    FPL_COOKIE      the whole `Cookie:` request header copied from a signed-in
+                    browser session -- see login() for why, and how
 """
 
 import argparse
@@ -55,7 +57,8 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 API = "https://fantasy.premierleague.com/api"
-LOGIN_URL = "https://users.premierleague.com/accounts/login/"
+# No login URL any more: users.premierleague.com is gone (NXDOMAIN) and the
+# replacement is an OAuth2 flow behind bot protection. See login().
 
 SEASON = "2026-27"
 PRIOR_SEASON = "2025-26"
@@ -478,20 +481,44 @@ def log_decision(payload: dict) -> None:
 
 
 def login() -> requests.Session:
-    email, password = os.environ.get("FPL_EMAIL"), os.environ.get("FPL_PASSWORD")
-    if not email or not password:
-        raise SystemExit("--apply needs FPL_EMAIL and FPL_PASSWORD in the environment")
+    """
+    Authenticates using a session cookie copied from a signed-in browser.
+
+    The email/password flow this used to do is gone. It posted to
+    users.premierleague.com/accounts/login/, and that host no longer resolves at
+    all -- `Resolve-DnsName users.premierleague.com` returns NXDOMAIN, so every
+    --apply run has failed at DNS since the Premier League retired it. They have
+    moved to an OAuth2/OIDC flow on account.premierleague.com behind Ping
+    Identity: /as/authorize demands a client_id and redirects to a JavaScript
+    sign-on widget, and the site returns 403 to non-browser clients.
+
+    Driving that flow from a script would mean defeating bot protection, which
+    is not something this project should do. Reusing a session you opened
+    yourself, in your own browser, for your own team, needs none of that.
+
+    To get the cookie: sign in at fantasy.premierleague.com, open devtools ->
+    Network, click any request to /api/, and copy the whole `Cookie:` request
+    header. Put it in .env as FPL_COOKIE. It is long, it belongs on one line,
+    and it expires -- when a run reports being signed out, copy a fresh one.
+    """
+    cookie = os.environ.get("FPL_COOKIE", "").strip()
+    if not cookie:
+        raise SystemExit(
+            "FPL_COOKIE is not set.\n"
+            "  FPL_EMAIL/FPL_PASSWORD no longer work: the login host they used\n"
+            "  (users.premierleague.com) has been retired and does not resolve.\n"
+            "  Sign in at fantasy.premierleague.com, open devtools -> Network,\n"
+            "  click any /api/ request, copy the entire 'Cookie:' request header,\n"
+            "  and set it as FPL_COOKIE in .env (one line)."
+        )
+
     session = requests.Session()
-    session.headers.update({"User-Agent": "Mozilla/5.0"})
-    response = session.post(
-        LOGIN_URL,
-        data={"login": email, "password": password,
-              "app": "plfpl-web", "redirect_uri": "https://fantasy.premierleague.com/"},
-        timeout=60,
-    )
-    response.raise_for_status()
-    if "pl_profile" not in session.cookies.get_dict():
-        raise SystemExit("login did not return a session cookie -- check credentials")
+    session.headers.update({
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                      "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
+        "Cookie": cookie,
+        "Referer": "https://fantasy.premierleague.com/",
+    })
     return session
 
 
@@ -573,14 +600,15 @@ def submit(
 def check_auth(manager_id: str) -> None:
     """Logs in and prints the squad FPL currently holds. Submits nothing."""
     session = login()
-    print("[ok] login succeeded")
 
     team = my_team(session, manager_id)
     if not team or not team.get("picks"):
         raise SystemExit(
-            f"[fail] logged in, but /my-team/{manager_id}/ returned no squad -- "
-            "check FPL_MANAGER_ID matches the account those credentials belong to"
+            f"[fail] /my-team/{manager_id}/ returned no squad. Either the cookie has\n"
+            "  expired (copy a fresh one from a signed-in browser), or\n"
+            "  FPL_MANAGER_ID belongs to a different account than the cookie does."
         )
+    print("[ok] cookie is valid and authorises this entry")
 
     picks = team["picks"]
     transfers = team.get("transfers") or {}
@@ -635,8 +663,8 @@ def main() -> None:
     flag = "--apply" if args.apply else "--check-auth"
     if needs_credentials and not manager_id:
         raise SystemExit(f"{flag} needs FPL_MANAGER_ID in the environment")
-    if needs_credentials and not (os.environ.get("FPL_EMAIL") and os.environ.get("FPL_PASSWORD")):
-        raise SystemExit(f"{flag} needs FPL_EMAIL and FPL_PASSWORD in the environment")
+    if needs_credentials and not os.environ.get("FPL_COOKIE", "").strip():
+        raise SystemExit(f"{flag} needs FPL_COOKIE in the environment -- see login()")
 
     # There is otherwise no way to test the credential path short of --apply,
     # which submits a real team. Everything up to and including reading the
