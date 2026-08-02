@@ -261,6 +261,21 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!IMPORTANT]
+> **A community contributor (5H41L3N) opened a stacked series of PRs building on the state above.** Reviewed and merged: a live pipeline against the real FPL API (`model/live_pipeline.py`, PR #4 — reuses `train_model.build_season_features`/`optimizer`/`build_horizon_scores` unchanged rather than reimplementing them for live; the `.env` credential file it documented wasn't actually being loaded, fixed separately with `python-dotenv`); an investigation into whether the model's predictions were suspiciously compressed (PR #5) that disproved its own hypothesis across three separate tests and shipped no code change — kept as documentation so nobody re-derives it; a real data bug found and fixed (PR #10) where 2025-26's source `merged_gw.csv` shipped 10 byte-identical duplicate rows for one player, inventing a phantom double gameweek at GW2 that never happened (real 2025-26 doubles land at GW26/33/36) — `load_season()` now de-duplicates on `(element, GW, fixture)` before collapsing, and a genuine `fixture_count` feature was added (5th in feature importance, MAE 0.991 → 0.972); a fix (PR #11) making the horizon lookahead see *future* fixture counts, not just the current week's — without it, an upcoming double four gameweeks out was invisible to transfer planning, exactly blocking chip pre-positioning; and transfer-planning changes (PR #12) adding the AFCON GW16 free-transfer top-up documented in `FantasyRules.md` (2025/26 only, matching the same season-scoping discipline as the chip-count bug elsewhere in this plan), tightening the per-gameweek hit cap from 2 to 1 (2025-26 alone lost 108 points to hits under the old cap), and a price-movement model (`model/price_model.py`) wired in strictly as a tie-break between near-equal squads — sized against the measured 0.03-0.04 median gap between near-tied squads so it can only settle real ties, never override an actual points difference.
+>
+> Each of PRs #10-#12 came with its own measured before/after table in the PR description, but none of them actually landed in `plan.md` — worth recording here since this project treats `plan.md`, not GitHub PR descriptions, as the definitive experiment log. The cumulative, independently-verified result after merging #4/#5/#10/#11/#12 (before the availability-feature attempt below):
+>
+> | Season | Prior baseline | After #10-#12 | Diff |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2098 | 2083 | -15 |
+> | 2024-25 | 2016 | **2193** | **+177** |
+> | 2025-26 | 1991 | **2049** | **+58** |
+>
+> Better in 2 of 3 seasons, a real aggregate gain (+220), consistent with this project's own aggregate-plus-most-seasons standard. The PR series' own component-by-component numbers (PR #10 alone lost 2023-24 to the de-dup fix removing inflated phantom-double points, recovered by PR #11's fixture-count-aware horizon; PR #12 then improved all three) are recorded in the PR history on GitHub, not reproduced here in full — the table above is the state actually verified against the merged code.
+
+---
+
 > [!WARNING]
 > **A tenth attempt ran the one combination this plan had explicitly listed as never tried — availability as an isolated model feature, no filter, no change to how form is computed. It produced the best single-gameweek accuracy ever measured here and still lost on the season score.**
 >
@@ -286,6 +301,24 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 > **The sharpest finding is the decoupling itself: a 4.4% MAE improvement produced a 0.9% season-score regression.** Single-gameweek accuracy and season score are not merely weakly related in this architecture — on this evidence they can point in opposite directions. Any future change justified by MAE alone should be treated as unsupported until it is scored, and this plan already contains two other examples (attempt 4's MAE 0.991 → 0.942, and the xG feature set) pointing the same way.
 >
 > One honest caveat against reverting: the availability variant has a *tighter and higher floor* (+100/+138/+127 against the average manager, spread 38) than the baseline it loses to (+80/+185/+154, spread 105). For a single live season — which is one draw, not an average — that is a real argument. It was reverted anyway, because keeping a change that loses 54 points aggregate and wins in 1 of 3 seasons would be applying a standard this project has not applied elsewhere.
+
+---
+
+> [!IMPORTANT]
+> **The full contributor stack (#4, #5, #10, #11, #12, #13) is now merged and independently re-verified against the actual merged code**, not just the individual PR descriptions:
+>
+> | Season | Avg manager | Previous strongest | Merged stack |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2003 | 2098 (+95) | **2055 (+52)** |
+> | 2024-25 | 2008 | 2016 (+8) | **2193 (+185)** |
+> | 2025-26 | 1895 | 1991 (+96) | **2049 (+154)** |
+> | **aggregate** | 5906 | 6105 | **6297 (+192)** |
+>
+> Verified reproducible (reran 2023-24 independently and got the same 2055). Worth noting the 2023-24 figure doesn't match PR #12's own reported 2083 for the equivalent combined state — 2024-25 and 2025-26 both match PR #12's numbers exactly, so this looks like a stale figure in that PR's description (likely measured before a later commit in the same branch) rather than a merge problem, but it's flagged here rather than silently accepted, consistent with this project's rule of verifying claimed numbers rather than trusting them.
+>
+> **A seventh PR in the stack (#14, "fire chips on data instead of the calendar") was reviewed and left open, not merged.** It replaces the fixed Wildcard/Bench Boost calendar weeks and the forwards-only Triple Captain trigger with data-driven equivalents, and its own PR description is admirably honest about the result: better in only 1 of 3 seasons (2023-24 +174), carried by one large gain, with two seasons going backwards, kept only on aggregate plus a structural argument, and three unswept trigger parameters (`WILDCARD_TRIGGER_MARGIN`, `BENCH_BOOST_TRIGGER`, `MIN_CHIP_GW`). This is exactly the shape of change `TRANSFER_MARGIN` turned out to be two entries above — a single-seed, aggregate-only result on an unswept parameter that looked directionally right and wasn't, once multi-seed tested. Left open pending the same 5-seed sweep this project already learned it needs before trusting a change like this.
+>
+> Two smaller gaps found during review, not yet fixed: `live_pipeline.py` never plays any chip at all (Wildcard/Bench Boost/Triple Captain/Free Hit, and PR #12's price-tiebreak/AFCON-topup/hit-cap alignment, are backtest-only — the live path has its own separate, simpler transfer-only decision loop that doesn't call into any of `simulate_season.py`'s chip logic), and `blank_gameweek_rows()` (PR #10) uses a player's *last* row as the template for their team when backfilling blanks, which could misattribute team for gameweeks before a mid-season transfer.
 
 ---
 

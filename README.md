@@ -147,9 +147,9 @@ The model is trained only on seasons strictly before the one it's tested on — 
 
 | Season | Bot | Real avg. manager | Diff |
 | --- | --- | --- | --- |
-| 2023-24 | 2098 | 2003 | +95 |
-| 2024-25 | 2016 | 2008 | +8 |
-| 2025-26 | 1991 | 1895 | +96 |
+| 2023-24 | 2055 | 2003 | +52 |
+| 2024-25 | 2193 | 2008 | +185 |
+| 2025-26 | 2049 | 1895 | +154 |
 
 Consistently above the real average manager across three independent seasons, not just a lucky one. (Past seasons' average-manager totals came from [Wayback Machine](https://web.archive.org/) snapshots of `bootstrap-static`, since the live FPL API only serves the current season — see `plan.md` Phase 4 for the exact snapshot URLs.)
 
@@ -162,6 +162,11 @@ Consistently above the real average manager across three independent seasons, no
 
 > [!IMPORTANT]
 > A follow-up investigation found the sell-price fix introduced a serious reliability problem: GW1/Wildcard squad-rebuild decisions turned out to be decided by sub-1-point margins between hundreds of near-tied 15-player combinations, and the sell-price fix's budget path-dependency let that tiny, essentially arbitrary noise compound into 100+ point season-total swings — the *same* bot, same skill, landing anywhere from 1960 to 2172 points in 2023-24 purely by chance. Mitigated two ways: averaging a 5-model prediction ensemble for GW1/Wildcard squad construction specifically (a genuine but partial fix — some pairs of models still land on different sides of a tie even after averaging, confirmed via before/after seed sweep), and a stability margin on ordinary transfer weeks (`TRANSFER_MARGIN`, only take a transfer if it beats holding by more than a set threshold). See `plan.md` Phase 4 for the full writeup, every before/after table, and the one claim (margin can't touch Wildcard decisions) that turned out to need correcting mid-investigation.
+
+---
+
+> [!NOTE]
+> A community contributor (5H41L3N) opened a stack of PRs adding: a live pipeline against the real FPL API (`model/live_pipeline.py`); a fixed double-gameweek data bug (the 2025-26 source file shipped 10 duplicate rows that invented a phantom double at GW2) plus a genuine `fixture_count` feature; horizon-lookahead awareness of future fixture counts, so an upcoming double is actually visible to transfer planning; an AFCON free-transfer top-up, a tighter cap on hits per gameweek, and a price-movement model wired in strictly as a tie-break between near-equal squads (never overriding a real points difference); and a tenth, cleanly isolated attempt at using availability data as a model feature, which improved single-gameweek accuracy more than any change in this project's history and still cost season score — reverted, and documented as the sharpest evidence yet that MAE and season score can point in opposite directions in this architecture. All reviewed and merged. The numbers above reflect the merged result. One further PR (data-driven chip timing, replacing the fixed GW8/20/9/21 calendar) was left open rather than merged — it's better in only 1 of 3 seasons on an unswept trigger parameter, the exact shape of change this project has already learned needs a multi-seed sweep before being trusted. See `plan.md` Phase 4 for the full writeup and per-PR numbers.
 
 ---
 
