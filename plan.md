@@ -551,6 +551,28 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!IMPORTANT]
+> **Chips now fire on data instead of the calendar.** Wildcard was hard-coded to GW8/GW20, Bench Boost to GW9/GW21, and Triple Captain could only ever be a forward with an easy fixture. Three of the four were decided before the season started.
+>
+> - **Triple Captain** considers every position. A midfielder on a good week is routinely a better captain than a striker with one easy fixture, and the `FWD`-and-`FDR <= 2` filter simply discarded those. The old trigger also compared against the 90th percentile of *every forward's prediction across all 38 gameweeks*, computed before GW1 — not result leakage, since those predictions are prior-form only, but a manager in GW1 cannot know where the season's 90th percentile will land. Replaced with an expanding quantile over gameweeks already played.
+> - **Bench Boost** waits until the four bench players are collectively predicted to clear a bar, which is what the chip actually pays out. Firing in GW9/GW21 was only ever a proxy for "the week after a Wildcard, when the bench is freshly rebuilt".
+> - **Wildcard** plays when a full rebuild beats holding by `WILDCARD_TRIGGER_MARGIN` on horizon value — which is what "the squad is full of injuries and underperformers" looks like numerically. The trigger is evaluated with the single model each week (cheap); the rebuild itself still uses the ensemble, since a full 15-player rebuild is exactly the near-tied decision the ensemble exists to stabilise.
+> - **Free Hit** was left alone. Its trigger is already data-driven and already blank-aware in effect: when several of a squad's players blank, the current XI's score collapses and the unconstrained alternative clears the margin on its own.
+> - **No data-driven chip may fire before `MIN_CHIP_GW`.** Every trigger compares against what has been seen so far this season, which is meaningless in the opening weeks — with one gameweek of history the bar is set by a sample of one. Left unguarded, Bench Boost fired in GW1 on a freshly built squad and Triple Captain in GW2 on a 29-point week. Forced last-chance fallbacks are exempt, since those exist to avoid wasting a chip.
+>
+> | Season | Baseline | + data-driven chips | Diff |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2083 | **2257** | **+174** |
+> | 2024-25 | 2193 | 2101 | -92 |
+> | 2025-26 | 2049 | 2004 | -45 |
+> | **aggregate** | **6325** | **6362** | **+37** |
+>
+> **A weaker case than the aggregate suggests, and worth stating plainly:** this is better in 1 season of 3, carried by one very large gain. Mean margin over the average manager improves from +140 to +152, and 2023-24 reaches **+254** — the best single season this project has recorded — but two seasons go backwards. It is kept on the aggregate plus the structural argument that a fixed GW8 Wildcard is arbitrary and cannot generalise to a season whose shape nobody has seen yet, which is the only season that actually matters. **Of everything shipped in this run, this is the change most deserving of a 5-seed sweep before it is trusted**, and the `WILDCARD_TRIGGER_MARGIN`/`BENCH_BOOST_TRIGGER`/`MIN_CHIP_GW` values are first cuts that have never been swept.
+>
+> **A caught bug worth recording,** since it nearly shipped: the first version fired Triple Captain on *any* double gameweek. That burned the chip in GW2 of 2025-26, a 29-point week, on the one player whose duplicated source rows made him look like a double — the same corruption fixed by the de-duplication above. The special case was removed entirely rather than patched: `fixture_count` is already a model feature, so a genuine double raises that player's prediction on its own, and reading the prediction rather than the fixture count stops any single bad row from deciding a chip. **The error was spotted by a human who knew a GW2 double is impossible**, not by any test in this repo. A `validate_data.py` asserting that `fixture_count` derived from `merged_gw.csv` matches `fixtures.csv` would have failed loudly the moment the feature was introduced, and is the obvious next piece of infrastructure.
+
+---
+
 ## Phase 5 — Automation & Interface
 
 - [x] **Scheduled pipeline** — scrape → feature-build → predict → optimize, run automatically each gameweek before the transfer deadline. ([`model/live_pipeline.py`](model/live_pipeline.py)) Pulls the live season from the FPL API into the same four per-season files [`model/fetch_historical_data.py`](model/fetch_historical_data.py) writes, so `build_season_features`/`optimizer`/`build_horizon_scores` are reused unchanged rather than reimplemented for live. Self-gates with `--only-if-due` so one hourly cron entry covers a season of irregular kickoff times.
