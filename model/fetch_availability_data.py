@@ -18,6 +18,13 @@ gameweek's deadline. Only that one small compressed file is downloaded per
 gameweek, decompressed and parsed in memory, and reduced immediately to a
 handful of fields per player — nothing else is kept, so local storage use
 is a small per-season CSV, not the archive itself.
+
+Re-running this overwrites data/historical/*/availability.csv, adding three
+columns the first version discarded: `news`, `news_added` and `ep_next`. See
+fetch_snapshot_availability() for why each matters — briefly, `status` and
+`chance_of_playing` collapse "out for one week", "banned for three" and "left
+the league in January" into the same number, and every attempt in plan.md so
+far has had to treat them identically as a result.
 """
 
 import lzma
@@ -75,7 +82,7 @@ def nearest_snapshot_before(snapshots: list[tuple[datetime, str]], target: datet
 
 
 def fetch_snapshot_availability(path: str) -> dict[str, dict]:
-    """Downloads one snapshot, extracts {player_name: {status, chance_of_playing_*}}, discards the rest."""
+    """Downloads one snapshot, extracts {player_name: {status, chance_of_playing_*, news}}, discards the rest."""
     resp = requests.get(f"{RAW_BASE}/{path}", timeout=60)
     resp.raise_for_status()
     data = pd.io.common.BytesIO(resp.content)
@@ -90,6 +97,33 @@ def fetch_snapshot_availability(path: str) -> dict[str, dict]:
             "status": p["status"],
             "chance_of_playing_next_round": p["chance_of_playing_next_round"],
             "chance_of_playing_this_round": p["chance_of_playing_this_round"],
+            # The status fields alone collapse three very different situations
+            # into one number. `news` separates them, and it is already in every
+            # snapshot -- this fetcher was simply throwing it away:
+            #
+            #   "Groin injury - Expected back 22 Aug"  -> a dated absence, so
+            #     which future gameweeks are missed is knowable rather than
+            #     guessed. build_horizon_scores() currently freezes availability
+            #     flat across all five lookahead weeks; plan.md attempt 10 tried
+            #     the opposite (assume recovery immediately) and it was worse.
+            #     Neither is what the text actually says.
+            #   "Suspended until 29 Aug"               -> a ban spanning several
+            #     gameweeks, which plan.md attempt 7 flagged as uncovered: it
+            #     only ever checked the immediately preceding gameweek.
+            #   "has joined Porto on loan for the rest of the season."
+            #     -> not a probability at all. The player never returns, so a
+            #     squad slot is dead for months, and auto-subs cannot paper over
+            #     that the way they cover a one-week injury.
+            #
+            # `news_added` timestamps the report, which is what plan.md's
+            # "weight by time until the deadline" idea needs: a knock reported
+            # three days out is worth more than one reported three weeks out.
+            "news": p.get("news") or "",
+            "news_added": p.get("news_added") or "",
+            # FPL's own expected-points number for the coming gameweek. Never
+            # used here, and worth having as a free external baseline to score
+            # our predictions against.
+            "ep_next": p.get("ep_next") or "",
         }
     return result
 
