@@ -48,6 +48,7 @@ This project pulls data from the official FPL API and other sources, predicts pl
 | [`model/optimizer.py`](model/optimizer.py) | ILP squad selector + starting-XI/captain picker, enforcing every constraint in `FantasyRules.md`. |
 | [`model/simulate_season.py`](model/simulate_season.py) | Simulates managing a team through a full season gameweek-by-gameweek — transfers, chips, captaincy — using only pre-season-trained predictions. |
 | [`model/multi_season_backtest.py`](model/multi_season_backtest.py) | Runs the simulation across multiple seasons (each trained only on strictly earlier seasons) and compares against real average-manager totals. |
+| [`model/live_pipeline.py`](model/live_pipeline.py) | Runs the bot against the live FPL API for the current season shortly before each deadline — picks the squad, starting XI and captain, and can submit them to a real team. |
 | [`website/build_site.py`](website/build_site.py) / [`website/index.html`](website/index.html) | Builds a self-contained, single-file website showing the bot's team for every 2025-26 gameweek — pitch view, captaincy, chips, difficulty-coded fixtures — scrollable gameweek by gameweek. |
 | `data/` | Output from the scrapers (`fixtures.csv`, `fixtures.json`, `fpl.db`, `historical/`, `backtest_2025-26_predictions.csv`, `season_2025-26_simulation.csv`, `season_2025-26_squads.json`, `multi_season_backtest_results.csv`). |
 | `requirements.txt` | Python dependencies. |
@@ -109,6 +110,24 @@ python3 model/multi_season_backtest.py
 ```
 
 Runs the full pipeline against 2023-24, 2024-25, and 2025-26, each trained *only* on seasons strictly before it (no leakage), and compares each result to that season's real average-manager total. Saves results to `data/multi_season_backtest_results.csv`.
+
+Run the bot against the live season:
+
+```bash
+python3 model/live_pipeline.py
+```
+
+Pulls the current season from the live FPL API, builds predictions with the same model and features the backtest uses, and prints the squad, starting XI and captain for the next deadline. This is a **dry run** — nothing is submitted.
+
+It works before a ball is kicked: with no gameweeks played yet there is no current-season form, so rolling form carries over from last season on FPL's stable player `code`, and players with no history anywhere (promoted clubs, new signings) fall back to a position-average prior.
+
+To submit to a real team, set `FPL_EMAIL`, `FPL_PASSWORD` and `FPL_MANAGER_ID`, then add `--apply`. Before anything is sent, the squad is checked against every constraint in [`FantasyRules.md`](FantasyRules.md) and the run aborts on any violation, on a passed deadline, or on a plan that would take more hits than `MAX_AUTOMATED_HITS`. Every decision is appended to `data/live_decisions.jsonl`.
+
+For a whole season, schedule it hourly and let it decide when it's due, rather than scheduling one job per deadline — kickoff times are irregular, and a missed hour retries itself instead of skipping the gameweek:
+
+```bash
+0 * * * * cd /path/to/repo && python3 model/live_pipeline.py --only-if-due --apply
+```
 
 ## Results
 
