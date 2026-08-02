@@ -519,6 +519,20 @@ def login() -> requests.Session:
         "Cookie": cookie,
         "Referer": "https://fantasy.premierleague.com/",
     })
+
+    # The API is Django REST Framework, so a session-authenticated POST is
+    # rejected with 403 unless X-CSRFToken echoes the csrftoken cookie. GETs are
+    # unaffected, which is why a cookie can look perfectly valid under
+    # --check-auth and still fail the moment anything is submitted.
+    for part in cookie.split(";"):
+        name, _, value = part.strip().partition("=")
+        if name == "csrftoken" and value:
+            session.headers["X-CSRFToken"] = value
+            break
+    else:
+        print("[warn] no csrftoken in FPL_COOKIE -- reads will work, but any "
+              "submit will likely be rejected with 403. Re-copy the header from "
+              "a request made while signed in.")
     return session
 
 
