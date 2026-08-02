@@ -44,11 +44,56 @@ ROLLING_STATS = [
 ]
 ROLLING_WINDOWS = [3, 5]
 
+# Expected-goals columns. These are already in merged_gw.csv -- COMMON_COLUMNS
+# simply never selected them, so they were dropped before anything downstream
+# could see them. Off by default: enable_xg_features() switches them on, so a
+# run that doesn't call it is byte-identical to the shipped pipeline.
+#
+# expected_goals_conceded is per-player but constant across a club's outfield
+# players in a given match, so it doubles as a measure of how much a team
+# leaks -- which is what `difficulty` currently gestures at with a hand-set
+# 1-5 integer.
+XG_STATS = [
+    "expected_goals", "expected_assists", "expected_goal_involvements",
+    "expected_goals_conceded",
+]
+
+# FPL only began publishing xG partway through 2022-23. Before this point the
+# columns exist and are 0.0 rather than blank, which is worse than missing --
+# a rolling average would read fifteen gameweeks of fabricated zeros as real.
+# Measured, not assumed: max expected_goals across all played rows is exactly
+# 0.0 for every 2022-23 gameweek up to GW15, and non-zero from GW16 on.
+XG_FIRST_SEASON = "2022-23"
+XG_FIRST_GW = 16
+
 FEATURE_COLUMNS = (
     [f"{stat}_avg{w}" for stat in ROLLING_STATS for w in ROLLING_WINDOWS]
     + ["value", "was_home", "difficulty", "fixture_count",
        "position_DEF", "position_FWD", "position_GKP", "position_MID"]
 )
+
+
+def enable_xg_features() -> None:
+    """
+    Adds the xG columns to the rolling-feature set, in place, so existing call
+    sites that read train_model.FEATURE_COLUMNS pick them up without change.
+
+    Callers must also restrict training to seasons where xG actually exists
+    (2022-23 GW16 onward) -- GradientBoostingRegressor cannot take NaN, and
+    filling the gap with zeros is precisely the corruption this guards against.
+    """
+    for stat in XG_STATS:
+        if stat not in COMMON_COLUMNS:
+            COMMON_COLUMNS.append(stat)
+        if stat not in SUM_COLUMNS:
+            SUM_COLUMNS.append(stat)
+        if stat not in ROLLING_STATS:
+            ROLLING_STATS.append(stat)
+    FEATURE_COLUMNS[:] = (
+        [f"{stat}_avg{w}" for stat in ROLLING_STATS for w in ROLLING_WINDOWS]
+        + ["value", "was_home", "difficulty", "fixture_count",
+           "position_DEF", "position_FWD", "position_GKP", "position_MID"]
+    )
 
 
 def load_player_codes(season: str) -> pd.DataFrame:
@@ -83,6 +128,11 @@ def load_season(season: str) -> pd.DataFrame:
     if {"element", "GW", "fixture"} <= set(df.columns):
         df = df.drop_duplicates(subset=["element", "GW", "fixture"], keep="first")
     df = df[[c for c in COMMON_COLUMNS if c in df.columns]].copy()
+    # Drop the stretch of 2022-23 where the xG columns are present but always
+    # zero (see XG_FIRST_GW). Only bites when xG features are enabled -- without
+    # them the columns aren't selected above, so this is a no-op.
+    if season == XG_FIRST_SEASON and all(s in df.columns for s in XG_STATS):
+        df = df[df["GW"] >= XG_FIRST_GW]
     df["season"] = season
     df["position"] = df["position"].replace({"GK": "GKP"})
     df["was_home"] = df["was_home"].astype(bool).astype(int)
