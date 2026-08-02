@@ -65,6 +65,48 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!NOTE]
+> **Investigated whether the model's predictions are too compressed to separate good players from mediocre ones — they aren't, and the investigation ended up disproving its own starting hypothesis. No code changed.**
+>
+> **The observation that started it.** Sweeping `total_points_avg3` with every other feature held at a fixed player-gameweek shows the model is *flat* across the range where most decisions live:
+>
+> | recent form | 0 | 1 | **2** | **3** | **4** | **5** | **6** | 8 | 10 |
+> | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+> | predicted | 4.92 | 5.91 | **6.36** | **6.36** | **6.36** | **6.36** | **6.36** | 6.46 | 6.46 |
+>
+> A player averaging 2 points and one averaging 6 get an identical prediction. Switching home→away moves the prediction −0.52, more than a four-point swing in form does. Predicted spread is also far tighter than reality (sd 1.28 vs 2.39; p99 4.54 vs 11.00). The initial theory was that this compression starves premium players under a budget constraint, and explained why the bot went whole seasons without owning the highest-ceiling forward.
+>
+> **Hypothesis 1 — the 58% of training rows with zero minutes eat the tree splits. Falsified.** Retraining on `minutes > 0` rows only made resolution *worse*, not better: the sweep's span fell from 1.54 to 0.53, with more flat stretches, not fewer.
+>
+> **Hypothesis 2 — it's an artifact of squared-error loss on a skewed target. Falsified.** Four model families, same features, same data:
+>
+> | model | MAE | pearson | spearman | sd | top-15 hit rate | sweep span |
+> | --- | --- | --- | --- | --- | --- | --- |
+> | GBR squared-error (current) | 1.009 | 0.564 | 0.703 | 1.28 | 15.1% | 1.54 |
+> | GBR depth 5 | 1.007 | 0.562 | 0.703 | 1.30 | 16.0% | 0.87 |
+> | HistGBR Poisson | 1.013 | 0.560 | 0.701 | 1.30 | 14.9% | 2.66 |
+> | HistGBR squared-error | 1.011 | 0.560 | 0.702 | 1.29 | 14.6% | 1.51 |
+>
+> Statistically indistinguishable on every metric that drives squad choice, and *all four* are flat over the same form range — including Poisson, which suits skewed count data. The flat zone is a property of the data, not of the model family: past this threshold, recent points form genuinely stops carrying information once the other features are known.
+>
+> **The decisive test — calibration, which reversed the conclusion outright.** Under-dispersion only distorts squad selection if the model is *miscalibrated*. It isn't. Predicted deciles track actuals within −0.07 to +0.25 across the whole pool. And by price tier, restricted to `pred > 1.5` so bench fodder doesn't dominate:
+>
+> | tier | predicted | actual | actual/predicted |
+> | --- | --- | --- | --- |
+> | <5.0m | 2.409 | 2.678 | **1.112** |
+> | 5.0-6.5m | 2.716 | 2.807 | 1.034 |
+> | 6.5-8.0m | 3.384 | 3.378 | 0.998 |
+> | 8.0-10.0m | 3.733 | 3.682 | 0.986 |
+> | >10.0m | 4.752 | 4.411 | **0.928** |
+>
+> The model **over-values premiums and under-values cheap players** — the exact opposite of the compression theory. A recalibration would push the bot *further away* from expensive players, not toward them.
+>
+> **What this means for the "best player never owned" problem.** It is not a prediction problem. The predictions already rate premiums generously. Whatever keeps a high-ceiling forward out of the squad for most of a season lives in the *transfer mechanics* — one free transfer a week cannot reach a £14m striker except at a full rebuild — which points at transfer planning and chip pre-positioning, not the model.
+>
+> **Nothing shipped**, deliberately: no model change survived contact with the evidence, and a recalibration sized at ratio 0.93-1.11 would be far below this pipeline's ±15-125 noise floor even if its direction were desirable, which it isn't. Recorded here so the next person doesn't re-derive it — the sweep looks alarming, and it is genuinely tempting to spend a week on it.
+
+---
+
 ## Phase 4 — Optimization Engine
 
 - [x] Implement the core **ILP squad selector**: given predicted points + budget/formation/club-limit constraints, output the best legal 15-man squad and starting XI + captain. ([`model/optimizer.py`](model/optimizer.py), via `scipy.optimize.milp`)
@@ -216,6 +258,34 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 > **Working hypothesis, not fully verified (time-boxed, unlike some earlier root-causes in this plan):** discounting only the *current* week while leaving the next 4 gameweeks undiscounted creates an inconsistency — a player with a minor, temporary knock (say 80% this week, back to 100% next week) gets just enough of a horizon-score dip to occasionally tip a marginal transfer-or-hold decision toward selling, but not enough to reflect that they'll likely be fine again in a week. Since this re-evaluates fresh every gameweek, a transient dip could plausibly cause the bot to sell low and want to buy back a gameweek later — spending a real transfer (or a `-4` hit) reacting to noise that would have resolved itself for free. This wasn't directly measured (e.g. counting extra transfers/hits attributable to availability swings) before reverting, so treat it as the leading hypothesis, not a confirmed cause.
 >
 > **Where this leaves the whole line of experiments (4-8):** every application of real injury/suspension data tried so far — hard XI filters at two thresholds, a near-certain suspension filter, a model feature, and now a soft transfer-value discount — has landed neutral-to-negative. That's a real, useful finding in itself: this project's existing mechanisms (auto-subs, vice-captain fallback, and the model's own rolling-minutes features already discounting out-of-form players) apparently capture most of the achievable value from "knowing about injuries" already, at least for the specific mechanisms tried. A genuinely new angle — not yet tried — would be needed to beat that: e.g. weighting the discount by *time until the next gameweek* (a knock reported 3 days before deadline is more informative than one reported 3 weeks out), or only discounting when a transfer is already otherwise attractive rather than always applying it.
+
+---
+
+> [!WARNING]
+> **A tenth attempt ran the one combination this plan had explicitly listed as never tried — availability as an isolated model feature, no filter, no change to how form is computed. It produced the best single-gameweek accuracy ever measured here and still lost on the season score.**
+>
+> The lead from the external review below was to "re-test attempt 4's model feature in complete isolation (no hard filter at all this time — the one combination never tried)". Attempt 9 had also shown *why* the previous attempt failed: rewriting form to be appearance-based removed the sell-pressure that decaying form quietly provides. So this attempt deliberately left form alone and only added a signal beside it, letting the model separate "low form because injured, now fit again" from "low form because playing badly".
+>
+> `chance_of_playing` joins from the fplcache archive on `(name, GW)` — **99.8-99.9% match rate for players who actually appeared** (the name instability documented elsewhere in this plan is a *cross-season* problem; within a season names are stable). FPL leaves the percentage null for players it has no concerns about (58.8% of `status = 'a'` rows, always 100 where present), and every flagged status carries an explicit number, so the encoding is lossless.
+>
+> **The mechanism works exactly as intended,** verified before measuring. Salah's AFCON block reads `chance_of_playing = 0` for GW17-22 and snaps back to 100 at GW23 the week he returns, while his rolling form still decays through the absence — so the sell-pressure attempt 9 destroyed is fully preserved. The feature is strongly monotonic against outcome: mean points by availability band run **0.004 / 0.033 / 0.585 / 1.343 / 1.721**, and the `chance = 0` band is 30% of all rows and scores essentially never.
+>
+> **Accuracy improved more than any change in this project's history: MAE 0.972 → 0.929, correlation 0.578 → 0.603.**
+>
+> | Season | Baseline | + availability feature | + also assuming recovery in the horizon |
+> | --- | --- | --- | --- |
+> | 2023-24 | 2083 | 2103 (+20) | 2086 (+3) |
+> | 2024-25 | **2193** | 2146 (-47) | 2110 (-83) |
+> | 2025-26 | **2049** | 2022 (-27) | 2049 (0) |
+> | **aggregate** | **6325** | **6271 (-54)** | **6245 (-80)** |
+>
+> **The second column tested a specific hypothesis and falsified it.** `build_horizon_scores()` freezes every feature across the five-week lookahead, so an injured player was valued at zero for five consecutive weeks — sold, then bought back once fit, burning transfers on news that resolves itself. That is exactly the churn attempt 8 hypothesised but never verified. Assuming recovery in future weeks (a real manager knows this week's team news and nothing beyond it) made the result **worse, not better**. Churn is not the mechanism. Reverted.
+>
+> **What ten attempts now establish.** This is no longer "we haven't found the right mechanism yet". Availability data has been applied as a hard XI filter at two thresholds, a near-certain suspension filter, a bundled model feature, a soft transfer-value discount, a rewrite of form itself, an isolated model feature, and that feature with a corrected horizon. Every single one landed neutral-to-negative. The isolated feature is the cleanest test of all — it is strictly more information, correctly encoded, verified to behave as designed, and it improves prediction accuracy by the largest margin ever recorded here.
+>
+> **The sharpest finding is the decoupling itself: a 4.4% MAE improvement produced a 0.9% season-score regression.** Single-gameweek accuracy and season score are not merely weakly related in this architecture — on this evidence they can point in opposite directions. Any future change justified by MAE alone should be treated as unsupported until it is scored, and this plan already contains two other examples (attempt 4's MAE 0.991 → 0.942, and the xG feature set) pointing the same way.
+>
+> One honest caveat against reverting: the availability variant has a *tighter and higher floor* (+100/+138/+127 against the average manager, spread 38) than the baseline it loses to (+80/+185/+154, spread 105). For a single live season — which is one draw, not an average — that is a real argument. It was reverted anyway, because keeping a change that loses 54 points aggregate and wins in 1 of 3 seasons would be applying a standard this project has not applied elsewhere.
 
 ---
 
