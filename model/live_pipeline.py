@@ -570,6 +570,37 @@ def submit(
     print(f"[ok] submitted GW{gw} team to entry {manager_id}")
 
 
+def check_auth(manager_id: str) -> None:
+    """Logs in and prints the squad FPL currently holds. Submits nothing."""
+    session = login()
+    print("[ok] login succeeded")
+
+    team = my_team(session, manager_id)
+    if not team or not team.get("picks"):
+        raise SystemExit(
+            f"[fail] logged in, but /my-team/{manager_id}/ returned no squad -- "
+            "check FPL_MANAGER_ID matches the account those credentials belong to"
+        )
+
+    picks = team["picks"]
+    transfers = team.get("transfers") or {}
+    bootstrap = fetch("bootstrap-static/")
+    meta = {e["id"]: e for e in bootstrap["elements"]}
+    teams = {t["id"]: t["short_name"] for t in bootstrap["teams"]}
+
+    print(f"[ok] entry {manager_id} holds {len(picks)} players, "
+          f"bank {(transfers.get('bank') or 0) / 10:.1f}m, "
+          f"{transfers.get('limit') or 0} free transfer(s)")
+    spend = 0
+    for pick in picks:
+        element = meta[pick["element"]]
+        spend += pick.get("selling_price") or element["now_cost"]
+        print(f"  {POSITIONS[element['element_type']]:<4}{element['web_name']:<22}"
+              f"{teams[element['team']]:<5}{element['now_cost'] / 10:>5.1f}m")
+    print(f"  squad value {spend / 10:.1f}m")
+    print("\nNothing was submitted. Re-run with --apply to replace this squad.")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--apply", action="store_true",
@@ -585,6 +616,9 @@ def main() -> None:
                              f"(default {LOOKAHEAD_GWS})")
     parser.add_argument("--no-availability-filter", action="store_true",
                         help="buy players FPL has already declared out (off by default)")
+    parser.add_argument("--check-auth", action="store_true",
+                        help="log in, print the squad FPL currently holds, and exit "
+                             "without training or submitting anything")
     args = parser.parse_args()
 
     # A .env file is documented (and gitignored) as the credential workflow,
@@ -597,10 +631,20 @@ def main() -> None:
     # Checked before any network work, so a missing credential fails in a second
     # rather than after a model train.
     manager_id = os.environ.get("FPL_MANAGER_ID")
-    if args.apply and not manager_id:
-        raise SystemExit("--apply needs FPL_MANAGER_ID in the environment")
-    if args.apply and not (os.environ.get("FPL_EMAIL") and os.environ.get("FPL_PASSWORD")):
-        raise SystemExit("--apply needs FPL_EMAIL and FPL_PASSWORD in the environment")
+    needs_credentials = args.apply or args.check_auth
+    flag = "--apply" if args.apply else "--check-auth"
+    if needs_credentials and not manager_id:
+        raise SystemExit(f"{flag} needs FPL_MANAGER_ID in the environment")
+    if needs_credentials and not (os.environ.get("FPL_EMAIL") and os.environ.get("FPL_PASSWORD")):
+        raise SystemExit(f"{flag} needs FPL_EMAIL and FPL_PASSWORD in the environment")
+
+    # There is otherwise no way to test the credential path short of --apply,
+    # which submits a real team. Everything up to and including reading the
+    # squad is the same code --apply runs; it just stops before deciding
+    # anything, so a login or manager-id problem surfaces harmlessly.
+    if args.check_auth:
+        check_auth(manager_id)
+        return
 
     print("Fetching live FPL data...")
     bootstrap = fetch("bootstrap-static/")
