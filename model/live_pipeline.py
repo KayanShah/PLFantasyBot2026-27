@@ -26,8 +26,10 @@ is due, rather than scheduling one job per deadline:
 
     0 * * * * cd /path/to/repo && python3 model/live_pipeline.py --only-if-due --apply
 
-Environment (only needed for --apply):
-    FPL_EMAIL, FPL_PASSWORD, FPL_MANAGER_ID
+Environment (only needed for --apply and --check-auth):
+    FPL_MANAGER_ID  your entry id, from /entry/<id>/event/1 once signed in
+    FPL_COOKIE      the whole `Cookie:` request header copied from a signed-in
+                    browser session -- see login() for why, and how
 """
 
 import argparse
@@ -45,7 +47,8 @@ from dotenv import load_dotenv
 import train_model
 from optimizer import pick_captains, pick_starting_xi, select_squad
 from simulate_season import (
-    LOOKAHEAD_GWS, STARTING_BUDGET, TRANSFER_MARGIN, build_horizon_scores, sell_value,
+    ENSEMBLE_EXTRA_SEEDS, LOOKAHEAD_GWS, STARTING_BUDGET, TRANSFER_MARGIN,
+    build_horizon_scores, ensemble_predict, sell_value,
 )
 
 # Player names contain accents; a cp1252 Windows console would otherwise raise
@@ -54,7 +57,8 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 API = "https://fantasy.premierleague.com/api"
-LOGIN_URL = "https://users.premierleague.com/accounts/login/"
+# No login URL any more: users.premierleague.com is gone (NXDOMAIN) and the
+# replacement is an OAuth2 flow behind bot protection. See login().
 
 SEASON = "2026-27"
 PRIOR_SEASON = "2025-26"
@@ -247,13 +251,42 @@ def next_gameweek(bootstrap: dict, override: int | None = None) -> dict:
     return upcoming[0]
 
 
-def build_predictions(model, bootstrap: dict, fixtures: list[dict], gw: int) -> pd.DataFrame:
-    """Predictions for `gw` and the lookahead window, from live data."""
-    horizon = [g for g in range(gw, gw + LOOKAHEAD_GWS) if g <= 38]
+def build_predictions(
+    models: list, bootstrap: dict, fixtures: list[dict], gw: int,
+    lookahead: int = LOOKAHEAD_GWS,
+) -> pd.DataFrame:
+    """
+    Predictions for `gw` and the lookahead window, from live data.
+
+    `models` is a list so callers can pass the single canonical model or an
+    ensemble, exactly as simulate_season.build_predictions() does.
+    """
+    horizon = [g for g in range(gw, gw + lookahead) if g <= 38]
     extra = upcoming_rows(bootstrap, fixtures, horizon)
     rows = train_model.build_season_features(SEASON, PRIOR_SEASON, extra_rows=extra)
-    rows["predicted_points"] = model.predict(rows[train_model.FEATURE_COLUMNS])
+    rows["predicted_points"] = ensemble_predict(models, rows[train_model.FEATURE_COLUMNS])
     return rows
+
+
+def unavailable_elements(bootstrap: dict) -> dict[int, str]:
+    """
+    Players the API says are *certainly* out: transferred/left the league, or
+    injured/suspended with an explicit 0% chance of playing the next round.
+
+    Deliberately certainty-only. plan.md attempts 5, 6 and 8 all showed that
+    excluding players on a *probability* (<50%, <25%, or a proportional
+    discount) is neutral-to-negative in the backtest, because the simulation's
+    auto-sub and vice-captain fallback already act on the certain outcome for
+    free. This filter is narrower than any of those: it only ever removes
+    someone FPL has already declared a non-starter, and only from the buy pool.
+    An owned player is never force-sold on this signal.
+    """
+    out = {}
+    for element in bootstrap["elements"]:
+        status, chance = element["status"], element["chance_of_playing_next_round"]
+        if status == "u" or (status in ("i", "s") and chance == 0):
+            out[element["id"]] = (element.get("news") or status).strip()
+    return out
 
 
 def my_team(session: requests.Session, manager_id: str) -> dict | None:
@@ -322,19 +355,40 @@ def plan_transfers(
 
 
 def choose_team(
-    predictions: pd.DataFrame, gw: int, model,
+    predictions: pd.DataFrame, gw: int, models: list,
     current: dict | None = None, free_transfers: int = 1, bank: int = 0,
+    unavailable: dict[int, str] | None = None, lookahead: int = LOOKAHEAD_GWS,
+    unlimited_transfers: bool = False,
 ) -> dict:
     gw_pool = predictions[predictions["GW"] == gw].copy()
     if gw_pool.empty:
         raise SystemExit(f"no players with a fixture in GW{gw}")
 
-    horizon = build_horizon_scores([model], predictions, gw, LOOKAHEAD_GWS)
+    horizon = build_horizon_scores(models, predictions, gw, lookahead)
     pool = gw_pool.copy()
     pool["predicted_points"] = pool["element"].map(horizon).fillna(pool["predicted_points"])
 
+    # Only ever narrows what may be *bought*. Anyone already owned stays in the
+    # pool so the squad can still be scored and fielded around them.
+    owned_ids = {p["element"] for p in current["picks"]} if current else set()
+    buyable = pool
+    if unavailable:
+        blocked = set(unavailable) - owned_ids
+        buyable = pool[~pool["element"].isin(blocked)]
+
+    # Before the GW1 deadline FPL lets you rewrite the whole squad for free, so
+    # an auto-picked starting team is not something to transfer away one player
+    # at a time -- plan_transfers() would cap out at a handful of changes and a
+    # -4 hit that isn't actually charged. Treat it as the full build it is.
+    if current is not None and unlimited_transfers:
+        squad = select_squad(buyable, budget=STARTING_BUDGET)
+        if squad is None:
+            raise SystemExit("no legal squad found within budget")
+        changed = len(set(squad["element"]) - {p["element"] for p in current["picks"]})
+        return _finish(gw_pool, squad, changed, STARTING_BUDGET, free_transfers=changed)
+
     if current is None:
-        squad, transfers, budget = select_squad(pool, budget=STARTING_BUDGET), 0, STARTING_BUDGET
+        squad, transfers, budget = select_squad(buyable, budget=STARTING_BUDGET), 0, STARTING_BUDGET
         if squad is None:
             raise SystemExit("no legal squad found within budget")
     else:
@@ -346,8 +400,15 @@ def choose_team(
                 "Handling blanks needs the fixture-aware grid; refusing to act on a "
                 "partial squad."
             )
-        squad, transfers, budget = plan_transfers(pool, current, free_transfers, bank)
+        squad, transfers, budget = plan_transfers(buyable, current, free_transfers, bank)
 
+    return _finish(gw_pool, squad, transfers, budget, free_transfers)
+
+
+def _finish(
+    gw_pool: pd.DataFrame, squad: pd.DataFrame, transfers: int, budget: int,
+    free_transfers: int,
+) -> dict:
     # Starting XI and captaincy use this week's prediction, not the horizon --
     # you always want the best lineup for the week actually being played.
     resolved = gw_pool[gw_pool["element"].isin(set(squad["element"]))]
@@ -420,20 +481,58 @@ def log_decision(payload: dict) -> None:
 
 
 def login() -> requests.Session:
-    email, password = os.environ.get("FPL_EMAIL"), os.environ.get("FPL_PASSWORD")
-    if not email or not password:
-        raise SystemExit("--apply needs FPL_EMAIL and FPL_PASSWORD in the environment")
+    """
+    Authenticates using a session cookie copied from a signed-in browser.
+
+    The email/password flow this used to do is gone. It posted to
+    users.premierleague.com/accounts/login/, and that host no longer resolves at
+    all -- `Resolve-DnsName users.premierleague.com` returns NXDOMAIN, so every
+    --apply run has failed at DNS since the Premier League retired it. They have
+    moved to an OAuth2/OIDC flow on account.premierleague.com behind Ping
+    Identity: /as/authorize demands a client_id and redirects to a JavaScript
+    sign-on widget, and the site returns 403 to non-browser clients.
+
+    Driving that flow from a script would mean defeating bot protection, which
+    is not something this project should do. Reusing a session you opened
+    yourself, in your own browser, for your own team, needs none of that.
+
+    To get the cookie: sign in at fantasy.premierleague.com, open devtools ->
+    Network, click any request to /api/, and copy the whole `Cookie:` request
+    header. Put it in .env as FPL_COOKIE. It is long, it belongs on one line,
+    and it expires -- when a run reports being signed out, copy a fresh one.
+    """
+    cookie = os.environ.get("FPL_COOKIE", "").strip()
+    if not cookie:
+        raise SystemExit(
+            "FPL_COOKIE is not set.\n"
+            "  FPL_EMAIL/FPL_PASSWORD no longer work: the login host they used\n"
+            "  (users.premierleague.com) has been retired and does not resolve.\n"
+            "  Sign in at fantasy.premierleague.com, open devtools -> Network,\n"
+            "  click any /api/ request, copy the entire 'Cookie:' request header,\n"
+            "  and set it as FPL_COOKIE in .env (one line)."
+        )
+
     session = requests.Session()
-    session.headers.update({"User-Agent": "Mozilla/5.0"})
-    response = session.post(
-        LOGIN_URL,
-        data={"login": email, "password": password,
-              "app": "plfpl-web", "redirect_uri": "https://fantasy.premierleague.com/"},
-        timeout=60,
-    )
-    response.raise_for_status()
-    if "pl_profile" not in session.cookies.get_dict():
-        raise SystemExit("login did not return a session cookie -- check credentials")
+    session.headers.update({
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                      "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
+        "Cookie": cookie,
+        "Referer": "https://fantasy.premierleague.com/",
+    })
+
+    # The API is Django REST Framework, so a session-authenticated POST is
+    # rejected with 403 unless X-CSRFToken echoes the csrftoken cookie. GETs are
+    # unaffected, which is why a cookie can look perfectly valid under
+    # --check-auth and still fail the moment anything is submitted.
+    for part in cookie.split(";"):
+        name, _, value = part.strip().partition("=")
+        if name == "csrftoken" and value:
+            session.headers["X-CSRFToken"] = value
+            break
+    else:
+        print("[warn] no csrftoken in FPL_COOKIE -- reads will work, but any "
+              "submit will likely be rejected with 403. Re-copy the header from "
+              "a request made while signed in.")
     return session
 
 
@@ -512,6 +611,38 @@ def submit(
     print(f"[ok] submitted GW{gw} team to entry {manager_id}")
 
 
+def check_auth(manager_id: str) -> None:
+    """Logs in and prints the squad FPL currently holds. Submits nothing."""
+    session = login()
+
+    team = my_team(session, manager_id)
+    if not team or not team.get("picks"):
+        raise SystemExit(
+            f"[fail] /my-team/{manager_id}/ returned no squad. Either the cookie has\n"
+            "  expired (copy a fresh one from a signed-in browser), or\n"
+            "  FPL_MANAGER_ID belongs to a different account than the cookie does."
+        )
+    print("[ok] cookie is valid and authorises this entry")
+
+    picks = team["picks"]
+    transfers = team.get("transfers") or {}
+    bootstrap = fetch("bootstrap-static/")
+    meta = {e["id"]: e for e in bootstrap["elements"]}
+    teams = {t["id"]: t["short_name"] for t in bootstrap["teams"]}
+
+    print(f"[ok] entry {manager_id} holds {len(picks)} players, "
+          f"bank {(transfers.get('bank') or 0) / 10:.1f}m, "
+          f"{transfers.get('limit') or 0} free transfer(s)")
+    spend = 0
+    for pick in picks:
+        element = meta[pick["element"]]
+        spend += pick.get("selling_price") or element["now_cost"]
+        print(f"  {POSITIONS[element['element_type']]:<4}{element['web_name']:<22}"
+              f"{teams[element['team']]:<5}{element['now_cost'] / 10:>5.1f}m")
+    print(f"  squad value {spend / 10:.1f}m")
+    print("\nNothing was submitted. Re-run with --apply to replace this squad.")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--apply", action="store_true",
@@ -522,6 +653,14 @@ def main() -> None:
     parser.add_argument("--only-if-due", action="store_true",
                         help="exit quietly unless the next deadline is inside the run "
                              "window, so a plain hourly cron entry can do the scheduling")
+    parser.add_argument("--lookahead", type=int, default=LOOKAHEAD_GWS,
+                        help=f"gameweeks the transfer/squad valuation looks ahead "
+                             f"(default {LOOKAHEAD_GWS})")
+    parser.add_argument("--no-availability-filter", action="store_true",
+                        help="buy players FPL has already declared out (off by default)")
+    parser.add_argument("--check-auth", action="store_true",
+                        help="log in, print the squad FPL currently holds, and exit "
+                             "without training or submitting anything")
     args = parser.parse_args()
 
     # A .env file is documented (and gitignored) as the credential workflow,
@@ -534,10 +673,20 @@ def main() -> None:
     # Checked before any network work, so a missing credential fails in a second
     # rather than after a model train.
     manager_id = os.environ.get("FPL_MANAGER_ID")
-    if args.apply and not manager_id:
-        raise SystemExit("--apply needs FPL_MANAGER_ID in the environment")
-    if args.apply and not (os.environ.get("FPL_EMAIL") and os.environ.get("FPL_PASSWORD")):
-        raise SystemExit("--apply needs FPL_EMAIL and FPL_PASSWORD in the environment")
+    needs_credentials = args.apply or args.check_auth
+    flag = "--apply" if args.apply else "--check-auth"
+    if needs_credentials and not manager_id:
+        raise SystemExit(f"{flag} needs FPL_MANAGER_ID in the environment")
+    if needs_credentials and not os.environ.get("FPL_COOKIE", "").strip():
+        raise SystemExit(f"{flag} needs FPL_COOKIE in the environment -- see login()")
+
+    # There is otherwise no way to test the credential path short of --apply,
+    # which submits a real team. Everything up to and including reading the
+    # squad is the same code --apply runs; it just stops before deciding
+    # anything, so a login or manager-id problem surfaces harmlessly.
+    if args.check_auth:
+        check_auth(manager_id)
+        return
 
     print("Fetching live FPL data...")
     bootstrap = fetch("bootstrap-static/")
@@ -592,13 +741,41 @@ def main() -> None:
     if current is None:
         print("No existing squad found -- building an initial 15 from scratch.")
 
-    print(f"Training model on {LIVE_TRAIN_SEASONS[0]} -> {LIVE_TRAIN_SEASONS[-1]}...")
-    train_model.TRAIN_SEASONS = LIVE_TRAIN_SEASONS
-    model = train_model.train_baseline_model()
+    # Nothing has been played yet, so any existing squad is a provisional pick
+    # (FPL auto-fills one on signup) that can be rewritten in full for free.
+    unlimited = current is not None and not finished
+    if unlimited:
+        print("Before the GW1 deadline -- unlimited free transfers, so the "
+              "existing squad is rebuilt from scratch rather than nudged.")
 
-    print("Building live predictions...")
-    predictions = build_predictions(model, bootstrap, fixtures, gw)
-    choice = choose_team(predictions, gw, model, current, free_transfers, bank)
+    train_model.TRAIN_SEASONS = LIVE_TRAIN_SEASONS
+    # A full 15-player build is the decision plan.md Phase 4 traced this
+    # pipeline's worst instability to: hundreds of near-tied squads separated by
+    # sub-1-point margins, where one model's idiosyncratic wobble on one player
+    # tips the whole season onto a different, compounding path (a 0.74-point
+    # difference on a single player moved a season total by over 100 points).
+    # simulate_season already answers that with an ensemble at exactly these two
+    # decision points; live was still building GW1 off a single model.
+    full_rebuild = current is None or unlimited
+    if full_rebuild:
+        print(f"Training {1 + len(ENSEMBLE_EXTRA_SEEDS)}-model ensemble on "
+              f"{LIVE_TRAIN_SEASONS[0]} -> {LIVE_TRAIN_SEASONS[-1]} (full squad build)...")
+        models = [train_model.train_baseline_model()] + [
+            train_model.train_baseline_model(seed=s) for s in ENSEMBLE_EXTRA_SEEDS
+        ]
+    else:
+        print(f"Training model on {LIVE_TRAIN_SEASONS[0]} -> {LIVE_TRAIN_SEASONS[-1]}...")
+        models = [train_model.train_baseline_model()]
+
+    unavailable = {} if args.no_availability_filter else unavailable_elements(bootstrap)
+    if unavailable:
+        print(f"{len(unavailable)} player(s) flagged unavailable by the API and "
+              f"excluded from the buy pool (owned players are never force-sold).")
+
+    print(f"Building live predictions (lookahead {args.lookahead} GWs)...")
+    predictions = build_predictions(models, bootstrap, fixtures, gw, args.lookahead)
+    choice = choose_team(predictions, gw, models, current, free_transfers, bank,
+                         unavailable, args.lookahead, unlimited)
 
     problems = validate(choice["squad"], choice["budget"])
     print()
@@ -611,6 +788,11 @@ def main() -> None:
         "captain": int(choice["captain"]), "vice": int(choice["vice"]),
         "transfers": choice["transfers"], "hits": choice["hits"],
         "problems": problems,
+        # Provenance: which of the two model paths ran, how far the valuation
+        # looked, and exactly who was withheld from the buy pool and why -- so a
+        # squad can be explained after the fact without re-running anything.
+        "models": len(models), "lookahead": args.lookahead,
+        "excluded": {int(e): why for e, why in sorted(unavailable.items())},
     })
 
     if problems:
