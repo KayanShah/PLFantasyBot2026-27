@@ -562,6 +562,15 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!NOTE]
+> **Three more contributor PRs reviewed and merged, none of which touch decision logic — backtest confirmed unchanged (2055/2193/2049) as expected:**
+>
+> - **Live pipeline hardening** (`model/live_pipeline.py`) — the GW1/Wildcard ensemble fix and 5H41L3N's own follow-up review both landed here: full squad rebuilds (true GW1, or the unlimited pre-deadline rebuild before any gameweek is played) now use the 5-model ensemble instead of a single model, matching `simulate_season.py`. A certainty-only availability filter excludes only players FPL has explicitly declared out (`status = 'u'`, or `i`/`s` at 0%) from the *buy* pool — never force-sells an owned player, deliberately narrower than the probability-based filters (attempts 5/6/8) that all lost. Also found and fixed something real: the email/password login flow was completely broken, since FPL retired `users.premierleague.com` (confirmed NXDOMAIN) — replaced with a browser session-cookie flow (`FPL_COOKIE`) and a `--check-auth` mode to test login without submitting a real team.
+> - **Availability news fields** — the availability fetcher was discarding `news`, `news_added`, and `ep_next` from every snapshot it already downloaded. Verified strictly additive (0 rows changed in the existing `status`/`chance_of_playing` columns). No behavior change on its own; groundwork for a future availability attempt that can finally tell "loaned out" from "suspended 3 games" from "back Jan 20th" apart, which every attempt in this plan so far has had to treat identically.
+> - **xG features** — same honest-negative-result pattern as the prediction-compression investigation above. Found a real data trap first (FPL's xG columns are `0.0`, not blank, before GW16 of 2022-23 — same class of bug as the phantom-doubles fix), then showed xG is a wash-to-regression on the squad-relevant top-150 split and never ranks in the top 6 features by importance. Ships as `enable_xg_features()`, off by default — confirmed never called anywhere in the merged diff, so this is a genuine no-op unless invoked. Proposes xG-minus-actual-goals (over/underperformance vs. luck) as the untried variant worth a future look.
+
+---
+
 ## Phase 5 — Automation & Interface
 
 - [x] **Scheduled pipeline** — scrape → feature-build → predict → optimize, run automatically each gameweek before the transfer deadline. ([`model/live_pipeline.py`](model/live_pipeline.py)) Pulls the live season from the FPL API into the same four per-season files [`model/fetch_historical_data.py`](model/fetch_historical_data.py) writes, so `build_season_features`/`optimizer`/`build_horizon_scores` are reused unchanged rather than reimplemented for live. Self-gates with `--only-if-due` so one hourly cron entry covers a season of irregular kickoff times.
