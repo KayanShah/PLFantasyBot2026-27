@@ -1,0 +1,50 @@
+name: Cookie check
+
+# The one thing on this bot that genuinely cannot be automated away.
+#
+# FPL retired password login (see live_pipeline.login()), so --apply authenticates
+# with a session cookie copied out of a signed-in browser, and those expire. A
+# cookie stored on 2 Aug was already returning 403 "Authentication credentials
+# were not provided" by 13 Aug -- eleven days.
+#
+# Without this job that expiry is invisible until a deadline run fails, which is
+# both the moment you can least afford it and, on a schedule, a moment nobody is
+# watching. Checking daily turns "the bot silently stopped playing weeks ago" into
+# an email with days of slack to paste a fresh cookie into the secret.
+#
+# --check-auth reads the squad and returns. It never trains, transfers or submits.
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-auth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Check the stored cookie still authenticates
+        env:
+          FPL_MANAGER_ID: ${{ secrets.FPL_MANAGER_ID }}
+          FPL_COOKIE: ${{ secrets.FPL_COOKIE }}
+        run: python model/live_pipeline.py --check-auth
+
+      - name: Explain what to do if that failed
+        if: failure()
+        run: |
+          echo "::error::FPL_COOKIE no longer authenticates. Sign in at" \
+               "fantasy.premierleague.com, open devtools -> Network, click any" \
+               "/api/ request, copy the whole 'Cookie:' request header, and update" \
+               "the FPL_COOKIE repository secret. Until then --apply runs will fail" \
+               "and the team will not be set."

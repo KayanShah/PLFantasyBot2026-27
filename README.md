@@ -121,13 +121,17 @@ Pulls the current season from the live FPL API, builds predictions with the same
 
 It works before a ball is kicked: with no gameweeks played yet there is no current-season form, so rolling form carries over from last season on FPL's stable player `code`, and players with no history anywhere (promoted clubs, new signings) fall back to a position-average prior.
 
-To submit to a real team, set `FPL_EMAIL`, `FPL_PASSWORD` and `FPL_MANAGER_ID`, then add `--apply`. Before anything is sent, the squad is checked against every constraint in [`FantasyRules.md`](FantasyRules.md) and the run aborts on any violation, on a passed deadline, or on a plan that would take more hits than `MAX_AUTOMATED_HITS`. Every decision is appended to `data/live_decisions.jsonl`.
+To submit to a real team, set `FPL_MANAGER_ID` and `FPL_COOKIE` in a `.env` file, then add `--apply`. FPL retired password login, so `FPL_COOKIE` is the whole `Cookie:` request header copied from a signed-in browser — `python3 model/live_pipeline.py --check-auth` verifies it works and prints the squad FPL currently holds without submitting anything. Before anything is sent, the squad is checked against every constraint in [`FantasyRules.md`](FantasyRules.md) and the run aborts on any violation, on a passed deadline, or on a plan that would take more hits than `MAX_AUTOMATED_HITS`. Every decision is appended to `data/live_decisions.jsonl` with the outcome it actually reached (`submitted`, `failed`, `rejected` or `dry-run`).
 
-For a whole season, schedule it hourly and let it decide when it's due, rather than scheduling one job per deadline — kickoff times are irregular, and a missed hour retries itself instead of skipping the gameweek:
+For a whole season, schedule it on an interval and let it decide when it's due, rather than scheduling one job per deadline — kickoff times are irregular, and a missed tick retries itself instead of skipping the gameweek:
 
 ```bash
-0 * * * * cd /path/to/repo && python3 model/live_pipeline.py --only-if-due --apply
+*/30 * * * * cd /path/to/repo && python3 model/live_pipeline.py --only-if-due --apply
 ```
+
+Running more often than the 90-minute due window is wide is deliberate: a run that isn't due exits after two API calls, and a gameweek that has already been submitted is skipped, so the extra ticks only ever cover for a failed attempt. Pass `--force` to deliberately re-plan and re-submit a gameweek.
+
+To run it without keeping a machine awake, [`.github/workflows/live-pipeline.yml`](.github/workflows/live-pipeline.yml) is the same schedule on GitHub Actions. Set `FPL_MANAGER_ID` and `FPL_COOKIE` as repository secrets; scheduled runs are a **dry run** until you also set the repository variable `AUTO_APPLY` to `true`. A second workflow checks daily that the stored cookie still authenticates — cookies expire in a couple of weeks, and without that check the first sign is a missed deadline.
 
 ## Results
 
