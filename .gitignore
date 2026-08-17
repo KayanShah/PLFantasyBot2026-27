@@ -3,3 +3,5 @@ data/historical/
 __pycache__/
 .env
 data/live_decisions.jsonl
+.vercel
+.env*
