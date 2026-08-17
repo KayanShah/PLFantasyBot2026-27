@@ -21,10 +21,17 @@ Usage:
     python model/live_pipeline.py --apply         # also submits it
     python model/live_pipeline.py --gw 5          # target a specific gameweek
 
-To run it for real every week, schedule this hourly and let it decide when it
-is due, rather than scheduling one job per deadline:
+To run it for real every week, schedule it on a fixed interval and let it decide
+when it is due, rather than scheduling one job per deadline:
 
-    0 * * * * cd /path/to/repo && python3 model/live_pipeline.py --only-if-due --apply
+    */30 * * * * cd /path/to/repo && python3 model/live_pipeline.py --only-if-due --apply
+
+Running more often than the due window is wide is deliberate, and safe: a run
+that is not due exits after two API calls, and once a gameweek has actually been
+submitted `already_submitted()` stops any later run in the same window from
+touching the team again. Extra attempts therefore only ever cover for a failed
+one. `.github/workflows/live-pipeline.yml` is the same schedule on GitHub
+Actions, for anyone who would rather not keep a machine awake.
 
 Environment (only needed for --apply and --check-auth):
     FPL_MANAGER_ID  your entry id, from /entry/<id>/event/1 once signed in
@@ -480,6 +487,45 @@ def log_decision(payload: dict) -> None:
         f.write(json.dumps(payload, default=str) + "\n")
 
 
+def already_submitted(gw: int) -> dict | None:
+    """
+    The last run that actually got a team into FPL for `gw`, if there was one.
+
+    The due window is 90 minutes wide, so any schedule tighter than that lands
+    two runs inside it. The second is not harmless: it re-plans against the squad
+    the first just submitted, and either reading of FPL's transfer counters costs
+    points. If `limit` has dropped to 0, plan_transfers() still prices a further
+    move at -4 and the ceiling check is `1 > 1`, so the hit goes through; if
+    `limit` stays at 1 and only `made` moves, the run believes a second transfer
+    is free and FPL charges the -4 unmodelled.
+
+    Keyed on a run having reached the end of submit(), not on it having intended
+    to: a run that died at the POST leaves no "submitted" record, so the next
+    run in the window retries it rather than treating the failure as done.
+    """
+    if not AUDIT_LOG.exists():
+        return None
+
+    found = None
+    with AUDIT_LOG.open(encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError:
+                continue  # a half-written line from a killed run shouldn't be fatal
+            if record.get("gw") != gw:
+                continue
+            # Records written before this field existed set `applied` optimistically,
+            # before the POST. Trusting one costs a skipped run; ignoring one risks a
+            # duplicate submit, so the stale reading is the safer way to be wrong.
+            if record.get("status") == "submitted" or record.get("applied") is True:
+                found = record
+    return found
+
+
 def login() -> requests.Session:
     """
     Authenticates using a session cookie copied from a signed-in browser.
@@ -652,7 +698,11 @@ def main() -> None:
                         help="free transfers available, when not readable from the API")
     parser.add_argument("--only-if-due", action="store_true",
                         help="exit quietly unless the next deadline is inside the run "
-                             "window, so a plain hourly cron entry can do the scheduling")
+                             "window, so a plain interval cron entry can do the scheduling")
+    parser.add_argument("--force", action="store_true",
+                        help="submit even if this gameweek was already submitted; "
+                             "without it a second --apply run for the same gameweek "
+                             "exits without touching the team")
     parser.add_argument("--lookahead", type=int, default=LOOKAHEAD_GWS,
                         help=f"gameweeks the transfer/squad valuation looks ahead "
                              f"(default {LOOKAHEAD_GWS})")
@@ -707,6 +757,16 @@ def main() -> None:
         opens = deadline - DEADLINE_LEAD - timedelta(minutes=30)
         if not opens <= now <= deadline:
             print(f"Not due yet (window opens {opens.isoformat()}). Exiting.")
+            return
+
+    # Ahead of the model train, so the usual case on a tight schedule -- a
+    # gameweek already dealt with by an earlier run -- costs two API calls
+    # rather than eight minutes of fitting.
+    if args.apply and not args.force:
+        previous = already_submitted(gw)
+        if previous:
+            print(f"GW{gw} was already submitted at {previous['run_at']}. Exiting.\n"
+                  f"  Re-run with --force to plan and submit it again.")
             return
 
     if args.apply and now > deadline:
@@ -782,8 +842,8 @@ def main() -> None:
     print(describe(choice, gw, deadline.isoformat()))
     print()
 
-    log_decision({
-        "run_at": now, "gw": gw, "deadline": deadline, "applied": bool(args.apply),
+    record = {
+        "run_at": now, "gw": gw, "deadline": deadline,
         "squad": [int(e) for e in choice["squad"]["element"]],
         "captain": int(choice["captain"]), "vice": int(choice["vice"]),
         "transfers": choice["transfers"], "hits": choice["hits"],
@@ -793,26 +853,41 @@ def main() -> None:
         # squad can be explained after the fact without re-running anything.
         "models": len(models), "lookahead": args.lookahead,
         "excluded": {int(e): why for e, why in sorted(unavailable.items())},
-    })
+    }
 
     if problems:
+        log_decision({**record, "status": "rejected", "applied": False})
         for problem in problems:
             print(f"[fail] {problem}")
         raise SystemExit("squad violates FantasyRules.md -- refusing to continue")
     print("[ok] squad satisfies every FantasyRules.md constraint")
 
     if choice["hits"] > MAX_AUTOMATED_HITS:
+        log_decision({**record, "status": "rejected", "applied": False})
         raise SystemExit(
             f"plan takes {choice['hits']} hits, above the automated ceiling of "
             f"{MAX_AUTOMATED_HITS} -- refusing to submit unattended"
         )
 
     if not args.apply:
+        log_decision({**record, "status": "dry-run", "applied": False})
         print("\nDry run. Nothing was submitted. Re-run with --apply to submit.")
         return
 
     positions = {e["id"]: POSITIONS[e["element_type"]] for e in bootstrap["elements"]}
-    submit(session, manager_id, gw, choice, current, positions)
+    # already_submitted() reads this log to decide whether the next run in the
+    # window may act, so it has to record the outcome of the POST rather than the
+    # intent to make one -- logging "applied" beforehand, as this did, turns an
+    # expired cookie into a gameweek the retry believes is already done.
+    # SystemExit is caught alongside Exception because apply_transfers() raises
+    # one, and that is the likeliest way a submit fails half-done.
+    try:
+        submit(session, manager_id, gw, choice, current, positions)
+    except (Exception, SystemExit) as error:
+        log_decision({**record, "status": "failed", "applied": False,
+                      "error": f"{type(error).__name__}: {error}"})
+        raise
+    log_decision({**record, "status": "submitted", "applied": True})
 
 
 if __name__ == "__main__":

@@ -1,0 +1,108 @@
+name: Live pipeline
+
+# The scheduling half of Phase 5. `live_pipeline.py --only-if-due` already knows
+# when it is due; what was missing was anything to actually call it, which left
+# "automatic" meaning "you keep a machine awake and remember to set up cron".
+#
+# Every 30 minutes rather than hourly: the due window is 90 minutes wide and
+# GitHub's scheduler is best-effort under load, so an hourly tick can realistically
+# land only once in a window -- and if that one attempt fails, the gameweek is
+# missed with nobody watching. Three attempts cost nothing, because a run that is
+# not due exits after two API calls, and already_submitted() stops a later one
+# from touching a team the first has already set.
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: 'Submit the team (unticked = dry run, nothing is sent)'
+        type: boolean
+        default: false
+      gw:
+        description: 'Target a specific gameweek (blank = the next one)'
+        type: string
+        default: ''
+
+# A due run trains a model and can take several minutes. Without this the next
+# tick would start while it is still working, and two runs would plan against
+# the same pre-submission squad -- exactly the duplicate the guard exists to stop,
+# arriving by a route the guard cannot see because neither has logged anything yet.
+concurrency:
+  group: live-pipeline
+  cancel-in-progress: false
+
+jobs:
+  pick:
+    runs-on: ubuntu-latest
+    # Routine gameweeks train one model and are quick. A full rebuild -- GW1, or
+    # any pre-deadline run before a ball is kicked -- trains the 5-model ensemble
+    # over six seasons, which is minutes locally and slower on a 2-core runner.
+    # That is also the one run of the season most worth doing by hand anyway.
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      # data/historical/ is gitignored, so a runner starts with none of it.
+      # ~41MB of static CSVs off raw.githubusercontent, a few seconds.
+      - name: Fetch historical training data
+        run: python model/fetch_historical_data.py
+
+      # already_submitted() reads this log to decide whether a gameweek has
+      # already been dealt with, and a runner is wiped between jobs.
+      #
+      # Split restore/save rather than actions/cache, because the combined action
+      # always saves in its post step: a not-due run that wrote nothing would
+      # store an empty log under a newer key, and the next restore would pick
+      # that up and lose every record the guard depends on.
+      - name: Restore decision log
+        uses: actions/cache/restore@v4
+        with:
+          path: data/live_decisions.jsonl
+          key: live-decisions-
+          restore-keys: live-decisions-
+
+      # Scheduled runs are a dry run unless the AUTO_APPLY repository variable is
+      # set to 'true'. plan.md Phase 5 asks for a human approval step until the
+      # bot has a season of real trust behind it, and merging a workflow should
+      # not quietly overrule that: out of the box this plans, logs and shows its
+      # team without touching anything. Flipping one variable arms it.
+      - name: Run
+        env:
+          FPL_MANAGER_ID: ${{ secrets.FPL_MANAGER_ID }}
+          FPL_COOKIE: ${{ secrets.FPL_COOKIE }}
+        run: |
+          python model/live_pipeline.py \
+            ${{ (github.event_name == 'schedule' && vars.AUTO_APPLY == 'true' || inputs.apply) && '--apply' || '' }} \
+            ${{ github.event_name == 'schedule' && '--only-if-due' || '' }} \
+            ${{ inputs.gw && format('--gw {0}', inputs.gw) || '' }}
+
+      # Guarded on the file existing, so the first ever run -- or any run before
+      # a gameweek is due -- stores nothing rather than a blank. A run that only
+      # restored the log re-saves it unchanged, which is wasted bytes but keeps
+      # the entry warm against GitHub's 7-day eviction of unused caches.
+      - name: Persist decision log
+        if: always() && hashFiles('data/live_decisions.jsonl') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: data/live_decisions.jsonl
+          key: live-decisions-${{ github.run_id }}
+
+      # Uploaded even when the run above fails, because a failed run is exactly
+      # when you want to read what it decided before it died.
+      - name: Upload decision log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-decisions-${{ github.run_id }}
+          path: data/live_decisions.jsonl
+          if-no-files-found: ignore
