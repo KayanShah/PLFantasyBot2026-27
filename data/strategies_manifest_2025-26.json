@@ -44,6 +44,17 @@
       "order": 3,
       "final_score": 1878,
       "squads_file": "season_2025-26_squads_differential.json"
+    },
+    {
+      "key": "xg_experimental",
+      "label": "xG Experimental",
+      "short": "Balanced's policy, xG/xA features on.",
+      "description": "Identical policy to Balanced (same hit ceiling, same 5-week lookahead) -- the only difference is the prediction model itself trains on expected-goals/assists features (2022-23 GW16 onward only, since xG isn't available before that). An earlier isolated-importance check found xG never ranks in the model's top 6 features and is a wash-to-regression on the squad-relevant top-150 split; this asks the same question a second way, through an actual season simulation instead of a feature-importance ranking.",
+      "risk": "Experimental",
+      "risk_tier": "medium",
+      "order": 4,
+      "final_score": 2100,
+      "squads_file": "season_2025-26_squads_xg_experimental.json"
     }
   ]
 }

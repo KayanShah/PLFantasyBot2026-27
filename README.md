@@ -1,15 +1,12 @@
 > [!NOTE]
-> This project is under development and is not yet working
-> 
-> Please come back soon- our aim is to get everything working and deployed by the start of the PL 2026/27 season
+> **Live for the 2026-27 season.** The dashboard is deployed at **[plfantasybot2026-27.vercel.app](https://plfantasybot2026-27.vercel.app)** — five strategies (Balanced, Conservative, Reactive, Differential, xG Experimental), each with a full 2025-26 validated backtest and a real GW1 2026-27 squad, complete with player photos and live injury/status badges. `data/snapshots/` archives FPL's full API state every 30 minutes automatically ([`.github/workflows/data-snapshot.yml`](.github/workflows/data-snapshot.yml)).
+>
+> **Transfers are made manually, on purpose.** No credential is stored anywhere in this repo or its Actions — [`model/live_pipeline.py`](model/live_pipeline.py)'s `--apply` path exists and is tested, but is only ever triggered by hand ([`.github/workflows/live-pipeline.yml`](.github/workflows/live-pipeline.yml), `workflow_dispatch`-only). The normal workflow is: refresh the dashboard ([`.github/workflows/refresh-dashboard.yml`](.github/workflows/refresh-dashboard.yml)), read whichever strategy's picks look right, make the transfer yourself in the FPL app.
 
-
-
-> [!Caution]
-> All data currently pulled in this repository is from the last 2025/2026 season, and this season's fantasy API will only launch at the end of July
-> 
-> Latest update from [Premier League](https://www.premierleague.com/en/news/4679873/all-you-need-to-know-about-changes-to-fpl-for-202627)
-
+> [!CAUTION]
+> The live 2026-27 dashboard can only show **this gameweek's recommended squad** for each strategy so far — it can't yet show a running total for GW2 onward, since that needs a real gameweek to have actually been played first. That's the next thing to build once GW1 results exist (see `plan.md`). The 2025-26 numbers below are the trustworthy ones: full-season backtests where the model never saw the result it was predicting.
+>
+> Only **Balanced** has a season's worth of validated backtesting behind its exact settings. **Differential** is a deliberately high-risk/high-reward variant (more hits, biased toward low-ownership picks) — expect bigger swings both ways, not a steadier version of Balanced. **xG Experimental** is a documented *negative* result kept for reference, not a recommendation — see Results below.
 
 
 
@@ -48,9 +45,14 @@ This project pulls data from the official FPL API and other sources, predicts pl
 | [`model/optimizer.py`](model/optimizer.py) | ILP squad selector + starting-XI/captain picker, enforcing every constraint in `FantasyRules.md`. |
 | [`model/simulate_season.py`](model/simulate_season.py) | Simulates managing a team through a full season gameweek-by-gameweek — transfers, chips, captaincy — using only pre-season-trained predictions. |
 | [`model/multi_season_backtest.py`](model/multi_season_backtest.py) | Runs the simulation across multiple seasons (each trained only on strictly earlier seasons) and compares against real average-manager totals. |
-| [`model/live_pipeline.py`](model/live_pipeline.py) | Runs the bot against the live FPL API for the current season shortly before each deadline — picks the squad, starting XI and captain, and can submit them to a real team. |
-| [`website/build_site.py`](website/build_site.py) / [`website/index.html`](website/index.html) | Builds a self-contained, single-file website showing the bot's team for every 2025-26 gameweek — pitch view, captaincy, chips, difficulty-coded fixtures — scrollable gameweek by gameweek. |
-| `data/` | Output from the scrapers (`fixtures.csv`, `fixtures.json`, `fpl.db`, `historical/`, `backtest_2025-26_predictions.csv`, `season_2025-26_simulation.csv`, `season_2025-26_squads.json`, `multi_season_backtest_results.csv`). |
+| [`model/live_pipeline.py`](model/live_pipeline.py) | Runs the bot against the live FPL API for the current season shortly before each deadline — picks the squad, starting XI and captain, and can submit them to a real team (manual-trigger only, see the note above). |
+| [`model/strategies.py`](model/strategies.py) | The four named policies (Balanced/Conservative/Reactive/Differential) layered on the same validated engine — only hit ceiling, lookahead, and an ownership tilt differ between them. |
+| [`model/run_all_strategies.py`](model/run_all_strategies.py) | Backtests every strategy in `strategies.py` against a season (default 2025-26), training the model once and sharing it across all four. |
+| [`model/run_xg_strategy.py`](model/run_xg_strategy.py) | A fifth, isolated strategy: Balanced's exact policy, but the model trains with expected-goals/assists features on. Kept as its own process, not folded into `run_all_strategies.py`, since enabling xG features mutates `train_model`'s feature-column globals in place. |
+| [`model/generate_live_strategies.py`](model/generate_live_strategies.py) | Runs all four `strategies.py` strategies against the live 2026-27 API — dry run only, never submits. The three non-Balanced strategies persist their own "shadow" squad state in `data/live_state_*.json` since there's no real FPL entry behind them. |
+| [`model/snapshot_fpl_data.py`](model/snapshot_fpl_data.py) | Archives `bootstrap-static`/`fixtures` into `data/snapshots/` every 30 minutes ([`.github/workflows/data-snapshot.yml`](.github/workflows/data-snapshot.yml)) — our own point-in-time archive, in fplcache's spirit. A rolling full backup, one dated snapshot/day, and a change-only log (price moves, injury news, fixture re-ratings) instead of ~13,000 near-duplicate files a season. |
+| [`website/build_site.py`](website/build_site.py) / [`website/index.html`](website/index.html) | Builds the self-contained dashboard deployed at [plfantasybot2026-27.vercel.app](https://plfantasybot2026-27.vercel.app) — season tabs (2026-27 Live / 2025-26 Backtest), strategy tabs with a leaderboard, player photos, and injury/status badges. Auto-deploys on every push to `main`. |
+| `data/` | Historical CSVs, per-strategy backtest/live squad JSON, `strategies_manifest_*.json`, and `snapshots/` (present in the repo, deliberately excluded from local checkouts via `git sparse-checkout` — see `.git/info/sparse-checkout`). |
 | `requirements.txt` | Python dependencies. |
 
 ## Setup
@@ -156,6 +158,21 @@ The model is trained only on seasons strictly before the one it's tested on — 
 | 2025-26 | 2049 | 1895 | +154 |
 
 Consistently above the real average manager across three independent seasons, not just a lucky one. (Past seasons' average-manager totals came from [Wayback Machine](https://web.archive.org/) snapshots of `bootstrap-static`, since the live FPL API only serves the current season — see `plan.md` Phase 4 for the exact snapshot URLs.)
+
+**Strategy comparison (2025-26 backtest, single seed each):**
+
+| Strategy | What differs from Balanced | Score |
+| --- | --- | --- |
+| Balanced | — (the validated build above) | **2049** |
+| Conservative | Never takes a -4 hit | 2030 |
+| Reactive | No fixture lookahead (1 GW vs 5) | 1979 |
+| Differential | Up to 2 hits/week, biased toward low-ownership picks | 1878 |
+| xG Experimental | Model trains with expected-goals/assists features on | 2100 |
+
+> [!CAUTION]
+> **xG Experimental's 2100 is not a clean result.** FPL's xG columns don't exist before 2022-23, so that run trains on only 3 seasons (2022-23 → 2024-25) instead of Balanced's 5 (2020-21 → 2024-25) — two variables changed at once (xG on/off, *and* which seasons the model ever sees), not one. An earlier isolated feature-importance check found xG never ranks in the model's top 6 features and is a wash-to-regression on the squad-relevant top-150 split, which is why it shipped off by default (`train_model.enable_xg_features()`, never called in the default path). This run doesn't overturn that — it raises a real, open question (does xG help, or did dropping the COVID-disrupted 2020-21/2021-22 seasons help, or both?) that needs Balanced re-run on the same 3-season window before either explanation can be trusted. Documented honestly rather than reported as "xG wins" — see `model/run_xg_strategy.py` and `plan.md`.
+
+---
 
 > [!NOTE]
 > A richer-features + dynamic-chip-timing experiment (xG involvement, opponent team-strength, start-rate, dynamic Wildcard timing, a Free Hit chip) was tried and **regressed** the 2025-26 score to 1906. Rather than keep tuning parameters until the number looked good again on that one season, it was reverted back to the validated 2058 checkpoint above. The experiment is preserved in git history if worth revisiting — ideally with multi-season validation from the start next time.

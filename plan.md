@@ -625,6 +625,13 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!CAUTION]
+> **xG features re-tested as a real strategy (`model/run_xg_strategy.py`), and the result is not clean.** Balanced's exact policy, same engine, only the model gets xG/xA features on — but xG data doesn't exist before 2022-23, so this run trains on 3 seasons (2022-23 → 2024-25) instead of Balanced's 5 (2020-21 → 2024-25). Scored **2100** vs Balanced's **2049** — a real, reproducible number, but two variables moved at once (xG on/off, and which seasons the model ever saw), not one. The earlier isolated feature-importance check (xG never in the top 6 features, wash-to-regression on the top-150 split) is not overturned by this — it's a genuinely open question now: does xG help, does dropping the COVID-disrupted 2020-21/2021-22 seasons help, or both? Needs Balanced re-run restricted to the same 2022-23→2024-25 window before either explanation can be trusted. Deliberately shipped as its own isolated process (not folded into `strategies.py`/`run_all_strategies.py`), since `enable_xg_features()` mutates `train_model`'s feature-column globals in place and would silently change what every other strategy trains on if run in the same process.
+>
+> **`data/snapshots/` is now excluded from local checkouts via `git sparse-checkout` (`.git/info/sparse-checkout`, pattern mode: `/*` then `!/data/snapshots/`)** — still fully committed and growing on GitHub via the 30-minute cron, just never materializes on disk locally. Verified: `git ls-tree` still shows all 4 tracked snapshot files after the reapply, `git status` shows no phantom deletions, and the directory is genuinely absent from the working tree.
+
+---
+
 ## Phase 6 — Evaluation & Iteration
 
 - [ ] Track the bot's actual gameweek-by-gameweek score against a real season, not just backtests.
