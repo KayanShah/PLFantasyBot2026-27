@@ -1,0 +1,24 @@
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 99, "name": "Milambo", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 99, "name": "Milambo", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 99, "name": "Milambo", "field": "news", "from": "Knee injury - 75% chance of playing", "to": "Knee injury - Unknown return date"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 100, "name": "Carvalho", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 100, "name": "Carvalho", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 100, "name": "Carvalho", "field": "news", "from": "", "to": "Lack of match fitness - 75% chance of playing"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 353, "name": "Pecsi", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 353, "name": "Pecsi", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 353, "name": "Pecsi", "field": "news", "from": "", "to": "Has joined TSV Hartberg on loan for the rest of the season"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 394, "name": "Alleyne", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 394, "name": "Alleyne", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 394, "name": "Alleyne", "field": "news", "from": "", "to": "Has joined Burnley on loan for the rest of the season"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 408, "name": "Phillips", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 408, "name": "Phillips", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 408, "name": "Phillips", "field": "news", "from": "", "to": "Has joined Sheffield United on loan for the rest of the season"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 425, "name": "Fredricson", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 425, "name": "Fredricson", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 425, "name": "Fredricson", "field": "news", "from": "", "to": "Has joined Lausanne-Sport permanently"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 505, "name": "Spence", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 505, "name": "Spence", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 505, "name": "Spence", "field": "news", "from": "", "to": "Has joined Internazionale permanently"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 507, "name": "Phillips", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 507, "name": "Phillips", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-18T14:37:35.741943+00:00", "element": 507, "name": "Phillips", "field": "news", "from": "", "to": "Has joined Middlesbrough permanently"}
