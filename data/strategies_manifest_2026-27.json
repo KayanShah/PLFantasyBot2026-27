@@ -1,0 +1,49 @@
+{
+  "season": "2026-27",
+  "strategies": [
+    {
+      "key": "balanced",
+      "label": "Balanced",
+      "short": "The flagship build.",
+      "description": "5-gameweek fixture lookahead, at most one -4 hit per week, TRANSFER_MARGIN and hit ceiling both tuned via a 5-seed x 3-season backtest sweep (see plan.md). This is the only strategy with a season's worth of validated backtesting behind it, and the only one ever applied to the real FPL team.",
+      "risk": "Validated",
+      "risk_tier": "low",
+      "order": 0,
+      "final_score": null,
+      "squads_file": "live_squads_balanced.json"
+    },
+    {
+      "key": "conservative",
+      "label": "Conservative",
+      "short": "Never takes a hit.",
+      "description": "Same model and lookahead as Balanced, but will never spend a -4 -- only ever uses free transfers, banking them when nothing clears the bar. Trades some upside for zero hit risk.",
+      "risk": "Low risk",
+      "risk_tier": "low",
+      "order": 1,
+      "final_score": null,
+      "squads_file": "live_squads_conservative.json"
+    },
+    {
+      "key": "reactive",
+      "label": "Reactive",
+      "short": "No fixture lookahead.",
+      "description": "Picks purely on next-gameweek form -- no fixture-run planning at all (lookahead=1 vs Balanced's 5). Exists to show, live, whether the lookahead Balanced relies on is actually earning its keep.",
+      "risk": "Experimental",
+      "risk_tier": "medium",
+      "order": 2,
+      "final_score": null,
+      "squads_file": "live_squads_reactive.json"
+    },
+    {
+      "key": "differential",
+      "label": "Differential",
+      "short": "High risk, high reward.",
+      "description": "Deliberately chases low-ownership, high-ceiling picks over safe template players (up to 1.6x the raw predicted score for a 0%-owned player), and will take up to two -4 hits a week chasing marginal transfers most managers wouldn't bother with. Built to swing hard, not to be steady -- expect bigger weeks and bigger busts than the other three. Never applied to a real team automatically.",
+      "risk": "High risk / high reward",
+      "risk_tier": "high",
+      "order": 3,
+      "final_score": null,
+      "squads_file": "live_squads_differential.json"
+    }
+  ]
+}

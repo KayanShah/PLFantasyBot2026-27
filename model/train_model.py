@@ -104,10 +104,33 @@ def load_player_codes(season: str) -> pd.DataFrame:
     player's rolling form across a season boundary without joining on their
     name string, which can change format season to season (nicknames,
     added/dropped middle names, transliteration of accented characters).
+
+    Also carries `selected_by_percent` (ownership) through the same join --
+    the differential strategy in strategies.py uses it to bias selection
+    toward low-ownership picks. `player_code` itself doubles as the FPL photo
+    id: https://resources.premierleague.com/premierleague/photos/players/110x140/p{code}.png
+
+    And `status`/`news`/`chance_of_playing_next_round`: injury/suspension
+    state. For the live season these come from the current bootstrap-static
+    snapshot (genuinely point-in-time -- see live_pipeline.sync_season).
+    For historical seasons players_raw.csv is a single scrape, not a
+    per-gameweek record, so this is "status as of whenever it was
+    downloaded", not "status at that gameweek's deadline" -- display-only
+    context, not a training feature (fetch_availability_data.py's
+    per-gameweek availability.csv is the point-in-time source for that).
     """
     path = DATA_DIR / season / "players_raw.csv"
     players = pd.read_csv(path, encoding="utf-8", encoding_errors="ignore")
-    return players[["id", "code"]].rename(columns={"id": "element", "code": "player_code"})
+    extra_cols = {
+        "selected_by_percent": 0.0, "status": "a", "news": "",
+        "chance_of_playing_next_round": pd.NA,
+    }
+    for col, default in extra_cols.items():
+        if col not in players.columns:
+            players[col] = default
+    return players[["id", "code", *extra_cols.keys()]].rename(
+        columns={"id": "element", "code": "player_code"}
+    )
 
 
 def load_fixture_difficulty(season: str) -> pd.DataFrame:

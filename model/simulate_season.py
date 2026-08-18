@@ -149,11 +149,12 @@ FREE_HIT_TRIGGER_MARGIN = 10.0
 
 OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "season_2025-26_simulation.csv"
 SQUADS_OUT_PATH = Path(__file__).resolve().parent.parent / "data" / "season_2025-26_squads.json"
-TEAMS_PATH = Path(__file__).resolve().parent.parent / "data" / "historical" / SEASON / "teams.csv"
 
 
-def load_team_names() -> dict[int, str]:
-    teams = pd.read_csv(TEAMS_PATH, encoding="utf-8", encoding_errors="ignore")
+def load_team_names(season: str | None = None) -> dict[int, str]:
+    season = season if season is not None else SEASON
+    path = Path(__file__).resolve().parent.parent / "data" / "historical" / season / "teams.csv"
+    teams = pd.read_csv(path, encoding="utf-8", encoding_errors="ignore")
     return dict(zip(teams["id"], teams["short_name"]))
 
 
@@ -162,22 +163,51 @@ def ensemble_predict(models: list, X: pd.DataFrame) -> np.ndarray:
     return np.mean([m.predict(X) for m in models], axis=0)
 
 
-def build_predictions(models: list) -> pd.DataFrame:
+def build_predictions(
+    models: list, season: str | None = None, prior_season: str | None = None,
+) -> pd.DataFrame:
     """
-    Builds a predicted_points column for every 2025-26 (player, gameweek) row,
-    using rolling form carried over from the end of 2024-25 for early-season
-    gameweeks (so GW1 predictions reflect real known form, not zero-knowledge —
-    the model itself still never trains on any 2025-26 result). `models` is a
-    list so callers can pass either the single canonical model or an ensemble
-    (see GW1/Wildcard handling in simulate() — full-squad-rebuild decisions turned
-    out to be decided by sub-1-point margins between hundreds of near-tied 15-player
+    Builds a predicted_points column for every (player, gameweek) row of
+    `season` (default the module's SEASON, read at call time so
+    multi_season_backtest.py's pattern of monkeypatching simulate_season.SEASON
+    before calling this with no args still works), using rolling form carried
+    over from the end of `prior_season` for early-season gameweeks (so GW1
+    predictions reflect real known form, not zero-knowledge — the model itself
+    still never trains on any `season` result). `models` is a list so callers
+    can pass either the single canonical model or an ensemble (see GW1/Wildcard
+    handling in simulate() — full-squad-rebuild decisions turned out to be
+    decided by sub-1-point margins between hundreds of near-tied 15-player
     combinations, so a single model's idiosyncratic wobble on one player could tip
     the whole rest of the season onto a different, compounding path; averaging
     several independently-trained models makes that specific tie-break less arbitrary).
     """
-    rows = train_model.build_season_features(SEASON, PRIOR_SEASON)
+    season = season if season is not None else SEASON
+    prior_season = prior_season if prior_season is not None else PRIOR_SEASON
+    rows = train_model.build_season_features(season, prior_season)
     rows["predicted_points"] = ensemble_predict(models, rows[train_model.FEATURE_COLUMNS])
     return rows
+
+
+def apply_differential_tilt(predictions: pd.DataFrame, weight: float) -> pd.DataFrame:
+    """
+    Reweights predicted_points toward low-ownership players, for the
+    Differential strategy in strategies.py: a 0%-owned player's score is
+    boosted by up to `weight` (weight=0.6 multiplies it by 1.6x), a 100%-owned
+    player's score is untouched. Applied once, directly to the predictions
+    table everything downstream reads (horizon scoring, this-week selection,
+    captaincy, Free Hit comparisons), so a "differential" build is differential
+    end to end, not just at the initial squad pick. A no-op (returns the input
+    unchanged) when weight is 0, which is every strategy but Differential.
+    """
+    if not weight:
+        return predictions
+    ownership = predictions.get("selected_by_percent")
+    if ownership is None:
+        return predictions
+    predictions = predictions.copy()
+    fraction = ownership.fillna(0).clip(lower=0, upper=100) / 100
+    predictions["predicted_points"] = predictions["predicted_points"] * (1 + weight * (1 - fraction))
+    return predictions
 
 
 def build_horizon_scores(models: list, predictions: pd.DataFrame, gw: int, horizon: int) -> pd.Series:
@@ -220,10 +250,11 @@ def build_horizon_scores(models: list, predictions: pd.DataFrame, gw: int, horiz
 
 def with_horizon_points(
     models: list, predictions: pd.DataFrame, gw: int, gw_pool: pd.DataFrame,
-    price_deltas: pd.DataFrame | None = None,
+    price_deltas: pd.DataFrame | None = None, horizon: int | None = None,
 ) -> pd.DataFrame:
     """gw_pool with predicted_points replaced by the lookahead-summed score, for squad-construction decisions."""
-    horizon_scores = build_horizon_scores(models, predictions, gw, LOOKAHEAD_GWS)
+    horizon = horizon if horizon is not None else LOOKAHEAD_GWS
+    horizon_scores = build_horizon_scores(models, predictions, gw, horizon)
     pool = gw_pool.copy()
     pool["predicted_points"] = pool["element"].map(horizon_scores).fillna(pool["predicted_points"])
 
@@ -338,6 +369,16 @@ def apply_auto_subs(xi: pd.DataFrame, bench: pd.DataFrame, gw_pool: pd.DataFrame
     return final_ids
 
 
+def _photo_code(value) -> int | None:
+    """`player_code` doubles as FPL's photo id, but is a string for the rare
+    unmatched-join fallback row (see build_season_features) -- return None
+    rather than a garbage int for those, so the website falls back cleanly."""
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
 def player_entry(
     row: pd.Series, gw_pool: pd.DataFrame, team_names: dict[int, str],
     captain_id, vice_id, effective_captain_id, tc_this_week: bool,
@@ -345,6 +386,9 @@ def player_entry(
     points, minutes = real_outcome(row["element"], gw_pool)
     opponent = team_names.get(row.get("opponent_team"), "—")
     venue = "H" if row.get("was_home") == 1 else "A"
+    ownership = row.get("selected_by_percent")
+    chance = row.get("chance_of_playing_next_round")
+    status = row.get("status")
     return {
         "name": row["name"],
         "team": row["team"],
@@ -357,6 +401,13 @@ def player_entry(
         "is_vice_captain": bool(row["element"] == vice_id),
         "is_effective_captain": bool(row["element"] == effective_captain_id),
         "is_triple_captain": bool(tc_this_week and row["element"] == effective_captain_id),
+        "photo_code": _photo_code(row.get("player_code")),
+        "ownership": float(ownership) if pd.notna(ownership) else None,
+        # Only emit a status when it's not "a" (available) -- lets the website
+        # render a badge only when there's actually something to flag.
+        "status": status if pd.notna(status) and status != "a" else None,
+        "news": row["news"].strip() if isinstance(row.get("news"), str) and row["news"].strip() else None,
+        "chance_of_playing": int(chance) if pd.notna(chance) else None,
     }
 
 
@@ -364,40 +415,59 @@ def simulate(
     model=None, predictions: pd.DataFrame | None = None, quiet: bool = False,
     ensemble_models: list | None = None, predictions_ensemble: pd.DataFrame | None = None,
     price_deltas: pd.DataFrame | None = None,
+    season: str | None = None, prior_season: str | None = None,
+    transfer_margin: float | None = None, max_hits_per_gw: int | None = None,
+    lookahead_gws: int | None = None, differential_weight: float = 0.0,
+    out_path: Path | None = None, squads_out_path: Path | None = None,
 ) -> float:
+    # Resolved from the module globals at call time, not bound as literal
+    # defaults, so multi_season_backtest.py's pattern of monkeypatching
+    # simulate_season.SEASON/.PRIOR_SEASON before calling simulate() with no
+    # args keeps working exactly as before -- a bound default would freeze the
+    # value from whenever this module was first imported instead.
+    season = season if season is not None else SEASON
+    prior_season = prior_season if prior_season is not None else PRIOR_SEASON
+    transfer_margin = transfer_margin if transfer_margin is not None else TRANSFER_MARGIN
+    max_hits_per_gw = max_hits_per_gw if max_hits_per_gw is not None else MAX_HITS_PER_GW
+    lookahead_gws = lookahead_gws if lookahead_gws is not None else LOOKAHEAD_GWS
+    out_path = out_path or OUT_PATH
+    squads_out_path = squads_out_path or SQUADS_OUT_PATH
+
     log_print = (lambda *a, **k: None) if quiet else print
 
     if model is None:
-        log_print("Training model on 2020-21 -> 2024-25 (2025-26 never used in training)...")
+        log_print(f"Training model on {train_model.TRAIN_SEASONS[0]} -> {train_model.TRAIN_SEASONS[-1]}...")
         model = train_model.train_baseline_model()
 
     if predictions is None:
-        log_print("Building week-by-week 2025-26 predictions (rolling form only, no lookahead)...")
-        predictions = build_predictions([model])
+        log_print(f"Building week-by-week {season} predictions (rolling form only, no lookahead)...")
+        predictions = build_predictions([model], season, prior_season)
+    predictions = apply_differential_tilt(predictions, differential_weight)
 
     if ensemble_models is None:
         log_print(f"Training {1 + len(ENSEMBLE_EXTRA_SEEDS)}-model ensemble for GW1/Wildcard squad construction...")
         ensemble_models = [model] + [train_model.train_baseline_model(seed=s) for s in ENSEMBLE_EXTRA_SEEDS]
 
     if predictions_ensemble is None:
-        predictions_ensemble = build_predictions(ensemble_models)
+        predictions_ensemble = build_predictions(ensemble_models, season, prior_season)
+    predictions_ensemble = apply_differential_tilt(predictions_ensemble, differential_weight)
 
     if price_deltas is None:
         # Trained on the same seasons as the points model, which multi_season_backtest
         # keeps strictly earlier than SEASON, so this inherits the same no-leakage rule.
         log_print("Training price model for transfer tie-breaks...")
         price_deltas = price_model.predicted_price_delta(
-            price_model.train_price_model(train_model.TRAIN_SEASONS), SEASON
+            price_model.train_price_model(train_model.TRAIN_SEASONS), season
         )
 
     fwd_threshold = predictions.loc[predictions["position_label"] == "FWD", "predicted_points"].quantile(0.90)
     log_print(f"Triple Captain trigger threshold (90th percentile FWD prediction): {fwd_threshold:.2f}\n")
 
-    has_second_chip_set = SEASON in SEASONS_WITH_SECOND_CHIP_SET
+    has_second_chip_set = season in SEASONS_WITH_SECOND_CHIP_SET
     bench_boost_gws = {9, 21} if has_second_chip_set else {9}
     log_print(f"Chip rules this season: {'two sets (2025/26+)' if has_second_chip_set else 'one set (pre-2025/26)'}\n")
 
-    team_names = load_team_names()
+    team_names = load_team_names(season)
     gameweeks = sorted(predictions["GW"].unique())
     current_squad = None
     free_transfers = 1
@@ -412,14 +482,14 @@ def simulate(
         if gw_pool.empty:
             continue
 
-        if gw == AFCON_TOPUP_GW and SEASON in SEASONS_WITH_AFCON_TOPUP:
+        if gw == AFCON_TOPUP_GW and season in SEASONS_WITH_AFCON_TOPUP:
             free_transfers = MAX_FREE_TRANSFERS
 
         hits = 0
         chip = None
         is_free_hit = False
         pre_chip_squad = current_squad
-        horizon_pool = with_horizon_points([model], predictions, gw, gw_pool, price_deltas)
+        horizon_pool = with_horizon_points([model], predictions, gw, gw_pool, price_deltas, horizon=lookahead_gws)
 
         # Pre-2025/26 seasons only ever had one of each chip for the whole season
         # (see SEASONS_WITH_SECOND_CHIP_SET) — treat the whole season as "half 1" then.
@@ -428,12 +498,12 @@ def simulate(
         last_chance = gw == half_end
 
         if gw == 1:
-            horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool, price_deltas)
+            horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool, price_deltas, horizon=lookahead_gws)
             squad = select_squad(horizon_pool_ensemble, budget=STARTING_BUDGET)
             transfers_made = 0
         elif gw in WILDCARD_GWS:
             budget = squad_sell_value(current_squad, gw_pool)
-            horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool, price_deltas)
+            horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool, price_deltas, horizon=lookahead_gws)
             priced_pool = with_sell_cost(horizon_pool_ensemble, current_squad, gw_pool)
             squad = select_squad(priced_pool, budget=budget, cost_col="cost")
             transfers_made = None
@@ -476,7 +546,7 @@ def simulate(
                 current_horizon = attach_this_week(current_ids, current_squad, horizon_pool)
                 hold_net = current_horizon["predicted_points"].sum()
                 best_k, best_net, best_squad = 0, hold_net, current_squad
-                for k in range(1, min(free_transfers + MAX_HITS_PER_GW, MAX_FREE_TRANSFERS) + 1):
+                for k in range(1, min(free_transfers + max_hits_per_gw, MAX_FREE_TRANSFERS) + 1):
                     candidate = select_squad(priced_pool, budget=budget, current_ids=current_ids, max_changes=k, cost_col="cost")
                     if candidate is None:
                         continue
@@ -489,7 +559,7 @@ def simulate(
                 # Only actually take a transfer if it clears TRANSFER_MARGIN over holding —
                 # "hold" is always a well-defined alternative here (unlike GW1/Wildcard),
                 # so a stability margin is the right tool for this decision specifically.
-                if best_k != 0 and best_net <= hold_net + TRANSFER_MARGIN:
+                if best_k != 0 and best_net <= hold_net + transfer_margin:
                     best_k, best_net, best_squad = 0, hold_net, current_squad
                 squad = best_squad
                 transfers_made = best_k
@@ -577,14 +647,14 @@ def simulate(
 
     if not quiet:
         log_df = pd.DataFrame(log)
-        log_df.to_csv(OUT_PATH, index=False)
+        log_df.to_csv(out_path, index=False)
 
-        with SQUADS_OUT_PATH.open("w", encoding="utf-8") as f:
-            json.dump({"season": SEASON, "final_score": round(season_total), "gameweeks": squads_log}, f, indent=2)
+        with squads_out_path.open("w", encoding="utf-8") as f:
+            json.dump({"season": season, "final_score": round(season_total), "gameweeks": squads_log}, f, indent=2)
 
         print(f"\n=== Final season total: {season_total:.0f} points ===")
-        print(f"Gameweek log saved -> {OUT_PATH}")
-        print(f"Squad-by-gameweek detail saved -> {SQUADS_OUT_PATH}")
+        print(f"Gameweek log saved -> {out_path}")
+        print(f"Squad-by-gameweek detail saved -> {squads_out_path}")
 
     return season_total
 

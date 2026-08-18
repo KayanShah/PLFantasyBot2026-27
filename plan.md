@@ -571,6 +571,39 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!NOTE]
+> **PR #18 merged** ("Make the bot safe to leave running, and ship the schedule that runs it") — the double-submission bug was real and verified against the actual code before merging: `plan_transfers()`'s loop still evaluates `k=1` even when `free_transfers=0`, and the ceiling check `hits > MAX_AUTOMATED_HITS` (`1 > 1` = false) lets a duplicate transfer through if a second run lands inside the same 90-minute due window as the first. Fixed with `already_submitted(gw)`, which checks the audit log for a run that reached the end of `submit()` for that gameweek (keyed on outcome, not intent — a run that dies mid-POST leaves no "submitted" record, so a retry still fires), plus a `--force` override. Logging changed from a single pre-submit call recording `applied: bool(args.apply)` (intent) to a `status` of `rejected`/`dry-run`/`failed`/`submitted`, set only once the real outcome is known. Ships `.github/workflows/live-pipeline.yml` (cron `*/30 * * * *`, dry-run unless the `AUTO_APPLY` repo variable is `true`) and `.github/workflows/cookie-check.yml` (daily read-only auth check). Verified structurally backtest-independent (`grep -rn "live_pipeline" --include="*.py"` — nothing imports it).
+>
+> **Website deployed to Vercel** (`https://plfantasybot2026-27.vercel.app`), connected to this repo's GitHub integration for auto-deploy on every push to `main` — verified by pushing a commit and confirming a fresh "Ready" production deployment appeared via `vercel ls` within a minute, distinct from the manual CLI deploys used to first get the config right (`vercel.json` needed `framework: null` — the repo's root `requirements.txt` was making Vercel autodetect it as a Python project and look for a WSGI entrypoint that doesn't exist).
+
+---
+
+> [!NOTE]
+> **Multi-strategy dashboard, differential ("gambly") strategy, player photos, and injury/status data — the GW1-week feature push, done with the season launching in 2 days.**
+>
+> Four strategies now run through the *same* validated engine (`model/simulate_season.py`, `model/live_pipeline.py`) with only their squad-construction knobs differing — no separate model, no separate feature set, so any difference in outcome is attributable to policy, not to four independently-tuned pipelines (`model/strategies.py`):
+>
+> | Strategy | Hits/week | Lookahead | Ownership tilt | 2025-26 backtest |
+> | --- | --- | --- | --- | --- |
+> | Balanced (flagship, unchanged) | ≤1 | 5 GW | none | **2049** |
+> | Conservative (never takes a hit) | 0 | 5 GW | none | 2030 |
+> | Reactive (no fixture lookahead) | ≤1 | 1 GW | none | 1979 |
+> | Differential (high risk/reward) | ≤2 | 5 GW | ×1.6 at 0% owned | 1878 |
+>
+> Balanced reproduced its exact canonical score (2049) after the refactor, confirming the parameterization is behavior-preserving — `simulate()`'s new knobs (`transfer_margin`, `max_hits_per_gw`, `lookahead_gws`, `differential_weight`, `season`/`prior_season`) are all resolved from the module globals *inside* the function body rather than bound as literal defaults, specifically so `multi_season_backtest.py`'s existing pattern of monkeypatching `simulate_season.SEASON` before calling with no args keeps working unchanged. Model/ensemble/price-model training happens once and is shared across all four strategies in `model/run_all_strategies.py`, not once per strategy — only the cheap post-hoc reweight (`apply_differential_tilt`) and the per-gameweek decision loop differ.
+>
+> Differential landing lowest here is one backtest, not an average — a single realization shows the downside (more hits taken chasing marginal transfers, £ spent on low-ownership picks that didn't return) without showing the upside variance is supposed to buy. Flagged as such on the website rather than framed as "worse."
+>
+> **Player photos** (`https://resources.premierleague.com/premierleague/photos/players/110x140/p{code}.png`, keyed on the same stable `player_code` already carried through for the cold-start fix — no new join needed) and **ownership %** now render on every player card. **Injury/suspension status** (`status`, `news`, `chance_of_playing_next_round`) is threaded through the same `players_raw.csv` merge point (`train_model.load_player_codes()`) and shown as a badge with the news text as a tooltip — live 2026-27 squads get this genuinely point-in-time from the current bootstrap-static snapshot; backtest seasons show it display-only (vaastav's `players_raw.csv` is a single scrape per season, not a per-gameweek record, so it's "status as of whenever it was downloaded," not "status at that gameweek's deadline" — not wired into the model as a training feature for that reason, matching the caution already documented above for the availability-news-fields PR).
+>
+> **`model/generate_live_strategies.py`** runs all four strategies against the live FPL API for the upcoming gameweek (currently GW1) — dry run only, never submits. `model/live_pipeline.py`'s own `--apply` path is untouched by any of this: it still only ever runs the Balanced strategy's exact settings against the real account, gated by `AUTO_APPLY`/`--apply` exactly as before. The other three strategies persist their own "shadow" squad state (`data/live_state_{key}.json`, shaped like the real `/my-team/` response so `choose_team()`/`plan_transfers()` work unmodified) since there's no real FPL entry behind them. Scoring a shadow squad's held picks against real results once a gameweek finishes — the "running total" the live dashboard needs past GW1 — is not built yet; there's nothing to score until GW1 is actually played, and rushing that piece felt like the wrong place to cut a corner two days before launch. Next thing to build once GW1 has real results.
+>
+> **`model/snapshot_fpl_data.py`** archives bootstrap-static + fixtures every 30 minutes into this repo — our own copy of what Randdalf/fplcache does for the community, so 2026-27 doesn't depend on that archive staying online or being fine-grained enough. A full raw snapshot would be ~13,000 near-duplicate files over a season at that cadence for near-zero benefit (most 30-minute windows change nothing), so only `data/snapshots/latest.json.xz` (always overwritten) and one dated snapshot per UTC day are kept in full; a `changelog.jsonl` is appended to only when a tracked field (price, status, chance of playing, news) actually changes — finer-grained than fplcache's fixed 4x/day, since a price rise or fresh injury note lands here within 30 minutes instead of up to 6.
+>
+> **The manual/auto line, drawn deliberately**: `data-snapshot.yml` (pure archival, touches nothing) runs on the `*/30 * * * *` cron the user asked for. `refresh-dashboard.yml` (regenerates strategy recommendations and rebuilds the website) is `workflow_dispatch`-only — it never touches a real team either, but the user was explicit ("I would rather the team is updated manually not auto done"), and even a read-only dashboard refresh felt closer to "the team" than to raw data archival. `live-pipeline.yml`'s real submission path is unchanged: still gated by `AUTO_APPLY`/`--apply`, still only the Balanced strategy.
+
+---
+
 ## Phase 5 — Automation & Interface
 
 - [x] **Scheduled pipeline** — scrape → feature-build → predict → optimize, run automatically each gameweek before the transfer deadline. ([`model/live_pipeline.py`](model/live_pipeline.py)) Pulls the live season from the FPL API into the same four per-season files [`model/fetch_historical_data.py`](model/fetch_historical_data.py) writes, so `build_season_features`/`optimizer`/`build_horizon_scores` are reused unchanged rather than reimplemented for live. Self-gates with `--only-if-due` so one hourly cron entry covers a season of irregular kickoff times.

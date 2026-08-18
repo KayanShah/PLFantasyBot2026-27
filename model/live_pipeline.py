@@ -232,7 +232,10 @@ def sync_season(bootstrap: dict, fixtures: list[dict], finished_gws: list[int]) 
 
     pd.DataFrame([
         {"id": e["id"], "code": e["code"], "first_name": e["first_name"],
-         "second_name": e["second_name"], "web_name": e["web_name"]}
+         "second_name": e["second_name"], "web_name": e["web_name"],
+         "selected_by_percent": e["selected_by_percent"],
+         "status": e["status"], "news": e.get("news") or "",
+         "chance_of_playing_next_round": e.get("chance_of_playing_next_round")}
         for e in bootstrap["elements"]
     ]).to_csv(season_dir / "players_raw.csv", index=False)
 

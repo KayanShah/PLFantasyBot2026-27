@@ -1,0 +1,63 @@
+name: Refresh dashboard
+
+# Manual-only, by design: this regenerates every strategy's recommended squad
+# and rebuilds the website, but never touches a real FPL team (it only ever
+# calls public, unauthenticated API endpoints -- no secrets needed) and never
+# submits anything. "the team is updated manually not auto done" applies here
+# too, not just to live-pipeline.yml's real submission -- so unlike
+# data-snapshot.yml this does not run on a schedule. Trigger it by hand from
+# the Actions tab whenever you want the dashboard to reflect the latest
+# prices/news, or after a gameweek finishes.
+
+on:
+  workflow_dispatch:
+    inputs:
+      refresh_backtest:
+        description: 'Also re-run the 2025-26 backtest for all strategies (slow -- only needed after a model/strategy code change)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Fetch historical training data
+        run: python model/fetch_historical_data.py
+
+      - name: Re-run 2025-26 backtest for all strategies
+        if: inputs.refresh_backtest
+        run: python model/run_all_strategies.py
+
+      - name: Generate live 2026-27 strategies
+        run: python model/generate_live_strategies.py
+
+      - name: Rebuild website
+        run: python website/build_site.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "plfantasybot-dashboard"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/live_squads_*.json data/live_state_*.json \
+                  data/strategies_manifest_2026-27.json \
+                  data/strategies_manifest_2025-26.json \
+                  data/season_2025-26_squads_*.json data/season_2025-26_simulation_*.csv \
+                  website/index.html
+          git diff --staged --quiet && exit 0
+          git commit -m "Refresh dashboard $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git pull --rebase origin main
+          git push

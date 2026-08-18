@@ -1,0 +1,56 @@
+name: Data snapshot
+
+# Our own fplcache: archives bootstrap-static + fixtures every 30 minutes so
+# this repo has its own point-in-time record of prices, status and news --
+# not dependent on Randdalf/fplcache staying online, and finer-grained than
+# its 4x/day cadence (see model/snapshot_fpl_data.py's docstring for exactly
+# what gets written and why it doesn't just grow unbounded).
+#
+# Purely archival: reads the public API, writes files, commits them. Never
+# touches a real FPL team and never trains a model, so this is safe to run on
+# a tight auto schedule even though "the team" itself stays manual -- see
+# live-pipeline.yml (submission, gated by AUTO_APPLY) and refresh-dashboard.yml
+# (strategy recommendations, manual-only) for where that line is drawn.
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: data-snapshot
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install requests
+
+      - name: Fetch and archive
+        run: python model/snapshot_fpl_data.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "plfantasybot-snapshot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/snapshots
+          git diff --staged --quiet && exit 0
+          git commit -m "Data snapshot $(date -u +'%Y-%m-%d %H:%M UTC')"
+          # A concurrent push (rare -- this workflow is the only thing that
+          # touches data/snapshots/) could still land between fetch and push;
+          # one rebase-and-retry covers it without failing the whole run.
+          git pull --rebase origin main
+          git push
