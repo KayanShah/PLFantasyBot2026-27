@@ -13,10 +13,13 @@ name: Cookie check
 # an email with days of slack to paste a fresh cookie into the secret.
 #
 # --check-auth reads the squad and returns. It never trains, transfers or submits.
+#
+# Manual-dispatch only: no FPL_COOKIE/FPL_MANAGER_ID secret has been set up
+# (transfers are being made manually, not through --apply), so a daily cron
+# here would just fail every morning with nothing useful to report. Trigger
+# this by hand if that ever changes.
 
 on:
-  schedule:
-    - cron: '0 8 * * *'
   workflow_dispatch:
 
 jobs:

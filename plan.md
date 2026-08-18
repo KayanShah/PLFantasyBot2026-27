@@ -604,6 +604,15 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!NOTE]
+> **Decided: transfers are being made by hand, not through `--apply`.** No `FPL_MANAGER_ID`/`FPL_COOKIE` secret was ever set up (that step needs a cookie copied from a signed-in browser, which only the user can produce — FPL retired the scriptable password-login endpoint this project used to rely on, see `live_pipeline.login()`), and rather than set that up the user confirmed the manual route directly.
+>
+> `live-pipeline.yml` and `cookie-check.yml` had their `schedule:` triggers removed — without a manager id, a scheduled `live-pipeline.yml` run can't see a real held squad (it would just retrain a model every 30 minutes to log a generic from-scratch build nobody reads, worse than what `generate_live_strategies.py` already produces without any credentials), and a scheduled `cookie-check.yml` would fail every single day with nothing to check. Both kept as `workflow_dispatch`-only, so either can be turned back into a cron in one line if a cookie is ever added later. `data-snapshot.yml` and `refresh-dashboard.yml` are unaffected — neither ever needed credentials.
+>
+> Practical result: the website is the whole workflow now. Refresh it (`refresh-dashboard.yml`, manual) whenever wanted, read whichever strategy's picks look right, enter the transfer in the FPL app by hand.
+
+---
+
 ## Phase 5 — Automation & Interface
 
 - [x] **Scheduled pipeline** — scrape → feature-build → predict → optimize, run automatically each gameweek before the transfer deadline. ([`model/live_pipeline.py`](model/live_pipeline.py)) Pulls the live season from the FPL API into the same four per-season files [`model/fetch_historical_data.py`](model/fetch_historical_data.py) writes, so `build_season_features`/`optimizer`/`build_horizon_scores` are reused unchanged rather than reimplemented for live. Self-gates with `--only-if-due` so one hourly cron entry covers a season of irregular kickoff times.

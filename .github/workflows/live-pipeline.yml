@@ -1,19 +1,17 @@
 name: Live pipeline
 
-# The scheduling half of Phase 5. `live_pipeline.py --only-if-due` already knows
-# when it is due; what was missing was anything to actually call it, which left
-# "automatic" meaning "you keep a machine awake and remember to set up cron".
+# Manual-dispatch only: transfers are being made manually (see plan.md), not
+# through --apply, and no FPL_MANAGER_ID/FPL_COOKIE secret exists -- without
+# a manager id this can't even see a real current squad, so an auto-cron here
+# would just retrain a model every 30 minutes to log a generic from-scratch
+# squad nobody reads (the multi-strategy dashboard already does that better,
+# without needing any credentials -- see generate_live_strategies.py /
+# refresh-dashboard.yml, which is what the website actually shows).
 #
-# Every 30 minutes rather than hourly: the due window is 90 minutes wide and
-# GitHub's scheduler is best-effort under load, so an hourly tick can realistically
-# land only once in a window -- and if that one attempt fails, the gameweek is
-# missed with nobody watching. Three attempts cost nothing, because a run that is
-# not due exits after two API calls, and already_submitted() stops a later one
-# from touching a team the first has already set.
+# Kept as a manual trigger for if auto-submission is ever turned back on:
+# `apply` unticked is always a dry run regardless of AUTO_APPLY.
 
 on:
-  schedule:
-    - cron: '*/30 * * * *'
   workflow_dispatch:
     inputs:
       apply:
@@ -71,19 +69,17 @@ jobs:
           key: live-decisions-
           restore-keys: live-decisions-
 
-      # Scheduled runs are a dry run unless the AUTO_APPLY repository variable is
-      # set to 'true'. plan.md Phase 5 asks for a human approval step until the
-      # bot has a season of real trust behind it, and merging a workflow should
-      # not quietly overrule that: out of the box this plans, logs and shows its
-      # team without touching anything. Flipping one variable arms it.
+      # Manual dispatch only (see the top of this file) -- apply comes straight
+      # from the dispatch input, no schedule/AUTO_APPLY branching to reason
+      # about, and no --only-if-due since you're triggering this because you
+      # want it to run right now, not on a recurring gate.
       - name: Run
         env:
           FPL_MANAGER_ID: ${{ secrets.FPL_MANAGER_ID }}
           FPL_COOKIE: ${{ secrets.FPL_COOKIE }}
         run: |
           python model/live_pipeline.py \
-            ${{ (github.event_name == 'schedule' && vars.AUTO_APPLY == 'true' || inputs.apply) && '--apply' || '' }} \
-            ${{ github.event_name == 'schedule' && '--only-if-due' || '' }} \
+            ${{ inputs.apply && '--apply' || '' }} \
             ${{ inputs.gw && format('--gw {0}', inputs.gw) || '' }}
 
       # Guarded on the file existing, so the first ever run -- or any run before
