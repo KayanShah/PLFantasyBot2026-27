@@ -533,8 +533,9 @@ TEMPLATE = """<!doctype html>
     .calendar-row.future strong { color: var(--muted-2); font-weight: 600; }
     .calendar-row.future span { color: var(--muted-2); }
     .calendar-status { width:7px; height:7px; border-radius:50%; background:#c0c0c5; }
-    .calendar-status.done { background:var(--green); box-shadow:0 0 0 4px rgba(31,157,104,.06); }
-    .calendar-status.live { background:var(--purple); box-shadow:0 0 0 4px rgba(95,37,159,.06); }
+    .calendar-status.done { background:var(--orange); box-shadow:0 0 0 4px rgba(200,115,53,.09); }
+    .calendar-status.current { background:var(--green); box-shadow:0 0 0 4px rgba(31,157,104,.09); }
+    .calendar-status.future { background:var(--danger); box-shadow:0 0 0 4px rgba(200,63,87,.09); }
 
     .footer {
       margin-top: 18px;
@@ -867,14 +868,18 @@ TEMPLATE = """<!doctype html>
       currentDeadlineISO = upcoming.deadline;
     }
 
+    // "Current" is a fixed fact about the calendar (the next gameweek that
+    // hasn't happened yet) -- not tied to whichever row the viewer has
+    // clicked to browse. Dot colour reflects true past/now/future status;
+    // only the row highlight ("active") follows the click.
+    const nextGw = (calendar.find(g => !g.finished) || calendar[0]).gw;
+
     el('calendarList').innerHTML = calendar.map(g => {
-      const isCurrent = g.gw === currentDeadlineGW;
-      const status = g.finished ? 'done' : (isCurrent ? 'live' : '');
-      // Greyed out unless it's already happened (done) or is the one the
-      // countdown is currently pointed at -- makes "this hasn't happened
-      // yet" visually obvious at a glance across all 38 rows.
+      const isSelected = g.gw === currentDeadlineGW;
+      const isCurrent = g.gw === nextGw;
+      const status = g.finished ? 'done' : (isCurrent ? 'current' : 'future');
       const future = !g.finished && !isCurrent;
-      return `<div class="calendar-row ${isCurrent?'active':''} ${future?'future':''}" data-gw="${g.gw}">
+      return `<div class="calendar-row ${isSelected?'active':''} ${future?'future':''}" data-gw="${g.gw}">
         <strong>GW ${g.gw}</strong><span>${formatDeadline(g.deadline)}</span><i class="calendar-status ${status}"></i>
       </div>`;
     }).join('');
