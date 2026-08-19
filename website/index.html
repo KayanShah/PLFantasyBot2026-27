@@ -88,7 +88,7 @@
       padding: 13px 15px 13px 19px;
       border-radius: 25px;
       display: grid;
-      grid-template-columns: 1fr auto auto;
+      grid-template-columns: 1fr auto auto auto;
       gap: 18px;
       align-items: center;
       position: sticky;
@@ -456,6 +456,24 @@
     .strategy-detail h4 { margin:0; font-size:12.5px; font-weight:680; }
     .strategy-detail p { margin:8px 0 0; color:var(--muted); font-size:10.2px; line-height:1.55; }
 
+    .info-panel { margin-top: 18px; display:flex; flex-direction:column; gap:16px; }
+    .info-card { border-radius: var(--radius-xl); padding: 24px 26px; }
+    .info-card h2 { margin:0 0 8px; font-size:16px; font-weight:690; letter-spacing:-.02em; }
+    .info-card > p { margin:8px 0; color:var(--muted); font-size:11.5px; line-height:1.65; max-width:820px; }
+    .info-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin-top:12px; }
+    .info-item {
+      padding:14px 15px;
+      border-radius:16px;
+      background:rgba(249,249,251,.7);
+      border:1px solid rgba(29,29,31,.05);
+      font-size:10.8px; color:var(--muted); line-height:1.6;
+    }
+    .info-item strong { display:block; color:var(--text); font-size:11.5px; font-weight:670; margin-bottom:4px; }
+    .info-strategy-card { padding:14px 15px; border-radius:16px; background:rgba(249,249,251,.7); border:1px solid rgba(29,29,31,.05); }
+    .info-strategy-card .strategy-top { margin-bottom:6px; }
+    .info-strategy-card h3 { margin:0; font-size:12px; font-weight:670; }
+    .info-strategy-card p { margin:0; color:var(--muted); font-size:10.5px; line-height:1.6; }
+
     .legend { display:flex; flex-direction:column; gap:8px; }
     .legend-row { display:grid; grid-template-columns:32px 1fr 50px; align-items:center; gap:10px; }
     .legend-swatch { height: 9px; border-radius:999px; box-shadow:inset 0 1px 0 rgba(255,255,255,.45); }
@@ -543,11 +561,62 @@
           <div class="time-cell"><b id="cdSecs">00</b><small>Sec</small></div>
         </div>
       </div>
+
+      <button class="ghost-btn" id="infoToggle" aria-label="About this dashboard" title="About this dashboard">ⓘ</button>
     </header>
 
     <section class="strategy-strip" id="strategyStrip"></section>
 
-    <section class="main-grid">
+    <section class="info-panel" id="infoPanel" style="display:none">
+      <div class="info-card glass">
+        <h2>What this is</h2>
+        <p>PLFantasyBot predicts how many points every Premier League player will score using a model trained on past seasons' results, then builds a legal 15-man squad under FPL's actual budget and formation rules. Rather than committing to one approach, it runs five different squad-building policies side by side every gameweek, so you can compare how they'd each play it before deciding what to actually do with your real team.</p>
+        <p>Nothing here submits anything automatically. It's a decision-support dashboard — you look at the picks, then make the transfer yourself in the FPL app.</p>
+      </div>
+
+      <div class="info-card glass">
+        <h2>The five strategies</h2>
+        <p>All five share the exact same underlying model and feature set — they differ only in policy: how many -4 hits they're willing to take in a week, how far ahead they plan the fixture list, and (for Differential) how strongly they favour low-ownership picks over the obvious template choice.</p>
+        <div class="info-grid" id="infoStrategyGrid"></div>
+      </div>
+
+      <div class="info-card glass">
+        <h2>Reading a squad</h2>
+        <div class="info-grid">
+          <div class="info-item"><div><strong>Season toggle</strong>2026-27 Live shows real picks for the upcoming gameweek. 2025-26 Backtest is a full validated season simulation — the model never saw that season's results while training, so it's a fair test of how each strategy would actually have performed.</div></div>
+          <div class="info-item"><div><strong>GW score / Season total</strong>Points scored that gameweek, and the running total across the season so far. Shows "—" until that gameweek has actually been played.</div></div>
+          <div class="info-item"><div><strong>Transfers / Hits</strong>How many changes were made that week, and the points cost of any beyond the free allowance (each extra transfer costs -4).</div></div>
+          <div class="info-item"><div><strong>Chip badge</strong>Wildcard (rebuild the squad for free), Bench Boost (bench points count too), Triple Captain (captain scores 3x instead of 2x), or Free Hit (one-week-only squad, reverts next gameweek) — shown when one was played that week.</div></div>
+        </div>
+      </div>
+
+      <div class="info-card glass">
+        <h2>Player cards</h2>
+        <div class="info-grid">
+          <div class="info-item"><div><strong>C / V / 3× / C*</strong>Captain (2x points), Vice-captain (backup), Triple Captain (3x points), and Effective Captain (C* — the vice took over because the real captain didn't play that week).</div></div>
+          <div class="info-item"><div><strong>Fixture difficulty</strong>FPL's own 1 (easiest) to 5 (hardest) rating for that gameweek's opponent, colour-coded green through red on the small square next to the opponent's code.</div></div>
+          <div class="info-item"><div><strong>Ownership %</strong>The share of all FPL managers who currently own that player — what the Differential strategy specifically leans against.</div></div>
+          <div class="info-item"><div><strong>Availability badge</strong>100% (neutral) means no fitness concern on record. A percentage means FPL's own graded doubtful/injured probability (e.g. 75%). Letter codes — S (suspended), U (transferred/left the club), N (not in the matchday squad) — cover situations that aren't really a probability at all. Hover any badge for the underlying news text.</div></div>
+        </div>
+      </div>
+
+      <div class="info-card glass">
+        <h2>Season calendar & deadlines</h2>
+        <div class="info-grid">
+          <div class="info-item"><div><strong>Calendar dots</strong><span class="legend-swatch" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--orange);margin-right:5px;"></span>amber = already happened,
+            <span class="legend-swatch" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin:0 5px 0 8px;"></span>green = the current gameweek,
+            <span class="legend-swatch" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--danger);margin:0 5px 0 8px;"></span>red = still to come. Click any row to point the countdown at that gameweek instead.</div></div>
+          <div class="info-item"><div><strong>Deadline countdown</strong>Always shown in your own browser's local time zone, labelled explicitly so it's never ambiguous. Turns amber under 24 hours out, grey once the deadline has passed.</div></div>
+        </div>
+      </div>
+
+      <div class="info-card glass">
+        <h2>Data & disclaimer</h2>
+        <p>Player and fixture data comes from the official Fantasy Premier League API, refreshed automatically every 30 minutes. Player photos are Premier League imagery where available. This is an analytical tool built for research and personal use — not real-money betting or financial advice, and not affiliated with the Premier League or FPL.</p>
+      </div>
+    </section>
+
+    <section class="main-grid" id="mainGrid">
       <article class="pitch-panel">
         <div class="panel-head">
           <div class="head-copy">
@@ -648,7 +717,7 @@
 
   const POSITION_ORDER = ['FWD','MID','DEF','GKP'];
 
-  let state = { seasonIdx: 0, strategyIdx: 0, gwIdx: 0 };
+  let state = { seasonIdx: 0, strategyIdx: 0, gwIdx: 0, view: 'dashboard' };
   let currentDeadlineISO = null;
   let currentDeadlineGW = null;
 
@@ -876,6 +945,35 @@
     el('deadlineLabel').textContent = formatDeadline(currentDeadlineISO);
   }
 
+  function renderInfoPanel(){
+    // Strategy metadata (label/description/risk) is identical across
+    // seasons, so any season's list works here -- this doesn't need to
+    // re-render on navigation, only once.
+    const strategies = DATA.seasons[0].strategies;
+    el('infoStrategyGrid').innerHTML = strategies.map(s => `
+      <div class="info-strategy-card">
+        <div class="strategy-top">
+          <h3>${s.label}</h3>
+          <span class="risk-pill risk-${s.risk_tier}">${s.risk}</span>
+        </div>
+        <p>${s.description}</p>
+      </div>`).join('');
+  }
+
+  function applyView(){
+    const isInfo = state.view === 'info';
+    el('infoPanel').style.display = isInfo ? '' : 'none';
+    el('strategyStrip').style.display = isInfo ? 'none' : '';
+    el('mainGrid').style.display = isInfo ? 'none' : '';
+    el('infoToggle').textContent = isInfo ? '✕' : 'ⓘ';
+    el('infoToggle').title = isInfo ? 'Back to dashboard' : 'About this dashboard';
+  }
+
+  el('infoToggle').onclick = () => {
+    state.view = state.view === 'info' ? 'dashboard' : 'info';
+    applyView();
+  };
+
   function renderAll(){
     currentDeadlineISO = null; // re-default to the next upcoming deadline on season/strategy switch
     renderSeasonToggle();
@@ -886,6 +984,8 @@
     renderCalendarAndCountdown();
   }
 
+  renderInfoPanel();
+  applyView();
   renderAll();
   setInterval(tickDeadline, 1000);
 </script>
