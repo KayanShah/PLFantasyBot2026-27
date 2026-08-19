@@ -130,7 +130,17 @@ def main() -> None:
     print(f"Building live predictions (lookahead {max_lookahead} GWs)...")
     base_predictions = build_predictions(models, bootstrap, fixtures, gw, max_lookahead)
 
-    manifest = {"season": SEASON, "strategies": []}
+    manifest_path = OUT_DIR / "strategies_manifest_2026-27.json"
+    # Read-merge-write, not overwrite: generate_live_xg_strategy.py writes its
+    # own entry into this same manifest, and each script only owns the keys
+    # it produces -- an overwrite here would silently drop xg_experimental
+    # every time this one runs after it (e.g. on every refresh-dashboard.yml).
+    manifest = (
+        json.loads(manifest_path.read_text(encoding="utf-8"))
+        if manifest_path.exists() else {"season": SEASON, "strategies": []}
+    )
+    own_keys = {key for key, _ in ordered()}
+    manifest["strategies"] = [s for s in manifest["strategies"] if s["key"] not in own_keys]
 
     for key, cfg in ordered():
         print(f"\n=== {cfg['label']} ({key}) ===")
@@ -185,7 +195,6 @@ def main() -> None:
         })
         print(f"  {len(choice['xi'])} starters, {choice['transfers']} transfer(s), {choice['hits']} hit(s)")
 
-    manifest_path = OUT_DIR / "strategies_manifest_2026-27.json"
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     print(f"\nWrote manifest -> {manifest_path}")
 

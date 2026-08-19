@@ -44,6 +44,17 @@
       "order": 3,
       "final_score": null,
       "squads_file": "live_squads_differential.json"
+    },
+    {
+      "key": "xg_experimental",
+      "label": "xG Experimental",
+      "short": "Balanced's policy, xG/xA features on.",
+      "description": "Identical policy to Balanced -- the only difference is the prediction model trains with expected-goals/assists features on, using every season with real xG data (2022-23 GW16 onward). Scored higher than Balanced on the 2025-26 backtest (2100 vs 2049), but that comparison trains on a different set of seasons too, so it isn't a clean isolated test of xG alone -- see the caution note on the 2025-26 Backtest tab and plan.md before treating this as a recommendation.",
+      "risk": "Experimental",
+      "risk_tier": "medium",
+      "order": 4,
+      "final_score": null,
+      "squads_file": "live_squads_xg_experimental.json"
     }
   ]
 }
