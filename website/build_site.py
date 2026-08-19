@@ -741,8 +741,13 @@ TEMPLATE = """<!doctype html>
   function statusLabel(p){
     if (!p.status) return '';
     const map = {i:'!', s:'S', d:'?', u:'U', n:'N'};
+    // Doubtful/injured carry a real graded percentage worth showing on the
+    // badge itself -- suspended/unavailable/not-in-squad are binary (can't
+    // play, full stop), where a letter code says more than "0%" would.
+    const showPercent = (p.status === 'd' || p.status === 'i') && p.chance_of_playing != null;
+    const label = showPercent ? `${p.chance_of_playing}%` : (map[p.status] || '!');
     const tip = (p.news || 'Player availability flag').replace(/"/g, '&quot;');
-    return `<span class="badge status tooltip" data-tip="${tip}">${map[p.status] || '!'}</span>`;
+    return `<span class="badge status tooltip" data-tip="${tip}">${label}</span>`;
   }
 
   function playerCard(p, notPlayedYet){
