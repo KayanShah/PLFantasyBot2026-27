@@ -482,10 +482,14 @@
 
     .footer {
       margin-top: 18px;
-      display:flex; justify-content:space-between; gap:24px; align-items:center;
+      display:flex; flex-direction:column; gap:10px;
       color:var(--muted-2); font-size:9.4px; padding: 4px 8px;
     }
+    .footer-row { display:flex; justify-content:space-between; gap:24px; align-items:center; }
     .footer strong { color:var(--muted); }
+    .footer-credits { text-align:center; padding-top:8px; border-top:1px solid rgba(29,29,31,.06); }
+    .footer-credits a { color:var(--muted); text-decoration:none; }
+    .footer-credits a:hover { color:var(--purple); text-decoration:underline; }
 
     .chip {
       display:inline-flex; align-items:center; gap:6px;
@@ -614,8 +618,13 @@
     </section>
 
     <footer class="footer">
-      <div><strong>Data:</strong> official Fantasy Premier League feeds / Premier League player imagery where available.</div>
-      <div>PLFantasyBot is an analytical tool. It is not real-money betting or financial advice.</div>
+      <div class="footer-row">
+        <div><strong>Data:</strong> official Fantasy Premier League feeds / Premier League player imagery where available.</div>
+        <div>PLFantasyBot is an analytical tool. It is not real-money betting or financial advice.</div>
+      </div>
+      <div class="footer-credits">
+        Built by <a href="https://github.com/kayanshah" target="_blank" rel="noopener">Kayan Shah</a> and <a href="https://github.com/5H41L3N" target="_blank" rel="noopener">Shailen Patel</a> · <a href="https://github.com/KayanShah/PLFantasyBot2026-27" target="_blank" rel="noopener">Link to Repository</a>
+      </div>
     </footer>
   </main>
 
