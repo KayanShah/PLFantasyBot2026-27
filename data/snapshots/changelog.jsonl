@@ -28,3 +28,17 @@
 {"at": "2026-08-18T19:30:58.412570+00:00", "element": 239, "name": "Garner", "field": "news", "from": "Groin injury - Expected back 22 Aug", "to": "Groin injury - Unknown return date"}
 {"at": "2026-08-19T07:47:45.572445+00:00", "element": 21, "name": "N\u00f8rgaard", "field": "chance_of_playing_next_round", "from": 75, "to": 25}
 {"at": "2026-08-19T07:47:45.572445+00:00", "element": 21, "name": "N\u00f8rgaard", "field": "news", "from": "Lack of match fitness - 75% chance of playing", "to": "Unspecified injury - 25% chance of playing"}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 39, "name": "Nedeljkovic", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 39, "name": "Nedeljkovic", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 39, "name": "Nedeljkovic", "field": "news", "from": "", "to": "Has joined Rangers on loan for the rest of the season"}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 333, "name": "Bornauw", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 333, "name": "Bornauw", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 333, "name": "Bornauw", "field": "news", "from": "", "to": "Has joined Hamburg SV on loan for the rest of the season"}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 348, "name": "Piroe", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 348, "name": "Piroe", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 348, "name": "Piroe", "field": "news", "from": "", "to": "Has joined West Ham United on loan for the rest of the season"}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 402, "name": "Rodrigo", "field": "status", "from": "i", "to": "u"}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 402, "name": "Rodrigo", "field": "news", "from": "Back injury - Unknown return date", "to": "Has joined Barcelona permanently"}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 494, "name": "Vicario", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 494, "name": "Vicario", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-19T14:38:12.330023+00:00", "element": 494, "name": "Vicario", "field": "news", "from": "", "to": "Has joined Juventus on loan for the rest of the season"}
