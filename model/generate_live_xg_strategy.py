@@ -25,6 +25,7 @@ Output, merged into the same manifest generate_live_strategies.py writes
 """
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 
 import train_model
@@ -52,8 +53,11 @@ def main() -> None:
 
     event = next_gameweek(bootstrap)
     gw = event["id"]
+    deadline = datetime.fromisoformat(event["deadline_time"].replace("Z", "+00:00"))
+    now = datetime.now(timezone.utc)
     finished = [e["id"] for e in bootstrap["events"] if e["finished"]]
-    print(f"Target: GW{gw} ({len(finished)} finished gameweek(s) so far this season)")
+    print(f"Target: GW{gw} ({len(finished)} finished gameweek(s) so far this season), "
+          f"deadline {deadline.isoformat()}")
 
     print(f"Syncing {SEASON} -> {DATA_DIR / SEASON}")
     sync_season(bootstrap, fixtures, finished)
@@ -77,7 +81,7 @@ def main() -> None:
     current = state if state else None
     free_transfers = state["transfers"]["limit"] if state else 1
     bank = state["transfers"]["bank"] if state else 0
-    unlimited = current is not None and not finished
+    unlimited = current is not None and not finished and now < deadline
 
     choice = choose_team(
         predictions, gw, models, current, free_transfers, bank,
@@ -100,6 +104,7 @@ def main() -> None:
         "gameweeks": [{
             "gw": int(gw), "chip": "", "transfers": choice["transfers"],
             "hits": choice["hits"], "gw_score": None, "season_total": None,
+            "deadline": deadline.isoformat(),
             "starting_xi": starting_xi, "bench": bench,
         }],
     }, indent=2), encoding="utf-8")

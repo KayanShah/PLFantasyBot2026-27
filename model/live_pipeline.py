@@ -805,8 +805,14 @@ def main() -> None:
         print("No existing squad found -- building an initial 15 from scratch.")
 
     # Nothing has been played yet, so any existing squad is a provisional pick
-    # (FPL auto-fills one on signup) that can be rewritten in full for free.
-    unlimited = current is not None and not finished
+    # (FPL auto-fills one on signup) that can be rewritten in full for free --
+    # but only up to GW1's own deadline. `not finished` alone isn't enough:
+    # FPL doesn't mark GW1 "finished" until its matches conclude, which can be
+    # days after its deadline passes, and a dry run has no other guard against
+    # describing a squad as freely rebuildable after transfers have actually
+    # locked (--apply is separately blocked by `now > deadline`, but a dry
+    # run's *description* of what's possible was still wrong in that window).
+    unlimited = current is not None and not finished and now < deadline
     if unlimited:
         print("Before the GW1 deadline -- unlimited free transfers, so the "
               "existing squad is rebuilt from scratch rather than nudged.")

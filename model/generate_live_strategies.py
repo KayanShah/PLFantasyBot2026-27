@@ -27,6 +27,7 @@ Output, in the shape build_site.py already reads from the backtest
 """
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pandas as pd
@@ -103,8 +104,11 @@ def main() -> None:
 
     event = next_gameweek(bootstrap)
     gw = event["id"]
+    deadline = datetime.fromisoformat(event["deadline_time"].replace("Z", "+00:00"))
+    now = datetime.now(timezone.utc)
     finished = [e["id"] for e in bootstrap["events"] if e["finished"]]
-    print(f"Target: GW{gw} ({len(finished)} finished gameweek(s) so far this season)")
+    print(f"Target: GW{gw} ({len(finished)} finished gameweek(s) so far this season), "
+          f"deadline {deadline.isoformat()}")
 
     print(f"Syncing {SEASON} -> {DATA_DIR / SEASON}")
     sync_season(bootstrap, fixtures, finished)
@@ -148,7 +152,11 @@ def main() -> None:
         current = state if state else None
         free_transfers = (state["transfers"]["limit"] if state else 1)
         bank = (state["transfers"]["bank"] if state else 0)
-        unlimited = current is not None and not finished
+        # Unlimited-rebuild eligibility ends at GW1's own deadline, not just
+        # whenever FPL happens to mark GW1 "finished" (which can be days
+        # later, once its matches conclude) -- see live_pipeline.py's
+        # matching fix for why `not finished` alone isn't enough.
+        unlimited = current is not None and not finished and now < deadline
 
         predictions = apply_differential_tilt(base_predictions, cfg["differential_weight"])
         choice = choose_team(
@@ -172,6 +180,7 @@ def main() -> None:
             "gameweeks": [{
                 "gw": int(gw), "chip": "", "transfers": choice["transfers"],
                 "hits": choice["hits"], "gw_score": None, "season_total": None,
+                "deadline": deadline.isoformat(),
                 "starting_xi": starting_xi, "bench": bench,
             }],
         }, indent=2), encoding="utf-8")

@@ -198,6 +198,17 @@ TEMPLATE = """<!DOCTYPE html>
     font-size: 0.78rem;
   }
 
+  .deadline-banner {
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: white;
+    background: #1f8a45;
+  }
+  .deadline-banner.urgent { background: #d0356b; }
+  .deadline-banner.passed { background: #5a6472; }
+
   .pitch {
     max-width: 900px;
     margin: 20px auto 0;
@@ -378,6 +389,8 @@ TEMPLATE = """<!DOCTYPE html>
   <div class="subtitle" id="header-subtitle"></div>
 </header>
 
+<div class="deadline-banner" id="deadline-banner" style="display:none"></div>
+
 <div class="season-tabs" id="season-tabs"></div>
 <div class="strategy-tabs" id="strategy-tabs"></div>
 <div class="leaderboard" id="leaderboard"></div>
@@ -420,6 +433,45 @@ TEMPLATE = """<!DOCTYPE html>
   let seasonIdx = 0;
   let strategyIdx = 0;
   let gwIdx = 0;
+  let currentDeadlineISO = null;
+
+  function tickDeadline() {
+    const banner = document.getElementById('deadline-banner');
+    if (!currentDeadlineISO) { banner.style.display = 'none'; return; }
+
+    const deadline = new Date(currentDeadlineISO);
+    const now = new Date();
+    const diffMs = deadline - now;
+    const local = deadline.toLocaleString(undefined, {
+      weekday: 'short', day: 'numeric', month: 'short',
+      hour: '2-digit', minute: '2-digit',
+    });
+
+    banner.style.display = '';
+    banner.classList.remove('urgent', 'passed');
+
+    if (diffMs <= 0) {
+      banner.classList.add('passed');
+      banner.textContent = `Deadline passed — ${local} (this squad is now locked)`;
+      return;
+    }
+
+    const totalSeconds = Math.floor(diffMs / 1000);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    const parts = [];
+    if (days) parts.push(`${days}d`);
+    if (days || hours) parts.push(`${hours}h`);
+    if (days || hours || minutes) parts.push(`${minutes}m`);
+    parts.push(`${seconds}s`);
+
+    if (diffMs < 24 * 3600 * 1000) banner.classList.add('urgent');
+    banner.textContent = `Deadline: ${local} — ${parts.join(' ')} remaining`;
+  }
+
+  setInterval(tickDeadline, 1000);
 
   function currentSeason() { return DATA.seasons[seasonIdx]; }
   function currentStrategy() { return currentSeason().strategies[strategyIdx]; }
@@ -565,6 +617,9 @@ TEMPLATE = """<!DOCTYPE html>
     document.getElementById('season-total').textContent = gw.season_total;
     document.getElementById('gw-transfers').textContent =
       gw.transfers != null ? `Transfers: ${gw.transfers}${gw.hits ? ' (-' + gw.hits * 4 + ' pts)' : ''}` : '';
+
+    currentDeadlineISO = gw.deadline || null;
+    tickDeadline();
 
     const withFlag = (p) => Object.assign({}, p, { gw_not_played: notPlayed });
 
