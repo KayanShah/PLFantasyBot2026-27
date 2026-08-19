@@ -107,6 +107,17 @@ def main() -> None:
     deadline = datetime.fromisoformat(event["deadline_time"].replace("Z", "+00:00"))
     now = datetime.now(timezone.utc)
     finished = [e["id"] for e in bootstrap["events"] if e["finished"]]
+
+    # The whole season's calendar, not just the next deadline -- the website
+    # shows this as a browsable dropdown so a manager can see what's coming,
+    # not just what's due right now. Not strategy-specific, so written once
+    # here rather than duplicated into every strategy's squad file.
+    calendar = [
+        {"gw": e["id"], "deadline": e["deadline_time"], "finished": e["finished"]}
+        for e in bootstrap["events"]
+    ]
+    (OUT_DIR / "live_gameweek_calendar.json").write_text(json.dumps(calendar, indent=2), encoding="utf-8")
+
     print(f"Target: GW{gw} ({len(finished)} finished gameweek(s) so far this season), "
           f"deadline {deadline.isoformat()}")
 

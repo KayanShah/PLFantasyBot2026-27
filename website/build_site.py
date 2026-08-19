@@ -208,6 +208,16 @@ TEMPLATE = """<!DOCTYPE html>
   }
   .deadline-banner.urgent { background: #d0356b; }
   .deadline-banner.passed { background: #5a6472; }
+  .deadline-banner select {
+    margin-left: 10px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: rgba(255,255,255,0.9);
+    color: #1a1a2e;
+  }
 
   .pitch {
     max-width: 900px;
@@ -389,7 +399,10 @@ TEMPLATE = """<!DOCTYPE html>
   <div class="subtitle" id="header-subtitle"></div>
 </header>
 
-<div class="deadline-banner" id="deadline-banner" style="display:none"></div>
+<div class="deadline-banner" id="deadline-banner" style="display:none">
+  <span id="deadline-text"></span>
+  <select id="calendar-select"></select>
+</div>
 
 <div class="season-tabs" id="season-tabs"></div>
 <div class="strategy-tabs" id="strategy-tabs"></div>
@@ -434,25 +447,35 @@ TEMPLATE = """<!DOCTYPE html>
   let strategyIdx = 0;
   let gwIdx = 0;
   let currentDeadlineISO = null;
+  let currentDeadlineGW = null;
+
+  function formatDeadline(iso) {
+    // timeZoneName makes explicit that this is the *viewer's* local time,
+    // not UTC -- without it "Sat 22 Aug, 01:30" for a deadline quoted
+    // elsewhere as "21 Aug 17:30 UTC" looks like a bug, not a timezone.
+    return new Date(iso).toLocaleString(undefined, {
+      weekday: 'short', day: 'numeric', month: 'short',
+      hour: '2-digit', minute: '2-digit', timeZoneName: 'short',
+    });
+  }
 
   function tickDeadline() {
     const banner = document.getElementById('deadline-banner');
+    const text = document.getElementById('deadline-text');
     if (!currentDeadlineISO) { banner.style.display = 'none'; return; }
 
     const deadline = new Date(currentDeadlineISO);
     const now = new Date();
     const diffMs = deadline - now;
-    const local = deadline.toLocaleString(undefined, {
-      weekday: 'short', day: 'numeric', month: 'short',
-      hour: '2-digit', minute: '2-digit',
-    });
+    const local = formatDeadline(currentDeadlineISO);
+    const gwLabel = currentDeadlineGW ? `GW${currentDeadlineGW} deadline` : 'Deadline';
 
     banner.style.display = '';
     banner.classList.remove('urgent', 'passed');
 
     if (diffMs <= 0) {
       banner.classList.add('passed');
-      banner.textContent = `Deadline passed — ${local} (this squad is now locked)`;
+      text.textContent = `${gwLabel} passed — ${local} (this squad is now locked)`;
       return;
     }
 
@@ -468,8 +491,35 @@ TEMPLATE = """<!DOCTYPE html>
     parts.push(`${seconds}s`);
 
     if (diffMs < 24 * 3600 * 1000) banner.classList.add('urgent');
-    banner.textContent = `Deadline: ${local} — ${parts.join(' ')} remaining`;
+    text.textContent = `${gwLabel}: ${local} — ${parts.join(' ')} remaining`;
   }
+
+  function renderCalendar() {
+    const select = document.getElementById('calendar-select');
+    const calendar = currentSeason().gameweek_calendar;
+    if (!calendar || !calendar.length) {
+      select.style.display = 'none';
+      return;
+    }
+    select.style.display = '';
+    const upcoming = calendar.filter(g => !g.finished);
+    const list = upcoming.length ? upcoming : calendar;
+    select.innerHTML = list.map(g =>
+      `<option value="${g.gw}">GW${g.gw} — ${formatDeadline(g.deadline)}</option>`
+    ).join('');
+    select.value = String(list[0].gw);
+    currentDeadlineGW = list[0].gw;
+    currentDeadlineISO = list[0].deadline;
+  }
+
+  document.getElementById('calendar-select').addEventListener('change', (e) => {
+    const calendar = currentSeason().gameweek_calendar || [];
+    const picked = calendar.find(g => String(g.gw) === e.target.value);
+    if (!picked) return;
+    currentDeadlineGW = picked.gw;
+    currentDeadlineISO = picked.deadline;
+    tickDeadline();
+  });
 
   setInterval(tickDeadline, 1000);
 
@@ -647,6 +697,8 @@ TEMPLATE = """<!DOCTYPE html>
     renderDescription();
     renderHeader();
     render();
+    renderCalendar();
+    tickDeadline();
   }
 
   document.getElementById('prev-btn').addEventListener('click', () => {
@@ -686,7 +738,13 @@ def load_season_block(season: str, kind: str, label: str) -> dict | None:
         squads = json.loads(squads_path.read_text(encoding="utf-8"))
         strategies.append({**entry, "gameweeks": squads["gameweeks"]})
 
-    return {"key": season, "kind": kind, "label": label, "strategies": strategies}
+    block = {"key": season, "kind": kind, "label": label, "strategies": strategies}
+
+    calendar_path = DATA_DIR / "live_gameweek_calendar.json"
+    if kind == "live" and calendar_path.exists():
+        block["gameweek_calendar"] = json.loads(calendar_path.read_text(encoding="utf-8"))
+
+    return block
 
 
 def main() -> None:
