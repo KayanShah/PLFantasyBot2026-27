@@ -447,6 +447,7 @@ TEMPLATE = """<!doctype html>
     .badge.captain { background:#222226; color:white; border-color:#222226; }
     .badge.vice { background:rgba(255,255,255,.96); color:#333338; }
     .badge.status { background:#d95669; color:white; border-color:#d95669; }
+    .badge.status.fit { background:rgba(255,255,255,.88); color:var(--muted); border-color:rgba(29,29,31,.07); }
 
     .player-info {
       margin-top: 5px;
@@ -749,7 +750,13 @@ TEMPLATE = """<!doctype html>
   function initials(name){ return (name || '?').split(' ').map(x => x[0]).slice(0,2).join(''); }
 
   function statusLabel(p){
-    if (!p.status) return '';
+    if (!p.status) {
+      // No flag at all -- FPL doesn't publish an explicit 100 for fully fit
+      // players (chance_of_playing is null, not 100), but "no concern" reads
+      // as 100% to a manager, so show it explicitly rather than leaving a
+      // blank most viewers would just read as "no data."
+      return '<span class="badge status fit tooltip" data-tip="Fully available">100%</span>';
+    }
     const map = {i:'!', s:'S', d:'?', u:'U', n:'N'};
     // Doubtful/injured carry a real graded percentage worth showing on the
     // badge itself -- suspended/unavailable/not-in-squad are binary (can't
