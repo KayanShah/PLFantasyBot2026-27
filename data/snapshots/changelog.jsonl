@@ -42,3 +42,6 @@
 {"at": "2026-08-19T14:38:12.330023+00:00", "element": 494, "name": "Vicario", "field": "status", "from": "a", "to": "u"}
 {"at": "2026-08-19T14:38:12.330023+00:00", "element": 494, "name": "Vicario", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-08-19T14:38:12.330023+00:00", "element": 494, "name": "Vicario", "field": "news", "from": "", "to": "Has joined Juventus on loan for the rest of the season"}
+{"at": "2026-08-19T17:29:52.765119+00:00", "element": 186, "name": "Mason-Clark", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-19T17:29:52.765119+00:00", "element": 186, "name": "Mason-Clark", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-19T17:29:52.765119+00:00", "element": 186, "name": "Mason-Clark", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": ""}
