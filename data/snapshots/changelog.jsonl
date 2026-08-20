@@ -88,3 +88,6 @@
 {"at": "2026-08-20T16:39:24.000524+00:00", "element": 450, "name": "Livramento", "field": "status", "from": "d", "to": "i"}
 {"at": "2026-08-20T16:39:24.000524+00:00", "element": 450, "name": "Livramento", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
 {"at": "2026-08-20T16:39:24.000524+00:00", "element": 450, "name": "Livramento", "field": "news", "from": "Calf injury - 75% chance of playing", "to": "Calf injury - Unknown return date"}
+{"at": "2026-08-20T17:34:12.297122+00:00", "element": 452, "name": "Bruno G.", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-20T17:34:12.297122+00:00", "element": 452, "name": "Bruno G.", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-20T17:34:12.297122+00:00", "element": 452, "name": "Bruno G.", "field": "news", "from": "", "to": "Unknown - 75% chance of playing"}
