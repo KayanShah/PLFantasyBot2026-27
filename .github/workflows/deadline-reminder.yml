@@ -1,0 +1,56 @@
+name: Deadline reminder
+
+# Emails the Balanced squad + deadline at 2d/1d/12h/1h before each gameweek
+# deadline. Purely a reminder -- reads data already in the repo (live squads,
+# gameweek calendar), never trains anything, never touches a real FPL team.
+# Runs on the same 30-minute cadence as data-snapshot.yml; the script itself
+# is idempotent (data/reminders_sent.json), so extra ticks inside an already-
+# sent window are just a no-op.
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Ignore the sent-log and send whichever window matches right now'
+        type: boolean
+        default: false
+
+concurrency:
+  group: deadline-reminder
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install requests
+
+      - name: Send reminder if due
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_FROM_EMAIL: ${{ secrets.ALERT_FROM_EMAIL }}
+          ALERT_TO_EMAIL: ${{ secrets.ALERT_TO_EMAIL }}
+        run: python model/send_deadline_reminder.py ${{ inputs.force && '--force' || '' }}
+
+      - name: Commit sent-log if it changed
+        run: |
+          git config user.name "plfantasybot-reminder"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/reminders_sent.json
+          git diff --staged --quiet && exit 0
+          git commit -m "Deadline reminder sent-log update"
+          git pull --rebase origin main
+          git push
