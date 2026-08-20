@@ -47,10 +47,16 @@ jobs:
 
       - name: Commit sent-log if it changed
         run: |
-          git config user.name "plfantasybot-reminder"
-          git config user.email "actions@users.noreply.github.com"
-          git add data/reminders_sent.json
-          git diff --staged --quiet && exit 0
-          git commit -m "Deadline reminder sent-log update"
-          git pull --rebase origin main
-          git push
+          # data/reminders_sent.json only gets created once a reminder has
+          # actually fired -- most runs are "not due yet" and never write
+          # it, so `git add` on it unconditionally fails every single run
+          # with "pathspec did not match any files" until the first send.
+          if [ -f data/reminders_sent.json ]; then
+            git config user.name "plfantasybot-reminder"
+            git config user.email "actions@users.noreply.github.com"
+            git add data/reminders_sent.json
+            git diff --staged --quiet && exit 0
+            git commit -m "Deadline reminder sent-log update"
+            git pull --rebase origin main
+            git push
+          fi
