@@ -48,3 +48,40 @@
 {"at": "2026-08-19T18:40:45.112773+00:00", "element": 186, "name": "Mason-Clark", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-08-19T18:40:45.112773+00:00", "element": 186, "name": "Mason-Clark", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-08-19T18:40:45.112773+00:00", "element": 186, "name": "Mason-Clark", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 136, "name": "Welbeck", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 136, "name": "Welbeck", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 136, "name": "Welbeck", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 170, "name": "Emegha", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 170, "name": "Emegha", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 170, "name": "Emegha", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 183, "name": "Rudoni", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 183, "name": "Rudoni", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 183, "name": "Rudoni", "field": "news", "from": "Shoulder injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 186, "name": "Mason-Clark", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 186, "name": "Mason-Clark", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 186, "name": "Mason-Clark", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 198, "name": "Henderson", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 198, "name": "Henderson", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 198, "name": "Henderson", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 331, "name": "Gudmundsson", "field": "news", "from": "Hamstring injury - Expected back 30 Aug", "to": "Hamstring injury - Unknown return date"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 341, "name": "Gnonto", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 341, "name": "Gnonto", "field": "chance_of_playing_next_round", "from": 25, "to": 0}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 341, "name": "Gnonto", "field": "news", "from": "Hamstring injury - 25% chance of playing", "to": "Hamstring injury - Unknown return date"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 404, "name": "Reijnders", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 404, "name": "Reijnders", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 404, "name": "Reijnders", "field": "news", "from": "", "to": "Has joined Al Qadsiah permanently"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 489, "name": "Yates", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 489, "name": "Yates", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 489, "name": "Yates", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Unspecified injury - Unknown return date"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 533, "name": "Mukiele", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 533, "name": "Mukiele", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 533, "name": "Mukiele", "field": "news", "from": "Knock - 75% chance of playing", "to": ""}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 535, "name": "Alderete", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 535, "name": "Alderete", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 535, "name": "Alderete", "field": "news", "from": "Knock - 75% chance of playing", "to": ""}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 541, "name": "Meunier", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 541, "name": "Meunier", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 541, "name": "Meunier", "field": "news", "from": "Knock - 75% chance of playing", "to": ""}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 546, "name": "Adingra", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 546, "name": "Adingra", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-20T14:40:01.337172+00:00", "element": 546, "name": "Adingra", "field": "news", "from": "", "to": "Ankle injury - Unknown return date"}
