@@ -256,6 +256,26 @@ def badge_html(p: dict) -> str:
     return ""
 
 
+def photo_html(p: dict) -> str:
+    """
+    A small thumbnail, not a forced circle crop -- object-fit isn't reliably
+    supported across email clients (Outlook especially), so cropping a
+    110x140 source into a circle via CSS would squish it in the clients that
+    ignore object-fit. Sized to the source's own aspect ratio instead, with
+    a soft rounded-rect. Missing photo_code (rare -- an unmatched
+    historical-data join, see build_season_features) falls back to a plain
+    grey placeholder block rather than a broken-image icon.
+    """
+    code = p.get("photo_code")
+    if not code:
+        return '<div style="width:30px;height:38px;border-radius:8px;background-color:#e5e5ea;"></div>'
+    url = f"https://resources.premierleague.com/premierleague/photos/players/110x140/p{code}.png"
+    return (
+        f'<img src="{url}" width="30" height="38" alt="" '
+        f'style="display:block;width:30px;height:38px;border-radius:8px;background-color:#e5e5ea;object-fit:cover;">'
+    )
+
+
 def availability_html(p: dict) -> str:
     status = p.get("status")
     if not status:
@@ -285,7 +305,8 @@ def starting_xi_row(p: dict) -> str:
         f'<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="{bg}" '
         f'style="width:100%; background-color:{bg}; border:1px solid {border}; border-radius:14px; '
         f'box-shadow:inset 0 1px 0 #ffffff,0 4px 10px {shadow};"><tr>'
-        f'<td width="48" valign="middle" style="padding:12px 8px 12px 12px; font-size:10px; line-height:14px; font-weight:800; color:#6a6b70; letter-spacing:.5px;">{p["position"]}</td>'
+        f'<td width="30" valign="middle" style="padding:12px 0 12px 12px;">{photo_html(p)}</td>'
+        f'<td width="40" valign="middle" style="padding:12px 6px 12px 6px; font-size:10px; line-height:14px; font-weight:800; color:#6a6b70; letter-spacing:.5px;">{p["position"]}</td>'
         f'<td valign="middle" style="padding:10px 6px;">'
         f'<div style="font-size:13px; line-height:18px; font-weight:750; color:#1f2023;">{p["name"]}{badge_html(p)}</div>'
         f'<div style="font-size:11px; line-height:16px; color:#6b6d72; margin-top:1px;">{p["team"]} vs {p["opponent"]}</div>'
@@ -305,7 +326,8 @@ def bench_row(p: dict, sub_priority: int) -> str:
         f'<tr><td style="padding:0 12px 8px 12px;">'
         f'<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="{bg}" '
         f'style="width:100%; background-color:{bg}; border:1px solid {border}; border-radius:12px;"><tr>'
-        f'<td width="48" valign="middle" style="padding:11px 8px 11px 12px; font-size:10px; font-weight:800; color:#73757a;">{p["position"]}</td>'
+        f'<td width="30" valign="middle" style="padding:11px 0 11px 12px;">{photo_html(p)}</td>'
+        f'<td width="40" valign="middle" style="padding:11px 6px 11px 6px; font-size:10px; font-weight:800; color:#73757a;">{p["position"]}</td>'
         f'<td valign="middle" style="padding:9px 6px;">'
         f'<div style="font-size:13px; line-height:18px; font-weight:730; color:#222326;">{p["name"]}{badge_html(p)}</div>'
         f'<div style="font-size:11px; line-height:16px; color:#72747a;">{p["team"]} vs {p["opponent"]}</div>'
