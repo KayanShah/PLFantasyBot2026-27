@@ -124,3 +124,9 @@
 {"at": "2026-08-21T14:39:49.122723+00:00", "element": 518, "name": "P.M.Sarr", "field": "status", "from": "a", "to": "i"}
 {"at": "2026-08-21T14:39:49.122723+00:00", "element": 518, "name": "P.M.Sarr", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-08-21T14:39:49.122723+00:00", "element": 518, "name": "P.M.Sarr", "field": "news", "from": "", "to": "Hamstring injury - Unknown return date"}
+{"at": "2026-08-21T15:37:48.096319+00:00", "element": 499, "name": "Pedro Porro", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-08-21T15:37:48.096319+00:00", "element": 499, "name": "Pedro Porro", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-21T15:37:48.096319+00:00", "element": 499, "name": "Pedro Porro", "field": "news", "from": "", "to": "Lack of match fitness - Expected back 29 Aug"}
+{"at": "2026-08-21T15:37:48.096319+00:00", "element": 503, "name": "Van de Ven", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-08-21T15:37:48.096319+00:00", "element": 503, "name": "Van de Ven", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-21T15:37:48.096319+00:00", "element": 503, "name": "Van de Ven", "field": "news", "from": "", "to": "Unspecified injury - Expected back 29 Aug"}
