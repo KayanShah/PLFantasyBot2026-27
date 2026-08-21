@@ -727,6 +727,16 @@ TEMPLATE = """<!doctype html>
       </div>
     </section>
 
+    <section class="info-panel" id="positionView" style="display:none">
+      <div class="info-card glass">
+        <h2>Balanced — full squad by position</h2>
+        <p id="positionViewSubtitle">—</p>
+      </div>
+      <div class="info-card glass" style="background:linear-gradient(180deg, var(--pitch-1), var(--pitch-2));">
+        <div id="positionViewGroups"></div>
+      </div>
+    </section>
+
     <section class="main-grid" id="mainGrid">
       <article class="pitch-panel">
         <div class="panel-head">
@@ -804,6 +814,7 @@ TEMPLATE = """<!doctype html>
         <div>PLFantasyBot is an analytical tool. It is not real-money betting or financial advice.</div>
       </div>
       <div class="footer-credits">
+        <a href="#" id="positionViewLink">See position view</a> ·
         Built by <a href="https://github.com/kayanshah" target="_blank" rel="noopener">Kayan Shah</a> and <a href="https://github.com/5H41L3N" target="_blank" rel="noopener">Shailen Patel</a> · <a href="https://github.com/KayanShah/PLFantasyBot2026-27" target="_blank" rel="noopener">Link to Repository</a>
       </div>
     </footer>
@@ -1071,17 +1082,52 @@ TEMPLATE = """<!doctype html>
       </div>`).join('');
   }
 
+  function renderPositionView(){
+    // The Balanced flagship's most recent squad -- live if it exists (the
+    // whole point is "what does the team look like right now"), otherwise
+    // whatever season is available. Grouped by how many of each position
+    // the squad actually holds (2/5/5/3), not by starting XI/bench or by
+    // the pitch's own GKP-last display convention -- this is a squad list,
+    // not a formation view, so GKP reads first here.
+    const season = DATA.seasons.find(s => s.kind === 'live') || DATA.seasons[0];
+    const balanced = season.strategies.find(s => s.key === 'balanced') || season.strategies[0];
+    const gws = balanced.gameweeks;
+    const latest = gws[gws.length - 1];
+    const notPlayedYet = latest.season_total == null;
+    const allPlayers = [...latest.starting_xi, ...latest.bench];
+
+    el('positionViewSubtitle').textContent =
+      `${season.label} · Gameweek ${latest.gw} · every player currently in the squad, grouped by position.`;
+
+    el('positionViewGroups').innerHTML = ['GKP', 'DEF', 'MID', 'FWD'].map(pos => {
+      const players = allPlayers.filter(p => p.position === pos);
+      return `
+        <div style="margin-bottom:18px;">
+          <div style="font-size:11px;font-weight:700;color:#183f2b;text-transform:uppercase;letter-spacing:.08em;margin:0 0 10px 4px;">${pos} (${players.length})</div>
+          <div class="position-row">${players.map(p => playerCard(p, notPlayedYet)).join('')}</div>
+        </div>`;
+    }).join('');
+  }
+
   function applyView(){
-    const isInfo = state.view === 'info';
-    el('infoPanel').style.display = isInfo ? '' : 'none';
-    el('strategyStrip').style.display = isInfo ? 'none' : '';
-    el('mainGrid').style.display = isInfo ? 'none' : '';
-    el('infoToggle').textContent = isInfo ? '✕' : 'ⓘ';
-    el('infoToggle').title = isInfo ? 'Back to dashboard' : 'About this dashboard';
+    const view = state.view;
+    el('infoPanel').style.display = view === 'info' ? '' : 'none';
+    el('positionView').style.display = view === 'position' ? '' : 'none';
+    const showDashboard = view === 'dashboard';
+    el('strategyStrip').style.display = showDashboard ? '' : 'none';
+    el('mainGrid').style.display = showDashboard ? '' : 'none';
+    el('infoToggle').textContent = view === 'info' ? '✕' : 'ⓘ';
+    el('infoToggle').title = view === 'info' ? 'Back to dashboard' : 'About this dashboard';
   }
 
   el('infoToggle').onclick = () => {
     state.view = state.view === 'info' ? 'dashboard' : 'info';
+    applyView();
+  };
+
+  el('positionViewLink').onclick = (e) => {
+    e.preventDefault();
+    state.view = state.view === 'position' ? 'dashboard' : 'position';
     applyView();
   };
 
@@ -1096,6 +1142,7 @@ TEMPLATE = """<!doctype html>
   }
 
   renderInfoPanel();
+  renderPositionView();
   applyView();
   renderAll();
   setInterval(tickDeadline, 1000);
