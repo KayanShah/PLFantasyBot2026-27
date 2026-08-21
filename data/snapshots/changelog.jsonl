@@ -101,3 +101,6 @@
 {"at": "2026-08-21T11:34:46.933168+00:00", "element": 281, "name": "Drameh", "field": "status", "from": "i", "to": "a"}
 {"at": "2026-08-21T11:34:46.933168+00:00", "element": 281, "name": "Drameh", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
 {"at": "2026-08-21T11:34:46.933168+00:00", "element": 281, "name": "Drameh", "field": "news", "from": "Hamstring injury - Expected back 29 Aug", "to": ""}
+{"at": "2026-08-21T12:56:29.752219+00:00", "element": 137, "name": "Tzimas", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-08-21T12:56:29.752219+00:00", "element": 137, "name": "Tzimas", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-08-21T12:56:29.752219+00:00", "element": 137, "name": "Tzimas", "field": "news", "from": "Knee injury - 75% chance of playing", "to": "Knee injury - Unknown return date"}
