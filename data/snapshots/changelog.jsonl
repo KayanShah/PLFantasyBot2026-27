@@ -104,3 +104,19 @@
 {"at": "2026-08-21T12:56:29.752219+00:00", "element": 137, "name": "Tzimas", "field": "status", "from": "d", "to": "i"}
 {"at": "2026-08-21T12:56:29.752219+00:00", "element": 137, "name": "Tzimas", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
 {"at": "2026-08-21T12:56:29.752219+00:00", "element": 137, "name": "Tzimas", "field": "news", "from": "Knee injury - 75% chance of playing", "to": "Knee injury - Unknown return date"}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 21, "name": "N\u00f8rgaard", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 21, "name": "N\u00f8rgaard", "field": "chance_of_playing_next_round", "from": 25, "to": 0}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 21, "name": "N\u00f8rgaard", "field": "news", "from": "Unspecified injury - 25% chance of playing", "to": "Unspecified injury - Unknown return date"}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 239, "name": "Garner", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 239, "name": "Garner", "field": "chance_of_playing_next_round", "from": 0, "to": 25}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 239, "name": "Garner", "field": "news", "from": "Groin injury - Unknown return date", "to": "Groin injury - 25% chance of playing"}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 240, "name": "Iroegbunam", "field": "news", "from": "Groin injury - Unknown return date", "to": "Thigh injury - Unknown return date"}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 317, "name": "Hirst", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 317, "name": "Hirst", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 317, "name": "Hirst", "field": "news", "from": "", "to": "Has joined Stoke City permanently"}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 389, "name": "Matheus N.", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 389, "name": "Matheus N.", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 389, "name": "Matheus N.", "field": "news", "from": "Knock - 75% chance of playing", "to": ""}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 400, "name": "Doku", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 400, "name": "Doku", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-08-21T13:50:53.398076+00:00", "element": 400, "name": "Doku", "field": "news", "from": "Calf injury - 75% chance of playing", "to": "Calf injury - Expected back 5 Sep"}
