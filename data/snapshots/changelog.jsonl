@@ -130,3 +130,5 @@
 {"at": "2026-08-21T15:37:48.096319+00:00", "element": 503, "name": "Van de Ven", "field": "status", "from": "a", "to": "i"}
 {"at": "2026-08-21T15:37:48.096319+00:00", "element": 503, "name": "Van de Ven", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-08-21T15:37:48.096319+00:00", "element": 503, "name": "Van de Ven", "field": "news", "from": "", "to": "Unspecified injury - Expected back 29 Aug"}
+{"at": "2026-08-21T16:39:04.395249+00:00", "element": 512, "name": "Kudus", "field": "chance_of_playing_next_round", "from": 75, "to": 25}
+{"at": "2026-08-21T16:39:04.395249+00:00", "element": 512, "name": "Kudus", "field": "news", "from": "Thigh injury - 75% chance of playing", "to": "Thigh injury - 25% chance of playing"}
