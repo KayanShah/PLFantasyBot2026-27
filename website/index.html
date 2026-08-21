@@ -533,6 +533,60 @@
       .strategy-card p { display:none; }
       .strategy-card { min-height:84px; }
     }
+
+    /* True mobile layout, not a shrunk desktop one. Every fixed px width
+       above (body's 1180px floor, the 365px countdown chip, 126px player
+       cards, the 800px+/1220px shell widths) is a real overflow source on
+       a ~360-430px phone -- this block re-lays out from scratch rather
+       than nudging desktop values down. */
+    @media (max-width: 640px) {
+      html, body { overflow-x: hidden; }
+      body { min-width: 0; width: 100%; }
+      .app-shell { width: 100%; margin: 12px auto; padding: 0 12px; }
+
+      .topbar {
+        grid-template-columns: 1fr auto;
+        row-gap: 10px;
+        padding: 12px;
+        position: static; /* sticky + a tall wrapped header eats too much viewport on a phone */
+      }
+      .brand { min-width: 0; }
+      .brand h1 { font-size: 16px; }
+      .segmented, .countdown-chip { grid-column: 1 / -1; width: 100%; min-width: 0; }
+      .segmented { flex-wrap: wrap; }
+      .countdown-chip { flex-wrap: wrap; row-gap: 8px; }
+      .countdown-meta { min-width: 0; flex: 1 1 auto; }
+      .time-cells { margin-left: 0; }
+      .time-cell { width: 34px; min-height: 36px; }
+
+      .strategy-strip { grid-template-columns: repeat(2, 1fr); }
+      .strategy-card { min-height: 64px; padding: 10px 11px; }
+
+      .main-grid { grid-template-columns: 1fr; }
+      .panel-head { flex-wrap: wrap; padding: 16px; }
+      .head-actions { flex-wrap: wrap; }
+
+      .gw-summary { grid-template-columns: repeat(2, 1fr); padding: 12px; }
+
+      .pitch { margin: 10px; min-height: 0; }
+      .squad { padding: 20px 8px; min-height: 0; }
+      .position-row { gap: 8px; }
+      .player-card { width: 92px; }
+      .player-visual { height: 68px; }
+      .player-photo { width: 60px; height: 68px; }
+      .avatar { width: 46px; height: 46px; font-size: 14px; margin-bottom: 4px; }
+      .player-name { font-size: 9px; }
+      .player-sub { font-size: 7px; gap: 3px; }
+      .badge { min-width: 19px; height: 19px; font-size: 7.5px; }
+
+      .bench-row { gap: 10px; }
+
+      .side-card, .info-card { padding: 14px; }
+      .info-grid { grid-template-columns: 1fr; }
+      .strategy-detail { padding: 12px; }
+
+      .footer-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
   </style>
 </head>
 <body>
