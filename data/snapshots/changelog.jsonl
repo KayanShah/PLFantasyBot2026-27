@@ -95,3 +95,6 @@
 {"at": "2026-08-20T20:33:08.994327+00:00", "element": 328, "name": "Struijk", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-08-20T20:33:08.994327+00:00", "element": 328, "name": "Struijk", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-08-20T20:33:08.994327+00:00", "element": 328, "name": "Struijk", "field": "news", "from": "Knock - 75% chance of playing", "to": ""}
+{"at": "2026-08-21T10:02:05.504266+00:00", "element": 283, "name": "Jacob", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-08-21T10:02:05.504266+00:00", "element": 283, "name": "Jacob", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-08-21T10:02:05.504266+00:00", "element": 283, "name": "Jacob", "field": "news", "from": "Hip injury - 75% chance of playing", "to": "Hip injury - Expected back 29 Aug"}
