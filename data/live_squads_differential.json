@@ -24,7 +24,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 204936,
-          "ownership": 8.9,
+          "ownership": 8.5,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -42,7 +42,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 17761,
-          "ownership": 9.3,
+          "ownership": 9.0,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -60,10 +60,10 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 200834,
-          "ownership": 2.0,
-          "status": "d",
-          "news": "Knock - 75% chance of playing",
-          "chance_of_playing": 75
+          "ownership": 2.4,
+          "status": null,
+          "news": null,
+          "chance_of_playing": 100
         },
         {
           "name": "Pedro Porro Sauceda",
@@ -78,7 +78,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 441164,
-          "ownership": 22.8,
+          "ownership": 22.6,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -96,7 +96,7 @@
           "is_effective_captain": true,
           "is_triple_captain": false,
           "photo_code": 141746,
-          "ownership": 50.0,
+          "ownership": 51.0,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -132,28 +132,10 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 248875,
-          "ownership": 4.3,
+          "ownership": 3.2,
           "status": "d",
           "news": "Calf injury - 75% chance of playing",
           "chance_of_playing": 75
-        },
-        {
-          "name": "Dominik Szoboszlai",
-          "team": "Liverpool",
-          "position": "MID",
-          "opponent": "NEW (A)",
-          "difficulty": 3,
-          "points": 0,
-          "played": false,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false,
-          "photo_code": 424876,
-          "ownership": 41.4,
-          "status": null,
-          "news": null,
-          "chance_of_playing": null
         },
         {
           "name": "Elliot Anderson",
@@ -168,7 +150,25 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 215379,
-          "ownership": 8.9,
+          "ownership": 8.4,
+          "status": null,
+          "news": null,
+          "chance_of_playing": null
+        },
+        {
+          "name": "Dominik Szoboszlai",
+          "team": "Liverpool",
+          "position": "MID",
+          "opponent": "NEW (A)",
+          "difficulty": 3,
+          "points": 0,
+          "played": false,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false,
+          "photo_code": 424876,
+          "ownership": 41.7,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -186,7 +186,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 178301,
-          "ownership": 11.6,
+          "ownership": 10.9,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -204,7 +204,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 212319,
-          "ownership": 2.9,
+          "ownership": 3.0,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -242,7 +242,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 221466,
-          "ownership": 9.0,
+          "ownership": 8.5,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -260,7 +260,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 177815,
-          "ownership": 28.9,
+          "ownership": 30.3,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -278,7 +278,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 465247,
-          "ownership": 17.7,
+          "ownership": 17.2,
           "status": null,
           "news": null,
           "chance_of_playing": null
