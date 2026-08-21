@@ -120,3 +120,7 @@
 {"at": "2026-08-21T13:50:53.398076+00:00", "element": 400, "name": "Doku", "field": "status", "from": "d", "to": "i"}
 {"at": "2026-08-21T13:50:53.398076+00:00", "element": 400, "name": "Doku", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
 {"at": "2026-08-21T13:50:53.398076+00:00", "element": 400, "name": "Doku", "field": "news", "from": "Calf injury - 75% chance of playing", "to": "Calf injury - Expected back 5 Sep"}
+{"at": "2026-08-21T14:39:49.122723+00:00", "element": 85, "name": "Van den Berg", "field": "news", "from": "Unspecified injury - Unknown return date", "to": "Groin injury - Unknown return date"}
+{"at": "2026-08-21T14:39:49.122723+00:00", "element": 518, "name": "P.M.Sarr", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-08-21T14:39:49.122723+00:00", "element": 518, "name": "P.M.Sarr", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-21T14:39:49.122723+00:00", "element": 518, "name": "P.M.Sarr", "field": "news", "from": "", "to": "Hamstring injury - Unknown return date"}
