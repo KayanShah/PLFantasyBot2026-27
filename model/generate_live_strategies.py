@@ -86,14 +86,26 @@ def load_shadow_state(key: str) -> dict | None:
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
 
 
+def squad_bank(choice: dict) -> int:
+    """
+    Tenths of a million left over after buying the chosen squad. Not just the
+    GW1 STARTING_BUDGET case -- plan_transfers()'s result carries a "cost"
+    column (sell-value-priced for retained players) whenever a real squad
+    exists to transfer from, "value" (live buy price) otherwise, and
+    choice["budget"] is already the right total to compare against either way
+    (STARTING_BUDGET from scratch, sell-value + bank when transferring).
+    """
+    cost_col = "cost" if "cost" in choice["squad"].columns else "value"
+    return choice["budget"] - int(choice["squad"][cost_col].sum())
+
+
 def save_shadow_state(key: str, choice: dict, free_transfers_next: int) -> None:
     path = OUT_DIR / f"live_state_{key}.json"
     picks = [
         {"element": int(e), "selling_price": int(v)}
         for e, v in zip(choice["squad"]["element"], choice["squad"]["value"])
     ]
-    bank = STARTING_BUDGET - int(choice["squad"]["value"].sum()) if choice.get("transfers") == 0 else 0
-    state = {"picks": picks, "transfers": {"bank": bank, "limit": free_transfers_next}}
+    state = {"picks": picks, "transfers": {"bank": squad_bank(choice), "limit": free_transfers_next}}
     path.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 
@@ -191,7 +203,7 @@ def main() -> None:
             "gameweeks": [{
                 "gw": int(gw), "chip": "", "transfers": choice["transfers"],
                 "hits": choice["hits"], "gw_score": None, "season_total": None,
-                "deadline": deadline.isoformat(),
+                "deadline": deadline.isoformat(), "bank": round(squad_bank(choice) / 10, 1),
                 "starting_xi": starting_xi, "bench": bench,
             }],
         }, indent=2), encoding="utf-8")

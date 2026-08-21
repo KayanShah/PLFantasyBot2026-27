@@ -313,7 +313,7 @@ TEMPLATE = """<!doctype html>
 
     .gw-summary {
       display:grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 9px;
       padding: 14px 18px;
       border-bottom: 1px solid rgba(29,29,31,.05);
@@ -773,6 +773,7 @@ TEMPLATE = """<!doctype html>
           <div class="metric"><label>Transfers</label><strong id="transfers">—</strong></div>
           <div class="metric"><label>Hits</label><strong id="hits">—</strong></div>
           <div class="metric"><label>Status</label><strong id="gwStatus">—</strong></div>
+          <div class="metric"><label>Bank</label><strong id="bank">—</strong></div>
         </div>
 
         <div class="pitch">
@@ -986,6 +987,7 @@ TEMPLATE = """<!doctype html>
     el('hits').textContent = gw.hits ? `-${gw.hits * 4}` : '0';
     el('chipPlayed').textContent = gw.chip || 'No chip';
     el('gwStatus').textContent = notPlayed ? 'Not yet played' : 'Finished';
+    el('bank').textContent = gw.bank != null ? `£${gw.bank.toFixed(1)}m` : '—';
     el('gwSubheading').textContent = notPlayed
       ? 'Live squad · team locks at the deadline'
       : (season.kind === 'backtest' ? 'Backtest result · finalised' : 'Result locked in');

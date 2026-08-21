@@ -29,7 +29,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import train_model
-from generate_live_strategies import live_player_entry, load_shadow_state, save_shadow_state
+from generate_live_strategies import live_player_entry, load_shadow_state, save_shadow_state, squad_bank
 from live_pipeline import (
     DATA_DIR, SEASON, build_predictions,
     choose_team, fetch, next_gameweek, sync_season, unavailable_elements,
@@ -104,7 +104,7 @@ def main() -> None:
         "gameweeks": [{
             "gw": int(gw), "chip": "", "transfers": choice["transfers"],
             "hits": choice["hits"], "gw_score": None, "season_total": None,
-            "deadline": deadline.isoformat(),
+            "deadline": deadline.isoformat(), "bank": round(squad_bank(choice) / 10, 1),
             "starting_xi": starting_xi, "bench": bench,
         }],
     }, indent=2), encoding="utf-8")

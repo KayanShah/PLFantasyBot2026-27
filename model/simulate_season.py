@@ -501,6 +501,7 @@ def simulate(
             horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool, price_deltas, horizon=lookahead_gws)
             squad = select_squad(horizon_pool_ensemble, budget=STARTING_BUDGET)
             transfers_made = 0
+            bank = STARTING_BUDGET - int(squad["value"].sum())
         elif gw in WILDCARD_GWS:
             budget = squad_sell_value(current_squad, gw_pool)
             horizon_pool_ensemble = with_horizon_points(ensemble_models, predictions_ensemble, gw, gw_pool, price_deltas, horizon=lookahead_gws)
@@ -508,6 +509,7 @@ def simulate(
             squad = select_squad(priced_pool, budget=budget, cost_col="cost")
             transfers_made = None
             chip = "Wildcard"
+            bank = budget - int(squad["cost"].sum())
         else:
             # Free Hit check first: a single-gameweek-optimal unconstrained squad,
             # valued on *this week's* predictions only (not horizon), compared
@@ -539,6 +541,7 @@ def simulate(
                 is_free_hit = True
                 chip = "Free Hit"
                 fh_used[half] = True
+                bank = fh_budget - int(squad["cost"].sum())
             else:
                 budget = squad_sell_value(current_squad, gw_pool)
                 priced_pool = with_sell_cost(horizon_pool, current_squad, gw_pool)
@@ -564,6 +567,11 @@ def simulate(
                 squad = best_squad
                 transfers_made = best_k
                 hits = max(0, best_k - free_transfers)
+                # Held squads fall back to current_squad, which never carries
+                # a "cost" column (see the [["element",...,"value"]] slice at
+                # the end of this loop) -- its bank is what selling it would
+                # raise, not a select_squad() cost sum.
+                bank = budget - (squad_sell_value(current_squad, gw_pool) if best_k == 0 else int(squad["cost"].sum()))
                 if gw in bench_boost_gws:
                     chip = "Bench Boost"
 
@@ -599,6 +607,7 @@ def simulate(
             "chip": chip or "",
             "transfers": transfers_made if isinstance(transfers_made, int) else None,
             "hits": hits,
+            "bank": round(bank / 10, 1),
             "starting_xi": [
                 player_entry(row, gw_pool, team_names, captain_id, vice_id, effective_captain, tc_this_week)
                 for _, row in xi.iterrows()
