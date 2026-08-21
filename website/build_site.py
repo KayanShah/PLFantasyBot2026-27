@@ -563,6 +563,9 @@ TEMPLATE = """<!doctype html>
     }
     .footer-row { display:flex; justify-content:space-between; gap:24px; align-items:center; }
     .footer strong { color:var(--muted); }
+    .footer-links { text-align:center; font-size:10.5px; }
+    .footer-links a { color:var(--muted); text-decoration:none; font-weight:650; }
+    .footer-links a:hover { color:var(--purple); text-decoration:underline; }
     .footer-credits { text-align:center; padding-top:8px; border-top:1px solid rgba(29,29,31,.06); }
     .footer-credits a { color:var(--muted); text-decoration:none; }
     .footer-credits a:hover { color:var(--purple); text-decoration:underline; }
@@ -737,6 +740,16 @@ TEMPLATE = """<!doctype html>
       </div>
     </section>
 
+    <section class="info-panel" id="adminView" style="display:none">
+      <div class="info-card glass">
+        <h2>Admin — gameweek status</h2>
+        <p>Read-only here for now. Toggling "done" (which stops deadline-reminder emails for that gameweek) is done via GitHub Actions &rarr; <strong>Mark gameweek done</strong> until a password-gated write backend is wired up.</p>
+      </div>
+      <div class="info-card glass">
+        <div id="adminStatusList"></div>
+      </div>
+    </section>
+
     <section class="main-grid" id="mainGrid">
       <article class="pitch-panel">
         <div class="panel-head">
@@ -813,8 +826,10 @@ TEMPLATE = """<!doctype html>
         <div><strong>Data:</strong> official Fantasy Premier League feeds / Premier League player imagery where available.</div>
         <div>PLFantasyBot is an analytical tool. It is not real-money betting or financial advice.</div>
       </div>
+      <div class="footer-links">
+        <a href="#" id="positionViewLink">See position view</a> · <a href="#" id="adminViewLink">See admin page</a>
+      </div>
       <div class="footer-credits">
-        <a href="#" id="positionViewLink">See position view</a> ·
         Built by <a href="https://github.com/kayanshah" target="_blank" rel="noopener">Kayan Shah</a> and <a href="https://github.com/5H41L3N" target="_blank" rel="noopener">Shailen Patel</a> · <a href="https://github.com/KayanShah/PLFantasyBot2026-27" target="_blank" rel="noopener">Link to Repository</a>
       </div>
     </footer>
@@ -1109,10 +1124,32 @@ TEMPLATE = """<!doctype html>
     }).join('');
   }
 
+  function renderAdminView(){
+    const status = DATA.adminStatus || {};
+    const gws = Object.keys(status).map(Number).sort((a, b) => a - b);
+    if (!gws.length) {
+      el('adminStatusList').innerHTML = '<p style="color:var(--muted);font-size:11.5px;">No gameweeks marked yet.</p>';
+      return;
+    }
+    el('adminStatusList').innerHTML = gws.map(gw => {
+      const s = status[gw];
+      const pill = s.done
+        ? '<span class="risk-pill risk-low">Done</span>'
+        : '<span class="risk-pill risk-high">Not done</span>';
+      const notes = s.notes ? `<p>${s.notes}</p>` : '';
+      const when = s.marked_at ? `<p style="color:var(--muted-2);font-size:9.5px;">Marked ${formatDeadline(s.marked_at)}</p>` : '';
+      return `<div class="info-strategy-card" style="margin-bottom:10px;">
+        <div class="strategy-top"><h3>Gameweek ${gw}</h3>${pill}</div>
+        ${notes}${when}
+      </div>`;
+    }).join('');
+  }
+
   function applyView(){
     const view = state.view;
     el('infoPanel').style.display = view === 'info' ? '' : 'none';
     el('positionView').style.display = view === 'position' ? '' : 'none';
+    el('adminView').style.display = view === 'admin' ? '' : 'none';
     const showDashboard = view === 'dashboard';
     el('strategyStrip').style.display = showDashboard ? '' : 'none';
     el('mainGrid').style.display = showDashboard ? '' : 'none';
@@ -1131,6 +1168,12 @@ TEMPLATE = """<!doctype html>
     applyView();
   };
 
+  el('adminViewLink').onclick = (e) => {
+    e.preventDefault();
+    state.view = state.view === 'admin' ? 'dashboard' : 'admin';
+    applyView();
+  };
+
   function renderAll(){
     currentDeadlineISO = null; // re-default to the next upcoming deadline on season/strategy switch
     renderSeasonToggle();
@@ -1143,6 +1186,7 @@ TEMPLATE = """<!doctype html>
 
   renderInfoPanel();
   renderPositionView();
+  renderAdminView();
   applyView();
   renderAll();
   setInterval(tickDeadline, 1000);
@@ -1189,7 +1233,12 @@ def main() -> None:
             "model/run_all_strategies.py (and/or model/generate_live_strategies.py) first."
         )
 
-    site_data = {"seasons": seasons}
+    admin_status_path = DATA_DIR / "admin_status.json"
+    admin_status = (
+        json.loads(admin_status_path.read_text(encoding="utf-8")) if admin_status_path.exists() else {}
+    )
+
+    site_data = {"seasons": seasons, "adminStatus": admin_status}
     html = TEMPLATE.replace("__SITE_DATA__", json.dumps(site_data))
     OUT_PATH.write_text(html, encoding="utf-8")
     print(f"Built {OUT_PATH} ({OUT_PATH.stat().st_size / 1024:.0f} KB)")
