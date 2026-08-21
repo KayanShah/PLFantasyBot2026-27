@@ -36,6 +36,7 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 CALENDAR_PATH = DATA_DIR / "live_gameweek_calendar.json"
 SQUAD_PATH = DATA_DIR / "live_squads_balanced.json"
 SENT_LOG_PATH = DATA_DIR / "reminders_sent.json"
+ADMIN_STATUS_PATH = DATA_DIR / "admin_status.json"
 SITE_URL = "https://plfantasybot2026-27.vercel.app"
 
 RESEND_API = "https://api.resend.com/emails"
@@ -224,6 +225,16 @@ def save_sent_log(log: dict) -> None:
     SENT_LOG_PATH.write_text(json.dumps(log, indent=2), encoding="utf-8")
 
 
+def is_marked_done(gw: int) -> bool:
+    """Whether GW{gw} has already been confirmed done -- see admin_status.json,
+    written by whatever marks a gameweek as handled (currently the
+    mark-gameweek-done workflow; a proper admin page is next)."""
+    if not ADMIN_STATUS_PATH.exists():
+        return False
+    status = json.loads(ADMIN_STATUS_PATH.read_text(encoding="utf-8"))
+    return bool(status.get(str(gw), {}).get("done"))
+
+
 def next_deadline() -> dict | None:
     calendar = json.loads(CALENDAR_PATH.read_text(encoding="utf-8"))
     upcoming = [g for g in calendar if not g["finished"]]
@@ -386,6 +397,10 @@ def main() -> None:
     gw = event["gw"]
     deadline = datetime.fromisoformat(event["deadline"].replace("Z", "+00:00"))
     now = datetime.now(timezone.utc)
+
+    if is_marked_done(gw):
+        print(f"GW{gw} is marked done in admin_status.json -- skipping, no more reminders for this gameweek.")
+        return
 
     log = load_sent_log()
     already_sent = [] if args.force else log.get(str(gw), [])

@@ -1,0 +1,77 @@
+name: Mark gameweek done
+
+# Interim, zero-setup way to stop deadline-reminder emails for a gameweek
+# you've already handled -- run this manually from the Actions tab (which
+# is already access-controlled by repo permissions, no separate password
+# needed) rather than waiting on the full password-gated admin page.
+#
+# Writes data/admin_status.json, which send_deadline_reminder.py checks
+# before sending -- once a gameweek is marked done here, no further 2d/1d/
+# 12h/1h reminders go out for it.
+
+on:
+  workflow_dispatch:
+    inputs:
+      gw:
+        description: 'Gameweek number'
+        type: string
+        required: true
+      done:
+        description: 'Mark as done (unticked = mark as NOT done, re-arming reminders)'
+        type: boolean
+        default: true
+      notes:
+        description: 'Optional note (e.g. what you changed)'
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  mark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update admin_status.json
+        env:
+          GW: ${{ inputs.gw }}
+          DONE: ${{ inputs.done }}
+          NOTES: ${{ inputs.notes }}
+        run: |
+          python3 - <<'EOF'
+          import json
+          import os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          # Read from the environment, never interpolated into the script
+          # source -- a note containing quotes/backslashes would otherwise
+          # break (or worse) if substituted directly into the source text.
+          gw = os.environ["GW"]
+          done = os.environ["DONE"] == "true"
+          notes = os.environ.get("NOTES", "")
+
+          path = Path("data/admin_status.json")
+          status = json.loads(path.read_text()) if path.exists() else {}
+          status[gw] = {
+              "done": done,
+              "notes": notes,
+              "marked_at": datetime.now(timezone.utc).isoformat(),
+          }
+          path.write_text(json.dumps(status, indent=2))
+          print(f"GW{gw} -> done={done}")
+          EOF
+
+      - name: Commit and push
+        run: |
+          git config user.name "plfantasybot-admin"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/admin_status.json
+          git diff --staged --quiet && exit 0
+          git commit -m "Mark GW${{ inputs.gw }} done=${{ inputs.done }}"
+          git pull --rebase origin main
+          git push
