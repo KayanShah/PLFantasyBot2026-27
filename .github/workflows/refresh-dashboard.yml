@@ -59,6 +59,31 @@ jobs:
         run: |
           git config user.name "plfantasybot-dashboard"
           git config user.email "actions@users.noreply.github.com"
+
+          # This job runs up to 60 minutes; anything else pushed to main in
+          # that window (a direct edit to build_site.py, another workflow's
+          # commit) collides here, because website/index.html is a fully
+          # regenerated file -- git has no sensible way to merge two
+          # independent regenerations of it, so a plain pull --rebase just
+          # fails outright (seen for real: run #5, 2026-08-21, 18 minutes of
+          # work lost to a rebase conflict against an unrelated footer
+          # commit). Fix: snapshot this run's fresh output first, reset
+          # cleanly to whatever main now is, copy the fresh data back in,
+          # and rebuild the site from *that* -- which also means a
+          # concurrent build_site.py change gets picked up for free instead
+          # of being clobbered.
+          tmp=$(mktemp -d)
+          cp data/live_squads_*.json data/live_state_*.json \
+             data/strategies_manifest_2026-27.json data/strategies_manifest_2025-26.json \
+             data/season_2025-26_squads_*.json data/season_2025-26_simulation_*.csv \
+             "$tmp"/ 2>/dev/null || true
+
+          git fetch origin main
+          git reset --hard origin/main
+
+          cp "$tmp"/*.json "$tmp"/*.csv data/ 2>/dev/null || true
+          python website/build_site.py
+
           git add data/live_squads_*.json data/live_state_*.json \
                   data/strategies_manifest_2026-27.json \
                   data/strategies_manifest_2025-26.json \
@@ -66,5 +91,4 @@ jobs:
                   website/index.html
           git diff --staged --quiet && exit 0
           git commit -m "Refresh dashboard $(date -u +'%Y-%m-%d %H:%M UTC')"
-          git pull --rebase origin main
           git push
