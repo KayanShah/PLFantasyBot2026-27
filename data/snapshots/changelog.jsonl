@@ -270,3 +270,9 @@
 {"at": "2026-08-21T18:42:17.502473+00:00", "element": 541, "name": "Meunier", "field": "chance_of_playing_this_round", "from": null, "to": 100}
 {"at": "2026-08-21T18:42:17.502473+00:00", "element": 546, "name": "Adingra", "field": "chance_of_playing_this_round", "from": null, "to": 0}
 {"at": "2026-08-21T21:54:14.450304+00:00", "element": 131, "name": "Baleba", "field": "news", "from": "Ankle injury - Expected back 23 Aug", "to": "Ankle injury - Unknown return date"}
+{"at": "2026-08-22T10:53:04.841392+00:00", "element": 325, "name": "Darlow", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-22T10:53:04.841392+00:00", "element": 325, "name": "Darlow", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-22T10:53:04.841392+00:00", "element": 325, "name": "Darlow", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-22T10:53:04.841392+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-22T10:53:04.841392+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-22T10:53:04.841392+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "news", "from": "Shin injury - 75% chance of playing", "to": ""}
