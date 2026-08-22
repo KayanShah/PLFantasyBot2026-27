@@ -279,3 +279,9 @@
 {"at": "2026-08-22T11:24:56.279298+00:00", "element": 431, "name": "Amad", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-08-22T11:24:56.279298+00:00", "element": 431, "name": "Amad", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-08-22T11:24:56.279298+00:00", "element": 431, "name": "Amad", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-08-22T13:34:57.021324+00:00", "element": 198, "name": "Henderson", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-22T13:34:57.021324+00:00", "element": 198, "name": "Henderson", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-22T13:34:57.021324+00:00", "element": 198, "name": "Henderson", "field": "news", "from": "Ankle injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-22T13:34:57.021324+00:00", "element": 239, "name": "Garner", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-22T13:34:57.021324+00:00", "element": 239, "name": "Garner", "field": "chance_of_playing_next_round", "from": 25, "to": 100}
+{"at": "2026-08-22T13:34:57.021324+00:00", "element": 239, "name": "Garner", "field": "news", "from": "Groin injury - 25% chance of playing", "to": ""}
