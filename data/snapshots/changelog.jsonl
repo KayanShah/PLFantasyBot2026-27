@@ -276,3 +276,6 @@
 {"at": "2026-08-22T10:53:04.841392+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-08-22T10:53:04.841392+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-08-22T10:53:04.841392+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "news", "from": "Shin injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-22T11:24:56.279298+00:00", "element": 431, "name": "Amad", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-22T11:24:56.279298+00:00", "element": 431, "name": "Amad", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-22T11:24:56.279298+00:00", "element": 431, "name": "Amad", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
