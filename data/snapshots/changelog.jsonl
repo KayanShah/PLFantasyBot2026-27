@@ -294,3 +294,14 @@
 {"at": "2026-08-22T17:48:49.125562+00:00", "element": 586, "name": "Mendy", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-08-22T17:48:49.125562+00:00", "element": 586, "name": "Mendy", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-08-22T17:48:49.125562+00:00", "element": 586, "name": "Mendy", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-08-22T18:36:29.833026+00:00", "element": 206, "name": "Chadi Riad", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-22T18:36:29.833026+00:00", "element": 206, "name": "Chadi Riad", "field": "chance_of_playing_next_round", "from": null, "to": 50}
+{"at": "2026-08-22T18:36:29.833026+00:00", "element": 206, "name": "Chadi Riad", "field": "news", "from": "", "to": "Knee injury - 50% chance of playing"}
+{"at": "2026-08-22T18:36:29.833026+00:00", "element": 208, "name": "Sarr", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-22T18:36:29.833026+00:00", "element": 208, "name": "Sarr", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-22T18:36:29.833026+00:00", "element": 208, "name": "Sarr", "field": "news", "from": "", "to": "Groin injury - 75% chance of playing"}
+{"at": "2026-08-22T18:36:29.833026+00:00", "element": 279, "name": "Ajayi", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-08-22T18:36:29.833026+00:00", "element": 586, "name": "Mendy", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Thigh injury - 75% chance of playing"}
+{"at": "2026-08-22T18:36:29.833026+00:00", "element": 591, "name": "Enciso", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-22T18:36:29.833026+00:00", "element": 591, "name": "Enciso", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-22T18:36:29.833026+00:00", "element": 591, "name": "Enciso", "field": "news", "from": "", "to": "Muscular injury - 75% chance of playing"}
