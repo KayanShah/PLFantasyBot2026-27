@@ -317,3 +317,6 @@
 {"at": "2026-08-23T13:35:34.685940+00:00", "element": 113, "name": "F.Kad\u0131o\u011flu", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-08-23T13:35:34.685940+00:00", "element": 113, "name": "F.Kad\u0131o\u011flu", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-08-23T13:35:34.685940+00:00", "element": 113, "name": "F.Kad\u0131o\u011flu", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-08-23T15:50:12.074198+00:00", "element": 75, "name": "Christie", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-08-23T15:50:12.074198+00:00", "element": 75, "name": "Christie", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-08-23T15:50:12.074198+00:00", "element": 75, "name": "Christie", "field": "news", "from": "Suspended until 29 Aug", "to": ""}
