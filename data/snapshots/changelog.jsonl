@@ -337,3 +337,14 @@
 {"at": "2026-08-23T18:35:56.145799+00:00", "element": 503, "name": "Van de Ven", "field": "status", "from": "i", "to": "d"}
 {"at": "2026-08-23T18:35:56.145799+00:00", "element": 503, "name": "Van de Ven", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
 {"at": "2026-08-23T18:35:56.145799+00:00", "element": 503, "name": "Van de Ven", "field": "news", "from": "Unspecified injury - Expected back 29 Aug", "to": "Unspecified injury - 50% chance of playing"}
+{"at": "2026-08-23T19:25:15.189912+00:00", "element": 74, "name": "Brooks", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-23T19:25:15.189912+00:00", "element": 74, "name": "Brooks", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-23T19:25:15.189912+00:00", "element": 74, "name": "Brooks", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-23T19:25:15.189912+00:00", "element": 145, "name": "Fofana", "field": "news", "from": "Suspended until 6 Sep", "to": "Suspended until 30 Aug"}
+{"at": "2026-08-23T19:25:15.189912+00:00", "element": 561, "name": "Anselmino", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-23T19:25:15.189912+00:00", "element": 561, "name": "Anselmino", "field": "chance_of_playing_next_round", "from": null, "to": 25}
+{"at": "2026-08-23T19:25:15.189912+00:00", "element": 561, "name": "Anselmino", "field": "news", "from": "", "to": "Hamstring injury - 25% chance of playing"}
+{"at": "2026-08-23T19:25:15.189912+00:00", "element": 430, "name": "Mount", "field": "chance_of_playing_next_round", "from": 50, "to": 75}
+{"at": "2026-08-23T19:25:15.189912+00:00", "element": 430, "name": "Mount", "field": "news", "from": "Foot injury - 50% chance of playing", "to": "Foot injury - 75% chance of playing"}
+{"at": "2026-08-23T19:25:15.189912+00:00", "element": 512, "name": "Kudus", "field": "chance_of_playing_next_round", "from": 25, "to": 50}
+{"at": "2026-08-23T19:25:15.189912+00:00", "element": 512, "name": "Kudus", "field": "news", "from": "Thigh injury - 25% chance of playing", "to": "Thigh injury - 50% chance of playing"}
