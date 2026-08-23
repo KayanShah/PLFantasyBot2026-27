@@ -323,3 +323,11 @@
 {"at": "2026-08-23T17:23:41.750825+00:00", "element": 481, "name": "Anderson", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-08-23T17:23:41.750825+00:00", "element": 481, "name": "Anderson", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-08-23T17:23:41.750825+00:00", "element": 481, "name": "Anderson", "field": "news", "from": "", "to": "Knock - 75% chance of playing"}
+{"at": "2026-08-23T17:47:53.140917+00:00", "element": 54, "name": "Gomes", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-08-23T17:47:53.140917+00:00", "element": 54, "name": "Gomes", "field": "chance_of_playing_next_round", "from": 100, "to": 0}
+{"at": "2026-08-23T17:47:53.140917+00:00", "element": 54, "name": "Gomes", "field": "news", "from": "", "to": "Suspended until 19 Sep"}
+{"at": "2026-08-23T17:47:53.140917+00:00", "element": 283, "name": "Jacob", "field": "news", "from": "Hip injury - Expected back 29 Aug", "to": "Hip injury - Expected back 5 Sep"}
+{"at": "2026-08-23T17:47:53.140917+00:00", "element": 376, "name": "Bajcetic", "field": "news", "from": "Hamstring injury - Expected back 23 Aug", "to": "Hamstring injury - Unknown return date"}
+{"at": "2026-08-23T17:47:53.140917+00:00", "element": 499, "name": "Pedro Porro", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-08-23T17:47:53.140917+00:00", "element": 499, "name": "Pedro Porro", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-08-23T17:47:53.140917+00:00", "element": 499, "name": "Pedro Porro", "field": "news", "from": "Lack of match fitness - Expected back 29 Aug", "to": "Lack of match fitness - 75% chance of playing"}
