@@ -305,3 +305,15 @@
 {"at": "2026-08-22T18:36:29.833026+00:00", "element": 591, "name": "Enciso", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-08-22T18:36:29.833026+00:00", "element": 591, "name": "Enciso", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-08-22T18:36:29.833026+00:00", "element": 591, "name": "Enciso", "field": "news", "from": "", "to": "Muscular injury - 75% chance of playing"}
+{"at": "2026-08-23T13:35:34.685940+00:00", "element": 54, "name": "Gomes", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-08-23T13:35:34.685940+00:00", "element": 54, "name": "Gomes", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-08-23T13:35:34.685940+00:00", "element": 54, "name": "Gomes", "field": "news", "from": "Calf injury - Unknown return date", "to": ""}
+{"at": "2026-08-23T13:35:34.685940+00:00", "element": 73, "name": "Adams", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-23T13:35:34.685940+00:00", "element": 73, "name": "Adams", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-23T13:35:34.685940+00:00", "element": 73, "name": "Adams", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-23T13:35:34.685940+00:00", "element": 81, "name": "Rodr\u00edguez", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-23T13:35:34.685940+00:00", "element": 81, "name": "Rodr\u00edguez", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-23T13:35:34.685940+00:00", "element": 81, "name": "Rodr\u00edguez", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-23T13:35:34.685940+00:00", "element": 113, "name": "F.Kad\u0131o\u011flu", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-23T13:35:34.685940+00:00", "element": 113, "name": "F.Kad\u0131o\u011flu", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-23T13:35:34.685940+00:00", "element": 113, "name": "F.Kad\u0131o\u011flu", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
