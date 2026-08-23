@@ -331,3 +331,9 @@
 {"at": "2026-08-23T17:47:53.140917+00:00", "element": 499, "name": "Pedro Porro", "field": "status", "from": "i", "to": "d"}
 {"at": "2026-08-23T17:47:53.140917+00:00", "element": 499, "name": "Pedro Porro", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
 {"at": "2026-08-23T17:47:53.140917+00:00", "element": 499, "name": "Pedro Porro", "field": "news", "from": "Lack of match fitness - Expected back 29 Aug", "to": "Lack of match fitness - 75% chance of playing"}
+{"at": "2026-08-23T18:35:56.145799+00:00", "element": 448, "name": "Burn", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-08-23T18:35:56.145799+00:00", "element": 448, "name": "Burn", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-23T18:35:56.145799+00:00", "element": 448, "name": "Burn", "field": "news", "from": "", "to": "Ankle injury - Expected back 14 Sep"}
+{"at": "2026-08-23T18:35:56.145799+00:00", "element": 503, "name": "Van de Ven", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-08-23T18:35:56.145799+00:00", "element": 503, "name": "Van de Ven", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
+{"at": "2026-08-23T18:35:56.145799+00:00", "element": 503, "name": "Van de Ven", "field": "news", "from": "Unspecified injury - Expected back 29 Aug", "to": "Unspecified injury - 50% chance of playing"}
