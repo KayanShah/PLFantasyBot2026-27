@@ -366,3 +366,6 @@
 {"at": "2026-08-24T21:33:46.760404+00:00", "element": 253, "name": "Andersen", "field": "status", "from": "s", "to": "a"}
 {"at": "2026-08-24T21:33:46.760404+00:00", "element": 253, "name": "Andersen", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
 {"at": "2026-08-24T21:33:46.760404+00:00", "element": 253, "name": "Andersen", "field": "news", "from": "Suspended until 30 Aug", "to": ""}
+{"at": "2026-08-24T22:31:11.553136+00:00", "element": 154, "name": "Palmer", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-24T22:31:11.553136+00:00", "element": 154, "name": "Palmer", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-24T22:31:11.553136+00:00", "element": 154, "name": "Palmer", "field": "news", "from": "", "to": "Calf injury - 75% chance of playing"}
