@@ -351,3 +351,12 @@
 {"at": "2026-08-24T15:43:13.505902+00:00", "element": 480, "name": "Gibbs-White", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-08-24T15:43:13.505902+00:00", "element": 480, "name": "Gibbs-White", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-08-24T15:43:13.505902+00:00", "element": 480, "name": "Gibbs-White", "field": "news", "from": "", "to": "Knee injury - 75% chance of playing"}
+{"at": "2026-08-24T18:47:26.764092+00:00", "element": 136, "name": "Welbeck", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-24T18:47:26.764092+00:00", "element": 136, "name": "Welbeck", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-24T18:47:26.764092+00:00", "element": 136, "name": "Welbeck", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-24T18:47:26.764092+00:00", "element": 152, "name": "Palestra", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-24T18:47:26.764092+00:00", "element": 152, "name": "Palestra", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-24T18:47:26.764092+00:00", "element": 152, "name": "Palestra", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-08-24T18:47:26.764092+00:00", "element": 159, "name": "Caicedo", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-24T18:47:26.764092+00:00", "element": 159, "name": "Caicedo", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-24T18:47:26.764092+00:00", "element": 159, "name": "Caicedo", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
