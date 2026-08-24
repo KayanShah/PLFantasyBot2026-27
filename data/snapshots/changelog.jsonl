@@ -348,3 +348,6 @@
 {"at": "2026-08-23T19:25:15.189912+00:00", "element": 430, "name": "Mount", "field": "news", "from": "Foot injury - 50% chance of playing", "to": "Foot injury - 75% chance of playing"}
 {"at": "2026-08-23T19:25:15.189912+00:00", "element": 512, "name": "Kudus", "field": "chance_of_playing_next_round", "from": 25, "to": 50}
 {"at": "2026-08-23T19:25:15.189912+00:00", "element": 512, "name": "Kudus", "field": "news", "from": "Thigh injury - 25% chance of playing", "to": "Thigh injury - 50% chance of playing"}
+{"at": "2026-08-24T15:43:13.505902+00:00", "element": 480, "name": "Gibbs-White", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-24T15:43:13.505902+00:00", "element": 480, "name": "Gibbs-White", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-24T15:43:13.505902+00:00", "element": 480, "name": "Gibbs-White", "field": "news", "from": "", "to": "Knee injury - 75% chance of playing"}
