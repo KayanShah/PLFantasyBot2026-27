@@ -410,3 +410,7 @@
 {"at": "2026-08-25T19:35:25.106778+00:00", "element": 465, "name": "Osula", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-08-25T19:35:25.106778+00:00", "element": 465, "name": "Osula", "field": "chance_of_playing_next_round", "from": null, "to": 50}
 {"at": "2026-08-25T19:35:25.106778+00:00", "element": 465, "name": "Osula", "field": "news", "from": "", "to": "Knock - 50% chance of playing"}
+{"at": "2026-08-25T23:28:19.186059+00:00", "element": 18, "name": "Martinelli", "field": "now_cost", "from": 65, "to": 64}
+{"at": "2026-08-25T23:28:19.186059+00:00", "element": 25, "name": "Gy\u00f6keres", "field": "now_cost", "from": 75, "to": 74}
+{"at": "2026-08-25T23:28:19.186059+00:00", "element": 565, "name": "M.Sangar\u00e9", "field": "now_cost", "from": 55, "to": 56}
+{"at": "2026-08-25T23:28:19.186059+00:00", "element": 115, "name": "De Cuyper", "field": "now_cost", "from": 45, "to": 46}
