@@ -85,6 +85,18 @@ def main() -> None:
     print(f"Building live predictions (lookahead {cfg['lookahead_gws']} GWs)...")
     predictions = build_predictions(models, bootstrap, fixtures, gw, cfg["lookahead_gws"])
 
+    squads_path = OUT_DIR / f"live_squads_{KEY}.json"
+    existing = json.loads(squads_path.read_text(encoding="utf-8")) if squads_path.exists() else None
+    gameweeks_history = existing["gameweeks"] if existing else []
+
+    prior_season_total = 0
+    for g in sorted(gameweeks_history, key=lambda g: g["gw"]):
+        if g["gw"] in finished and g.get("season_total") is None:
+            score_gameweek_entry(g, live_results_by_gw[g["gw"]], prior_season_total)
+            print(f"  Scored GW{g['gw']}: {g['gw_score']} pts (season total so far: {g['season_total']})")
+        if g.get("season_total") is not None:
+            prior_season_total = g["season_total"]
+
     state = load_shadow_state(KEY)
     current = state if state else None
     free_transfers = state["transfers"]["limit"] if state else 1
@@ -105,16 +117,19 @@ def main() -> None:
         for _, row in choice["bench"].iterrows()
     ]
 
-    squads_path = OUT_DIR / f"live_squads_{KEY}.json"
+    new_entry = {
+        "gw": int(gw), "chip": "", "transfers": choice["transfers"],
+        "hits": choice["hits"], "gw_score": None, "season_total": None,
+        "deadline": deadline.isoformat(), "bank": round(squad_bank(choice) / 10, 1),
+        "starting_xi": starting_xi, "bench": bench,
+    }
+    gameweeks_history = [g for g in gameweeks_history if g["gw"] != gw] + [new_entry]
+    gameweeks_history.sort(key=lambda g: g["gw"])
+
     squads_path.write_text(json.dumps({
         "season": SEASON,
         "final_score": None,
-        "gameweeks": [{
-            "gw": int(gw), "chip": "", "transfers": choice["transfers"],
-            "hits": choice["hits"], "gw_score": None, "season_total": None,
-            "deadline": deadline.isoformat(), "bank": round(squad_bank(choice) / 10, 1),
-            "starting_xi": starting_xi, "bench": bench,
-        }],
+        "gameweeks": gameweeks_history,
     }, indent=2), encoding="utf-8")
 
     if current is None or unlimited:
