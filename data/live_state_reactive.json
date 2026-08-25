@@ -29,10 +29,6 @@
       "selling_price": 55
     },
     {
-      "element": 452,
-      "selling_price": 70
-    },
-    {
       "element": 498,
       "selling_price": 60
     },
@@ -43,6 +39,10 @@
     {
       "element": 499,
       "selling_price": 55
+    },
+    {
+      "element": 427,
+      "selling_price": 80
     },
     {
       "element": 155,
@@ -62,7 +62,7 @@
     }
   ],
   "transfers": {
-    "bank": 10,
+    "bank": 0,
     "limit": 1
   }
 }
