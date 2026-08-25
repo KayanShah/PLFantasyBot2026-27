@@ -43,6 +43,42 @@ from strategies import ordered
 OUT_DIR = Path(__file__).resolve().parent.parent / "data"
 
 
+def provisionally_finished_gws(bootstrap: dict, fixtures: list[dict]) -> list[int]:
+    """
+    Gameweeks where every fixture has a final score (finished_provisional),
+    even if FPL's own event.finished flag hasn't flipped yet -- confirmed for
+    real for GW1 2026-27: all 10 fixtures finished_provisional with real
+    scores while event.finished was still False, matches ended a day earlier.
+    That flag waits on a separate bonus-points/data-check pass. Good enough
+    to sync real results and score a squad against; deadline gating
+    elsewhere still compares against the real deadline time directly, not
+    this.
+    """
+    by_gw: dict[int, list[dict]] = {}
+    for f in fixtures:
+        if f.get("event") is None:
+            continue
+        by_gw.setdefault(f["event"], []).append(f)
+    return sorted(gw for gw, fx in by_gw.items() if fx and all(f.get("finished_provisional") for f in fx))
+
+
+def next_planning_gameweek(bootstrap: dict) -> dict:
+    """
+    Which gameweek to plan transfers for. next_gameweek() gates on the same
+    lagging official `finished` flag, which can leave it pointing at a
+    gameweek whose deadline has already passed. Once that's true there is
+    nothing left to plan for that gameweek regardless of the flag, so fall
+    through to the following event instead of getting stuck re-targeting one
+    that has already locked.
+    """
+    event = next_gameweek(bootstrap)
+    deadline = datetime.fromisoformat(event["deadline_time"].replace("Z", "+00:00"))
+    if datetime.now(timezone.utc) < deadline:
+        return event
+    later = [e for e in sorted(bootstrap["events"], key=lambda e: e["id"]) if e["id"] > event["id"]]
+    return later[0] if later else event
+
+
 def _photo_code(value) -> int | None:
     try:
         return int(value)
