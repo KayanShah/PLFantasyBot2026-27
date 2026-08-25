@@ -398,3 +398,6 @@
 {"at": "2026-08-25T14:55:43.943378+00:00", "element": 515, "name": "Maddison", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-08-25T14:55:43.943378+00:00", "element": 515, "name": "Maddison", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-08-25T14:55:43.943378+00:00", "element": 515, "name": "Maddison", "field": "news", "from": "", "to": "Shoulder injury - 75% chance of playing"}
+{"at": "2026-08-25T18:44:47.286969+00:00", "element": 100, "name": "Carvalho", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-25T18:44:47.286969+00:00", "element": 100, "name": "Carvalho", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-25T18:44:47.286969+00:00", "element": 100, "name": "Carvalho", "field": "news", "from": "Lack of match fitness - 75% chance of playing", "to": ""}
