@@ -401,3 +401,12 @@
 {"at": "2026-08-25T18:44:47.286969+00:00", "element": 100, "name": "Carvalho", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-08-25T18:44:47.286969+00:00", "element": 100, "name": "Carvalho", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-08-25T18:44:47.286969+00:00", "element": 100, "name": "Carvalho", "field": "news", "from": "Lack of match fitness - 75% chance of playing", "to": ""}
+{"at": "2026-08-25T19:35:25.106778+00:00", "element": 563, "name": "Morita", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-25T19:35:25.106778+00:00", "element": 563, "name": "Morita", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-25T19:35:25.106778+00:00", "element": 563, "name": "Morita", "field": "news", "from": "Calf injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-25T19:35:25.106778+00:00", "element": 586, "name": "Mendy", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-25T19:35:25.106778+00:00", "element": 586, "name": "Mendy", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-25T19:35:25.106778+00:00", "element": 586, "name": "Mendy", "field": "news", "from": "Thigh injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-25T19:35:25.106778+00:00", "element": 465, "name": "Osula", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-25T19:35:25.106778+00:00", "element": 465, "name": "Osula", "field": "chance_of_playing_next_round", "from": null, "to": 50}
+{"at": "2026-08-25T19:35:25.106778+00:00", "element": 465, "name": "Osula", "field": "news", "from": "", "to": "Knock - 50% chance of playing"}
