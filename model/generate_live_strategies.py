@@ -232,18 +232,29 @@ def main() -> None:
     bootstrap = fetch("bootstrap-static/")
     fixtures = fetch("fixtures/")
 
-    event = next_gameweek(bootstrap)
+    event = next_planning_gameweek(bootstrap)
     gw = event["id"]
     deadline = datetime.fromisoformat(event["deadline_time"].replace("Z", "+00:00"))
     now = datetime.now(timezone.utc)
-    finished = [e["id"] for e in bootstrap["events"] if e["finished"]]
+    finished = provisionally_finished_gws(bootstrap, fixtures)
+
+    # Real per-gameweek results for scoring, fetched once and reused across
+    # every strategy -- built straight from the live API rather than
+    # sync_season()'s merged_gw.csv, so scoring never depends on that having
+    # collapsed doubles/duplicates the exact way the model-training path needs.
+    live_results_by_gw: dict[int, dict[int, dict]] = {}
+    for finished_gw in finished:
+        live = fetch(f"event/{finished_gw}/live/")
+        live_results_by_gw[finished_gw] = {e["id"]: e["stats"] for e in live["elements"]}
 
     # The whole season's calendar, not just the next deadline -- the website
     # shows this as a browsable dropdown so a manager can see what's coming,
-    # not just what's due right now. Not strategy-specific, so written once
-    # here rather than duplicated into every strategy's squad file.
+    # not just what's due right now. "finished" here is the provisional
+    # signal too, so a just-played gameweek reads as done on the site well
+    # before FPL's official flag catches up. Not strategy-specific, so
+    # written once here rather than duplicated into every strategy's squad file.
     calendar = [
-        {"gw": e["id"], "deadline": e["deadline_time"], "finished": e["finished"]}
+        {"gw": e["id"], "deadline": e["deadline_time"], "finished": e["id"] in finished}
         for e in bootstrap["events"]
     ]
     (OUT_DIR / "live_gameweek_calendar.json").write_text(json.dumps(calendar, indent=2), encoding="utf-8")
