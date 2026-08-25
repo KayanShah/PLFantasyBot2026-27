@@ -30,7 +30,7 @@ from pathlib import Path
 
 import train_model
 from generate_live_strategies import (
-    live_player_entry, load_shadow_state, next_planning_gameweek,
+    backfill_element_ids, live_player_entry, load_shadow_state, next_planning_gameweek,
     provisionally_finished_gws, save_shadow_state, score_gameweek_entry, squad_bank,
 )
 from live_pipeline import (
@@ -67,6 +67,8 @@ def main() -> None:
         live = fetch(f"event/{finished_gw}/live/")
         live_results_by_gw[finished_gw] = {e["id"]: e["stats"] for e in live["elements"]}
 
+    code_to_element = {e["code"]: e["id"] for e in bootstrap["elements"]}
+
     print(f"Syncing {SEASON} -> {DATA_DIR / SEASON}")
     sync_season(bootstrap, fixtures, finished)
     team_names = load_team_names(SEASON)
@@ -92,6 +94,7 @@ def main() -> None:
     prior_season_total = 0
     for g in sorted(gameweeks_history, key=lambda g: g["gw"]):
         if g["gw"] in finished and g.get("season_total") is None:
+            backfill_element_ids(g, code_to_element)
             score_gameweek_entry(g, live_results_by_gw[g["gw"]], prior_season_total)
             print(f"  Scored GW{g['gw']}: {g['gw_score']} pts (season total so far: {g['season_total']})")
         if g.get("season_total") is not None:

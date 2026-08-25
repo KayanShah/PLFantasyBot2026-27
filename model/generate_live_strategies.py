@@ -118,6 +118,21 @@ def live_player_entry(row: pd.Series, team_names: dict, captain_id, vice_id) -> 
     }
 
 
+def backfill_element_ids(entry: dict, code_to_element: dict[int, int]) -> None:
+    """
+    Squads saved before live_player_entry() started carrying `element`
+    directly only have `photo_code` (== the player's permanent `code`) to go
+    on. Patches `element` back in from that via the live bootstrap's
+    code->id map, in place, so old saved gameweeks can still be scored
+    without needing a separate one-time migration pass.
+    """
+    for p in entry["starting_xi"] + entry["bench"]:
+        if "element" not in p and p.get("photo_code") is not None:
+            elem = code_to_element.get(p["photo_code"])
+            if elem is not None:
+                p["element"] = elem
+
+
 def real_outcome(element: int, live_results: dict[int, dict]) -> tuple[int, int]:
     row = live_results.get(element)
     if row is None:
@@ -247,6 +262,11 @@ def main() -> None:
         live = fetch(f"event/{finished_gw}/live/")
         live_results_by_gw[finished_gw] = {e["id"]: e["stats"] for e in live["elements"]}
 
+    # For backfill_element_ids() -- squads saved before `element` was added
+    # to live_player_entry()'s output only have `photo_code` to identify a
+    # player by.
+    code_to_element = {e["code"]: e["id"] for e in bootstrap["elements"]}
+
     # The whole season's calendar, not just the next deadline -- the website
     # shows this as a browsable dropdown so a manager can see what's coming,
     # not just what's due right now. "finished" here is the provisional
@@ -312,6 +332,7 @@ def main() -> None:
         prior_season_total = 0
         for g in sorted(gameweeks_history, key=lambda g: g["gw"]):
             if g["gw"] in finished and g.get("season_total") is None:
+                backfill_element_ids(g, code_to_element)
                 score_gameweek_entry(g, live_results_by_gw[g["gw"]], prior_season_total)
                 print(f"  Scored GW{g['gw']}: {g['gw_score']} pts (season total so far: {g['season_total']})")
             if g.get("season_total") is not None:
