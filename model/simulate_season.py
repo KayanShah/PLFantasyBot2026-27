@@ -390,6 +390,7 @@ def player_entry(
     chance = row.get("chance_of_playing_next_round")
     status = row.get("status")
     return {
+        "element": int(row["element"]),
         "name": row["name"],
         "team": row["team"],
         "position": row["position_label"],
