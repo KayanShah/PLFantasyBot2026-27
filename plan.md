@@ -668,6 +668,18 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!IMPORTANT]
+> **GW1 2026-27 is now locked in as real, scored history — every strategy builds GW2 forward from its actual held squad, not a fresh rebuild.** Until now `generate_live_strategies.py`/`generate_live_xg_strategy.py` only ever wrote a single-entry `gameweeks` array, overwritten each run with a fresh "not yet played" squad — there was no path from "predicted GW1 squad" to "what actually happened in GW1." Closed by:
+> - **Provisional-finish detection** (`provisionally_finished_gws()`): FPL's own `event.finished`/`data_checked` flags lag real match completion by up to a day or more — confirmed live, all 10 GW1 fixtures showed `finished_provisional: true` with real final scores while `event.finished` was still `false`. Real results are synced and squads scored the moment every fixture in a gameweek is provisionally final, not days later once FPL's own bookkeeping catches up. `next_planning_gameweek()` uses the same signal to correctly target GW2 once GW1 is done.
+> - **Real-results scoring** (`real_outcome`/`apply_auto_subs`/`score_gameweek_entry`), mirroring `simulate_season.py`'s backtest rules but operating on saved JSON player-dicts instead of DataFrames (a live squad only exists as JSON between separate script runs): auto-subs for blanked starters (formation-legality-checked), effective-captain fallback when the captain didn't play, Bench Boost bench-scoring, -4 per hit.
+> - **`gameweeks` now accumulates real history** instead of being overwritten — each run scores any finished gameweek not yet scored, then appends the newly-planned gameweek, keyed and sorted by `gw`.
+> - **A real bug this surfaced immediately**: squads saved before `element` was added to `live_player_entry()`'s/`player_entry()`'s output only carried `photo_code`, so the first real scoring run crashed with `KeyError: 'element'`. Fixed with `backfill_element_ids()`, resolving `element` from `photo_code` (the player's permanent `code`) via the live bootstrap's code->id map — handles old and new saved data alike, no separate migration script needed.
+> - **Two site bugs fixed proactively before the real run**, since the new multi-gameweek shape would otherwise have silently exposed them: the leaderboard was reading the literal last `gameweeks` entry rather than the last *scored* one (wrong once an unplayed future gameweek is appended after a real one), and the dashboard always defaulted to GW1 instead of the most recent gameweek.
+>
+> Real GW1 result, first time run: Balanced 33 pts, Conservative 33 pts, Reactive 32 pts, Differential 32 pts, xG Experimental 31 pts. All five then planned GW2 via normal transfer rules (1 free transfer used, 0 hits) against their real GW1 squads.
+
+---
+
 ## Phase 6 — Evaluation & Iteration
 
 - [ ] Track the bot's actual gameweek-by-gameweek score against a real season, not just backtests.
