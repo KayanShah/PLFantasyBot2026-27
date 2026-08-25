@@ -29,10 +29,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import train_model
-from generate_live_strategies import live_player_entry, load_shadow_state, save_shadow_state, squad_bank
+from generate_live_strategies import (
+    live_player_entry, load_shadow_state, next_planning_gameweek,
+    provisionally_finished_gws, save_shadow_state, score_gameweek_entry, squad_bank,
+)
 from live_pipeline import (
     DATA_DIR, SEASON, build_predictions,
-    choose_team, fetch, next_gameweek, sync_season, unavailable_elements,
+    choose_team, fetch, sync_season, unavailable_elements,
 )
 from simulate_season import ENSEMBLE_EXTRA_SEEDS, load_team_names
 from strategies import STRATEGIES
@@ -51,13 +54,18 @@ def main() -> None:
     bootstrap = fetch("bootstrap-static/")
     fixtures = fetch("fixtures/")
 
-    event = next_gameweek(bootstrap)
+    event = next_planning_gameweek(bootstrap)
     gw = event["id"]
     deadline = datetime.fromisoformat(event["deadline_time"].replace("Z", "+00:00"))
     now = datetime.now(timezone.utc)
-    finished = [e["id"] for e in bootstrap["events"] if e["finished"]]
+    finished = provisionally_finished_gws(bootstrap, fixtures)
     print(f"Target: GW{gw} ({len(finished)} finished gameweek(s) so far this season), "
           f"deadline {deadline.isoformat()}")
+
+    live_results_by_gw: dict[int, dict[int, dict]] = {}
+    for finished_gw in finished:
+        live = fetch(f"event/{finished_gw}/live/")
+        live_results_by_gw[finished_gw] = {e["id"]: e["stats"] for e in live["elements"]}
 
     print(f"Syncing {SEASON} -> {DATA_DIR / SEASON}")
     sync_season(bootstrap, fixtures, finished)
