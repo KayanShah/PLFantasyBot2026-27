@@ -952,9 +952,12 @@ TEMPLATE = """<!doctype html>
   function renderLeaderboard(){
     const season = currentSeason();
     const items = season.strategies.map((s,i) => {
-      const gws = s.gameweeks;
-      const last = gws.length ? gws[gws.length - 1] : null;
-      const score = (last && last.season_total != null) ? last.season_total : null;
+      // Last *scored* gameweek, not just the last array entry -- once a
+      // future not-yet-played gameweek is appended after a real one, the
+      // literal last entry would be the wrong one to read a running total
+      // from (it's always season_total: null until it's actually played).
+      const scored = s.gameweeks.filter(g => g.season_total != null);
+      const score = scored.length ? scored[scored.length - 1].season_total : null;
       return { i, label: s.label, risk: s.risk, score };
     }).sort((x,y) => (y.score ?? -1) - (x.score ?? -1));
     el('leaderboard').innerHTML = items.map((s,rank) => `<div class="leader-row ${s.i===state.strategyIdx?'active':''}" data-strategy="${s.i}">
@@ -1178,6 +1181,12 @@ TEMPLATE = """<!doctype html>
 
   function renderAll(){
     currentDeadlineISO = null; // re-default to the next upcoming deadline on season/strategy switch
+    // Open on the most recent gameweek (played or not) rather than always
+    // GW1 -- now that a live strategy can hold more than one gameweek of
+    // real history, "GW1" is stale the moment GW2 exists. Prev still
+    // reaches history from here.
+    const gws = currentGwList();
+    state.gwIdx = gws.length ? gws.length - 1 : 0;
     renderSeasonToggle();
     renderStrategies();
     renderLeaderboard();
