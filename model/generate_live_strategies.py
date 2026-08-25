@@ -300,6 +300,23 @@ def main() -> None:
 
     for key, cfg in ordered():
         print(f"\n=== {cfg['label']} ({key}) ===")
+
+        squads_path = OUT_DIR / f"live_squads_{key}.json"
+        existing = json.loads(squads_path.read_text(encoding="utf-8")) if squads_path.exists() else None
+        gameweeks_history = existing["gameweeks"] if existing else []
+
+        # Score any finished gameweek this strategy hasn't been scored for
+        # yet, oldest first, so season_total carries forward correctly.
+        # score_gameweek_entry() mutates each entry in place (also the same
+        # object sitting in gameweeks_history -- no reassignment needed).
+        prior_season_total = 0
+        for g in sorted(gameweeks_history, key=lambda g: g["gw"]):
+            if g["gw"] in finished and g.get("season_total") is None:
+                score_gameweek_entry(g, live_results_by_gw[g["gw"]], prior_season_total)
+                print(f"  Scored GW{g['gw']}: {g['gw_score']} pts (season total so far: {g['season_total']})")
+            if g.get("season_total") is not None:
+                prior_season_total = g["season_total"]
+
         state = load_shadow_state(key)
         current = state if state else None
         free_transfers = (state["transfers"]["limit"] if state else 1)
@@ -307,7 +324,11 @@ def main() -> None:
         # Unlimited-rebuild eligibility ends at GW1's own deadline, not just
         # whenever FPL happens to mark GW1 "finished" (which can be days
         # later, once its matches conclude) -- see live_pipeline.py's
-        # matching fix for why `not finished` alone isn't enough.
+        # matching fix for why `not finished` alone isn't enough. `finished`
+        # itself is now the provisional signal, so this also correctly
+        # switches a scored gameweek's squad from "freely rebuildable" to
+        # "only reachable via normal transfers" as soon as real results
+        # exist for it, not days later.
         unlimited = current is not None and not finished and now < deadline
 
         predictions = apply_differential_tilt(base_predictions, cfg["differential_weight"])
@@ -325,16 +346,21 @@ def main() -> None:
             for _, row in choice["bench"].iterrows()
         ]
 
-        squads_path = OUT_DIR / f"live_squads_{key}.json"
+        new_entry = {
+            "gw": int(gw), "chip": "", "transfers": choice["transfers"],
+            "hits": choice["hits"], "gw_score": None, "season_total": None,
+            "deadline": deadline.isoformat(), "bank": round(squad_bank(choice) / 10, 1),
+            "starting_xi": starting_xi, "bench": bench,
+        }
+        # Replace this gw's entry if re-run before its own deadline (e.g. a
+        # manual refresh with fresh prices), keep every other gw untouched.
+        gameweeks_history = [g for g in gameweeks_history if g["gw"] != gw] + [new_entry]
+        gameweeks_history.sort(key=lambda g: g["gw"])
+
         squads_path.write_text(json.dumps({
             "season": SEASON,
             "final_score": None,
-            "gameweeks": [{
-                "gw": int(gw), "chip": "", "transfers": choice["transfers"],
-                "hits": choice["hits"], "gw_score": None, "season_total": None,
-                "deadline": deadline.isoformat(), "bank": round(squad_bank(choice) / 10, 1),
-                "starting_xi": starting_xi, "bench": bench,
-            }],
+            "gameweeks": gameweeks_history,
         }, indent=2), encoding="utf-8")
 
         # Mirrors simulate_season.simulate()'s exact roll-forward rule: a full
