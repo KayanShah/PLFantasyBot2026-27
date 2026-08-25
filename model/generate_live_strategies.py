@@ -118,6 +118,87 @@ def live_player_entry(row: pd.Series, team_names: dict, captain_id, vice_id) -> 
     }
 
 
+def real_outcome(element: int, live_results: dict[int, dict]) -> tuple[int, int]:
+    row = live_results.get(element)
+    if row is None:
+        return 0, 0
+    return row["total_points"], row["minutes"]
+
+
+def apply_auto_subs(starting_xi: list[dict], bench: list[dict], live_results: dict[int, dict]) -> list[int]:
+    """
+    Mirrors simulate_season.apply_auto_subs exactly, operating on this
+    pipeline's saved JSON player-dict shape instead of DataFrames -- a live
+    squad only exists as JSON between separate script runs, there's no
+    DataFrame to carry forward. Starters with 0 real minutes are replaced by
+    the first bench player (in order) with real minutes, subject to the
+    resulting XI staying a legal formation (1 GKP, >=3 DEF, >=2 MID, >=1 FWD).
+    """
+    final_ids = [p["element"] for p in starting_xi]
+    positions = {p["element"]: p["position"] for p in starting_xi}
+
+    for starter in starting_xi:
+        _, mins = real_outcome(starter["element"], live_results)
+        if mins > 0:
+            continue
+        for sub in bench:
+            if sub["element"] in final_ids:
+                continue
+            _, sub_mins = real_outcome(sub["element"], live_results)
+            if sub_mins == 0:
+                continue
+            trial = [positions[e] if e != starter["element"] else sub["position"] for e in final_ids]
+            counts = {p: trial.count(p) for p in ["GKP", "DEF", "MID", "FWD"]}
+            if counts.get("GKP", 0) == 1 and counts.get("DEF", 0) >= 3 and counts.get("MID", 0) >= 2 and counts.get("FWD", 0) >= 1:
+                final_ids[final_ids.index(starter["element"])] = sub["element"]
+                positions[sub["element"]] = sub["position"]
+                break
+    return final_ids
+
+
+def score_gameweek_entry(entry: dict, live_results: dict[int, dict], prior_season_total: int) -> dict:
+    """
+    Replaces a "not yet played" gameweek entry's placeholder points with real
+    results, in place -- same rules simulate_season.py's backtest scoring
+    uses (auto-subs, effective-captain fallback, chip handling, -4 per hit),
+    just re-derived here since the live squads only exist as saved JSON
+    between runs, not as the DataFrames the backtest scores directly.
+    """
+    def with_real_result(p: dict) -> dict:
+        pts, mins = real_outcome(p["element"], live_results)
+        return {**p, "points": pts, "played": mins > 0}
+
+    starting_xi = [with_real_result(p) for p in entry["starting_xi"]]
+    bench = [with_real_result(p) for p in entry["bench"]]
+
+    final_ids = apply_auto_subs(starting_xi, bench, live_results)
+
+    captain = next((p for p in starting_xi if p["is_captain"]), None)
+    vice = next((p for p in starting_xi if p["is_vice_captain"]), None)
+    effective = captain
+    if captain and not captain["played"] and vice and vice["played"]:
+        effective = vice
+    for p in starting_xi:
+        p["is_effective_captain"] = bool(effective and p["element"] == effective["element"])
+
+    multiplier = 3 if any(p.get("is_triple_captain") for p in starting_xi) else 2
+    starting_points = sum(real_outcome(e, live_results)[0] for e in final_ids)
+    captain_pts = real_outcome(effective["element"], live_results)[0] if effective else 0
+    gw_score = starting_points + captain_pts * (multiplier - 1)
+
+    if entry.get("chip") == "Bench Boost":
+        bench_ids = [p["element"] for p in bench if p["element"] not in final_ids]
+        gw_score += sum(real_outcome(e, live_results)[0] for e in bench_ids)
+
+    gw_score -= 4 * (entry.get("hits") or 0)
+
+    entry["starting_xi"] = starting_xi
+    entry["bench"] = bench
+    entry["gw_score"] = round(gw_score)
+    entry["season_total"] = round(prior_season_total + gw_score)
+    return entry
+
+
 def load_shadow_state(key: str) -> dict | None:
     path = OUT_DIR / f"live_state_{key}.json"
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
