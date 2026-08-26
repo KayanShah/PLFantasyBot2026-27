@@ -9,6 +9,10 @@
       "selling_price": 65
     },
     {
+      "element": 226,
+      "selling_price": 55
+    },
+    {
       "element": 426,
       "selling_price": 120
     },
@@ -19,10 +23,6 @@
     {
       "element": 55,
       "selling_price": 80
-    },
-    {
-      "element": 384,
-      "selling_price": 55
     },
     {
       "element": 527,
