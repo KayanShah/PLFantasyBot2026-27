@@ -77,7 +77,7 @@ TEMPLATE = """<!doctype html>
       --purple-soft: #ede5f7;
       --green: #1f9d68;
       --green-soft: #e8f6ef;
-      --orange: #c87335;
+      --orange: #d4a017;
       --pink: #c9456e;
       --gold: #b7872f;
       --danger: #c83f57;
@@ -552,7 +552,7 @@ TEMPLATE = """<!doctype html>
     .calendar-row.future strong { color: var(--muted-2); font-weight: 600; }
     .calendar-row.future span { color: var(--muted-2); }
     .calendar-status { width:7px; height:7px; border-radius:50%; background:#c0c0c5; }
-    .calendar-status.done { background:var(--orange); box-shadow:0 0 0 4px rgba(200,115,53,.09); }
+    .calendar-status.done { background:var(--orange); box-shadow:0 0 0 4px rgba(212,160,23,.09); }
     .calendar-status.current { background:var(--green); box-shadow:0 0 0 4px rgba(31,157,104,.09); }
     .calendar-status.future { background:var(--danger); box-shadow:0 0 0 4px rgba(200,63,87,.09); }
 
