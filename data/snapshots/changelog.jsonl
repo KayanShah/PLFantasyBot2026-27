@@ -417,3 +417,12 @@
 {"at": "2026-08-26T14:12:52.704045+00:00", "element": 365, "name": "Ramsay", "field": "status", "from": "a", "to": "u"}
 {"at": "2026-08-26T14:12:52.704045+00:00", "element": 365, "name": "Ramsay", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-08-26T14:12:52.704045+00:00", "element": 365, "name": "Ramsay", "field": "news", "from": "", "to": "Has joined St Mirren on loan for the rest of the season"}
+{"at": "2026-08-26T16:01:12.246763+00:00", "element": 125, "name": "Georginio", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-26T16:01:12.246763+00:00", "element": 125, "name": "Georginio", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-26T16:01:12.246763+00:00", "element": 125, "name": "Georginio", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-08-26T16:01:12.246763+00:00", "element": 206, "name": "Chadi Riad", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-08-26T16:01:12.246763+00:00", "element": 206, "name": "Chadi Riad", "field": "chance_of_playing_next_round", "from": 50, "to": 0}
+{"at": "2026-08-26T16:01:12.246763+00:00", "element": 206, "name": "Chadi Riad", "field": "news", "from": "Knee injury - 50% chance of playing", "to": "Knee injury - Unknown return date"}
+{"at": "2026-08-26T16:01:12.246763+00:00", "element": 208, "name": "Sarr", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-08-26T16:01:12.246763+00:00", "element": 208, "name": "Sarr", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-08-26T16:01:12.246763+00:00", "element": 208, "name": "Sarr", "field": "news", "from": "Groin injury - 75% chance of playing", "to": "Groin injury - Unknown return date"}
