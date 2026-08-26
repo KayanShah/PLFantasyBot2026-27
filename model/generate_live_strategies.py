@@ -207,8 +207,30 @@ def score_gameweek_entry(entry: dict, live_results: dict[int, dict], prior_seaso
 
     gw_score -= 4 * (entry.get("hits") or 0)
 
-    entry["starting_xi"] = starting_xi
-    entry["bench"] = bench
+    # final_ids is index-aligned with starting_xi (apply_auto_subs replaces a
+    # blanked starter's element in place, at the same slot), so this pairs
+    # each swap with the exact starter it replaced -- not just "some" demoted
+    # player. Without this, the persisted starting_xi/bench stayed the
+    # pre-sub lineup forever: gw_score already accounted for the swap, but a
+    # viewer adding up the displayed Starting XI cards got a different,
+    # lower number than the total shown, since the real contributors
+    # (auto-subbed-in bench players) were only ever shown as bench entries.
+    bench_by_id = {p["element"]: p for p in bench}
+    new_starting_xi = []
+    swaps = []  # (demoted starter dict, promoted sub's element)
+    for orig, final_id in zip(starting_xi, final_ids):
+        if final_id == orig["element"]:
+            new_starting_xi.append(orig)
+        else:
+            sub_player = bench_by_id[final_id]
+            new_starting_xi.append({**sub_player, "auto_sub_in": True})
+            swaps.append((orig, sub_player["element"]))
+
+    demoted_by_sub_id = {sub_id: {**orig, "auto_sub_out": True} for orig, sub_id in swaps}
+    new_bench = [demoted_by_sub_id.get(p["element"], p) for p in bench]
+
+    entry["starting_xi"] = new_starting_xi
+    entry["bench"] = new_bench
     entry["gw_score"] = round(gw_score)
     entry["season_total"] = round(prior_season_total + gw_score)
     return entry
