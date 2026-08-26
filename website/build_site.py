@@ -448,6 +448,8 @@ TEMPLATE = """<!doctype html>
     .badge.vice { background:rgba(255,255,255,.96); color:#333338; }
     .badge.status { background:#d95669; color:white; border-color:#d95669; }
     .badge.status.fit { background:rgba(255,255,255,.88); color:var(--muted); border-color:rgba(29,29,31,.07); }
+    .badge.autosub-in { background:var(--green); color:white; border-color:var(--green); }
+    .badge.autosub-out { background:rgba(29,29,31,.75); color:white; border-color:rgba(29,29,31,.75); }
 
     .player-info {
       margin-top: 5px;
@@ -711,6 +713,7 @@ TEMPLATE = """<!doctype html>
           <div class="info-item"><div><strong>Fixture difficulty</strong>FPL's own 1 (easiest) to 5 (hardest) rating for that gameweek's opponent, colour-coded green through red on the small square next to the opponent's code.</div></div>
           <div class="info-item"><div><strong>Ownership %</strong>The share of all FPL managers who currently own that player — what the Differential strategy specifically leans against.</div></div>
           <div class="info-item"><div><strong>Availability badge</strong>100% (neutral) means no fitness concern on record. A percentage means FPL's own graded doubtful/injured probability (e.g. 75%). Letter codes — S (suspended), U (transferred/left the club), N (not in the matchday squad) — cover situations that aren't really a probability at all. Hover any badge for the underlying news text.</div></div>
+          <div class="info-item"><div><strong>&uarr; / &darr; auto-sub badge</strong>Once a gameweek is scored, a green &uarr; means that player didn't start but was auto-subbed in for a starter who blanked; a dark &darr; on the bench means the reverse — they started but didn't play, so a bench player covered for them. The Starting XI and Bench panels always show who actually counted toward the score, not just the pre-gameweek plan.</div></div>
         </div>
       </div>
 
@@ -922,6 +925,11 @@ TEMPLATE = """<!doctype html>
     const c = p.is_triple_captain ? '<span class="badge captain">3×</span>' : p.is_captain ? '<span class="badge captain">C</span>' : '';
     const v = p.is_vice_captain ? '<span class="badge vice">V</span>' : '';
     const effective = p.is_effective_captain && !p.is_captain ? '<span class="badge captain">C*</span>' : '';
+    const autosub = p.auto_sub_in
+      ? '<span class="badge autosub-in tooltip" data-tip="Auto-subbed in -- came off the bench for a starter who blanked">&uarr;</span>'
+      : p.auto_sub_out
+      ? '<span class="badge autosub-out tooltip" data-tip="Auto-subbed out -- started but got zero minutes, replaced by a bench player">&darr;</span>'
+      : '';
     const initialsText = initials(p.name);
     const photo = p.photo_code
       ? `<img class="player-photo" src="https://resources.premierleague.com/premierleague/photos/players/110x140/p${p.photo_code}.png" alt="${p.name}" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'avatar',textContent:'${initialsText}'}))">`
@@ -930,7 +938,7 @@ TEMPLATE = """<!doctype html>
     const ownershipDisplay = (p.ownership != null) ? p.ownership.toFixed(1) : '–';
     return `<div class="player-card" style="--club-a:${a};--club-b:${b};">
       <div class="player-visual">
-        <div class="badges">${c}${effective}${v}${statusLabel(p)}</div>
+        <div class="badges">${c}${effective}${v}${autosub}${statusLabel(p)}</div>
         ${photo}
       </div>
       <div class="player-info">
