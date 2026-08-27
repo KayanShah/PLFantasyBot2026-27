@@ -435,3 +435,6 @@
 {"at": "2026-08-27T00:34:38.866757+00:00", "element": 247, "name": "Hackney", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-08-27T00:34:38.866757+00:00", "element": 247, "name": "Hackney", "field": "news", "from": "", "to": "Knock - 75% chance of playing"}
 {"at": "2026-08-27T00:34:38.866757+00:00", "element": 431, "name": "Amad", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-08-27T11:02:23.631900+00:00", "element": 481, "name": "Anderson", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-27T11:02:23.631900+00:00", "element": 481, "name": "Anderson", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-27T11:02:23.631900+00:00", "element": 481, "name": "Anderson", "field": "news", "from": "Knock - 75% chance of playing", "to": ""}
