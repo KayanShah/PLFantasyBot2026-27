@@ -426,3 +426,12 @@
 {"at": "2026-08-26T16:01:12.246763+00:00", "element": 208, "name": "Sarr", "field": "status", "from": "d", "to": "i"}
 {"at": "2026-08-26T16:01:12.246763+00:00", "element": 208, "name": "Sarr", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
 {"at": "2026-08-26T16:01:12.246763+00:00", "element": 208, "name": "Sarr", "field": "news", "from": "Groin injury - 75% chance of playing", "to": "Groin injury - Unknown return date"}
+{"at": "2026-08-27T00:34:38.866757+00:00", "element": 8, "name": "Calafiori", "field": "now_cost", "from": 55, "to": 56}
+{"at": "2026-08-27T00:34:38.866757+00:00", "element": 20, "name": "Dowman", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-08-27T00:34:38.866757+00:00", "element": 55, "name": "Watkins", "field": "now_cost", "from": 80, "to": 79}
+{"at": "2026-08-27T00:34:38.866757+00:00", "element": 88, "name": "Kayode", "field": "now_cost", "from": 45, "to": 46}
+{"at": "2026-08-27T00:34:38.866757+00:00", "element": 165, "name": "Jo\u00e3o Pedro", "field": "now_cost", "from": 75, "to": 76}
+{"at": "2026-08-27T00:34:38.866757+00:00", "element": 247, "name": "Hackney", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-27T00:34:38.866757+00:00", "element": 247, "name": "Hackney", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-27T00:34:38.866757+00:00", "element": 247, "name": "Hackney", "field": "news", "from": "", "to": "Knock - 75% chance of playing"}
+{"at": "2026-08-27T00:34:38.866757+00:00", "element": 431, "name": "Amad", "field": "now_cost", "from": 60, "to": 59}
