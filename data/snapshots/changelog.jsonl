@@ -477,3 +477,10 @@
 {"at": "2026-08-27T21:05:59.204326+00:00", "element": 485, "name": "Bakwa", "field": "status", "from": "a", "to": "u"}
 {"at": "2026-08-27T21:05:59.204326+00:00", "element": 485, "name": "Bakwa", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-08-27T21:05:59.204326+00:00", "element": 485, "name": "Bakwa", "field": "news", "from": "", "to": "Has joined Lille on loan for the rest of the season"}
+{"at": "2026-08-28T05:33:22.130131+00:00", "element": 9, "name": "Hincapie", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-08-28T05:33:22.130131+00:00", "element": 15, "name": "\u00d8degaard", "field": "now_cost", "from": 65, "to": 66}
+{"at": "2026-08-28T05:33:22.130131+00:00", "element": 16, "name": "Madueke", "field": "now_cost", "from": 65, "to": 64}
+{"at": "2026-08-28T05:33:22.130131+00:00", "element": 452, "name": "Bruno G.", "field": "now_cost", "from": 70, "to": 69}
+{"at": "2026-08-28T05:33:22.130131+00:00", "element": 208, "name": "Sarr", "field": "now_cost", "from": 65, "to": 64}
+{"at": "2026-08-28T05:33:22.130131+00:00", "element": 481, "name": "Anderson", "field": "now_cost", "from": 65, "to": 64}
+{"at": "2026-08-28T05:33:22.130131+00:00", "element": 518, "name": "P.M.Sarr", "field": "now_cost", "from": 50, "to": 49}
