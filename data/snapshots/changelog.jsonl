@@ -573,3 +573,44 @@
 {"at": "2026-08-28T18:24:51.156783+00:00", "element": 612, "name": "Methalie", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-08-28T18:24:51.156783+00:00", "element": 612, "name": "Methalie", "field": "chance_of_playing_this_round", "from": null, "to": 0}
 {"at": "2026-08-28T18:24:51.156783+00:00", "element": 612, "name": "Methalie", "field": "news", "from": "", "to": "Suspended until 5 Sep"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 14, "name": "Eze", "field": "now_cost", "from": 65, "to": 64}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 17, "name": "Merino", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 19, "name": "Zubimendi", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 24, "name": "Nelson", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 24, "name": "Nelson", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 24, "name": "Nelson", "field": "news", "from": "", "to": "has departed the club as a free agent."}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 113, "name": "F.Kad\u0131o\u011flu", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 122, "name": "Minteh", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 150, "name": "M.Sarr", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 150, "name": "M.Sarr", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 150, "name": "M.Sarr", "field": "news", "from": "", "to": "Has joined Real Sociedad on loan for the rest of the season"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 154, "name": "Palmer", "field": "now_cost", "from": 95, "to": 96}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 181, "name": "Brau", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 181, "name": "Brau", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 181, "name": "Brau", "field": "news", "from": "", "to": "Has joined Academico de Viseu on loan for the rest of the season"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 192, "name": "Andrews", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 192, "name": "Andrews", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 192, "name": "Andrews", "field": "news", "from": "", "to": "Has joined Oxford United on loan for the rest of the season"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 206, "name": "Chadi Riad", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 217, "name": "M.Fran\u00e7a", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 223, "name": "Mateta", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 223, "name": "Mateta", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 223, "name": "Mateta", "field": "news", "from": "", "to": "Hamstring injury - Expected back 11 Oct"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 373, "name": "C.Jones", "field": "status", "from": "d", "to": "u"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 373, "name": "C.Jones", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 373, "name": "C.Jones", "field": "news", "from": "Hip injury - 75% chance of playing", "to": "Has joined Internazionale permanently"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 392, "name": "A\u00eft-Nouri", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 399, "name": "Cherki", "field": "now_cost", "from": 75, "to": 76}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 400, "name": "Doku", "field": "now_cost", "from": 75, "to": 74}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 415, "name": "Dorgu", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 440, "name": "Zirkzee", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 480, "name": "Gibbs-White", "field": "now_cost", "from": 80, "to": 79}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 482, "name": "Hudson-Odoi", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 515, "name": "Maddison", "field": "now_cost", "from": 65, "to": 64}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 518, "name": "P.M.Sarr", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 518, "name": "P.M.Sarr", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 518, "name": "P.M.Sarr", "field": "news", "from": "Hamstring injury - Unknown return date", "to": ""}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 537, "name": "Seelt", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 537, "name": "Seelt", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 537, "name": "Seelt", "field": "news", "from": "", "to": "Has joined Swansea City on loan for the rest of the season"}
+{"at": "2026-08-29T01:51:07.408920+00:00", "element": 546, "name": "Adingra", "field": "now_cost", "from": 50, "to": 49}
