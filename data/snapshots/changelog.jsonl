@@ -614,3 +614,24 @@
 {"at": "2026-08-29T01:51:07.408920+00:00", "element": 537, "name": "Seelt", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-08-29T01:51:07.408920+00:00", "element": 537, "name": "Seelt", "field": "news", "from": "", "to": "Has joined Swansea City on loan for the rest of the season"}
 {"at": "2026-08-29T01:51:07.408920+00:00", "element": 546, "name": "Adingra", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 66, "name": "Soler", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 66, "name": "Soler", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 66, "name": "Soler", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 240, "name": "Iroegbunam", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 240, "name": "Iroegbunam", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 240, "name": "Iroegbunam", "field": "news", "from": "Thigh injury - Unknown return date", "to": ""}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 247, "name": "Hackney", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 247, "name": "Hackney", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 247, "name": "Hackney", "field": "news", "from": "Ankle injury - 50% chance of playing", "to": ""}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 280, "name": "Coyle", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 280, "name": "Coyle", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 280, "name": "Coyle", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 289, "name": "Crooks", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 289, "name": "Crooks", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 289, "name": "Crooks", "field": "news", "from": "", "to": "Thigh injury - 75% chance of playing"}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 403, "name": "S\u00e1vio", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 403, "name": "S\u00e1vio", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 403, "name": "S\u00e1vio", "field": "news", "from": "", "to": "Muscular injury - 75% chance of playing"}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 512, "name": "Kudus", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 512, "name": "Kudus", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-29T17:49:01.597409+00:00", "element": 512, "name": "Kudus", "field": "news", "from": "Thigh injury - 75% chance of playing", "to": ""}
