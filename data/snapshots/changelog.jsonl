@@ -635,3 +635,16 @@
 {"at": "2026-08-29T17:49:01.597409+00:00", "element": 512, "name": "Kudus", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-08-29T17:49:01.597409+00:00", "element": 512, "name": "Kudus", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-08-29T17:49:01.597409+00:00", "element": 512, "name": "Kudus", "field": "news", "from": "Thigh injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-29T23:08:36.774727+00:00", "element": 22, "name": "Nwaneri", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-08-29T23:08:36.774727+00:00", "element": 53, "name": "Manzambi", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-08-29T23:08:36.774727+00:00", "element": 123, "name": "Hinshelwood", "field": "chance_of_playing_next_round", "from": 25, "to": 50}
+{"at": "2026-08-29T23:08:36.774727+00:00", "element": 123, "name": "Hinshelwood", "field": "news", "from": "Unspecified injury - 25% chance of playing", "to": "Unspecified injury - 50% chance of playing"}
+{"at": "2026-08-29T23:08:36.774727+00:00", "element": 152, "name": "Palestra", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-08-29T23:08:36.774727+00:00", "element": 155, "name": "Enzo", "field": "now_cost", "from": 70, "to": 69}
+{"at": "2026-08-29T23:08:36.774727+00:00", "element": 159, "name": "Caicedo", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-08-29T23:08:36.774727+00:00", "element": 21, "name": "N\u00f8rgaard", "field": "news", "from": "Unspecified injury - Unknown return date", "to": "Groin injury - Unknown return date"}
+{"at": "2026-08-29T23:08:36.774727+00:00", "element": 336, "name": "Okafor", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-08-29T23:08:36.774727+00:00", "element": 391, "name": "Gvardiol", "field": "now_cost", "from": 55, "to": 56}
+{"at": "2026-08-29T23:08:36.774727+00:00", "element": 448, "name": "Burn", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-08-29T23:08:36.774727+00:00", "element": 461, "name": "Tour\u00e9", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-08-29T23:08:36.774727+00:00", "element": 490, "name": "Wood", "field": "now_cost", "from": 60, "to": 59}
