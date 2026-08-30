@@ -648,3 +648,6 @@
 {"at": "2026-08-29T23:08:36.774727+00:00", "element": 448, "name": "Burn", "field": "now_cost", "from": 50, "to": 49}
 {"at": "2026-08-29T23:08:36.774727+00:00", "element": 461, "name": "Tour\u00e9", "field": "now_cost", "from": 60, "to": 59}
 {"at": "2026-08-29T23:08:36.774727+00:00", "element": 490, "name": "Wood", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-08-30T01:32:04.557055+00:00", "element": 344, "name": "Gruev", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-08-30T01:32:04.557055+00:00", "element": 344, "name": "Gruev", "field": "chance_of_playing_next_round", "from": 0, "to": 25}
+{"at": "2026-08-30T01:32:04.557055+00:00", "element": 344, "name": "Gruev", "field": "news", "from": "Knee injury - Unknown return date", "to": "Knee injury - 25% chance of playing"}
