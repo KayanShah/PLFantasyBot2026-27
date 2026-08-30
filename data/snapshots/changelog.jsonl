@@ -663,3 +663,12 @@
 {"at": "2026-08-30T13:55:56.125135+00:00", "element": 341, "name": "Gnonto", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-08-30T13:55:56.125135+00:00", "element": 341, "name": "Gnonto", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-08-30T13:55:56.125135+00:00", "element": 341, "name": "Gnonto", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-30T18:00:20.992095+00:00", "element": 159, "name": "Caicedo", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-30T18:00:20.992095+00:00", "element": 159, "name": "Caicedo", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-08-30T18:00:20.992095+00:00", "element": 159, "name": "Caicedo", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-08-30T18:00:20.992095+00:00", "element": 329, "name": "Rodon", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-30T18:00:20.992095+00:00", "element": 329, "name": "Rodon", "field": "chance_of_playing_next_round", "from": null, "to": 50}
+{"at": "2026-08-30T18:00:20.992095+00:00", "element": 329, "name": "Rodon", "field": "news", "from": "", "to": "Hamstring injury - 50% chance of playing"}
+{"at": "2026-08-30T18:00:20.992095+00:00", "element": 543, "name": "Diarra", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-30T18:00:20.992095+00:00", "element": 543, "name": "Diarra", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-30T18:00:20.992095+00:00", "element": 543, "name": "Diarra", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
