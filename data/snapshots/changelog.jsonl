@@ -651,3 +651,15 @@
 {"at": "2026-08-30T01:32:04.557055+00:00", "element": 344, "name": "Gruev", "field": "status", "from": "i", "to": "d"}
 {"at": "2026-08-30T01:32:04.557055+00:00", "element": 344, "name": "Gruev", "field": "chance_of_playing_next_round", "from": 0, "to": 25}
 {"at": "2026-08-30T01:32:04.557055+00:00", "element": 344, "name": "Gruev", "field": "news", "from": "Knee injury - Unknown return date", "to": "Knee injury - 25% chance of playing"}
+{"at": "2026-08-30T13:55:56.125135+00:00", "element": 97, "name": "Jensen", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-08-30T13:55:56.125135+00:00", "element": 97, "name": "Jensen", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-08-30T13:55:56.125135+00:00", "element": 97, "name": "Jensen", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-08-30T13:55:56.125135+00:00", "element": 159, "name": "Caicedo", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-30T13:55:56.125135+00:00", "element": 159, "name": "Caicedo", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-30T13:55:56.125135+00:00", "element": 159, "name": "Caicedo", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-30T13:55:56.125135+00:00", "element": 331, "name": "Gudmundsson", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-30T13:55:56.125135+00:00", "element": 331, "name": "Gudmundsson", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-30T13:55:56.125135+00:00", "element": 331, "name": "Gudmundsson", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": ""}
+{"at": "2026-08-30T13:55:56.125135+00:00", "element": 341, "name": "Gnonto", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-08-30T13:55:56.125135+00:00", "element": 341, "name": "Gnonto", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-08-30T13:55:56.125135+00:00", "element": 341, "name": "Gnonto", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": ""}
