@@ -710,3 +710,26 @@
 {"at": "2026-08-31T22:58:56.978673+00:00", "element": 56, "name": "Abraham", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-08-31T22:58:56.978673+00:00", "element": 56, "name": "Abraham", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
 {"at": "2026-08-31T22:58:56.978673+00:00", "element": 56, "name": "Abraham", "field": "news", "from": "Knock - 50% chance of playing", "to": ""}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 27, "name": "G.Jesus", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 55, "name": "Watkins", "field": "now_cost", "from": 79, "to": 78}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 85, "name": "Van den Berg", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 115, "name": "De Cuyper", "field": "now_cost", "from": 46, "to": 47}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 140, "name": "S\u00e1nchez", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 578, "name": "Mudryk", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 218, "name": "Doucour\u00e9", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 223, "name": "Mateta", "field": "now_cost", "from": 65, "to": 64}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 209, "name": "Johnson", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 279, "name": "Ajayi", "field": "now_cost", "from": 40, "to": 41}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 345, "name": "Tanaka", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 369, "name": "Ngumoha", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 383, "name": "Elliott", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 399, "name": "Cherki", "field": "now_cost", "from": 76, "to": 77}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 410, "name": "Monga", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 420, "name": "Yoro", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 457, "name": "J.Murphy", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 458, "name": "Joelinton", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 463, "name": "Woltemade", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 484, "name": "Hutchinson", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 455, "name": "Tonali", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 526, "name": "Solanke", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-01T01:46:48.806274+00:00", "element": 549, "name": "Talbi", "field": "now_cost", "from": 55, "to": 54}
