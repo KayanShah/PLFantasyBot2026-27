@@ -733,3 +733,8 @@
 {"at": "2026-09-01T01:46:48.806274+00:00", "element": 455, "name": "Tonali", "field": "now_cost", "from": 55, "to": 54}
 {"at": "2026-09-01T01:46:48.806274+00:00", "element": 526, "name": "Solanke", "field": "now_cost", "from": 60, "to": 59}
 {"at": "2026-09-01T01:46:48.806274+00:00", "element": 549, "name": "Talbi", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-01T13:19:00.869384+00:00", "element": 326, "name": "Perri", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-01T13:19:00.869384+00:00", "element": 326, "name": "Perri", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-01T13:19:00.869384+00:00", "element": 326, "name": "Perri", "field": "news", "from": "", "to": "Has joined Torino on loan for the rest of the season"}
+{"at": "2026-09-01T13:19:00.869384+00:00", "element": 376, "name": "Bajcetic", "field": "status", "from": "i", "to": "u"}
+{"at": "2026-09-01T13:19:00.869384+00:00", "element": 376, "name": "Bajcetic", "field": "news", "from": "Hamstring injury - Unknown return date", "to": "Has joined Celta Vigo permanently"}
