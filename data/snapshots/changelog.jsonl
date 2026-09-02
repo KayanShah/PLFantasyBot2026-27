@@ -762,3 +762,23 @@
 {"at": "2026-09-01T17:23:40.278575+00:00", "element": 511, "name": "Souza", "field": "status", "from": "a", "to": "u"}
 {"at": "2026-09-01T17:23:40.278575+00:00", "element": 511, "name": "Souza", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-09-01T17:23:40.278575+00:00", "element": 511, "name": "Souza", "field": "news", "from": "", "to": "Has joined FC Porto on loan for the rest of the season"}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 18, "name": "Martinelli", "field": "now_cost", "from": 64, "to": 63}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 25, "name": "Gy\u00f6keres", "field": "now_cost", "from": 74, "to": 73}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 565, "name": "M.Sangar\u00e9", "field": "now_cost", "from": 56, "to": 57}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 165, "name": "Jo\u00e3o Pedro", "field": "now_cost", "from": 76, "to": 77}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 185, "name": "Sakamoto", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 207, "name": "Mingueza", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 208, "name": "Sarr", "field": "now_cost", "from": 64, "to": 63}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 213, "name": "Lerma", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 21, "name": "N\u00f8rgaard", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 314, "name": "Ogbene", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 318, "name": "Philogene", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 324, "name": "Mehmeti", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 260, "name": "Wilson", "field": "now_cost", "from": 65, "to": 64}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 579, "name": "Araujo", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 407, "name": "Echeverri", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 449, "name": "Hall", "field": "now_cost", "from": 50, "to": 51}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 450, "name": "Livramento", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 491, "name": "Igor Jesus", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 498, "name": "Senesi", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-02T00:54:18.379339+00:00", "element": 552, "name": "Brobbey", "field": "now_cost", "from": 60, "to": 59}
