@@ -865,3 +865,15 @@
 {"at": "2026-09-02T18:52:21.260214+00:00", "element": 528, "name": "Scarlett", "field": "status", "from": "a", "to": "u"}
 {"at": "2026-09-02T18:52:21.260214+00:00", "element": 528, "name": "Scarlett", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-09-02T18:52:21.260214+00:00", "element": 528, "name": "Scarlett", "field": "news", "from": "", "to": "Has joined Leyton Orient permanently"}
+{"at": "2026-09-02T23:55:44.480569+00:00", "element": 452, "name": "Bruno G.", "field": "now_cost", "from": 69, "to": 68}
+{"at": "2026-09-02T23:55:44.480569+00:00", "element": 44, "name": "Bailey", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-02T23:55:44.480569+00:00", "element": 203, "name": "Canvot", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-02T23:55:44.480569+00:00", "element": 263, "name": "Kevin", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-02T23:55:44.480569+00:00", "element": 572, "name": "Tzolakis", "field": "now_cost", "from": 45, "to": 46}
+{"at": "2026-09-02T23:55:44.480569+00:00", "element": 351, "name": "Mamardashvili", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-02T23:55:44.480569+00:00", "element": 43, "name": "Tielemans", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-02T23:55:44.480569+00:00", "element": 162, "name": "Andrey Santos", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-02T23:55:44.480569+00:00", "element": 431, "name": "Amad", "field": "now_cost", "from": 59, "to": 58}
+{"at": "2026-09-02T23:55:44.480569+00:00", "element": 465, "name": "Osula", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-02T23:55:44.480569+00:00", "element": 488, "name": "I.Sangar\u00e9", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-02T23:55:44.480569+00:00", "element": 112, "name": "Van Hecke", "field": "now_cost", "from": 50, "to": 49}
