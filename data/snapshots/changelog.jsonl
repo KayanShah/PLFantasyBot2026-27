@@ -898,3 +898,9 @@
 {"at": "2026-09-03T17:07:14.753286+00:00", "element": 543, "name": "Diarra", "field": "status", "from": "d", "to": "i"}
 {"at": "2026-09-03T17:07:14.753286+00:00", "element": 543, "name": "Diarra", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
 {"at": "2026-09-03T17:07:14.753286+00:00", "element": 543, "name": "Diarra", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Hamstring injury - Unknown return date"}
+{"at": "2026-09-03T20:03:31.742327+00:00", "element": 571, "name": "Florentino", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-03T20:03:31.742327+00:00", "element": 571, "name": "Florentino", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-03T20:03:31.742327+00:00", "element": 571, "name": "Florentino", "field": "news", "from": "Calf injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-03T20:03:31.742327+00:00", "element": 488, "name": "I.Sangar\u00e9", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-09-03T20:03:31.742327+00:00", "element": 488, "name": "I.Sangar\u00e9", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-09-03T20:03:31.742327+00:00", "element": 488, "name": "I.Sangar\u00e9", "field": "news", "from": "Calf injury - Unknown return date", "to": ""}
