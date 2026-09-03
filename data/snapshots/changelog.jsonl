@@ -877,3 +877,12 @@
 {"at": "2026-09-02T23:55:44.480569+00:00", "element": 465, "name": "Osula", "field": "now_cost", "from": 60, "to": 59}
 {"at": "2026-09-02T23:55:44.480569+00:00", "element": 488, "name": "I.Sangar\u00e9", "field": "now_cost", "from": 50, "to": 49}
 {"at": "2026-09-02T23:55:44.480569+00:00", "element": 112, "name": "Van Hecke", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-03T13:25:22.204265+00:00", "element": 329, "name": "Rodon", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-09-03T13:25:22.204265+00:00", "element": 329, "name": "Rodon", "field": "chance_of_playing_next_round", "from": 50, "to": 0}
+{"at": "2026-09-03T13:25:22.204265+00:00", "element": 329, "name": "Rodon", "field": "news", "from": "Hamstring injury - 50% chance of playing", "to": "Hamstring injury - Expected back 21 Nov"}
+{"at": "2026-09-03T13:25:22.204265+00:00", "element": 382, "name": "Danns", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-09-03T13:25:22.204265+00:00", "element": 382, "name": "Danns", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-09-03T13:25:22.204265+00:00", "element": 382, "name": "Danns", "field": "news", "from": "Unspecified injury - Unknown return date", "to": ""}
+{"at": "2026-09-03T13:25:22.204265+00:00", "element": 409, "name": "Mukasa", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-03T13:25:22.204265+00:00", "element": 409, "name": "Mukasa", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-03T13:25:22.204265+00:00", "element": 409, "name": "Mukasa", "field": "news", "from": "", "to": "has joined West Ham on loan for the rest of the seaon."}
