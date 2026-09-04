@@ -751,6 +751,39 @@ TEMPLATE = """<!doctype html>
       <div class="info-card glass">
         <div id="adminStatusList"></div>
       </div>
+
+      <div class="info-card glass" id="adminRealTeamCard" style="display:none">
+        <div class="panel-head">
+          <div class="head-copy">
+            <h2>Live Updated Team — your real squad</h2>
+            <p id="adminGwSubheading">—</p>
+          </div>
+          <div class="head-actions">
+            <button class="ghost-btn" id="adminPrevGw" aria-label="Previous gameweek">←</button>
+            <div class="select-shell"><select id="adminGwSelect" aria-label="Choose gameweek"></select></div>
+            <button class="ghost-btn" id="adminNextGw" aria-label="Next gameweek">→</button>
+          </div>
+        </div>
+        <div class="gw-summary">
+          <div class="metric"><label>GW score</label><strong id="adminGwScore">—</strong></div>
+          <div class="metric"><label>Season total</label><strong id="adminSeasonTotal" class="accent">—</strong></div>
+          <div class="metric"><label>Transfers</label><strong id="adminTransfers">—</strong></div>
+          <div class="metric"><label>Hits</label><strong id="adminHits">—</strong></div>
+          <div class="metric"><label>Status</label><strong id="adminGwStatus">—</strong></div>
+          <div class="metric"><label>Bank</label><strong id="adminBank">—</strong></div>
+        </div>
+        <div class="pitch">
+          <div class="halfway-line"></div>
+          <div class="center-spot"></div>
+          <div class="penalty top"></div><div class="six-yard top"></div><div class="goal top"></div><div class="penalty-spot top"></div><div class="arc top"></div>
+          <div class="penalty bottom"></div><div class="six-yard bottom"></div><div class="goal bottom"></div><div class="penalty-spot bottom"></div><div class="arc bottom"></div>
+          <div class="squad" id="adminSquad"></div>
+        </div>
+        <div class="bench-wrap">
+          <div class="bench-title"><strong>Bench</strong><span>Substitution priority &rarr;</span></div>
+          <div class="bench-row" id="adminBench"></div>
+        </div>
+      </div>
     </section>
 
     <section class="main-grid" id="mainGrid">
@@ -1158,6 +1191,49 @@ TEMPLATE = """<!doctype html>
     }).join('');
   }
 
+  function renderAdminRealTeam(){
+    // Deliberately not read via currentSeason()/currentStrategy() -- this is
+    // shown regardless of whatever season/strategy tab the dashboard was
+    // last left on, and real_team only ever exists on the live season block
+    // in the first place (load_season_block keeps it out of `strategies` so
+    // it never becomes a normal, publicly-switchable tab).
+    const liveSeason = DATA.seasons.find(s => s.kind === 'live');
+    const rt = liveSeason && liveSeason.real_team;
+    if (!rt) { el('adminRealTeamCard').style.display = 'none'; return; }
+    el('adminRealTeamCard').style.display = '';
+
+    const gws = rt.gameweeks;
+    let idx = gws.length - 1;
+
+    function renderGw(){
+      const gw = gws[idx];
+      const notPlayedYet = gw.season_total == null;
+      el('adminGwSubheading').textContent = `Gameweek ${gw.gw}${gw.chip ? ' — ' + gw.chip : ''}`;
+      el('adminGwScore').textContent = notPlayedYet ? '—' : gw.gw_score;
+      el('adminSeasonTotal').textContent = notPlayedYet ? '—' : gw.season_total;
+      el('adminTransfers').textContent = gw.transfers != null ? gw.transfers : '—';
+      el('adminHits').textContent = gw.hits ? `-${gw.hits * 4}` : '0';
+      el('adminGwStatus').textContent = notPlayedYet ? 'Not yet played' : 'Finished';
+      el('adminBank').textContent = gw.bank != null ? `£${gw.bank.toFixed(1)}m` : '—';
+      el('adminSquad').innerHTML = POSITION_ORDER.map(pos =>
+        `<div class="position-row">${gw.starting_xi.filter(p => p.position === pos).map(p => playerCard(p, notPlayedYet)).join('')}</div>`
+      ).join('');
+      el('adminBench').innerHTML = gw.bench.map(p => playerCard(p, notPlayedYet)).join('');
+      el('adminGwSelect').innerHTML = gws.map((g, i) =>
+        `<option value="${i}" ${i===idx?'selected':''}>Gameweek ${g.gw}${g.chip ? ' — ' + g.chip : ''}${g.season_total==null ? ' (not yet played)' : ''}</option>`
+      ).join('');
+      el('adminGwSelect').value = String(idx);
+      el('adminPrevGw').disabled = idx === 0;
+      el('adminNextGw').disabled = idx === gws.length - 1;
+    }
+
+    el('adminGwSelect').onchange = e => { idx = Number(e.target.value); renderGw(); };
+    el('adminPrevGw').onclick = () => { if (idx > 0) { idx--; renderGw(); } };
+    el('adminNextGw').onclick = () => { if (idx < gws.length - 1) { idx++; renderGw(); } };
+
+    renderGw();
+  }
+
   function applyView(){
     const view = state.view;
     el('infoPanel').style.display = view === 'info' ? '' : 'none';
@@ -1206,6 +1282,7 @@ TEMPLATE = """<!doctype html>
   renderInfoPanel();
   renderPositionView();
   renderAdminView();
+  renderAdminRealTeam();
   applyView();
   renderAll();
   setInterval(tickDeadline, 1000);
@@ -1222,13 +1299,22 @@ def load_season_block(season: str, kind: str, label: str, shortcodes: dict[str, 
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
 
     strategies = []
+    real_team = None
     for entry in sorted(manifest["strategies"], key=lambda e: e["order"]):
         squads_path = DATA_DIR / entry["squads_file"]
         squads = json.loads(squads_path.read_text(encoding="utf-8"))
         gameweeks = apply_shortcodes(squads["gameweeks"], shortcodes)
-        strategies.append({**entry, "gameweeks": gameweeks})
+        full_entry = {**entry, "gameweeks": gameweeks}
+        # Real applied squad, not a model strategy -- kept out of the normal
+        # tab strip/leaderboard and shown on the admin page only.
+        if entry["key"] == "real_team":
+            real_team = full_entry
+        else:
+            strategies.append(full_entry)
 
     block = {"key": season, "kind": kind, "label": label, "strategies": strategies}
+    if real_team is not None:
+        block["real_team"] = real_team
 
     calendar_path = DATA_DIR / "live_gameweek_calendar.json"
     if kind == "live" and calendar_path.exists():
