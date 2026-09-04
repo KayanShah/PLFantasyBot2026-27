@@ -919,3 +919,6 @@
 {"at": "2026-09-04T00:52:16.963442+00:00", "element": 493, "name": "Kalimuendo", "field": "now_cost", "from": 55, "to": 54}
 {"at": "2026-09-04T00:52:16.963442+00:00", "element": 581, "name": "Diomande", "field": "now_cost", "from": 55, "to": 54}
 {"at": "2026-09-04T00:52:16.963442+00:00", "element": 520, "name": "Bergvall", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-04T10:56:32.322421+00:00", "element": 130, "name": "Wieffer", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-09-04T10:56:32.322421+00:00", "element": 130, "name": "Wieffer", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-04T10:56:32.322421+00:00", "element": 130, "name": "Wieffer", "field": "news", "from": "", "to": "Knee injury - Unknown return date"}
