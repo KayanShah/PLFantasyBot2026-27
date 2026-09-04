@@ -73,7 +73,21 @@ jobs:
           # concurrent build_site.py change gets picked up for free instead
           # of being clobbered.
           tmp=$(mktemp -d)
+          #
+          # live_gameweek_calendar.json has to be in both lists below for
+          # the same reason as the squad files: generate_live_strategies.py
+          # rewrites it every run (that's where a played gameweek's
+          # finished=true comes from), so leaving it out meant the reset
+          # below silently threw the fresh copy away, build_site.py then
+          # baked the *stale* calendar into the page, and nothing ever
+          # staged it either way. Seen for real: GW2 2026-27 finished
+          # 2026-08-30, but on 2026-09-04 the site's calendar and deadline
+          # countdown still read GW2 as upcoming, counting down to a
+          # deadline six days gone -- every refresh in between regenerated
+          # the right file and discarded it. GW1's finished=true only ever
+          # landed because it was committed by hand (a2c8005).
           cp data/live_squads_*.json data/live_state_*.json \
+             data/live_gameweek_calendar.json \
              data/strategies_manifest_2026-27.json data/strategies_manifest_2025-26.json \
              data/season_2025-26_squads_*.json data/season_2025-26_simulation_*.csv \
              "$tmp"/ 2>/dev/null || true
@@ -85,6 +99,7 @@ jobs:
           python website/build_site.py
 
           git add data/live_squads_*.json data/live_state_*.json \
+                  data/live_gameweek_calendar.json \
                   data/strategies_manifest_2026-27.json \
                   data/strategies_manifest_2025-26.json \
                   data/season_2025-26_squads_*.json data/season_2025-26_simulation_*.csv \
