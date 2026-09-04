@@ -922,3 +922,51 @@
 {"at": "2026-09-04T10:56:32.322421+00:00", "element": 130, "name": "Wieffer", "field": "status", "from": "a", "to": "i"}
 {"at": "2026-09-04T10:56:32.322421+00:00", "element": 130, "name": "Wieffer", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-09-04T10:56:32.322421+00:00", "element": 130, "name": "Wieffer", "field": "news", "from": "", "to": "Knee injury - Unknown return date"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 5, "name": "J.Timber", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 5, "name": "J.Timber", "field": "chance_of_playing_next_round", "from": 0, "to": 25}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 5, "name": "J.Timber", "field": "news", "from": "Groin injury - Unknown return date", "to": "Groin injury - 25% chance of playing"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 11, "name": "Mosquera", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 11, "name": "Mosquera", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 11, "name": "Mosquera", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 18, "name": "Martinelli", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 18, "name": "Martinelli", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 18, "name": "Martinelli", "field": "news", "from": "", "to": "Has joined Al Hilal permanently"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 452, "name": "Bruno G.", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 452, "name": "Bruno G.", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 452, "name": "Bruno G.", "field": "news", "from": "", "to": "Knock - 75% chance of playing"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 44, "name": "Bailey", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 44, "name": "Bailey", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 44, "name": "Bailey", "field": "news", "from": "", "to": "Has joined Olympiakos permanently"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 53, "name": "Manzambi", "field": "news", "from": "Knee injury - Unknown return date", "to": "Knee injury - Expected back 12 Sep"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 607, "name": "Lynch", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 607, "name": "Lynch", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 607, "name": "Lynch", "field": "news", "from": "", "to": "Has joined Oxford United on loan until January"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 97, "name": "Jensen", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 97, "name": "Jensen", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 97, "name": "Jensen", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Unspecified injury - Expected back 18 Sep"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 103, "name": "Dasilva", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 103, "name": "Dasilva", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 103, "name": "Dasilva", "field": "news", "from": "", "to": "Hamstring injury - Expected back 10 Oct"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 652, "name": "Azeez", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 652, "name": "Azeez", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 652, "name": "Azeez", "field": "news", "from": "", "to": "Unspecified injury - Expected back 13 Sep"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 307, "name": "Johnson", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 307, "name": "Johnson", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 307, "name": "Johnson", "field": "news", "from": "", "to": "Has joined Stoke City on loan for the rest of the season"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 389, "name": "Matheus N.", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 389, "name": "Matheus N.", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 389, "name": "Matheus N.", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 466, "name": "Neave", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 466, "name": "Neave", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 466, "name": "Neave", "field": "news", "from": "", "to": "Has joined Wolves on loan for the rest of the season"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 403, "name": "S\u00e1vio", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 403, "name": "S\u00e1vio", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 403, "name": "S\u00e1vio", "field": "news", "from": "Muscular injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 523, "name": "Moore", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 523, "name": "Moore", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 523, "name": "Moore", "field": "news", "from": "", "to": "Has joined FC K\u00f6ln on loan for the rest of the season"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 527, "name": "Richarlison", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 527, "name": "Richarlison", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 527, "name": "Richarlison", "field": "news", "from": "", "to": "not included in squad."}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 546, "name": "Adingra", "field": "status", "from": "i", "to": "u"}
+{"at": "2026-09-04T14:53:57.294368+00:00", "element": 546, "name": "Adingra", "field": "news", "from": "Ankle injury - Unknown return date", "to": "Has joined Ajax on loan for the rest of the season"}
