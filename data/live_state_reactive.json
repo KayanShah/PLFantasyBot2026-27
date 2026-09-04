@@ -18,7 +18,7 @@
     },
     {
       "element": 55,
-      "selling_price": 80
+      "selling_price": 78
     },
     {
       "element": 533,
@@ -29,8 +29,8 @@
       "selling_price": 55
     },
     {
-      "element": 498,
-      "selling_price": 60
+      "element": 398,
+      "selling_price": 70
     },
     {
       "element": 368,
@@ -45,24 +45,24 @@
       "selling_price": 80
     },
     {
-      "element": 155,
-      "selling_price": 70
-    },
-    {
       "element": 412,
       "selling_price": 50
     },
     {
+      "element": 115,
+      "selling_price": 47
+    },
+    {
       "element": 491,
-      "selling_price": 60
+      "selling_price": 59
     },
     {
       "element": 542,
-      "selling_price": 60
+      "selling_price": 59
     }
   ],
   "transfers": {
-    "bank": 0,
-    "limit": 2
+    "bank": 13,
+    "limit": 1
   }
 }
