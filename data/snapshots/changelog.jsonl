@@ -904,3 +904,18 @@
 {"at": "2026-09-03T20:03:31.742327+00:00", "element": 488, "name": "I.Sangar\u00e9", "field": "status", "from": "i", "to": "a"}
 {"at": "2026-09-03T20:03:31.742327+00:00", "element": 488, "name": "I.Sangar\u00e9", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
 {"at": "2026-09-03T20:03:31.742327+00:00", "element": 488, "name": "I.Sangar\u00e9", "field": "news", "from": "Calf injury - Unknown return date", "to": ""}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 8, "name": "Calafiori", "field": "now_cost", "from": 56, "to": 57}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 16, "name": "Madueke", "field": "now_cost", "from": 64, "to": 63}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 45, "name": "McGinn", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 102, "name": "Yarmoliuk", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 129, "name": "Ayari", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 186, "name": "Mason-Clark", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 188, "name": "Torp", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 292, "name": "\u00d6m\u00fcr", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 571, "name": "Florentino", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 367, "name": "Gakpo", "field": "now_cost", "from": 70, "to": 71}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 389, "name": "Matheus N.", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 430, "name": "Mount", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 493, "name": "Kalimuendo", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 581, "name": "Diomande", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-04T00:52:16.963442+00:00", "element": 520, "name": "Bergvall", "field": "now_cost", "from": 55, "to": 54}
