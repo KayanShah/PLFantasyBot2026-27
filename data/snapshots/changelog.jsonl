@@ -1113,3 +1113,28 @@
 {"at": "2026-09-06T19:25:58.700554+00:00", "element": 239, "name": "Garner", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-06T19:25:58.700554+00:00", "element": 239, "name": "Garner", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-09-06T19:25:58.700554+00:00", "element": 239, "name": "Garner", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 11, "name": "Mosquera", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 20, "name": "Dowman", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 65, "name": "J.Araujo", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 67, "name": "Rayan", "field": "now_cost", "from": 65, "to": 64}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 72, "name": "Gannon-Doak", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 106, "name": "Thiago", "field": "now_cost", "from": 80, "to": 79}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 40, "name": "Rogers", "field": "now_cost", "from": 75, "to": 76}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 104, "name": "Onyeka", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 575, "name": "Yirenkyi", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 584, "name": "Hamer", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 271, "name": "Muniz", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 277, "name": "Egan", "field": "now_cost", "from": 40, "to": 41}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 347, "name": "Nmecha", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 358, "name": "Kerkez", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 364, "name": "Tsimikas", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 367, "name": "Gakpo", "field": "now_cost", "from": 71, "to": 72}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 369, "name": "Ngumoha", "field": "now_cost", "from": 59, "to": 58}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 372, "name": "Mac Allister", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 380, "name": "Ekitik\u00e9", "field": "now_cost", "from": 75, "to": 74}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 481, "name": "Anderson", "field": "now_cost", "from": 64, "to": 63}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 423, "name": "Shaw", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 442, "name": "Pope", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 532, "name": "Ballard", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 547, "name": "Mundle", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-06T23:38:35.663344+00:00", "element": 548, "name": "Rigg", "field": "now_cost", "from": 50, "to": 49}
