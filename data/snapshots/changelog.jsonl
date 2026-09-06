@@ -1107,3 +1107,6 @@
 {"at": "2026-09-06T14:02:24.243617+00:00", "element": 430, "name": "Mount", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-09-06T14:02:24.243617+00:00", "element": 430, "name": "Mount", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-09-06T14:02:24.243617+00:00", "element": 430, "name": "Mount", "field": "news", "from": "Foot injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-06T17:16:46.289136+00:00", "element": 452, "name": "Bruno G.", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-06T17:16:46.289136+00:00", "element": 452, "name": "Bruno G.", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-06T17:16:46.289136+00:00", "element": 452, "name": "Bruno G.", "field": "news", "from": "Knock - 75% chance of playing", "to": ""}
