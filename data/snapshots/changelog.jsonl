@@ -1110,3 +1110,6 @@
 {"at": "2026-09-06T17:16:46.289136+00:00", "element": 452, "name": "Bruno G.", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-09-06T17:16:46.289136+00:00", "element": 452, "name": "Bruno G.", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-09-06T17:16:46.289136+00:00", "element": 452, "name": "Bruno G.", "field": "news", "from": "Knock - 75% chance of playing", "to": ""}
+{"at": "2026-09-06T19:25:58.700554+00:00", "element": 239, "name": "Garner", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-06T19:25:58.700554+00:00", "element": 239, "name": "Garner", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-09-06T19:25:58.700554+00:00", "element": 239, "name": "Garner", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
