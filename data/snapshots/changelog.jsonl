@@ -1084,3 +1084,17 @@
 {"at": "2026-09-05T20:37:33.852028+00:00", "element": 387, "name": "O'Reilly", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-05T20:37:33.852028+00:00", "element": 387, "name": "O'Reilly", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-09-05T20:37:33.852028+00:00", "element": 387, "name": "O'Reilly", "field": "news", "from": "", "to": "Back injury - 75% chance of playing"}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 13, "name": "Rice", "field": "now_cost", "from": 75, "to": 74}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 142, "name": "James", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 241, "name": "McNeil", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 249, "name": "Barry", "field": "now_cost", "from": 55, "to": 56}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 329, "name": "Rodon", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 357, "name": "Frimpong", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 371, "name": "Gravenberch", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 397, "name": "Semenyo", "field": "now_cost", "from": 85, "to": 84}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 417, "name": "Dalot", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 462, "name": "Steur", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 464, "name": "Wissa", "field": "now_cost", "from": 61, "to": 62}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 559, "name": "Bamba", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 487, "name": "Dominguez", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-06T00:44:38.910923+00:00", "element": 147, "name": "Tosin", "field": "now_cost", "from": 45, "to": 44}
