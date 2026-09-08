@@ -1148,3 +1148,9 @@
 {"at": "2026-09-08T00:37:12.991856+00:00", "element": 415, "name": "Dorgu", "field": "now_cost", "from": 59, "to": 58}
 {"at": "2026-09-08T00:37:12.991856+00:00", "element": 418, "name": "Maguire", "field": "now_cost", "from": 50, "to": 49}
 {"at": "2026-09-08T00:37:12.991856+00:00", "element": 435, "name": "Lacey", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-08T21:42:37.486026+00:00", "element": 289, "name": "Crooks", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-08T21:42:37.486026+00:00", "element": 289, "name": "Crooks", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-08T21:42:37.486026+00:00", "element": 289, "name": "Crooks", "field": "news", "from": "Thigh injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-08T21:42:37.486026+00:00", "element": 294, "name": "Zambrano", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-09-08T21:42:37.486026+00:00", "element": 294, "name": "Zambrano", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-09-08T21:42:37.486026+00:00", "element": 294, "name": "Zambrano", "field": "news", "from": "Thigh injury - Unknown return date", "to": ""}
