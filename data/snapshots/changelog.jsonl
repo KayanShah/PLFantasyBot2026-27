@@ -1195,3 +1195,10 @@
 {"at": "2026-09-09T23:05:14.366526+00:00", "element": 461, "name": "Tour\u00e9", "field": "now_cost", "from": 59, "to": 58}
 {"at": "2026-09-09T23:05:14.366526+00:00", "element": 525, "name": "Fernandes", "field": "now_cost", "from": 59, "to": 58}
 {"at": "2026-09-09T23:05:14.366526+00:00", "element": 545, "name": "Sadiki", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-10T11:45:11.191302+00:00", "element": 121, "name": "Mitoma", "field": "news", "from": "Hamstring injury - Unknown return date", "to": "Hamstring injury - Expected back 10 Oct"}
+{"at": "2026-09-10T11:45:11.191302+00:00", "element": 652, "name": "Azeez", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-09-10T11:45:11.191302+00:00", "element": 652, "name": "Azeez", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
+{"at": "2026-09-10T11:45:11.191302+00:00", "element": 652, "name": "Azeez", "field": "news", "from": "Unspecified injury - Expected back 13 Sep", "to": "Hamstring injury - 50% chance of playing"}
+{"at": "2026-09-10T11:45:11.191302+00:00", "element": 219, "name": "J.Rak-Sakyi", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-10T11:45:11.191302+00:00", "element": 219, "name": "J.Rak-Sakyi", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-10T11:45:11.191302+00:00", "element": 219, "name": "J.Rak-Sakyi", "field": "news", "from": "", "to": "has joined  Kasimpasa on loan for the rest of the seaon."}
