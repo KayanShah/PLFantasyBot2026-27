@@ -2,6 +2,17 @@
   "season": "2026-27",
   "strategies": [
     {
+      "key": "real_team",
+      "label": "Live Updated Team",
+      "short": "Your actual applied squad, as-is.",
+      "description": "Not a model strategy -- this is the real squad you actually hold, tracked gameweek by gameweek exactly as it was really played: GW1 followed Balanced as built, GW2 was accidentally left unchanged (the planned transfer never got applied), and GW3 reflects the real transfers made in the FPL app. Kept separate from the five model strategies since it isn't optimizer output -- it's ground truth for what your real team is actually scoring.",
+      "risk": "Real squad",
+      "risk_tier": "low",
+      "order": 5,
+      "final_score": null,
+      "squads_file": "live_squads_real_team.json"
+    },
+    {
       "key": "balanced",
       "label": "Balanced",
       "short": "The flagship build.",
@@ -55,17 +66,6 @@
       "order": 4,
       "final_score": null,
       "squads_file": "live_squads_xg_experimental.json"
-    },
-    {
-      "key": "real_team",
-      "label": "Live Updated Team",
-      "short": "Your actual applied squad, as-is.",
-      "description": "Not a model strategy -- this is the real squad you actually hold, tracked gameweek by gameweek exactly as it was really played: GW1 followed Balanced as built, GW2 was accidentally left unchanged (the planned transfer never got applied), and GW3 reflects the real transfers made in the FPL app. Kept separate from the five model strategies since it isn't optimizer output -- it's ground truth for what your real team is actually scoring.",
-      "risk": "Real squad",
-      "risk_tier": "low",
-      "order": 5,
-      "final_score": null,
-      "squads_file": "live_squads_real_team.json"
     }
   ]
 }
