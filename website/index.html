@@ -1146,7 +1146,12 @@
     el('adminRealTeamCard').style.display = '';
 
     const gws = rt.gameweeks;
-    let idx = gws.length - 1;
+    // Open on the most recent *played* gameweek -- the admin page is for
+    // reviewing real results, so landing on an unplayed future gameweek
+    // (which correctly reads "Not yet played") looks like the page is stale.
+    let lastPlayed = -1;
+    gws.forEach((g, i) => { if (g.season_total != null) lastPlayed = i; });
+    let idx = lastPlayed >= 0 ? lastPlayed : gws.length - 1;
 
     function renderGw(){
       const gw = gws[idx];
