@@ -1215,3 +1215,13 @@
 {"at": "2026-09-10T19:12:12.494840+00:00", "element": 187, "name": "Eccles", "field": "status", "from": "a", "to": "i"}
 {"at": "2026-09-10T19:12:12.494840+00:00", "element": 187, "name": "Eccles", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-09-10T19:12:12.494840+00:00", "element": 187, "name": "Eccles", "field": "news", "from": "", "to": "Unspecified injury - Expected back 12 Oct"}
+{"at": "2026-09-10T23:52:02.435406+00:00", "element": 8, "name": "Calafiori", "field": "now_cost", "from": 57, "to": 58}
+{"at": "2026-09-10T23:52:02.435406+00:00", "element": 15, "name": "\u00d8degaard", "field": "now_cost", "from": 66, "to": 67}
+{"at": "2026-09-10T23:52:02.435406+00:00", "element": 25, "name": "Gy\u00f6keres", "field": "now_cost", "from": 73, "to": 72}
+{"at": "2026-09-10T23:52:02.435406+00:00", "element": 69, "name": "Scott", "field": "now_cost", "from": 60, "to": 61}
+{"at": "2026-09-10T23:52:02.435406+00:00", "element": 154, "name": "Palmer", "field": "now_cost", "from": 96, "to": 97}
+{"at": "2026-09-10T23:52:02.435406+00:00", "element": 190, "name": "Tchaouna", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-10T23:52:02.435406+00:00", "element": 261, "name": "Iwobi", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-10T23:52:02.435406+00:00", "element": 586, "name": "Mendy", "field": "now_cost", "from": 40, "to": 41}
+{"at": "2026-09-10T23:52:02.435406+00:00", "element": 387, "name": "O'Reilly", "field": "now_cost", "from": 65, "to": 64}
+{"at": "2026-09-10T23:52:02.435406+00:00", "element": 534, "name": "Hume", "field": "now_cost", "from": 45, "to": 44}
