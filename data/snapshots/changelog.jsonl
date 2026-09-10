@@ -1202,3 +1202,13 @@
 {"at": "2026-09-10T11:45:11.191302+00:00", "element": 219, "name": "J.Rak-Sakyi", "field": "status", "from": "a", "to": "u"}
 {"at": "2026-09-10T11:45:11.191302+00:00", "element": 219, "name": "J.Rak-Sakyi", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-09-10T11:45:11.191302+00:00", "element": 219, "name": "J.Rak-Sakyi", "field": "news", "from": "", "to": "has joined  Kasimpasa on loan for the rest of the seaon."}
+{"at": "2026-09-10T16:07:43.024330+00:00", "element": 78, "name": "Kroupi.Jr", "field": "news", "from": "Foot injury - Unknown return date", "to": "Foot injury - Expected back 7 Nov"}
+{"at": "2026-09-10T16:07:43.024330+00:00", "element": 135, "name": "Yohanna", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-09-10T16:07:43.024330+00:00", "element": 135, "name": "Yohanna", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-10T16:07:43.024330+00:00", "element": 135, "name": "Yohanna", "field": "news", "from": "", "to": "Unspecified injury - Expected back 10 Oct"}
+{"at": "2026-09-10T16:07:43.024330+00:00", "element": 285, "name": "McNair", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-10T16:07:43.024330+00:00", "element": 285, "name": "McNair", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-10T16:07:43.024330+00:00", "element": 285, "name": "McNair", "field": "news", "from": "Foot injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-10T16:07:43.024330+00:00", "element": 444, "name": "Jaouen", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-10T16:07:43.024330+00:00", "element": 444, "name": "Jaouen", "field": "chance_of_playing_next_round", "from": null, "to": 50}
+{"at": "2026-09-10T16:07:43.024330+00:00", "element": 444, "name": "Jaouen", "field": "news", "from": "", "to": "Ankle injury - 50% chance of playing"}
