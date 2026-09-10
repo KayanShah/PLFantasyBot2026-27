@@ -1212,3 +1212,6 @@
 {"at": "2026-09-10T16:07:43.024330+00:00", "element": 444, "name": "Jaouen", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-10T16:07:43.024330+00:00", "element": 444, "name": "Jaouen", "field": "chance_of_playing_next_round", "from": null, "to": 50}
 {"at": "2026-09-10T16:07:43.024330+00:00", "element": 444, "name": "Jaouen", "field": "news", "from": "", "to": "Ankle injury - 50% chance of playing"}
+{"at": "2026-09-10T19:12:12.494840+00:00", "element": 187, "name": "Eccles", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-09-10T19:12:12.494840+00:00", "element": 187, "name": "Eccles", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-10T19:12:12.494840+00:00", "element": 187, "name": "Eccles", "field": "news", "from": "", "to": "Unspecified injury - Expected back 12 Oct"}
