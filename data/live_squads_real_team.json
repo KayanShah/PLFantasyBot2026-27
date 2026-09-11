@@ -931,7 +931,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 204936,
-          "ownership": 7.7,
+          "ownership": 7.6,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -969,7 +969,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 17761,
-          "ownership": 11.4,
+          "ownership": 11.5,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -988,7 +988,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 494521,
-          "ownership": 3.5,
+          "ownership": 3.4,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1007,7 +1007,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 487838,
-          "ownership": 12.3,
+          "ownership": 13.3,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1026,7 +1026,7 @@
           "is_effective_captain": true,
           "is_triple_captain": false,
           "photo_code": 141746,
-          "ownership": 45.1,
+          "ownership": 43.6,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1045,7 +1045,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 424876,
-          "ownership": 38.4,
+          "ownership": 38.5,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1083,7 +1083,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 219168,
-          "ownership": 21.5,
+          "ownership": 22.9,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1102,7 +1102,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 475168,
-          "ownership": 72.7,
+          "ownership": 73.3,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1121,7 +1121,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 177815,
-          "ownership": 23.3,
+          "ownership": 22.5,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1142,10 +1142,10 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 441164,
-          "ownership": 11.4,
-          "status": null,
-          "news": null,
-          "chance_of_playing": 100
+          "ownership": 11.2,
+          "status": "d",
+          "news": "Unspecified injury - 75% chance of playing",
+          "chance_of_playing": 75
         },
         {
           "element": 481,
@@ -1161,7 +1161,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 215379,
-          "ownership": 4.5,
+          "ownership": 4.4,
           "status": null,
           "news": null,
           "chance_of_playing": 100
@@ -1180,7 +1180,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 209244,
-          "ownership": 4.5,
+          "ownership": 4.2,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1199,7 +1199,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 465247,
-          "ownership": 12.0,
+          "ownership": 11.5,
           "status": null,
           "news": null,
           "chance_of_playing": null
