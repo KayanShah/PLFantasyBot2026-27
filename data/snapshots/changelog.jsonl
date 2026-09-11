@@ -1270,3 +1270,15 @@
 {"at": "2026-09-11T17:06:26.176171+00:00", "element": 515, "name": "Maddison", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-09-11T17:06:26.176171+00:00", "element": 515, "name": "Maddison", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-09-11T17:06:26.176171+00:00", "element": 515, "name": "Maddison", "field": "news", "from": "Shoulder injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-11T19:57:32.024687+00:00", "element": 152, "name": "Palestra", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-09-11T19:57:32.024687+00:00", "element": 152, "name": "Palestra", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-09-11T19:57:32.024687+00:00", "element": 152, "name": "Palestra", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Unspecified injury - Expected back 18 Sep"}
+{"at": "2026-09-11T19:57:32.024687+00:00", "element": 499, "name": "Pedro Porro", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-11T19:57:32.024687+00:00", "element": 499, "name": "Pedro Porro", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-09-11T19:57:32.024687+00:00", "element": 499, "name": "Pedro Porro", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-11T19:57:32.024687+00:00", "element": 506, "name": "Udogie", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-11T19:57:32.024687+00:00", "element": 506, "name": "Udogie", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-11T19:57:32.024687+00:00", "element": 506, "name": "Udogie", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-11T19:57:32.024687+00:00", "element": 578, "name": "Mudryk", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-09-11T19:57:32.024687+00:00", "element": 578, "name": "Mudryk", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-11T19:57:32.024687+00:00", "element": 578, "name": "Mudryk", "field": "news", "from": "", "to": "Ankle injury - Unknown return date"}
