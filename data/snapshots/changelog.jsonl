@@ -1234,3 +1234,39 @@
 {"at": "2026-09-11T13:24:49.618198+00:00", "element": 423, "name": "Shaw", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-11T13:24:49.618198+00:00", "element": 423, "name": "Shaw", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-09-11T13:24:49.618198+00:00", "element": 423, "name": "Shaw", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 53, "name": "Manzambi", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 53, "name": "Manzambi", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 53, "name": "Manzambi", "field": "news", "from": "Knee injury - Expected back 12 Sep", "to": "Knee injury - 50% chance of playing"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 84, "name": "Collins", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 84, "name": "Collins", "field": "chance_of_playing_next_round", "from": 25, "to": 0}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 84, "name": "Collins", "field": "news", "from": "Calf injury - 25% chance of playing", "to": "Calf injury - Unknown return date"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 101, "name": "Henderson", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 101, "name": "Henderson", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 101, "name": "Henderson", "field": "news", "from": "Wrist injury - 75% chance of playing", "to": "Wrist injury - Unknown return date"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 159, "name": "Caicedo", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 159, "name": "Caicedo", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 159, "name": "Caicedo", "field": "news", "from": "Calf injury - 75% chance of playing", "to": "Calf injury - Expected back 18 Sep"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 170, "name": "Emegha", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 170, "name": "Emegha", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 170, "name": "Emegha", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - Expected back 18 Sep"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 217, "name": "M.Fran\u00e7a", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 217, "name": "M.Fran\u00e7a", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 217, "name": "M.Fran\u00e7a", "field": "news", "from": "", "to": "Has joined Alverca on loan for the rest of the season"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 610, "name": "De Fougerolles", "field": "status", "from": "d", "to": "u"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 610, "name": "De Fougerolles", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 610, "name": "De Fougerolles", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "has joined  Real Salt Lake on loan for the rest of the seaon."}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 296, "name": "Akintola", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 296, "name": "Akintola", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 296, "name": "Akintola", "field": "news", "from": "", "to": "Has joined Omonoia FC permanently"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 310, "name": "Matusiwa", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 310, "name": "Matusiwa", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 310, "name": "Matusiwa", "field": "news", "from": "Muscular injury - Unknown return date", "to": ""}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 318, "name": "Philogene", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 318, "name": "Philogene", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 318, "name": "Philogene", "field": "news", "from": "Ankle injury - Unknown return date", "to": ""}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 609, "name": "Shahar", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 609, "name": "Shahar", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 609, "name": "Shahar", "field": "news", "from": "", "to": "has joined Arouca on loan for the rest of the seaon."}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 515, "name": "Maddison", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 515, "name": "Maddison", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-11T17:06:26.176171+00:00", "element": 515, "name": "Maddison", "field": "news", "from": "Shoulder injury - 75% chance of playing", "to": ""}
