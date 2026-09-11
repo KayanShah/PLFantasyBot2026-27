@@ -1282,3 +1282,13 @@
 {"at": "2026-09-11T19:57:32.024687+00:00", "element": 578, "name": "Mudryk", "field": "status", "from": "a", "to": "i"}
 {"at": "2026-09-11T19:57:32.024687+00:00", "element": 578, "name": "Mudryk", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-09-11T19:57:32.024687+00:00", "element": 578, "name": "Mudryk", "field": "news", "from": "", "to": "Ankle injury - Unknown return date"}
+{"at": "2026-09-11T22:27:36.497775+00:00", "element": 63, "name": "Milosavljevi\u0107", "field": "news", "from": "Unspecified injury - Unknown return date", "to": "Thigh injury - Unknown return date"}
+{"at": "2026-09-11T22:27:36.497775+00:00", "element": 77, "name": "Adli", "field": "news", "from": "Unspecified injury - Unknown return date", "to": "Calf injury - Unknown return date"}
+{"at": "2026-09-11T22:27:36.497775+00:00", "element": 123, "name": "Hinshelwood", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-09-11T22:27:36.497775+00:00", "element": 123, "name": "Hinshelwood", "field": "chance_of_playing_next_round", "from": 50, "to": 0}
+{"at": "2026-09-11T22:27:36.497775+00:00", "element": 123, "name": "Hinshelwood", "field": "news", "from": "Unspecified injury - 50% chance of playing", "to": "Ankle injury - Expected back 10 Oct"}
+{"at": "2026-09-11T22:27:36.497775+00:00", "element": 652, "name": "Azeez", "field": "chance_of_playing_next_round", "from": 50, "to": 75}
+{"at": "2026-09-11T22:27:36.497775+00:00", "element": 652, "name": "Azeez", "field": "news", "from": "Hamstring injury - 50% chance of playing", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-09-11T22:27:36.497775+00:00", "element": 239, "name": "Garner", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-11T22:27:36.497775+00:00", "element": 239, "name": "Garner", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-11T22:27:36.497775+00:00", "element": 239, "name": "Garner", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
