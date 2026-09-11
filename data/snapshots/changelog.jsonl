@@ -1225,3 +1225,12 @@
 {"at": "2026-09-10T23:52:02.435406+00:00", "element": 586, "name": "Mendy", "field": "now_cost", "from": 40, "to": 41}
 {"at": "2026-09-10T23:52:02.435406+00:00", "element": 387, "name": "O'Reilly", "field": "now_cost", "from": 65, "to": 64}
 {"at": "2026-09-10T23:52:02.435406+00:00", "element": 534, "name": "Hume", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-11T13:24:49.618198+00:00", "element": 11, "name": "Mosquera", "field": "chance_of_playing_next_round", "from": 75, "to": 50}
+{"at": "2026-09-11T13:24:49.618198+00:00", "element": 11, "name": "Mosquera", "field": "news", "from": "Muscular injury - 75% chance of playing", "to": "Muscular injury - 50% chance of playing"}
+{"at": "2026-09-11T13:24:49.618198+00:00", "element": 387, "name": "O'Reilly", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-11T13:24:49.618198+00:00", "element": 387, "name": "O'Reilly", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-11T13:24:49.618198+00:00", "element": 387, "name": "O'Reilly", "field": "news", "from": "Back injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-11T13:24:49.618198+00:00", "element": 400, "name": "Doku", "field": "news", "from": "Calf injury - Expected back 13 Sep", "to": "Calf injury - Expected back 20 Sep"}
+{"at": "2026-09-11T13:24:49.618198+00:00", "element": 423, "name": "Shaw", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-11T13:24:49.618198+00:00", "element": 423, "name": "Shaw", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-11T13:24:49.618198+00:00", "element": 423, "name": "Shaw", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
