@@ -1392,3 +1392,6 @@
 {"at": "2026-09-12T19:04:03.060132+00:00", "element": 586, "name": "Mendy", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-12T19:04:03.060132+00:00", "element": 586, "name": "Mendy", "field": "chance_of_playing_next_round", "from": 100, "to": 50}
 {"at": "2026-09-12T19:04:03.060132+00:00", "element": 586, "name": "Mendy", "field": "news", "from": "", "to": "Concussion - 50% chance of playing"}
+{"at": "2026-09-12T21:34:01.960199+00:00", "element": 536, "name": "Reinildo", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-09-12T21:34:01.960199+00:00", "element": 536, "name": "Reinildo", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-12T21:34:01.960199+00:00", "element": 536, "name": "Reinildo", "field": "news", "from": "", "to": "Suspended until 10 Oct"}
