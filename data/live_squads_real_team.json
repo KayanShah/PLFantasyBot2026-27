@@ -915,7 +915,7 @@
       "gw_score": null,
       "season_total": null,
       "deadline": "2026-09-12T12:30:00Z",
-      "bank": 0.2,
+      "bank": 1.7,
       "starting_xi": [
         {
           "element": 384,
@@ -1070,20 +1070,20 @@
           "chance_of_playing": null
         },
         {
-          "element": 379,
-          "name": "Alexander Isak",
-          "team": "Liverpool",
+          "element": 26,
+          "name": "Kai Havertz",
+          "team": "Arsenal",
           "position": "FWD",
-          "opponent": "Fulham (H)",
-          "difficulty": 2,
+          "opponent": "Sunderland (A)",
+          "difficulty": 3,
           "points": 0,
           "played": false,
           "is_captain": false,
           "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false,
-          "photo_code": 219168,
-          "ownership": 22.9,
+          "photo_code": 219847,
+          "ownership": 7.9,
           "status": null,
           "news": null,
           "chance_of_playing": null
