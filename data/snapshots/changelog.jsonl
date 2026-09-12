@@ -1395,3 +1395,30 @@
 {"at": "2026-09-12T21:34:01.960199+00:00", "element": 536, "name": "Reinildo", "field": "status", "from": "a", "to": "s"}
 {"at": "2026-09-12T21:34:01.960199+00:00", "element": 536, "name": "Reinildo", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-09-12T21:34:01.960199+00:00", "element": 536, "name": "Reinildo", "field": "news", "from": "", "to": "Suspended until 10 Oct"}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 19, "name": "Zubimendi", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 26, "name": "Havertz", "field": "now_cost", "from": 75, "to": 76}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 452, "name": "Bruno G.", "field": "now_cost", "from": 68, "to": 67}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 48, "name": "Onana", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 160, "name": "Garnacho", "field": "now_cost", "from": 59, "to": 58}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 582, "name": "Madjo", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 63, "name": "Milosavljevi\u0107", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 105, "name": "Anthony", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 137, "name": "Tzimas", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 40, "name": "Rogers", "field": "now_cost", "from": 76, "to": 77}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 152, "name": "Palestra", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 157, "name": "Est\u00eav\u00e3o", "field": "now_cost", "from": 64, "to": 63}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 165, "name": "Jo\u00e3o Pedro", "field": "now_cost", "from": 77, "to": 78}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 184, "name": "Grimes", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 208, "name": "Sarr", "field": "now_cost", "from": 63, "to": 62}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 223, "name": "Mateta", "field": "now_cost", "from": 64, "to": 63}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 231, "name": "Keane", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 263, "name": "Kevin", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 278, "name": "Hughes", "field": "now_cost", "from": 40, "to": 39}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 336, "name": "Okafor", "field": "now_cost", "from": 59, "to": 58}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 343, "name": "James", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 412, "name": "Lammens", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 482, "name": "Hudson-Odoi", "field": "now_cost", "from": 59, "to": 58}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 490, "name": "Wood", "field": "now_cost", "from": 59, "to": 58}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 491, "name": "Igor Jesus", "field": "now_cost", "from": 59, "to": 58}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 498, "name": "Senesi", "field": "now_cost", "from": 59, "to": 58}
+{"at": "2026-09-12T23:52:06.194227+00:00", "element": 522, "name": "Gray", "field": "now_cost", "from": 50, "to": 49}
