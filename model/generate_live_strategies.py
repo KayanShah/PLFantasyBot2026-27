@@ -241,6 +241,22 @@ def load_shadow_state(key: str) -> dict | None:
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
 
 
+def compute_selling_price(buy_price: int, now_cost: int) -> int:
+    """
+    FPL's real sell-price rule: you get your buy price back in full if the
+    player has dropped or held, but only half of any *profit* (rounded down
+    to the nearest 0.1m) if they've risen -- not the full current price.
+    real_team's shadow bank previously stood in for this with `now_cost`
+    itself, which is fine at GW1 (bought == sold in the same instant) but
+    quietly overstates real budget for anyone held across a price rise. Buy
+    prices for real_team's existing squad were recovered from data/snapshots/
+    history near the actual GW1/GW3 purchase dates; a newly bought player's
+    buy price is just its live cost at signing.
+    """
+    profit = now_cost - buy_price
+    return now_cost if profit <= 0 else buy_price + profit // 2
+
+
 def squad_bank(choice: dict) -> int:
     """
     Tenths of a million left over after buying the chosen squad. Not just the
