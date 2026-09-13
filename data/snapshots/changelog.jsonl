@@ -1422,3 +1422,9 @@
 {"at": "2026-09-12T23:52:06.194227+00:00", "element": 491, "name": "Igor Jesus", "field": "now_cost", "from": 59, "to": 58}
 {"at": "2026-09-12T23:52:06.194227+00:00", "element": 498, "name": "Senesi", "field": "now_cost", "from": 59, "to": 58}
 {"at": "2026-09-12T23:52:06.194227+00:00", "element": 522, "name": "Gray", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-13T17:33:39.358210+00:00", "element": 492, "name": "Awoniyi", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-09-13T17:33:39.358210+00:00", "element": 492, "name": "Awoniyi", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-13T17:33:39.358210+00:00", "element": 492, "name": "Awoniyi", "field": "news", "from": "", "to": "Suspended until 19 Oct"}
+{"at": "2026-09-13T17:33:39.358210+00:00", "element": 398, "name": "Foden", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-09-13T17:33:39.358210+00:00", "element": 398, "name": "Foden", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-13T17:33:39.358210+00:00", "element": 398, "name": "Foden", "field": "news", "from": "", "to": "Suspended until 17 Oct"}
