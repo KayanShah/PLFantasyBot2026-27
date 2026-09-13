@@ -1428,3 +1428,21 @@
 {"at": "2026-09-13T17:33:39.358210+00:00", "element": 398, "name": "Foden", "field": "status", "from": "a", "to": "s"}
 {"at": "2026-09-13T17:33:39.358210+00:00", "element": 398, "name": "Foden", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-09-13T17:33:39.358210+00:00", "element": 398, "name": "Foden", "field": "news", "from": "", "to": "Suspended until 17 Oct"}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 68, "name": "Tavernier", "field": "now_cost", "from": 60, "to": 61}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 573, "name": "Sanchez", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 89, "name": "Henry", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 123, "name": "Hinshelwood", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 164, "name": "Quenda", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 229, "name": "Tarkowski", "field": "now_cost", "from": 60, "to": 61}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 246, "name": "R\u00f6hl", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 270, "name": "Reed", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 570, "name": "Palacios", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 303, "name": "Kipr\u00e9", "field": "now_cost", "from": 40, "to": 39}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 359, "name": "Gomez", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 391, "name": "Gvardiol", "field": "now_cost", "from": 56, "to": 57}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 131, "name": "Baleba", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 162, "name": "Andrey Santos", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 478, "name": "Netz", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 529, "name": "Roefs", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 533, "name": "Mukiele", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-13T23:01:20.008559+00:00", "element": 549, "name": "Talbi", "field": "now_cost", "from": 54, "to": 53}
