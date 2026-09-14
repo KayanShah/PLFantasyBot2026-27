@@ -1446,3 +1446,6 @@
 {"at": "2026-09-13T23:01:20.008559+00:00", "element": 529, "name": "Roefs", "field": "now_cost", "from": 50, "to": 49}
 {"at": "2026-09-13T23:01:20.008559+00:00", "element": 533, "name": "Mukiele", "field": "now_cost", "from": 55, "to": 54}
 {"at": "2026-09-13T23:01:20.008559+00:00", "element": 549, "name": "Talbi", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-09-14T13:46:45.999540+00:00", "element": 269, "name": "Sessegnon", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-14T13:46:45.999540+00:00", "element": 269, "name": "Sessegnon", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-14T13:46:45.999540+00:00", "element": 269, "name": "Sessegnon", "field": "news", "from": "", "to": "Groin injury - 75% chance of playing"}
