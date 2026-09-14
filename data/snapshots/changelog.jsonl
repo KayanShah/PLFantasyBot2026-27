@@ -1464,3 +1464,18 @@
 {"at": "2026-09-14T19:07:38.472546+00:00", "element": 506, "name": "Udogie", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-09-14T19:07:38.472546+00:00", "element": 506, "name": "Udogie", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-09-14T19:07:38.472546+00:00", "element": 506, "name": "Udogie", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 405, "name": "N.Gonzalez", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 405, "name": "N.Gonzalez", "field": "chance_of_playing_next_round", "from": null, "to": 50}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 405, "name": "N.Gonzalez", "field": "news", "from": "", "to": "Concussion - 50% chance of playing"}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 448, "name": "Burn", "field": "news", "from": "Ankle injury - Expected back 14 Sep", "to": "Ankle injury - Expected back 19 Sep"}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 454, "name": "Elanga", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 454, "name": "Elanga", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 454, "name": "Elanga", "field": "news", "from": "", "to": "Unspecified injury - Unknown return date"}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 593, "name": "Dedi\u0107", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 593, "name": "Dedi\u0107", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 593, "name": "Dedi\u0107", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 471, "name": "Milenkovi\u0107", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 471, "name": "Milenkovi\u0107", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 471, "name": "Milenkovi\u0107", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - Expected back 11 Oct"}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 474, "name": "Jair Cunha", "field": "chance_of_playing_next_round", "from": 75, "to": 50}
+{"at": "2026-09-14T22:39:46.774046+00:00", "element": 474, "name": "Jair Cunha", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - 50% chance of playing"}
