@@ -1449,3 +1449,18 @@
 {"at": "2026-09-14T13:46:45.999540+00:00", "element": 269, "name": "Sessegnon", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-14T13:46:45.999540+00:00", "element": 269, "name": "Sessegnon", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-09-14T13:46:45.999540+00:00", "element": 269, "name": "Sessegnon", "field": "news", "from": "", "to": "Groin injury - 75% chance of playing"}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 107, "name": "Furo", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 107, "name": "Furo", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 107, "name": "Furo", "field": "news", "from": "", "to": "Unspecified injury - Unknown return date"}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 359, "name": "Gomez", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 359, "name": "Gomez", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 359, "name": "Gomez", "field": "news", "from": "Muscular injury - Unknown return date", "to": "Muscular injury - 75% chance of playing"}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 441, "name": "Obi", "field": "status", "from": "a", "to": "u"}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 441, "name": "Obi", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 441, "name": "Obi", "field": "news", "from": "", "to": "Has joined Willem II on loan for the rest of the season"}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 455, "name": "Tonali", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 455, "name": "Tonali", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 455, "name": "Tonali", "field": "news", "from": "", "to": "Knock - 75% chance of playing"}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 506, "name": "Udogie", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 506, "name": "Udogie", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-14T19:07:38.472546+00:00", "element": 506, "name": "Udogie", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
