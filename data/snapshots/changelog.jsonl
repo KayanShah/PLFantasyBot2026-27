@@ -1496,3 +1496,6 @@
 {"at": "2026-09-15T12:32:45.535744+00:00", "element": 456, "name": "J.Ramsey", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-15T12:32:45.535744+00:00", "element": 456, "name": "J.Ramsey", "field": "chance_of_playing_next_round", "from": null, "to": 25}
 {"at": "2026-09-15T12:32:45.535744+00:00", "element": 456, "name": "J.Ramsey", "field": "news", "from": "", "to": "Thigh injury - 25% chance of playing"}
+{"at": "2026-09-15T17:34:12.734367+00:00", "element": 125, "name": "Georginio", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-15T17:34:12.734367+00:00", "element": 125, "name": "Georginio", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-15T17:34:12.734367+00:00", "element": 125, "name": "Georginio", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
