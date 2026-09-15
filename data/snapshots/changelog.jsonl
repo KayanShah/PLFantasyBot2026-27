@@ -1502,3 +1502,21 @@
 {"at": "2026-09-15T21:03:26.764275+00:00", "element": 10, "name": "White", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-15T21:03:26.764275+00:00", "element": 10, "name": "White", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-09-15T21:03:26.764275+00:00", "element": 10, "name": "White", "field": "news", "from": "", "to": "Muscular injury - 75% chance of playing"}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 11, "name": "Mosquera", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 32, "name": "Cash", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 618, "name": "Goretzka", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 84, "name": "Collins", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 94, "name": "Schade", "field": "now_cost", "from": 60, "to": 61}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 95, "name": "O.Dango", "field": "now_cost", "from": 64, "to": 63}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 124, "name": "Gro\u00df", "field": "now_cost", "from": 56, "to": 57}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 126, "name": "O'Riley", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 130, "name": "Wieffer", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 172, "name": "Wilson", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 577, "name": "Tomiyasu", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 266, "name": "Cairney", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 286, "name": "Belloumi", "field": "now_cost", "from": 50, "to": 51}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 393, "name": "Khusanov", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 431, "name": "Amad", "field": "now_cost", "from": 58, "to": 57}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 438, "name": "Fletcher", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 446, "name": "Sch\u00e4r", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-15T23:36:41.774041+00:00", "element": 480, "name": "Gibbs-White", "field": "now_cost", "from": 79, "to": 80}
