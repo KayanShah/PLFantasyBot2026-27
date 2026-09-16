@@ -1520,3 +1520,18 @@
 {"at": "2026-09-15T23:36:41.774041+00:00", "element": 438, "name": "Fletcher", "field": "now_cost", "from": 45, "to": 44}
 {"at": "2026-09-15T23:36:41.774041+00:00", "element": 446, "name": "Sch\u00e4r", "field": "now_cost", "from": 50, "to": 49}
 {"at": "2026-09-15T23:36:41.774041+00:00", "element": 480, "name": "Gibbs-White", "field": "now_cost", "from": 79, "to": 80}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 32, "name": "Cash", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 32, "name": "Cash", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 32, "name": "Cash", "field": "news", "from": "Muscular injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 104, "name": "Onyeka", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 104, "name": "Onyeka", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 104, "name": "Onyeka", "field": "news", "from": "Hand injury - 50% chance of playing", "to": ""}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 208, "name": "Sarr", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 208, "name": "Sarr", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 208, "name": "Sarr", "field": "news", "from": "Groin injury - Unknown return date", "to": "Groin injury - 50% chance of playing"}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 246, "name": "R\u00f6hl", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 246, "name": "R\u00f6hl", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 246, "name": "R\u00f6hl", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 359, "name": "Gomez", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 359, "name": "Gomez", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-16T18:20:54.676245+00:00", "element": 359, "name": "Gomez", "field": "news", "from": "Muscular injury - 75% chance of playing", "to": ""}
