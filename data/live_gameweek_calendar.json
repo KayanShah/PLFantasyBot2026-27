@@ -17,7 +17,7 @@
   {
     "gw": 4,
     "deadline": "2026-09-12T12:30:00Z",
-    "finished": false
+    "finished": true
   },
   {
     "gw": 5,
