@@ -2,7 +2,7 @@
   "picks": [
     {
       "element": 229,
-      "selling_price": 60
+      "selling_price": 61
     },
     {
       "element": 356,
@@ -17,16 +17,16 @@
       "selling_price": 60
     },
     {
-      "element": 533,
-      "selling_price": 55
-    },
-    {
       "element": 384,
       "selling_price": 55
     },
     {
-      "element": 398,
-      "selling_price": 70
+      "element": 388,
+      "selling_price": 60
+    },
+    {
+      "element": 236,
+      "selling_price": 65
     },
     {
       "element": 379,
@@ -46,7 +46,7 @@
     },
     {
       "element": 412,
-      "selling_price": 50
+      "selling_price": 49
     },
     {
       "element": 115,
@@ -54,15 +54,15 @@
     },
     {
       "element": 491,
-      "selling_price": 59
+      "selling_price": 58
     },
     {
       "element": 542,
-      "selling_price": 59
+      "selling_price": 58
     }
   ],
   "transfers": {
     "bank": 0,
-    "limit": 2
+    "limit": 1
   }
 }
