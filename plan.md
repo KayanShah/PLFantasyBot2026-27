@@ -680,6 +680,15 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
+> [!IMPORTANT]
+> **A sixth, non-model strategy — Live Updated Team — tracks the real squad actually held, admin-page-only.** The five model strategies are shadow squads: nobody ever misses a transfer or picks a different captain than recommended. The real account isn't like that — a planned GW2 transfer was missed entirely, and a couple of gameweeks' actual transfers/captaincy diverged from what Balanced would have done. `data/live_squads_real_team.json` (manifest key `real_team`) records what was *actually* held each gameweek — not optimizer output, so `load_season_block()` pulls it out of the season's `strategies` array entirely (never reaches the public tab strip or leaderboard) and renders it separately on the admin page only, via its own `renderAdminRealTeam()`.
+>
+> **Real bug, found twice before it was fixed for good:** `refresh-dashboard.yml`'s snapshot/restore step (added earlier to survive a `git reset --hard` mid-run without losing that run's fresh output) globbed `data/live_squads_*.json`, which also matched `real_team`'s files — but this workflow never generates them. Any real-squad score pushed while a refresh run was in flight got silently reverted by the workflow's own commit, restoring whatever `real_team` looked like at job checkout. Hit on both 2026-09-10 and 2026-09-16, each needing a manual re-apply after the fact once noticed. Fixed by scoping the snapshot/restore/add lists to the five model-strategy keys this job actually owns, rather than a wildcard that happened to also catch a file it doesn't touch.
+>
+> **The budget approximation was also wrong, caught by a real "not enough budget" error in the FPL app.** `real_team`'s shadow bank stood in for each held player's sell value with their *current* live price — correct at the instant of purchase, but FPL only refunds half of any price rise since, not the full current price. `compute_selling_price()` now implements the real rule, with buy prices recovered from `data/snapshots/` history near the actual purchase dates rather than guessed. In practice this only closed about £0.1m of that day's £0.6m shortfall — prices hadn't moved much yet — the larger, structurally-unfixable factor is the lag between computing a recommendation and actually executing it in the app, where a same-day price tick shows up as exactly this kind of gap. Building in a small deliberate cash buffer is the practical mitigation, not something a point-in-time calculation can fully close.
+
+---
+
 ## Phase 6 — Evaluation & Iteration
 
 - [ ] Track the bot's actual gameweek-by-gameweek score against a real season, not just backtests.
