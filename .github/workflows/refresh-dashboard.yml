@@ -86,8 +86,20 @@ jobs:
           # deadline six days gone -- every refresh in between regenerated
           # the right file and discarded it. GW1's finished=true only ever
           # landed because it was committed by hand (a2c8005).
-          cp data/live_squads_*.json data/live_state_*.json \
-             data/live_gameweek_calendar.json \
+          #
+          # live_squads_real_team.json / live_state_real_team.json are
+          # deliberately NOT in this list. This job doesn't generate them --
+          # they're updated by hand outside this workflow -- so snapshotting
+          # them here just means whatever they were at job checkout gets
+          # force-restored over any fresher version pushed while this run
+          # was in flight, silently reverting real GW-result scoring twice
+          # in a row (2026-09-10, 2026-09-16). Leaving them out means the
+          # reset below keeps whatever origin/main actually has.
+          MODEL_STRATEGY_FILES="balanced conservative reactive differential xg_experimental"
+          for key in $MODEL_STRATEGY_FILES; do
+            cp "data/live_squads_${key}.json" "data/live_state_${key}.json" "$tmp"/ 2>/dev/null || true
+          done
+          cp data/live_gameweek_calendar.json \
              data/strategies_manifest_2026-27.json data/strategies_manifest_2025-26.json \
              data/season_2025-26_squads_*.json data/season_2025-26_simulation_*.csv \
              "$tmp"/ 2>/dev/null || true
@@ -98,12 +110,11 @@ jobs:
           cp "$tmp"/*.json "$tmp"/*.csv data/ 2>/dev/null || true
           python website/build_site.py
 
-          git add data/live_squads_*.json data/live_state_*.json \
-                  data/live_gameweek_calendar.json \
-                  data/strategies_manifest_2026-27.json \
-                  data/strategies_manifest_2025-26.json \
-                  data/season_2025-26_squads_*.json data/season_2025-26_simulation_*.csv \
-                  website/index.html
+          ADD_FILES="data/live_gameweek_calendar.json data/strategies_manifest_2026-27.json data/strategies_manifest_2025-26.json website/index.html"
+          for key in $MODEL_STRATEGY_FILES; do
+            ADD_FILES="$ADD_FILES data/live_squads_${key}.json data/live_state_${key}.json"
+          done
+          git add $ADD_FILES data/season_2025-26_squads_*.json data/season_2025-26_simulation_*.csv
           git diff --staged --quiet && exit 0
           git commit -m "Refresh dashboard $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
