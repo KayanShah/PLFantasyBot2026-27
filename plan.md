@@ -693,7 +693,7 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Phase 6 — Evaluation & Iteration
 
-- [ ] Track the bot's actual gameweek-by-gameweek score against a real season, not just backtests.
+- [x] Track the bot's actual gameweek-by-gameweek score against a real season, not just backtests — the five model strategies' real GW1-4 results, and (separately) the real squad actually held via **Live Updated Team**, admin-page-only (see the note above).
 - [ ] Compare against benchmarks: FPL average score, `ep_next`-only strategy, and top public FPL AI tools (e.g. OpenFPL).
 - [ ] Iterate on features/model based on where predictions miss most (e.g. rotation risk, red cards, injuries).
 
