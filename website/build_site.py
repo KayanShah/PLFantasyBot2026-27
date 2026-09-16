@@ -730,6 +730,7 @@ TEMPLATE = """<!doctype html>
       <div class="info-card glass">
         <h2>Data & disclaimer</h2>
         <p>Player and fixture data comes from the official Fantasy Premier League API, refreshed automatically every 30 minutes. Player photos are Premier League imagery where available. This is an analytical tool built for research and personal use — not real-money betting or financial advice, and not affiliated with the Premier League or FPL.</p>
+        <p>There's a sixth, non-model squad tracker — <strong>Live Updated Team</strong> — recording what was actually held in the real FPL app each gameweek. It's ground truth, not optimizer output, so it's kept off this dashboard and shown on the admin page instead (footer link below).</p>
       </div>
     </section>
 
