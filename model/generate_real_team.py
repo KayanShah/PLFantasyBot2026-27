@@ -45,7 +45,7 @@ from pathlib import Path
 import train_model
 from generate_live_strategies import (
     compute_selling_price, live_player_entry, next_planning_gameweek,
-    provisionally_finished_gws, score_gameweek_entry,
+    provisionally_finished_gws, score_gameweek_entry, squad_bank,
 )
 from live_pipeline import (
     LIVE_TRAIN_SEASONS, build_predictions, choose_team, fetch, sync_season,
@@ -85,11 +85,16 @@ def main() -> None:
         if g.get("season_total") is not None:
             prior_total = g["season_total"]
 
-    # Recommendation for the next gameweek, from the REAL held squad --
-    # live_state_real_team.json's selling_price (via compute_selling_price(),
-    # not a flat-budget guess) is what makes this budget-accurate.
+    # Recommendation for the next gameweek, from the REAL held squad.
+    # selling_price is refreshed here from each pick's *real* buy_price via
+    # compute_selling_price() -- now_cost drifts between runs, so this is
+    # not a one-time calculation, it's what keeps the budget accurate run
+    # to run instead of slowly drifting back into the flat-budget guess
+    # this whole mechanism replaced.
     state_path = OUT_DIR / f"live_state_{KEY}.json"
     state = json.loads(state_path.read_text(encoding="utf-8"))
+    for p in state["picks"]:
+        p["selling_price"] = compute_selling_price(p["buy_price"], now_cost[p["element"]])
     current = {"picks": state["picks"]}
     free_transfers = state["transfers"]["limit"]
     bank = state["transfers"]["bank"]
@@ -109,11 +114,10 @@ def main() -> None:
 
     held_ids = {p["element"] for p in current["picks"]}
     new_ids = set(choice["xi"]["element"]) | set(choice["bench"]["element"])
-    spend = sum(now_cost[e] for e in new_ids)
     new_entry = {
         "gw": int(gw), "chip": "", "transfers": choice["transfers"], "hits": choice["hits"],
         "gw_score": None, "season_total": None, "deadline": event["deadline_time"],
-        "bank": round((1000 - spend) / 10, 1),
+        "bank": round(squad_bank(choice) / 10, 1),
         "starting_xi": xi, "bench": bench,
     }
     id_name = {e["id"]: e["web_name"] for e in bootstrap["elements"]}
