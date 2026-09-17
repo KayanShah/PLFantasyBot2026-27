@@ -321,13 +321,18 @@ def public_squad(manager_id: str, gw: int) -> dict | None:
 
 
 def plan_transfers(
-    pool: pd.DataFrame, current: dict, free_transfers: int, bank: int
+    pool: pd.DataFrame, current: dict, free_transfers: int, bank: int,
+    transfer_margin: float = TRANSFER_MARGIN, max_hits: int = MAX_AUTOMATED_HITS,
 ) -> tuple[pd.DataFrame, int, int]:
     """
     Mirrors simulate_season's weekly search: try k changes, keep whichever is
     best net of -4 per hit, and only move at all if it beats holding by
-    TRANSFER_MARGIN. Capped at MAX_AUTOMATED_HITS so a bug cannot spend twenty
-    points unattended.
+    `transfer_margin`. Capped at `max_hits` so a bug cannot spend twenty
+    points unattended. Both default to the module-level constants (Balanced's
+    own tuned values), which is what live_pipeline.py's own real-account
+    submission path gets by not passing them -- Balanced is the only
+    strategy ever applied for real, so its behaviour here is unchanged by
+    this signature growing.
     """
     owned = {p["element"] for p in current["picks"]}
     selling = {
@@ -349,7 +354,7 @@ def plan_transfers(
     hold_score = held["predicted_points"].sum()
     best_k, best_net, best_squad = 0, hold_score, held.copy()
 
-    for k in range(1, min(free_transfers + MAX_AUTOMATED_HITS, 5) + 1):
+    for k in range(1, min(free_transfers + max_hits, 5) + 1):
         candidate = select_squad(
             priced, budget=budget, current_ids=owned, max_changes=k, cost_col="cost"
         )
@@ -359,7 +364,7 @@ def plan_transfers(
         if net > best_net:
             best_k, best_net, best_squad = k, net, candidate
 
-    if best_k and best_net <= hold_score + TRANSFER_MARGIN:
+    if best_k and best_net <= hold_score + transfer_margin:
         return held.copy(), 0, budget
     return best_squad, best_k, budget
 
@@ -369,6 +374,7 @@ def choose_team(
     current: dict | None = None, free_transfers: int = 1, bank: int = 0,
     unavailable: dict[int, str] | None = None, lookahead: int = LOOKAHEAD_GWS,
     unlimited_transfers: bool = False,
+    transfer_margin: float = TRANSFER_MARGIN, max_hits: int = MAX_AUTOMATED_HITS,
 ) -> dict:
     gw_pool = predictions[predictions["GW"] == gw].copy()
     if gw_pool.empty:
@@ -410,7 +416,9 @@ def choose_team(
                 "Handling blanks needs the fixture-aware grid; refusing to act on a "
                 "partial squad."
             )
-        squad, transfers, budget = plan_transfers(buyable, current, free_transfers, bank)
+        squad, transfers, budget = plan_transfers(
+            buyable, current, free_transfers, bank, transfer_margin, max_hits
+        )
 
     return _finish(gw_pool, squad, transfers, budget, free_transfers)
 

@@ -394,6 +394,7 @@ def main() -> None:
         choice = choose_team(
             predictions, gw, models, current, free_transfers, bank,
             unavailable, cfg["lookahead_gws"], unlimited,
+            cfg["transfer_margin"], cfg["max_hits_per_gw"],
         )
 
         starting_xi = [
