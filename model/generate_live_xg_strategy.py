@@ -140,7 +140,7 @@ def main() -> None:
     else:
         used_free = min(choice["transfers"], free_transfers)
         next_free_transfers = min(5, (free_transfers - used_free) + 1)
-    save_shadow_state(KEY, choice, next_free_transfers)
+    save_shadow_state(KEY, choice, next_free_transfers, state)
 
     manifest_path = OUT_DIR / "strategies_manifest_2026-27.json"
     manifest = (

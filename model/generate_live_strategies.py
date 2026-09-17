@@ -37,7 +37,7 @@ from live_pipeline import (
     build_predictions, choose_team, fetch, next_gameweek, sync_season,
     unavailable_elements,
 )
-from simulate_season import ENSEMBLE_EXTRA_SEEDS, apply_differential_tilt, load_team_names
+from simulate_season import ENSEMBLE_EXTRA_SEEDS, apply_differential_tilt, load_team_names, sell_value
 from strategies import ordered
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "data"
@@ -254,12 +254,32 @@ def squad_bank(choice: dict) -> int:
     return choice["budget"] - int(choice["squad"][cost_col].sum())
 
 
-def save_shadow_state(key: str, choice: dict, free_transfers_next: int) -> None:
+def save_shadow_state(
+    key: str, choice: dict, free_transfers_next: int, prior_state: dict | None = None,
+) -> None:
+    """
+    `prior_state` (this shadow squad's own last-saved state, if any) is what
+    makes `selling_price` a real FPL sell value instead of a flat guess: a
+    retained pick's `buy_price` carries forward unchanged from when it was
+    actually bought, a newly-bought pick's `buy_price` is today's live value,
+    and `sell_value()` (FPL's real profit-share rule) turns that into the
+    real selling price against today's `now_cost` -- rather than what this
+    wrote before, which was just today's live value for every pick, retained
+    or not, silently overstating budget for anyone held across a price rise.
+    Missing `buy_price` on an older saved pick (state written before this
+    field existed) falls back to that pick's last saved `selling_price`, the
+    closest available estimate rather than a crash.
+    """
     path = OUT_DIR / f"live_state_{key}.json"
-    picks = [
-        {"element": int(e), "selling_price": int(v)}
-        for e, v in zip(choice["squad"]["element"], choice["squad"]["value"])
-    ]
+    prior_buy_price = {
+        p["element"]: p.get("buy_price", p.get("selling_price"))
+        for p in (prior_state["picks"] if prior_state else [])
+    }
+    picks = []
+    for e, v in zip(choice["squad"]["element"], choice["squad"]["value"]):
+        e, v = int(e), int(v)
+        buy_price = prior_buy_price.get(e, v)
+        picks.append({"element": e, "buy_price": buy_price, "selling_price": sell_value(buy_price, v)})
     state = {"picks": picks, "transfers": {"bank": squad_bank(choice), "limit": free_transfers_next}}
     path.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
@@ -416,7 +436,7 @@ def main() -> None:
         else:
             used_free = min(choice["transfers"], free_transfers)
             next_free_transfers = min(5, (free_transfers - used_free) + 1)
-        save_shadow_state(key, choice, next_free_transfers)
+        save_shadow_state(key, choice, next_free_transfers, state)
 
         manifest["strategies"].append({
             "key": key, "label": cfg["label"], "short": cfg["short"],
