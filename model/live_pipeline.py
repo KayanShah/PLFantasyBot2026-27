@@ -55,7 +55,7 @@ import train_model
 from optimizer import pick_captains, pick_starting_xi, select_squad
 from simulate_season import (
     ENSEMBLE_EXTRA_SEEDS, LOOKAHEAD_GWS, STARTING_BUDGET, TRANSFER_MARGIN,
-    build_horizon_scores, ensemble_predict, sell_value,
+    build_horizon_scores, ensemble_predict,
 )
 
 # Player names contain accents; a cp1252 Windows console would otherwise raise

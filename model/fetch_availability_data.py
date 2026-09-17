@@ -28,7 +28,6 @@ far has had to treat them identically as a result.
 """
 
 import lzma
-import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
