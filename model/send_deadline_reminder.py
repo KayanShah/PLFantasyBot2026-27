@@ -350,11 +350,11 @@ def build_email_html(gw: int, deadline: datetime, window_label: str, squad: dict
     gw_label = f"GW{gw}"
     deadline_str = format_deadline(deadline)
 
-    if squad is None:
+    gw_data = next((g for g in squad["gameweeks"] if g["gw"] == gw), None) if squad else None
+    if gw_data is None:
         xi_html = '<tr><td style="padding:12px 18px;color:#6a6b70;">No squad data available yet.</td></tr>'
         bench_html = '<tr><td style="padding:12px 18px;color:#6a6b70;">No squad data available yet.</td></tr>'
     else:
-        gw_data = squad["gameweeks"][0]
         xi_sorted = sorted(gw_data["starting_xi"], key=lambda p: POSITION_ORDER.index(p["position"]))
         xi_html = "\n".join(starting_xi_row(p) for p in xi_sorted)
         bench_html = "\n".join(bench_row(p, i + 1) for i, p in enumerate(gw_data["bench"]))
