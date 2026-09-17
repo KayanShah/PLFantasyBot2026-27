@@ -1581,3 +1581,9 @@
 {"at": "2026-09-17T15:13:02.452129+00:00", "element": 593, "name": "Dedi\u0107", "field": "news", "from": "", "to": "Unspecified injury - Unknown return date"}
 {"at": "2026-09-17T15:13:02.452129+00:00", "element": 474, "name": "Jair Cunha", "field": "chance_of_playing_next_round", "from": 50, "to": 75}
 {"at": "2026-09-17T15:13:02.452129+00:00", "element": 474, "name": "Jair Cunha", "field": "news", "from": "Hamstring injury - 50% chance of playing", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-09-17T22:22:29.540630+00:00", "element": 208, "name": "Sarr", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-17T22:22:29.540630+00:00", "element": 208, "name": "Sarr", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-09-17T22:22:29.540630+00:00", "element": 208, "name": "Sarr", "field": "news", "from": "Groin injury - 50% chance of playing", "to": ""}
+{"at": "2026-09-17T22:22:29.540630+00:00", "element": 224, "name": "Nketiah", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-17T22:22:29.540630+00:00", "element": 224, "name": "Nketiah", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-17T22:22:29.540630+00:00", "element": 224, "name": "Nketiah", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
