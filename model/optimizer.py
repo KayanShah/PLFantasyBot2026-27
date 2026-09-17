@@ -14,8 +14,15 @@ MAX_PER_CLUB = 3
 SQUAD_SIZE = 15
 
 VALID_FORMATIONS = [  # (DEF, MID, FWD), GK is always 1
+    # Every combination satisfying FPL's real rule (>=3 DEF, >=2 MID, >=1 FWD,
+    # 10 outfield total) -- not a hand-picked "usual" subset. 5-2-3 was
+    # missing here (and from FantasyRules.md's own formation list) until this
+    # was checked against that general rule directly: legal, just rare
+    # (3 forwards for only 2 midfielders is an unusual allocation), and
+    # apply_auto_subs() elsewhere in this codebase already permits it via the
+    # same general rule -- only this enumeration disagreed with itself.
     (3, 4, 3), (3, 5, 2), (4, 3, 3), (4, 4, 2),
-    (4, 5, 1), (5, 3, 2), (5, 4, 1),
+    (4, 5, 1), (5, 2, 3), (5, 3, 2), (5, 4, 1),
 ]
 
 

@@ -17,8 +17,7 @@ Reference doc for the rules the bot's optimizer needs to encode. Sourced from th
 ## 2. Starting XI & Formation
 
 - Only your **starting 11** score points each gameweek; the other 4 sit on the bench.
-- Valid formations (GK–DEF–MID–FWD): `3-4-3`, `3-5-2`, `4-3-3`, `4-4-2`, `4-5-1`, `5-3-2`, `5-4-1`.
-- Any formation is legal as long as it includes: 1 goalkeeper, at least 3 defenders, at least 2 midfielders, at least 1 forward.
+- Any formation is legal as long as it includes: 1 goalkeeper, at least 3 defenders, at least 2 midfielders, at least 1 forward. Every combination satisfying that: `3-4-3`, `3-5-2`, `4-3-3`, `4-4-2`, `4-5-1`, `5-2-3`, `5-3-2`, `5-4-1`.
 - **Captain:** scores 2x points. **Vice-captain:** automatically becomes captain (2x) if the captain doesn't play at all that gameweek.
 - **Automatic substitutions:** if a starter doesn't play, they're automatically replaced by the highest-priority bench player who did play, respecting formation validity.
 
