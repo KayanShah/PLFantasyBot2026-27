@@ -1216,7 +1216,7 @@
       "gw_score": null,
       "season_total": null,
       "deadline": "2026-09-18T17:30:00+00:00",
-      "bank": 0.3,
+      "bank": 0.1,
       "starting_xi": [
         {
           "element": 226,
@@ -1271,6 +1271,25 @@
           "is_triple_captain": false,
           "photo_code": 209036,
           "ownership": 18.5,
+          "status": null,
+          "news": null,
+          "chance_of_playing": null
+        },
+        {
+          "element": 391,
+          "name": "Jo\u0161ko Gvardiol",
+          "team": "Man City",
+          "position": "DEF",
+          "opponent": "SUN (H)",
+          "difficulty": 2,
+          "points": 0,
+          "played": false,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false,
+          "photo_code": 477424,
+          "ownership": 24.4,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1407,7 +1426,9 @@
           "status": null,
           "news": null,
           "chance_of_playing": null
-        },
+        }
+      ],
+      "bench": [
         {
           "element": 346,
           "name": "Dominic Calvert-Lewin",
@@ -1426,9 +1447,7 @@
           "status": null,
           "news": null,
           "chance_of_playing": null
-        }
-      ],
-      "bench": [
+        },
         {
           "element": 61,
           "name": "Adrien Truffert",
@@ -1447,25 +1466,6 @@
           "status": null,
           "news": null,
           "chance_of_playing": null
-        },
-        {
-          "element": 10,
-          "name": "Benjamin White",
-          "team": "Arsenal",
-          "position": "DEF",
-          "opponent": "BHA (A)",
-          "difficulty": 3,
-          "points": 0,
-          "played": false,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false,
-          "photo_code": 198869,
-          "ownership": 6.0,
-          "status": "d",
-          "news": "Muscular injury - 75% chance of playing",
-          "chance_of_playing": 75
         },
         {
           "element": 569,

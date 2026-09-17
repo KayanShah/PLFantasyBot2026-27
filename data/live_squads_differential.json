@@ -1242,6 +1242,25 @@
           "chance_of_playing": null
         },
         {
+          "element": 230,
+          "name": "Jarrad Branthwaite",
+          "team": "Everton",
+          "position": "DEF",
+          "opponent": "IPS (H)",
+          "difficulty": 2,
+          "points": 0,
+          "played": false,
+          "is_captain": false,
+          "is_vice_captain": false,
+          "is_effective_captain": false,
+          "is_triple_captain": false,
+          "photo_code": 480455,
+          "ownership": 2.2,
+          "status": null,
+          "news": null,
+          "chance_of_playing": null
+        },
+        {
           "element": 229,
           "name": "James Tarkowski",
           "team": "Everton",
@@ -1411,7 +1430,9 @@
           "status": null,
           "news": null,
           "chance_of_playing": null
-        },
+        }
+      ],
+      "bench": [
         {
           "element": 346,
           "name": "Dominic Calvert-Lewin",
@@ -1430,9 +1451,7 @@
           "status": null,
           "news": null,
           "chance_of_playing": null
-        }
-      ],
-      "bench": [
+        },
         {
           "element": 61,
           "name": "Adrien Truffert",
@@ -1451,25 +1470,6 @@
           "status": null,
           "news": null,
           "chance_of_playing": null
-        },
-        {
-          "element": 10,
-          "name": "Benjamin White",
-          "team": "Arsenal",
-          "position": "DEF",
-          "opponent": "BHA (A)",
-          "difficulty": 3,
-          "points": 0,
-          "played": false,
-          "is_captain": false,
-          "is_vice_captain": false,
-          "is_effective_captain": false,
-          "is_triple_captain": false,
-          "photo_code": 198869,
-          "ownership": 6.0,
-          "status": "d",
-          "news": "Muscular injury - 75% chance of playing",
-          "chance_of_playing": 75
         },
         {
           "element": 569,

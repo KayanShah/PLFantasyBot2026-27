@@ -17,10 +17,6 @@
       "selling_price": 60
     },
     {
-      "element": 10,
-      "selling_price": 55
-    },
-    {
       "element": 384,
       "selling_price": 55
     },
@@ -47,6 +43,10 @@
     {
       "element": 412,
       "selling_price": 49
+    },
+    {
+      "element": 230,
+      "selling_price": 55
     },
     {
       "element": 61,
