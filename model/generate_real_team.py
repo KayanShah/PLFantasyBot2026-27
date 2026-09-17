@@ -44,8 +44,8 @@ from pathlib import Path
 
 import train_model
 from generate_live_strategies import (
-    compute_selling_price, live_player_entry, next_planning_gameweek,
-    provisionally_finished_gws, score_gameweek_entry, squad_bank,
+    backfill_element_ids, compute_selling_price, live_player_entry,
+    next_planning_gameweek, provisionally_finished_gws, score_gameweek_entry, squad_bank,
 )
 from live_pipeline import (
     LIVE_TRAIN_SEASONS, build_predictions, choose_team, fetch, sync_season,
@@ -74,10 +74,17 @@ def main() -> None:
     d = json.loads(squads_path.read_text(encoding="utf-8"))
     gws = sorted(d["gameweeks"], key=lambda g: g["gw"])
 
+    # For backfill_element_ids() -- matches generate_live_strategies.py's own
+    # scoring loop, so any entry missing `element` (only ever a risk for data
+    # saved before that field existed) doesn't crash real_team's scoring the
+    # same way it once crashed the five model strategies'.
+    code_to_element = {e["code"]: e["id"] for e in bootstrap["elements"]}
+
     # Score any finished gameweek not yet scored, oldest first.
     prior_total = 0
     for g in gws:
         if g["gw"] in finished and g.get("season_total") is None:
+            backfill_element_ids(g, code_to_element)
             live = fetch(f"event/{g['gw']}/live/")
             live_results = {e["id"]: e["stats"] for e in live["elements"]}
             score_gameweek_entry(g, live_results, prior_season_total=prior_total)
