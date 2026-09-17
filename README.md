@@ -213,3 +213,7 @@ See [plan.md](plan.md#phase-4--optimization-engine) for the full breakdown, incl
 - All fixture and player data comes from the official (undocumented) Fantasy Premier League API at `https://fantasy.premierleague.com/api/`. See [research.md](research.md#21-official-fantasy-premier-league-api-free-no-key-required) for the full endpoint reference.
 - Historical season data (2020-21 → 2025-26) is from [vaastav/Fantasy-Premier-League](https://github.com/vaastav/Fantasy-Premier-League).
 - Real, point-in-time historical player injury/availability data — used in training and for the starting-XI/captaincy availability filter — is from [Randdalf/fplcache](https://github.com/Randdalf/fplcache), which has archived FPL's live API 4x/day since April 2021. Without this project, the historical simulation would have no way to know what was actually known about a player's fitness before each gameweek's deadline, only what happened after.
+
+## Contributing
+
+Bug found, idea worth testing, or a change you're proposing? See [CONTRIBUTING.md](CONTRIBUTING.md) — read `plan.md` first, since it documents a dozen ideas already tried and reverted, each with the numbers and reasoning. Participation means agreeing to the [Code of Conduct](CODE_OF_CONDUCT.md).
