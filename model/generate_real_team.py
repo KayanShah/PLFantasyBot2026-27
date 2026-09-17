@@ -10,7 +10,7 @@ Two files carry different things and are NOT interchangeable:
     data/live_state_real_team.json    ground truth for what's currently
                                        held -- real buy prices, so bank is
                                        computed from real sell values
-                                       (compute_selling_price()), not a
+                                       (simulate_season.sell_value()), not a
                                        flat-budget approximation. This file
                                        is updated BY HAND whenever the real
                                        squad actually changes (a transfer
@@ -44,14 +44,14 @@ from pathlib import Path
 
 import train_model
 from generate_live_strategies import (
-    backfill_element_ids, compute_selling_price, live_player_entry,
-    next_planning_gameweek, provisionally_finished_gws, score_gameweek_entry, squad_bank,
+    backfill_element_ids, live_player_entry, next_planning_gameweek,
+    provisionally_finished_gws, score_gameweek_entry, squad_bank,
 )
 from live_pipeline import (
     LIVE_TRAIN_SEASONS, build_predictions, choose_team, fetch, sync_season,
     unavailable_elements,
 )
-from simulate_season import ENSEMBLE_EXTRA_SEEDS
+from simulate_season import ENSEMBLE_EXTRA_SEEDS, sell_value
 
 OUT_DIR = Path(__file__).resolve().parent.parent / "data"
 KEY = "real_team"
@@ -94,14 +94,16 @@ def main() -> None:
 
     # Recommendation for the next gameweek, from the REAL held squad.
     # selling_price is refreshed here from each pick's *real* buy_price via
-    # compute_selling_price() -- now_cost drifts between runs, so this is
-    # not a one-time calculation, it's what keeps the budget accurate run
-    # to run instead of slowly drifting back into the flat-budget guess
-    # this whole mechanism replaced.
+    # sell_value() (simulate_season's own FPL profit-share rule, reused
+    # rather than reimplemented -- an earlier version of this duplicated it
+    # under a different name before this was noticed) -- now_cost drifts
+    # between runs, so this is not a one-time calculation, it's what keeps
+    # the budget accurate run to run instead of slowly drifting back into
+    # the flat-budget guess this whole mechanism replaced.
     state_path = OUT_DIR / f"live_state_{KEY}.json"
     state = json.loads(state_path.read_text(encoding="utf-8"))
     for p in state["picks"]:
-        p["selling_price"] = compute_selling_price(p["buy_price"], now_cost[p["element"]])
+        p["selling_price"] = sell_value(p["buy_price"], now_cost[p["element"]])
     current = {"picks": state["picks"]}
     free_transfers = state["transfers"]["limit"]
     bank = state["transfers"]["bank"]
