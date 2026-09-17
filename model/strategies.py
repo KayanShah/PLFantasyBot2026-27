@@ -2,8 +2,8 @@
 Named parameter sets ("strategies") for squad-construction/transfer policy.
 
 Every strategy runs through the exact same validated engine -- same trained
-model, same feature set, same ILP optimizer, same chip logic, same sell-value
-rules (simulate_season.py / live_pipeline.py). Only the knobs below differ:
+model, same feature set, same ILP optimizer (simulate_season.py /
+live_pipeline.py). Only the knobs below differ:
 how many -4 hits a week is willing to take, how far ahead it plans fixtures,
 and how strongly it tilts toward high-ownership "safe" picks vs low-ownership
 differentials. Nothing about the model or its features changes between them,
