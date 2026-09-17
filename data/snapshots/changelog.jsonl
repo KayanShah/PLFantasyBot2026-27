@@ -1541,3 +1541,5 @@
 {"at": "2026-09-16T21:34:35.506085+00:00", "element": 165, "name": "Jo\u00e3o Pedro", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-16T21:34:35.506085+00:00", "element": 165, "name": "Jo\u00e3o Pedro", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-09-16T21:34:35.506085+00:00", "element": 165, "name": "Jo\u00e3o Pedro", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-17T00:13:37.048942+00:00", "element": 76, "name": "T\u00f3th.A", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-17T00:13:37.048942+00:00", "element": 115, "name": "De Cuyper", "field": "now_cost", "from": 48, "to": 49}
