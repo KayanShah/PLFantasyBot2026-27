@@ -33,7 +33,7 @@ from pathlib import Path
 import pandas as pd
 import train_model
 from live_pipeline import (
-    DATA_DIR, LIVE_TRAIN_SEASONS, PRIOR_SEASON, SEASON, STARTING_BUDGET,
+    DATA_DIR, LIVE_TRAIN_SEASONS, SEASON, STARTING_BUDGET,
     build_predictions, choose_team, fetch, next_gameweek, sync_season,
     unavailable_elements,
 )
