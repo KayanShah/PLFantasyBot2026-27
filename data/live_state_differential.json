@@ -2,67 +2,82 @@
   "picks": [
     {
       "element": 229,
+      "buy_price": 61,
       "selling_price": 61
     },
     {
       "element": 356,
+      "buy_price": 65,
       "selling_price": 65
     },
     {
       "element": 426,
+      "buy_price": 120,
       "selling_price": 120
     },
     {
       "element": 346,
+      "buy_price": 60,
       "selling_price": 60
     },
     {
+      "element": 68,
+      "buy_price": 61,
+      "selling_price": 61
+    },
+    {
       "element": 384,
+      "buy_price": 55,
       "selling_price": 55
     },
     {
       "element": 236,
+      "buy_price": 65,
       "selling_price": 65
     },
     {
       "element": 26,
+      "buy_price": 76,
       "selling_price": 76
     },
     {
       "element": 480,
+      "buy_price": 80,
       "selling_price": 80
     },
     {
-      "element": 367,
-      "selling_price": 72
-    },
-    {
       "element": 368,
+      "buy_price": 70,
       "selling_price": 70
     },
     {
       "element": 412,
+      "buy_price": 49,
       "selling_price": 49
     },
     {
       "element": 230,
+      "buy_price": 55,
       "selling_price": 55
     },
     {
       "element": 61,
+      "buy_price": 55,
       "selling_price": 55
     },
     {
       "element": 569,
+      "buy_price": 60,
       "selling_price": 60
     },
     {
       "element": 472,
+      "buy_price": 55,
       "selling_price": 55
     }
   ],
   "transfers": {
-    "bank": 1,
+    "bank": 12,
     "limit": 1
   }
 }

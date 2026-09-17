@@ -1220,7 +1220,7 @@
       "gw_score": null,
       "season_total": null,
       "deadline": "2026-09-18T17:30:00+00:00",
-      "bank": 0.1,
+      "bank": 1.2,
       "starting_xi": [
         {
           "element": 384,
@@ -1274,7 +1274,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 17761,
-          "ownership": 13.7,
+          "ownership": 13.8,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1394,23 +1394,23 @@
           "chance_of_playing": null
         },
         {
-          "element": 367,
-          "name": "Cody Gakpo",
-          "team": "Liverpool",
+          "element": 68,
+          "name": "Marcus Tavernier",
+          "team": "Bournemouth",
           "position": "MID",
-          "opponent": "BOU (A)",
-          "difficulty": 3,
+          "opponent": "LIV (H)",
+          "difficulty": 4,
           "points": 0,
           "played": false,
           "is_captain": false,
           "is_vice_captain": false,
           "is_effective_captain": false,
           "is_triple_captain": false,
-          "photo_code": 243298,
-          "ownership": 12.4,
+          "photo_code": 201658,
+          "ownership": 5.9,
           "status": null,
           "news": null,
-          "chance_of_playing": 100
+          "chance_of_playing": null
         },
         {
           "element": 26,
