@@ -50,7 +50,7 @@
     },
     {
       "element": 115,
-      "selling_price": 48
+      "selling_price": 49
     },
     {
       "element": 491,
@@ -63,6 +63,6 @@
   ],
   "transfers": {
     "bank": 0,
-    "limit": 1
+    "limit": 2
   }
 }
