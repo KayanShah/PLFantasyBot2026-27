@@ -1604,3 +1604,15 @@
 {"at": "2026-09-18T00:41:27.321479+00:00", "element": 411, "name": "Haaland", "field": "now_cost", "from": 155, "to": 156}
 {"at": "2026-09-18T00:41:27.321479+00:00", "element": 499, "name": "Pedro Porro", "field": "now_cost", "from": 55, "to": 54}
 {"at": "2026-09-18T00:41:27.321479+00:00", "element": 519, "name": "Gallagher", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-09-18T10:53:55.620199+00:00", "element": 10, "name": "White", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-18T10:53:55.620199+00:00", "element": 10, "name": "White", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-18T10:53:55.620199+00:00", "element": 10, "name": "White", "field": "news", "from": "Muscular injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-18T10:53:55.620199+00:00", "element": 11, "name": "Mosquera", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-18T10:53:55.620199+00:00", "element": 11, "name": "Mosquera", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-09-18T10:53:55.620199+00:00", "element": 11, "name": "Mosquera", "field": "news", "from": "Muscular injury - 50% chance of playing", "to": ""}
+{"at": "2026-09-18T10:53:55.620199+00:00", "element": 652, "name": "Azeez", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-09-18T10:53:55.620199+00:00", "element": 652, "name": "Azeez", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-09-18T10:53:55.620199+00:00", "element": 652, "name": "Azeez", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - Expected back 10 Oct"}
+{"at": "2026-09-18T10:53:55.620199+00:00", "element": 142, "name": "James", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-18T10:53:55.620199+00:00", "element": 142, "name": "James", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-18T10:53:55.620199+00:00", "element": 142, "name": "James", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
