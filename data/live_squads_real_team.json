@@ -1214,7 +1214,7 @@
       "gw_score": null,
       "season_total": null,
       "deadline": "2026-09-18T17:30:00Z",
-      "bank": 0.3,
+      "bank": 0.2,
       "starting_xi": [
         {
           "element": 384,
@@ -1230,7 +1230,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 204936,
-          "ownership": 7.7,
+          "ownership": 8.0,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1249,7 +1249,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 17761,
-          "ownership": 13.7,
+          "ownership": 14.5,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1268,7 +1268,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 209036,
-          "ownership": 18.5,
+          "ownership": 18.6,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1287,7 +1287,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 97032,
-          "ownership": 16.6,
+          "ownership": 16.3,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1306,7 +1306,7 @@
           "is_effective_captain": true,
           "is_triple_captain": false,
           "photo_code": 141746,
-          "ownership": 41.0,
+          "ownership": 40.1,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1325,7 +1325,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 222531,
-          "ownership": 13.6,
+          "ownership": 16.3,
           "status": null,
           "news": null,
           "chance_of_playing": 100
@@ -1344,7 +1344,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 424876,
-          "ownership": 35.5,
+          "ownership": 34.4,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1382,7 +1382,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 475168,
-          "ownership": 73.6,
+          "ownership": 69.2,
           "status": "d",
           "news": "Unspecified injury - 75% chance of playing",
           "chance_of_playing": 75
@@ -1401,7 +1401,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 219847,
-          "ownership": 8.0,
+          "ownership": 8.3,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1420,7 +1420,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 177815,
-          "ownership": 23.8,
+          "ownership": 25.8,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1441,7 +1441,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 487838,
-          "ownership": 14.4,
+          "ownership": 14.8,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1460,7 +1460,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 60307,
-          "ownership": 19.8,
+          "ownership": 20.6,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1479,7 +1479,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 494521,
-          "ownership": 3.2,
+          "ownership": 3.1,
           "status": null,
           "news": null,
           "chance_of_playing": null
@@ -1498,7 +1498,7 @@
           "is_effective_captain": false,
           "is_triple_captain": false,
           "photo_code": 465247,
-          "ownership": 10.6,
+          "ownership": 10.3,
           "status": null,
           "news": null,
           "chance_of_playing": null
