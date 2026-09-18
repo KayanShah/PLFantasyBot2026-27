@@ -1654,3 +1654,4 @@
 {"at": "2026-09-18T14:52:04.786340+00:00", "element": 499, "name": "Pedro Porro", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-09-18T14:52:04.786340+00:00", "element": 499, "name": "Pedro Porro", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-09-18T14:52:04.786340+00:00", "element": 499, "name": "Pedro Porro", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-18T18:11:48.774946+00:00", "element": 448, "name": "Burn", "field": "news", "from": "Ankle injury - Expected back 19 Sep", "to": "Ankle injury - Expected back 12 Oct"}
