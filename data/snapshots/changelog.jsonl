@@ -1751,3 +1751,18 @@
 {"at": "2026-09-19T12:59:17.333926+00:00", "element": 499, "name": "Pedro Porro", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-19T12:59:17.333926+00:00", "element": 499, "name": "Pedro Porro", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-09-19T12:59:17.333926+00:00", "element": 499, "name": "Pedro Porro", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 175, "name": "van Ewijk", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 175, "name": "van Ewijk", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 175, "name": "van Ewijk", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 182, "name": "Amenda", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 182, "name": "Amenda", "field": "chance_of_playing_next_round", "from": 25, "to": 0}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 182, "name": "Amenda", "field": "news", "from": "Calf injury - 25% chance of playing", "to": "Calf injury - Unknown return date"}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 244, "name": "Armstrong", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 244, "name": "Armstrong", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 244, "name": "Armstrong", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 315, "name": "Fatawu", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 315, "name": "Fatawu", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 315, "name": "Fatawu", "field": "news", "from": "", "to": "Suspended until 17 Oct"}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 450, "name": "Livramento", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 450, "name": "Livramento", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-09-19T16:22:57.658105+00:00", "element": 450, "name": "Livramento", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
