@@ -1766,3 +1766,13 @@
 {"at": "2026-09-19T16:22:57.658105+00:00", "element": 450, "name": "Livramento", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-19T16:22:57.658105+00:00", "element": 450, "name": "Livramento", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-09-19T16:22:57.658105+00:00", "element": 450, "name": "Livramento", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-19T18:45:51.001875+00:00", "element": 586, "name": "Mendy", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-09-19T18:45:51.001875+00:00", "element": 586, "name": "Mendy", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-09-19T18:45:51.001875+00:00", "element": 586, "name": "Mendy", "field": "news", "from": "Concussion - Expected back 11 Oct", "to": ""}
+{"at": "2026-09-19T18:45:51.001875+00:00", "element": 405, "name": "N.Gonzalez", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-09-19T18:45:51.001875+00:00", "element": 405, "name": "N.Gonzalez", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-09-19T18:45:51.001875+00:00", "element": 405, "name": "N.Gonzalez", "field": "news", "from": "Concussion - Expected back 12 Oct", "to": ""}
+{"at": "2026-09-19T18:45:51.001875+00:00", "element": 474, "name": "Jair Cunha", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-19T18:45:51.001875+00:00", "element": 474, "name": "Jair Cunha", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-19T18:45:51.001875+00:00", "element": 474, "name": "Jair Cunha", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-19T18:45:51.001875+00:00", "element": 499, "name": "Pedro Porro", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Hamstring injury - 75% chance of playing"}
