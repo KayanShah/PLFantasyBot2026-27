@@ -6,11 +6,6 @@
       "selling_price": 61
     },
     {
-      "element": 356,
-      "buy_price": 65,
-      "selling_price": 65
-    },
-    {
       "element": 426,
       "buy_price": 120,
       "selling_price": 120
@@ -46,19 +41,24 @@
       "selling_price": 91
     },
     {
+      "element": 4,
+      "buy_price": 80,
+      "selling_price": 80
+    },
+    {
       "element": 368,
       "buy_price": 70,
       "selling_price": 70
     },
     {
-      "element": 499,
-      "buy_price": 55,
-      "selling_price": 55
-    },
-    {
       "element": 427,
       "buy_price": 79,
       "selling_price": 79
+    },
+    {
+      "element": 305,
+      "buy_price": 40,
+      "selling_price": 40
     },
     {
       "element": 412,
@@ -78,6 +78,6 @@
   ],
   "transfers": {
     "bank": 0,
-    "limit": 2
+    "limit": 1
   }
 }
