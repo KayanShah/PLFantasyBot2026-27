@@ -1806,3 +1806,15 @@
 {"at": "2026-09-20T16:24:30.352486+00:00", "element": 536, "name": "Reinildo", "field": "status", "from": "s", "to": "a"}
 {"at": "2026-09-20T16:24:30.352486+00:00", "element": 536, "name": "Reinildo", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
 {"at": "2026-09-20T16:24:30.352486+00:00", "element": 536, "name": "Reinildo", "field": "news", "from": "Suspended until 10 Oct", "to": ""}
+{"at": "2026-09-20T21:27:32.663449+00:00", "element": 10, "name": "White", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-20T21:27:32.663449+00:00", "element": 10, "name": "White", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-09-20T21:27:32.663449+00:00", "element": 10, "name": "White", "field": "news", "from": "", "to": "Groin injury - 75% chance of playing"}
+{"at": "2026-09-20T21:27:32.663449+00:00", "element": 256, "name": "Tete", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-09-20T21:27:32.663449+00:00", "element": 256, "name": "Tete", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-09-20T21:27:32.663449+00:00", "element": 256, "name": "Tete", "field": "news", "from": "Concussion - Expected back 10 Oct", "to": ""}
+{"at": "2026-09-20T21:27:32.663449+00:00", "element": 131, "name": "Baleba", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-20T21:27:32.663449+00:00", "element": 131, "name": "Baleba", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-09-20T21:27:32.663449+00:00", "element": 131, "name": "Baleba", "field": "news", "from": "Ankle injury - 50% chance of playing", "to": ""}
+{"at": "2026-09-20T21:27:32.663449+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-20T21:27:32.663449+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-09-20T21:27:32.663449+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
