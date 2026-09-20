@@ -1791,3 +1791,18 @@
 {"at": "2026-09-19T23:24:19.613631+00:00", "element": 578, "name": "Mudryk", "field": "now_cost", "from": 54, "to": 53}
 {"at": "2026-09-19T23:24:19.613631+00:00", "element": 535, "name": "Alderete", "field": "now_cost", "from": 49, "to": 48}
 {"at": "2026-09-19T23:24:19.613631+00:00", "element": 536, "name": "Reinildo", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 70, "name": "Kluivert", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 70, "name": "Kluivert", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 70, "name": "Kluivert", "field": "news", "from": "", "to": "Unspecified injury - Unknown return date"}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 269, "name": "Sessegnon", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 269, "name": "Sessegnon", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 269, "name": "Sessegnon", "field": "news", "from": "Groin injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 400, "name": "Doku", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 400, "name": "Doku", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 400, "name": "Doku", "field": "news", "from": "Calf injury - 75% chance of playing", "to": ""}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 423, "name": "Shaw", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 423, "name": "Shaw", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 423, "name": "Shaw", "field": "news", "from": "Unspecified injury - 50% chance of playing", "to": ""}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 536, "name": "Reinildo", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 536, "name": "Reinildo", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-09-20T16:24:30.352486+00:00", "element": 536, "name": "Reinildo", "field": "news", "from": "Suspended until 10 Oct", "to": ""}
