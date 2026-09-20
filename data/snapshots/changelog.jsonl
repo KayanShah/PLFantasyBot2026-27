@@ -1818,3 +1818,16 @@
 {"at": "2026-09-20T21:27:32.663449+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-20T21:27:32.663449+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-09-20T21:27:32.663449+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-20T23:26:16.319846+00:00", "element": 1, "name": "Raya", "field": "now_cost", "from": 60, "to": 61}
+{"at": "2026-09-20T23:26:16.319846+00:00", "element": 9, "name": "Hincapie", "field": "now_cost", "from": 53, "to": 52}
+{"at": "2026-09-20T23:26:16.319846+00:00", "element": 62, "name": "Diakit\u00e9", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-20T23:26:16.319846+00:00", "element": 138, "name": "Kostoulas", "field": "now_cost", "from": 55, "to": 56}
+{"at": "2026-09-20T23:26:16.319846+00:00", "element": 158, "name": "Gittens", "field": "now_cost", "from": 59, "to": 58}
+{"at": "2026-09-20T23:26:16.319846+00:00", "element": 575, "name": "Yirenkyi", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-09-20T23:26:16.319846+00:00", "element": 232, "name": "O'Brien", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-09-20T23:26:16.319846+00:00", "element": 247, "name": "Hackney", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-09-20T23:26:16.319846+00:00", "element": 269, "name": "Sessegnon", "field": "now_cost", "from": 44, "to": 43}
+{"at": "2026-09-20T23:26:16.319846+00:00", "element": 571, "name": "Florentino", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-09-20T23:26:16.319846+00:00", "element": 337, "name": "Aaronson", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-09-20T23:26:16.319846+00:00", "element": 448, "name": "Burn", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-09-20T23:26:16.319846+00:00", "element": 525, "name": "Fernandes", "field": "now_cost", "from": 58, "to": 57}
