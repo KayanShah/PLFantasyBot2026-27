@@ -15,11 +15,17 @@ makes.
     highest_gameweek_score        The single best score any manager posted
                                   in one gameweek this season, and which one.
     top_scorer / most_owned /
-    most_transferred_in           Season-aggregate fields FPL already tracks
+    most_transferred_in /
+    most_bonus                    Season-aggregate fields FPL already tracks
                                   per player (elements[].total_points /
-                                  .selected_by_percent / .transfers_in) --
-                                  no per-gameweek summing needed, they're
-                                  already cumulative in bootstrap-static.
+                                  .selected_by_percent / .transfers_in /
+                                  .bonus) -- no per-gameweek summing needed,
+                                  they're already cumulative in bootstrap-static.
+    most_captained_latest         Not a season aggregate -- FPL only ever
+                                  reports most_captained per gameweek, with
+                                  no public per-manager pick history to sum
+                                  across weeks from. The latest finished
+                                  gameweek's is the closest honest equivalent.
 
 Past seasons aren't included here -- once a season ends, the live API stops
 serving it (see plan.md Phase 6), so this only ever has something to say
@@ -56,9 +62,25 @@ def main() -> None:
     )
 
     elements = bootstrap["elements"]
+    elements_by_id = {e["id"]: e for e in elements}
     top_scorer = max(elements, key=lambda e: e["total_points"])
     most_owned = max(elements, key=lambda e: float(e["selected_by_percent"]))
     most_transferred_in = max(elements, key=lambda e: e["transfers_in"])
+    most_bonus = max(elements, key=lambda e: e["bonus"])
+
+    # most_captained is only ever reported per gameweek, not as a season
+    # aggregate FPL exposes anywhere public -- the latest finished
+    # gameweek's is the closest real, correctly-labelled equivalent, not a
+    # sum across gameweeks (which would need per-manager pick data this
+    # endpoint doesn't have).
+    latest_finished = finished_events[-1] if finished_events else None
+    most_captained_latest = (
+        {
+            "gw": latest_finished["id"],
+            "name": player_name(elements_by_id[latest_finished["most_captained"]]),
+        }
+        if latest_finished and latest_finished.get("most_captained") is not None else None
+    )
 
     data = {
         "season": "2026-27",
@@ -67,6 +89,8 @@ def main() -> None:
         "highest_gameweek_score": highest_gameweek_score,
         "top_scorer": {"name": player_name(top_scorer), "points": top_scorer["total_points"]},
         "most_owned": {"name": player_name(most_owned), "percent": float(most_owned["selected_by_percent"])},
+        "most_bonus": {"name": player_name(most_bonus), "points": most_bonus["bonus"]},
+        "most_captained_latest": most_captained_latest,
         "most_transferred_in": {"name": player_name(most_transferred_in), "count": most_transferred_in["transfers_in"]},
     }
     OUT_PATH.write_text(json.dumps(data, indent=2), encoding="utf-8")
