@@ -1831,3 +1831,25 @@
 {"at": "2026-09-20T23:26:16.319846+00:00", "element": 337, "name": "Aaronson", "field": "now_cost", "from": 54, "to": 53}
 {"at": "2026-09-20T23:26:16.319846+00:00", "element": 448, "name": "Burn", "field": "now_cost", "from": 49, "to": 48}
 {"at": "2026-09-20T23:26:16.319846+00:00", "element": 525, "name": "Fernandes", "field": "now_cost", "from": 58, "to": 57}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 13, "name": "Rice", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 13, "name": "Rice", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 13, "name": "Rice", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 154, "name": "Palmer", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 154, "name": "Palmer", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 154, "name": "Palmer", "field": "news", "from": "", "to": "Muscular injury - 75% chance of playing"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 577, "name": "Tomiyasu", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 577, "name": "Tomiyasu", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 577, "name": "Tomiyasu", "field": "news", "from": "", "to": "Calf injury - 75% chance of playing"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 638, "name": "Norton-Cuffy", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 638, "name": "Norton-Cuffy", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 638, "name": "Norton-Cuffy", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 325, "name": "Darlow", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 325, "name": "Darlow", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 325, "name": "Darlow", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 429, "name": "Rashford", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 429, "name": "Rashford", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 429, "name": "Rashford", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 432, "name": "Mainoo", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 432, "name": "Mainoo", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 432, "name": "Mainoo", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-09-21T14:27:35.475154+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Shin injury - 75% chance of playing"}
