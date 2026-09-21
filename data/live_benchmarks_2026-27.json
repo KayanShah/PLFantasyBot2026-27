@@ -6,6 +6,10 @@
     "gw": 2,
     "score": 161
   },
+  "latest_gameweek_high_score": {
+    "gw": 5,
+    "score": 126
+  },
   "top_scorer": {
     "name": "Pascal Gro\u00df",
     "points": 47
@@ -24,6 +28,6 @@
   },
   "most_transferred_in": {
     "name": "Rayan Cherki",
-    "count": 2615880
+    "count": 2616197
   }
 }
