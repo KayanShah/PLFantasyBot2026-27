@@ -694,8 +694,21 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 ## Phase 6 — Evaluation & Iteration
 
 - [x] Track the bot's actual gameweek-by-gameweek score against a real season, not just backtests — the five model strategies' real GW1-4 results, and (separately) the real squad actually held via **Live Updated Team**, admin-page-only (see the note above).
-- [ ] Compare against benchmarks: FPL average score, `ep_next`-only strategy, and top public FPL AI tools (e.g. OpenFPL).
+- [x] Compare against benchmarks: FPL average score — done, see the note below. `ep_next`-only strategy and top public FPL AI tools (e.g. OpenFPL) still open; neither has a free public API this project already touches.
 - [ ] Iterate on features/model based on where predictions miss most (e.g. rotation risk, red cards, injuries).
+
+---
+
+> [!IMPORTANT]
+> **Public benchmarks added: the real average-manager score, and a handful of season records, all from data the live pipeline was already one API call away from.** Every comparison against "the average manager" had, until now, only ever happened by hand — computed ad hoc, off-site, each time someone asked how a strategy's season total actually stacked up. `model/generate_benchmarks.py` fetches `bootstrap-static` (free, unauthenticated, no manager ID needed — the same endpoint every live script here already calls) and pulls out:
+> - **Manager average, cumulative** — summed from `events[].average_entry_score` across every finished gameweek. This is what every strategy's season total is actually being judged against on the dashboard now, not just in conversation.
+> - **Season records** — highest single-gameweek score any manager has posted (and which gameweek), the season's top points scorer, the most-owned player, and the most-transferred-in player. All of this turned out to already be cumulative in `bootstrap-static`'s `elements[]` — no per-gameweek summing needed, one fetch has the whole season's aggregate.
+>
+> Shown two ways on the dashboard: the average manager gets folded into the existing strategy leaderboard as a dashed, non-clickable row (so a strategy's rank visibly includes whether it beats the real average, not just the other strategies), and the season records get their own public sidebar card. Both documented in the in-page Info panel.
+>
+> Live season only, and that's a real constraint, not an oversight: once a season ends, FPL's live API stops serving it (same limitation `multi_season_backtest.py`'s past-season averages already work around via Wayback Machine snapshots — see Phase 6 above). 2025-26's backtest leaderboard still gets the one number available for a finished season (1895, the same constant `multi_season_backtest.py` already uses) — just not the season-records card, which has nothing live left to compute from.
+>
+> Wired into `refresh-dashboard.yml` alongside the other live generators, with its output file added to the same snapshot/restore/add lists the calendar fix already established a pattern for — so a refresh mid-flight can't silently discard a fresher benchmarks fetch the way it once did for the calendar.
 
 ---
 
