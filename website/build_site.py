@@ -1116,13 +1116,21 @@ TEMPLATE = """<!doctype html>
     el('recordsCard').style.display = hasRecords ? '' : 'none';
     if (!hasRecords) return;
 
-    const tiles = [
-      { label: 'Highest GW score', value: `${b.highest_gameweek_score.score} pts`, sub: `Gameweek ${b.highest_gameweek_score.gw}` },
+    const tiles = [];
+    // Latest-gameweek tile first -- right after a gameweek ends, that's the
+    // one actually worth seeing, not the season's all-time high (which can
+    // correctly keep pointing at an old gameweek forever and reads as
+    // stale otherwise).
+    if (b.latest_gameweek_high_score) {
+      tiles.push({ label: `GW${b.latest_gameweek_high_score.gw} highest score`, value: `${b.latest_gameweek_high_score.score} pts`, sub: 'This gameweek' });
+    }
+    tiles.push(
+      { label: 'Season record (any GW)', value: `${b.highest_gameweek_score.score} pts`, sub: `Gameweek ${b.highest_gameweek_score.gw}` },
       { label: 'Top scorer', value: b.top_scorer.name, sub: `${b.top_scorer.points} pts` },
       { label: 'Most owned', value: b.most_owned.name, sub: `${b.most_owned.percent.toFixed(1)}%` },
       { label: 'Most transferred in', value: b.most_transferred_in.name, sub: `${b.most_transferred_in.count.toLocaleString()} transfers` },
       { label: 'Most bonus points', value: b.most_bonus.name, sub: `${b.most_bonus.points} pts` },
-    ];
+    );
     if (b.most_captained_latest) {
       tiles.push({ label: `Most captained (GW${b.most_captained_latest.gw})`, value: b.most_captained_latest.name, sub: 'Latest gameweek' });
     }
