@@ -45,6 +45,7 @@ Notes:
 - No API key needed for read-only public endpoints; auth (session cookie) is only required for endpoints tied to *your own* team (`/my-team/`, making transfers, etc.).
 - CORS-blocked from a browser — fine to call server-side.
 - `bootstrap-static` includes each player's `ep_next` (FPL's own expected-points estimate) and ICT index components (Influence, Creativity, Threat), which are useful baseline features even before building a custom model.
+- `bootstrap-static`'s `events[]` also carries real public benchmarks per gameweek — `average_entry_score` (the real average manager's score that week) and `highest_score` — plus season-aggregate fields directly on each element (`total_points`, `selected_by_percent`, `transfers_in`). All free, no manager ID needed. Used in [`model/generate_benchmarks.py`](model/generate_benchmarks.py) to show the dashboard's average-manager comparison and season records.
 - Undocumented and can change without notice — build a thin wrapper layer so breakage is isolated.
 
 Community wrappers worth using instead of hand-rolling HTTP calls: the [`fpl` Python package](https://fpl.readthedocs.io/) (async, covers most endpoints) or a lightweight `requests` client.
