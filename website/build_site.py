@@ -509,6 +509,8 @@ TEMPLATE = """<!doctype html>
     }
     .leader-row + .leader-row { margin-top:4px; }
     .leader-row.active { background:rgba(95,37,159,.06); border-color:rgba(95,37,159,.10); }
+    .leader-row.benchmark { cursor:default; border-style:dashed; border-color:rgba(29,29,31,.14); }
+    .leader-row.benchmark .leader-name { color:var(--muted); }
     .rank { color:var(--muted-2); font-size:10px; font-weight:700; }
     .leader-name { font-size:10.8px; font-weight:630; }
     .leader-name small { display:block; color:var(--muted-2); margin-top:2px; font-weight:480; }
@@ -1009,9 +1011,17 @@ TEMPLATE = """<!doctype html>
       // from (it's always season_total: null until it's actually played).
       const scored = s.gameweeks.filter(g => g.season_total != null);
       const score = scored.length ? scored[scored.length - 1].season_total : null;
-      return { i, label: s.label, risk: s.risk, score };
-    }).sort((x,y) => (y.score ?? -1) - (x.score ?? -1));
-    el('leaderboard').innerHTML = items.map((s,rank) => `<div class="leader-row ${s.i===state.strategyIdx?'active':''}" data-strategy="${s.i}">
+      return { i, label: s.label, risk: s.risk, score, benchmark: false };
+    });
+    // Real average-manager score, folded into the same ranked list as its
+    // own dashed, non-clickable row -- see model/generate_benchmarks.py.
+    // Previously this comparison only ever happened by hand, off-site.
+    const avgScore = season.benchmarks && season.benchmarks.manager_average_cumulative;
+    if (avgScore != null) {
+      items.push({ i: -1, label: 'Average manager', risk: 'Real FPL data', score: avgScore, benchmark: true });
+    }
+    items.sort((x,y) => (y.score ?? -1) - (x.score ?? -1));
+    el('leaderboard').innerHTML = items.map((s,rank) => `<div class="leader-row ${s.benchmark ? 'benchmark' : ''} ${s.i===state.strategyIdx?'active':''}" ${s.benchmark ? '' : `data-strategy="${s.i}"`}>
       <div class="rank">#${rank+1}</div>
       <div class="leader-name">${s.label}<small>${s.risk}</small></div>
       <div class="leader-score">${s.score == null ? '—' : s.score + ' pts'}</div>
