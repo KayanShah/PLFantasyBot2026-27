@@ -1097,6 +1097,30 @@ TEMPLATE = """<!doctype html>
     });
   }
 
+  function renderSeasonRecords(){
+    // Only the live season has real per-record data (highest score, top
+    // scorer, most owned, most transferred in) -- a finished season's
+    // benchmarks block only ever carries the one fixed manager-average
+    // number, already shown in the leaderboard row, so there's nothing
+    // extra worth a whole card for the backtest season.
+    const b = currentSeason().benchmarks;
+    const hasRecords = !!(b && b.highest_gameweek_score);
+    el('recordsCard').style.display = hasRecords ? '' : 'none';
+    if (!hasRecords) return;
+
+    const tiles = [
+      { label: 'Highest GW score', value: `${b.highest_gameweek_score.score} pts`, sub: `Gameweek ${b.highest_gameweek_score.gw}` },
+      { label: 'Top scorer', value: b.top_scorer.name, sub: `${b.top_scorer.points} pts` },
+      { label: 'Most owned', value: b.most_owned.name, sub: `${b.most_owned.percent.toFixed(1)}%` },
+      { label: 'Most transferred in', value: b.most_transferred_in.name, sub: `${b.most_transferred_in.count.toLocaleString()} transfers` },
+    ];
+    el('recordsGrid').innerHTML = tiles.map(t => `<div class="record-tile">
+      <label>${t.label}</label>
+      <strong>${t.value}</strong>
+      <span>${t.sub}</span>
+    </div>`).join('');
+  }
+
   function renderCalendarAndCountdown(){
     const season = currentSeason();
     const calendar = season.gameweek_calendar;
@@ -1312,6 +1336,7 @@ TEMPLATE = """<!doctype html>
     renderSeasonToggle();
     renderStrategies();
     renderLeaderboard();
+    renderSeasonRecords();
     renderGwSelect();
     renderPanel();
     renderCalendarAndCountdown();
