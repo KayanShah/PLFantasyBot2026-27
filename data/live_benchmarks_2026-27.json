@@ -14,6 +14,14 @@
     "name": "Erling Haaland",
     "percent": 73.6
   },
+  "most_bonus": {
+    "name": "Pascal Gro\u00df",
+    "points": 9
+  },
+  "most_captained_latest": {
+    "gw": 5,
+    "name": "Erling Haaland"
+  },
   "most_transferred_in": {
     "name": "Rayan Cherki",
     "count": 2615880
