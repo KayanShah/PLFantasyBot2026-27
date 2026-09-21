@@ -328,6 +328,14 @@ TEMPLATE = """<!doctype html>
       border-bottom: 1px solid rgba(29,29,31,.05);
       background: rgba(249,249,251,.68);
     }
+    .records-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:9px; }
+    .record-tile {
+      background:rgba(249,249,251,.7); border:1px solid rgba(29,29,31,.05);
+      border-radius:12px; padding:9px 10px;
+    }
+    .record-tile label { display:block; color:var(--muted); font-size:8.5px; text-transform:uppercase; letter-spacing:.07em; }
+    .record-tile strong { display:block; margin-top:5px; font-size:12px; font-weight:670; }
+    .record-tile span { display:block; margin-top:1px; color:var(--muted-2); font-size:9.5px; }
     .metric {
       min-height: 63px;
       padding: 12px 13px;
@@ -842,6 +850,11 @@ TEMPLATE = """<!doctype html>
         <section class="side-card glass">
           <div class="side-head"><h3>Strategy leaderboard</h3><span id="leaderboardSeason">—</span></div>
           <div id="leaderboard"></div>
+        </section>
+
+        <section class="side-card glass" id="recordsCard" style="display:none">
+          <div class="side-head"><h3>Season records</h3><span>Real FPL data</span></div>
+          <div class="records-grid" id="recordsGrid"></div>
         </section>
 
         <section class="side-card glass">
