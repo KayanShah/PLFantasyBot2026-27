@@ -52,6 +52,9 @@ jobs:
       - name: Generate live 2026-27 xG Experimental
         run: python model/generate_live_xg_strategy.py
 
+      - name: Generate public benchmarks (average manager, season records)
+        run: python model/generate_benchmarks.py
+
       - name: Rebuild website
         run: python website/build_site.py
 
@@ -99,7 +102,7 @@ jobs:
           for key in $MODEL_STRATEGY_FILES; do
             cp "data/live_squads_${key}.json" "data/live_state_${key}.json" "$tmp"/ 2>/dev/null || true
           done
-          cp data/live_gameweek_calendar.json \
+          cp data/live_gameweek_calendar.json data/live_benchmarks_2026-27.json \
              data/strategies_manifest_2026-27.json data/strategies_manifest_2025-26.json \
              data/season_2025-26_squads_*.json data/season_2025-26_simulation_*.csv \
              "$tmp"/ 2>/dev/null || true
@@ -110,7 +113,7 @@ jobs:
           cp "$tmp"/*.json "$tmp"/*.csv data/ 2>/dev/null || true
           python website/build_site.py
 
-          ADD_FILES="data/live_gameweek_calendar.json data/strategies_manifest_2026-27.json data/strategies_manifest_2025-26.json website/index.html"
+          ADD_FILES="data/live_gameweek_calendar.json data/live_benchmarks_2026-27.json data/strategies_manifest_2026-27.json data/strategies_manifest_2025-26.json website/index.html"
           for key in $MODEL_STRATEGY_FILES; do
             ADD_FILES="$ADD_FILES data/live_squads_${key}.json data/live_state_${key}.json"
           done
