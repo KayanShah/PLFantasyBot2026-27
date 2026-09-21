@@ -29,6 +29,15 @@ SEASON_MANIFESTS = [
     ("2025-26", "backtest", "2025-26 — Backtest"),
 ]
 
+# 2025-26 is over, so there's no live bootstrap-static left to compute this
+# from (see model/generate_benchmarks.py's docstring) -- same number as
+# model/multi_season_backtest.py's own AVERAGE_MANAGER["2025-26"], sourced
+# the same way (summed from a Wayback Machine snapshot of that season's
+# final events[].average_entry_score, see plan.md Phase 6). Not imported
+# from there directly since build_site.py is deliberately self-contained,
+# no model/ dependency.
+BACKTEST_MANAGER_AVERAGE_2025_26 = 1895
+
 
 def build_team_shortcodes() -> dict[str, str]:
     """
@@ -1325,6 +1334,20 @@ def load_season_block(season: str, kind: str, label: str, shortcodes: dict[str, 
     calendar_path = DATA_DIR / "live_gameweek_calendar.json"
     if kind == "live" and calendar_path.exists():
         block["gameweek_calendar"] = json.loads(calendar_path.read_text(encoding="utf-8"))
+
+    # Public benchmarks: the real average-manager score (and, live only, a
+    # few season records) -- see model/generate_benchmarks.py. Backtest gets
+    # only the one fixed number available for a finished season; live gets
+    # whatever the last generate_benchmarks.py run found.
+    if kind == "live":
+        benchmarks_path = DATA_DIR / f"live_benchmarks_{season}.json"
+        if benchmarks_path.exists():
+            block["benchmarks"] = json.loads(benchmarks_path.read_text(encoding="utf-8"))
+    elif kind == "backtest" and season == "2025-26":
+        block["benchmarks"] = {
+            "season": "2025-26",
+            "manager_average_cumulative": BACKTEST_MANAGER_AVERAGE_2025_26,
+        }
 
     return block
 
