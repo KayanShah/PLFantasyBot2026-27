@@ -1121,7 +1121,11 @@ TEMPLATE = """<!doctype html>
       { label: 'Top scorer', value: b.top_scorer.name, sub: `${b.top_scorer.points} pts` },
       { label: 'Most owned', value: b.most_owned.name, sub: `${b.most_owned.percent.toFixed(1)}%` },
       { label: 'Most transferred in', value: b.most_transferred_in.name, sub: `${b.most_transferred_in.count.toLocaleString()} transfers` },
+      { label: 'Most bonus points', value: b.most_bonus.name, sub: `${b.most_bonus.points} pts` },
     ];
+    if (b.most_captained_latest) {
+      tiles.push({ label: `Most captained (GW${b.most_captained_latest.gw})`, value: b.most_captained_latest.name, sub: 'Latest gameweek' });
+    }
     el('recordsGrid').innerHTML = tiles.map(t => `<div class="record-tile">
       <label>${t.label}</label>
       <strong>${t.value}</strong>
