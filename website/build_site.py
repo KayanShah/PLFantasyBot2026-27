@@ -750,7 +750,7 @@ TEMPLATE = """<!doctype html>
         <h2>Public benchmarks</h2>
         <div class="info-grid">
           <div class="info-item"><div><strong>Average manager (dashed leaderboard row)</strong>The real cumulative score of the average FPL manager this season, summed from FPL's own <code>average_entry_score</code> per finished gameweek — not an estimate. Ranked alongside every strategy so you can see at a glance how many actually beat it.</div></div>
-          <div class="info-item"><div><strong>Season records card</strong>Highest score any manager has posted in a single gameweek this season (and which one), the season's top points scorer, the most-owned player, and the most-transferred-in player — all pulled straight from FPL's public API, no manager ID or login needed. Live season only: once a season ends, FPL's live API stops serving it, so there's nothing fresh to compute for the 2025-26 backtest.</div></div>
+          <div class="info-item"><div><strong>Season records card</strong>Highest score any manager has posted in a single gameweek this season (and which one), the season's top points scorer, the most-owned player, the most-transferred-in player, and the most bonus points earned — all pulled straight from FPL's public API, no manager ID or login needed. "Most captained" is labelled with its gameweek since FPL only reports that per gameweek, not as a season total. Live season only: once a season ends, FPL's live API stops serving it, so there's nothing fresh to compute for the 2025-26 backtest.</div></div>
         </div>
       </div>
 
