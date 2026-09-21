@@ -1,0 +1,21 @@
+{
+  "season": "2026-27",
+  "through_gw": 5,
+  "manager_average_cumulative": 299,
+  "highest_gameweek_score": {
+    "gw": 2,
+    "score": 161
+  },
+  "top_scorer": {
+    "name": "Pascal Gro\u00df",
+    "points": 47
+  },
+  "most_owned": {
+    "name": "Erling Haaland",
+    "percent": 73.6
+  },
+  "most_transferred_in": {
+    "name": "Rayan Cherki",
+    "count": 2615880
+  }
+}
