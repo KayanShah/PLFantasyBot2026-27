@@ -708,6 +708,8 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 >
 > Live season only, and that's a real constraint, not an oversight: once a season ends, FPL's live API stops serving it (same limitation `multi_season_backtest.py`'s past-season averages already work around via Wayback Machine snapshots — see Phase 6 above). 2025-26's backtest leaderboard still gets the one number available for a finished season (1895, the same constant `multi_season_backtest.py` already uses) — just not the season-records card, which has nothing live left to compute from.
 >
+> **Real feedback, same day: "highest GW score" showing GW2 right after GW5 ended read as pointless, even though the number was correct.** Checked against fresh live data before touching anything — GW2's 161 genuinely is still this season's highest single-gameweek score (GW5's own was only 126) — so this wasn't a bug in the usual sense, just a record that can correctly keep pointing at an old gameweek forever, which reads as stale exactly when it matters least: right after a new gameweek finishes. Added `latest_gameweek_high_score` alongside the existing all-time record rather than replacing it — both are real, they're just answering different questions ("what's the best this season" vs "how did this gameweek do"), and the card now leads with the one that's actually relevant right now.
+>
 > Wired into `refresh-dashboard.yml` alongside the other live generators, with its output file added to the same snapshot/restore/add lists the calendar fix already established a pattern for — so a refresh mid-flight can't silently discard a fresher benchmarks fetch the way it once did for the calendar.
 
 ---
