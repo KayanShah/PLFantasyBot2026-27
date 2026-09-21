@@ -13,7 +13,13 @@ makes.
                                   site (previously only ever computed ad hoc,
                                   by hand, each time someone asked).
     highest_gameweek_score        The single best score any manager posted
-                                  in one gameweek this season, and which one.
+                                  in one gameweek this season, and which one
+                                  -- an all-time record that can (correctly)
+                                  keep pointing at an old gameweek forever.
+    latest_gameweek_high_score    The same field, but for the most recently
+                                  finished gameweek specifically -- what's
+                                  actually relevant right after it ends,
+                                  not the season's all-time high water mark.
     top_scorer / most_owned /
     most_transferred_in /
     most_bonus                    Season-aggregate fields FPL already tracks
@@ -60,6 +66,15 @@ def main() -> None:
         {"gw": highest_gw_event["id"], "score": highest_gw_event["highest_score"]}
         if highest_gw_event else None
     )
+    # The all-time record above can (and usually does) stay pointing at an
+    # earlier gameweek forever once it's been set -- correct, but not what
+    # you actually want to see right after a gameweek just finished. This is
+    # that gameweek's own number specifically, always the latest one.
+    latest_event = finished_events[-1] if finished_events else None
+    latest_gameweek_high_score = (
+        {"gw": latest_event["id"], "score": latest_event["highest_score"]}
+        if latest_event else None
+    )
 
     elements = bootstrap["elements"]
     elements_by_id = {e["id"]: e for e in elements}
@@ -87,6 +102,7 @@ def main() -> None:
         "through_gw": max(finished) if finished else 0,
         "manager_average_cumulative": manager_average_cumulative,
         "highest_gameweek_score": highest_gameweek_score,
+        "latest_gameweek_high_score": latest_gameweek_high_score,
         "top_scorer": {"name": player_name(top_scorer), "points": top_scorer["total_points"]},
         "most_owned": {"name": player_name(most_owned), "percent": float(most_owned["selected_by_percent"])},
         "most_bonus": {"name": player_name(most_bonus), "points": most_bonus["bonus"]},
