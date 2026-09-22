@@ -37,6 +37,17 @@ strategies (see the fix in its "Commit and push" step) and would silently
 revert any hand-updated live_state_real_team.json picks if it tried.
 Run this by hand after recording what actually happened for a finished
 gameweek, or whenever you want a fresher recommendation ahead of a deadline.
+
+When entering a real gameweek's actual squad BY HAND (from a screenshot or
+similar) rather than from this script's own output: verify each player by
+kit colour/club against bootstrap-static, not by name text match alone --
+"Elliott" (Harvey Elliott, Liverpool) and "Elliot Anderson" (Man City) both
+plausibly match a loose "Elliot[t]" search and this project tracked the
+wrong one under that name from GW1 through GW5 before catching it. Also
+verify each gameweek's reconstructed raw points sum to the real total
+BEFORE writing anything -- see the GW1-5 correction in plan.md for the
+worked example (an `assert` on that sum caught a real bug in the
+verification math itself, not the data, on the first attempt).
 """
 
 import json
