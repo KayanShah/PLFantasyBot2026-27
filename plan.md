@@ -721,6 +721,8 @@ Want to contribute to the plan? see [CONTRIBUTING.md](CONTRIBUTING.md)
 >
 > `live_state_real_team.json` and the GW6 recommendation were rebuilt from this corrected GW5 baseline afterward — the previous GW6 plan had been computed from a squad that was already wrong in three different ways.
 >
+> **One more correction on top, caught by checking the arithmetic rather than trusting a plausible-sounding guess.** GW3-5 were first recorded with an *estimated* hit count (1-2 per week), inferred from standard free-transfer accrual rules given the real transfer counts. That estimate turned out to have no actual evidence behind it — if a hit had really been taken, the sum of each gameweek's displayed player points should exceed the shown total by 4 per hit, and it doesn't, for any of the 5 gameweeks: raw sum equals `gw_score` exactly, every single week. That's real evidence *against* a hit having been applied to this screen's total, not just an absence of confirmation. Set all three to 0 rather than leave a plausible but unverified number standing — an unverified "1-2 hits" would have made the admin page's own displayed numbers fail to visibly reconcile, the same class of problem the auto-sub display fix closed weeks ago.
+>
 > Wired into `refresh-dashboard.yml` alongside the other live generators, with its output file added to the same snapshot/restore/add lists the calendar fix already established a pattern for — so a refresh mid-flight can't silently discard a fresher benchmarks fetch the way it once did for the calendar.
 
 ---
