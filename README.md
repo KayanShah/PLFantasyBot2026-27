@@ -223,3 +223,7 @@ See [plan.md](plan.md#phase-4--optimization-engine) for the full breakdown, incl
 
 Bug found, idea worth testing, or a change you're proposing? See [CONTRIBUTING.md](CONTRIBUTING.md) — read `plan.md` first, since it documents a dozen ideas already tried and reverted, each with the numbers and reasoning. Participation means agreeing to the [Code of Conduct](CODE_OF_CONDUCT.md).
 
+
+
+
+Built by [Kayan Shah](https://github.com/kayanshah), and [Shailen Patel](https://github.com/5H41L3N)
