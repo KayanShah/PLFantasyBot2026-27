@@ -18,7 +18,9 @@
   <img src="https://fantasy.premierleague.com/img/favicons/apple-touch-icon.png" width="120" alt="Fantasy Premier League logo" />
 </p>
 
-<h1 align="center">PLFantasyBot 2026/27</h1>
+<h1 align="center">
+  <a href="https://plfantasybot2026-27.vercel.app">PLFantasyBot 2026/27</a>
+</h1>
 
 <p align="center">
   A bot that builds the best possible Fantasy Premier League team using historical data, live stats, and predictive modeling.
@@ -220,3 +222,4 @@ See [plan.md](plan.md#phase-4--optimization-engine) for the full breakdown, incl
 ## Contributing
 
 Bug found, idea worth testing, or a change you're proposing? See [CONTRIBUTING.md](CONTRIBUTING.md) — read `plan.md` first, since it documents a dozen ideas already tried and reverted, each with the numbers and reasoning. Participation means agreeing to the [Code of Conduct](CODE_OF_CONDUCT.md).
+
