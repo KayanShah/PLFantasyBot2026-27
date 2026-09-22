@@ -48,6 +48,17 @@ verify each gameweek's reconstructed raw points sum to the real total
 BEFORE writing anything -- see the GW1-5 correction in plan.md for the
 worked example (an `assert` on that sum caught a real bug in the
 verification math itself, not the data, on the first attempt).
+
+The FPL app's per-gameweek pitch-view "Total Pts" tile shows GROSS points
+-- it does NOT subtract hit costs, even when hits were actually taken.
+Don't infer "no hits" from that tile's total matching the sum of displayed
+player points; it will always match, hit or no hit, since that screen never
+shows the net figure at all. The only real source for the net total is the
+season's actual running total (confirm against the official app directly,
+or a `Gameweek History` screen that shows Points/Transfers Cost as separate
+columns) -- see plan.md for a real instance of trusting the wrong screen's
+"the numbers reconcile" as if it were evidence about hits, when it wasn't
+evidence about hits at all.
 """
 
 import json
