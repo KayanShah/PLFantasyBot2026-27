@@ -1883,3 +1883,11 @@
 {"at": "2026-09-24T16:50:57.600059+00:00", "element": 397, "name": "Semenyo", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-24T16:50:57.600059+00:00", "element": 397, "name": "Semenyo", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-09-24T16:50:57.600059+00:00", "element": 397, "name": "Semenyo", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-09-24T23:19:34.740094+00:00", "element": 26, "name": "Havertz", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-24T23:19:34.740094+00:00", "element": 26, "name": "Havertz", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-24T23:19:34.740094+00:00", "element": 26, "name": "Havertz", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-09-24T23:19:34.740094+00:00", "element": 262, "name": "Smith Rowe", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-09-24T23:19:34.740094+00:00", "element": 572, "name": "Tzolakis", "field": "now_cost", "from": 46, "to": 47}
+{"at": "2026-09-24T23:19:34.740094+00:00", "element": 552, "name": "Brobbey", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-24T23:19:34.740094+00:00", "element": 552, "name": "Brobbey", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-24T23:19:34.740094+00:00", "element": 552, "name": "Brobbey", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
