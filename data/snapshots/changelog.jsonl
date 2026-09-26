@@ -2053,3 +2053,4 @@
 {"at": "2026-09-26T10:06:33.414173+00:00", "element": 158, "name": "Gittens", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-26T10:06:33.414173+00:00", "element": 158, "name": "Gittens", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-09-26T10:06:33.414173+00:00", "element": 158, "name": "Gittens", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-09-26T23:46:33.124246+00:00", "element": 626, "name": "Zepa", "field": "now_cost", "from": 45, "to": 44}
