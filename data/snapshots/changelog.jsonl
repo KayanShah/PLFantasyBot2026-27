@@ -2043,3 +2043,10 @@
 {"at": "2026-09-25T12:54:05.804068+00:00", "fixture": 372, "name": "AVL v TOT (GW38)", "field": "team_a_difficulty", "from": 4, "to": 3}
 {"at": "2026-09-25T12:54:05.804068+00:00", "fixture": 375, "name": "CRY v LEE (GW38)", "field": "team_h_difficulty", "from": 2, "to": 3}
 {"at": "2026-09-25T12:54:05.804068+00:00", "fixture": 376, "name": "HUL v NEW (GW38)", "field": "team_h_difficulty", "from": 2, "to": 3}
+{"at": "2026-09-26T00:03:15.906688+00:00", "element": 14, "name": "Eze", "field": "now_cost", "from": 63, "to": 62}
+{"at": "2026-09-26T00:03:15.906688+00:00", "element": 115, "name": "De Cuyper", "field": "now_cost", "from": 49, "to": 50}
+{"at": "2026-09-26T00:03:15.906688+00:00", "element": 135, "name": "Yohanna", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-09-26T00:03:15.906688+00:00", "element": 595, "name": "Gozo", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-26T00:03:15.906688+00:00", "element": 532, "name": "Ballard", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-26T00:03:15.906688+00:00", "element": 532, "name": "Ballard", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-26T00:03:15.906688+00:00", "element": 532, "name": "Ballard", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
