@@ -2050,3 +2050,6 @@
 {"at": "2026-09-26T00:03:15.906688+00:00", "element": 532, "name": "Ballard", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-26T00:03:15.906688+00:00", "element": 532, "name": "Ballard", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-09-26T00:03:15.906688+00:00", "element": 532, "name": "Ballard", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-09-26T10:06:33.414173+00:00", "element": 158, "name": "Gittens", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-26T10:06:33.414173+00:00", "element": 158, "name": "Gittens", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-26T10:06:33.414173+00:00", "element": 158, "name": "Gittens", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
