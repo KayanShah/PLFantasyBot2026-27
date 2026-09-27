@@ -2057,3 +2057,10 @@
 {"at": "2026-09-27T15:14:42.556874+00:00", "element": 379, "name": "Isak", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-27T15:14:42.556874+00:00", "element": 379, "name": "Isak", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-09-27T15:14:42.556874+00:00", "element": 379, "name": "Isak", "field": "news", "from": "", "to": "Foot injury - 75% chance of playing"}
+{"at": "2026-09-27T22:29:29.992231+00:00", "element": 367, "name": "Gakpo", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-27T22:29:29.992231+00:00", "element": 367, "name": "Gakpo", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-09-27T22:29:29.992231+00:00", "element": 367, "name": "Gakpo", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-09-27T22:29:29.992231+00:00", "element": 379, "name": "Isak", "field": "news", "from": "Foot injury - 75% chance of playing", "to": "Thigh injury - 75% chance of playing"}
+{"at": "2026-09-27T22:29:29.992231+00:00", "element": 415, "name": "Dorgu", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-09-27T22:29:29.992231+00:00", "element": 415, "name": "Dorgu", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-09-27T22:29:29.992231+00:00", "element": 415, "name": "Dorgu", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
