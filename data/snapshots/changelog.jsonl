@@ -2064,3 +2064,5 @@
 {"at": "2026-09-27T22:29:29.992231+00:00", "element": 415, "name": "Dorgu", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-27T22:29:29.992231+00:00", "element": 415, "name": "Dorgu", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-09-27T22:29:29.992231+00:00", "element": 415, "name": "Dorgu", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-09-28T01:07:01.713692+00:00", "element": 170, "name": "Emegha", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-09-28T01:07:01.713692+00:00", "element": 249, "name": "Barry", "field": "now_cost", "from": 56, "to": 57}
