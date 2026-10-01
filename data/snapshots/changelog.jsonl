@@ -2076,3 +2076,7 @@
 {"at": "2026-09-30T16:56:30.928349+00:00", "element": 112, "name": "Van Hecke", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-09-30T16:56:30.928349+00:00", "element": 112, "name": "Van Hecke", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-09-30T16:56:30.928349+00:00", "element": 112, "name": "Van Hecke", "field": "news", "from": "", "to": "Foot injury - 75% chance of playing"}
+{"at": "2026-10-01T00:45:04.704873+00:00", "element": 17, "name": "Merino", "field": "now_cost", "from": 58, "to": 57}
+{"at": "2026-10-01T00:45:04.704873+00:00", "element": 202, "name": "Richards", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-10-01T00:45:04.704873+00:00", "element": 229, "name": "Tarkowski", "field": "now_cost", "from": 61, "to": 62}
+{"at": "2026-10-01T00:45:04.704873+00:00", "element": 421, "name": "Heaven", "field": "now_cost", "from": 44, "to": 43}
