@@ -2080,3 +2080,12 @@
 {"at": "2026-10-01T00:45:04.704873+00:00", "element": 202, "name": "Richards", "field": "now_cost", "from": 50, "to": 49}
 {"at": "2026-10-01T00:45:04.704873+00:00", "element": 229, "name": "Tarkowski", "field": "now_cost", "from": 61, "to": 62}
 {"at": "2026-10-01T00:45:04.704873+00:00", "element": 421, "name": "Heaven", "field": "now_cost", "from": 44, "to": 43}
+{"at": "2026-10-01T20:13:32.141099+00:00", "element": 233, "name": "Mykolenko", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-01T20:13:32.141099+00:00", "element": 233, "name": "Mykolenko", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-01T20:13:32.141099+00:00", "element": 233, "name": "Mykolenko", "field": "news", "from": "", "to": "Leg injury - 75% chance of playing"}
+{"at": "2026-10-01T20:13:32.141099+00:00", "element": 387, "name": "O'Reilly", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-01T20:13:32.141099+00:00", "element": 387, "name": "O'Reilly", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-01T20:13:32.141099+00:00", "element": 387, "name": "O'Reilly", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-01T20:13:32.141099+00:00", "element": 459, "name": "L.Miley", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-01T20:13:32.141099+00:00", "element": 459, "name": "L.Miley", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-01T20:13:32.141099+00:00", "element": 459, "name": "L.Miley", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
