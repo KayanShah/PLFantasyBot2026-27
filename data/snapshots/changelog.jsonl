@@ -2098,3 +2098,6 @@
 {"at": "2026-10-03T01:48:21.481469+00:00", "element": 368, "name": "Szoboszlai", "field": "now_cost", "from": 70, "to": 69}
 {"at": "2026-10-03T01:48:21.481469+00:00", "element": 392, "name": "A\u00eft-Nouri", "field": "now_cost", "from": 53, "to": 52}
 {"at": "2026-10-03T01:48:21.481469+00:00", "element": 488, "name": "I.Sangar\u00e9", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-03T20:49:31.992528+00:00", "element": 96, "name": "Damsgaard", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-03T20:49:31.992528+00:00", "element": 96, "name": "Damsgaard", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-03T20:49:31.992528+00:00", "element": 96, "name": "Damsgaard", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
