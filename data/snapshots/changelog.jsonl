@@ -2101,3 +2101,10 @@
 {"at": "2026-10-03T20:49:31.992528+00:00", "element": 96, "name": "Damsgaard", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-03T20:49:31.992528+00:00", "element": 96, "name": "Damsgaard", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-10-03T20:49:31.992528+00:00", "element": 96, "name": "Damsgaard", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-03T23:39:43.935231+00:00", "element": 124, "name": "Gro\u00df", "field": "now_cost", "from": 58, "to": 59}
+{"at": "2026-10-03T23:39:43.935231+00:00", "element": 142, "name": "James", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-03T23:39:43.935231+00:00", "element": 180, "name": "Woolfenden", "field": "now_cost", "from": 40, "to": 39}
+{"at": "2026-10-03T23:39:43.935231+00:00", "element": 241, "name": "McNeil", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-03T23:39:43.935231+00:00", "element": 288, "name": "Dowell", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-10-03T23:39:43.935231+00:00", "element": 406, "name": "Kova\u010di\u0107", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-03T23:39:43.935231+00:00", "element": 419, "name": "Martinez", "field": "now_cost", "from": 50, "to": 49}
