@@ -2108,3 +2108,9 @@
 {"at": "2026-10-03T23:39:43.935231+00:00", "element": 288, "name": "Dowell", "field": "now_cost", "from": 45, "to": 44}
 {"at": "2026-10-03T23:39:43.935231+00:00", "element": 406, "name": "Kova\u010di\u0107", "field": "now_cost", "from": 54, "to": 53}
 {"at": "2026-10-03T23:39:43.935231+00:00", "element": 419, "name": "Martinez", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-10-04T22:28:16.372240+00:00", "element": 588, "name": "Khalaili", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-04T22:28:16.372240+00:00", "element": 588, "name": "Khalaili", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-04T22:28:16.372240+00:00", "element": 588, "name": "Khalaili", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-10-04T22:28:16.372240+00:00", "element": 422, "name": "Mazraoui", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-04T22:28:16.372240+00:00", "element": 422, "name": "Mazraoui", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-04T22:28:16.372240+00:00", "element": 422, "name": "Mazraoui", "field": "news", "from": "", "to": "Back injury - 75% chance of playing"}
