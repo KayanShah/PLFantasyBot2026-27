@@ -2122,3 +2122,9 @@
 {"at": "2026-10-05T16:58:35.895911+00:00", "element": 69, "name": "Scott", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-05T16:58:35.895911+00:00", "element": 69, "name": "Scott", "field": "chance_of_playing_next_round", "from": null, "to": 50}
 {"at": "2026-10-05T16:58:35.895911+00:00", "element": 69, "name": "Scott", "field": "news", "from": "", "to": "Thigh injury - 50% chance of playing"}
+{"at": "2026-10-05T23:06:59.121805+00:00", "element": 8, "name": "Calafiori", "field": "now_cost", "from": 58, "to": 59}
+{"at": "2026-10-05T23:06:59.121805+00:00", "element": 12, "name": "Saka", "field": "now_cost", "from": 95, "to": 96}
+{"at": "2026-10-05T23:06:59.121805+00:00", "element": 20, "name": "Dowman", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-05T23:06:59.121805+00:00", "element": 20, "name": "Dowman", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-05T23:06:59.121805+00:00", "element": 20, "name": "Dowman", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-05T23:06:59.121805+00:00", "element": 456, "name": "J.Ramsey", "field": "now_cost", "from": 49, "to": 48}
