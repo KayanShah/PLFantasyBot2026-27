@@ -2114,3 +2114,5 @@
 {"at": "2026-10-04T22:28:16.372240+00:00", "element": 422, "name": "Mazraoui", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-04T22:28:16.372240+00:00", "element": 422, "name": "Mazraoui", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-10-04T22:28:16.372240+00:00", "element": 422, "name": "Mazraoui", "field": "news", "from": "", "to": "Back injury - 75% chance of playing"}
+{"at": "2026-10-05T01:11:14.899086+00:00", "element": 221, "name": "Drakes-Thomas", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-10-05T01:11:14.899086+00:00", "element": 416, "name": "De Ligt", "field": "now_cost", "from": 50, "to": 49}
