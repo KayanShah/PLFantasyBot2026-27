@@ -2138,3 +2138,28 @@
 {"at": "2026-10-07T01:18:08.928900+00:00", "element": 268, "name": "King", "field": "now_cost", "from": 55, "to": 56}
 {"at": "2026-10-08T00:51:10.282657+00:00", "element": 306, "name": "Greaves", "field": "now_cost", "from": 40, "to": 39}
 {"at": "2026-10-08T00:51:10.282657+00:00", "element": 621, "name": "McAidoo", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 69, "name": "Scott", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 69, "name": "Scott", "field": "chance_of_playing_next_round", "from": 50, "to": 0}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 69, "name": "Scott", "field": "news", "from": "Thigh injury - 50% chance of playing", "to": "Thigh injury - Unknown return date"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 177, "name": "Kesler-Hayden", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 177, "name": "Kesler-Hayden", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 177, "name": "Kesler-Hayden", "field": "news", "from": "Hamstring injury - Unknown return date", "to": "Hamstring injury - 50% chance of playing"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 260, "name": "Wilson", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 260, "name": "Wilson", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 260, "name": "Wilson", "field": "news", "from": "Thigh injury - Unknown return date", "to": "Thigh injury - 75% chance of playing"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 343, "name": "James", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 343, "name": "James", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 343, "name": "James", "field": "news", "from": "", "to": "Back injury - Expected back 18 Oct"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 648, "name": "Bahoya", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 648, "name": "Bahoya", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 648, "name": "Bahoya", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 458, "name": "Joelinton", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 458, "name": "Joelinton", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 458, "name": "Joelinton", "field": "news", "from": "Unspecified injury - Unknown return date", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 532, "name": "Ballard", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 532, "name": "Ballard", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 532, "name": "Ballard", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - Unknown return date"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 543, "name": "Diarra", "field": "news", "from": "Hamstring injury - Unknown return date", "to": "Hamstring injury - Expected back 18 Oct"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 552, "name": "Brobbey", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 552, "name": "Brobbey", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-10-08T14:48:47.186092+00:00", "element": 552, "name": "Brobbey", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - Expected back 25 Oct"}
