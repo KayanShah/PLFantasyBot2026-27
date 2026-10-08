@@ -2163,3 +2163,11 @@
 {"at": "2026-10-08T14:48:47.186092+00:00", "element": 552, "name": "Brobbey", "field": "status", "from": "d", "to": "i"}
 {"at": "2026-10-08T14:48:47.186092+00:00", "element": 552, "name": "Brobbey", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
 {"at": "2026-10-08T14:48:47.186092+00:00", "element": 552, "name": "Brobbey", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - Expected back 25 Oct"}
+{"at": "2026-10-08T20:35:14.395975+00:00", "element": 450, "name": "Livramento", "field": "chance_of_playing_next_round", "from": 75, "to": 50}
+{"at": "2026-10-08T20:35:14.395975+00:00", "element": 450, "name": "Livramento", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Unspecified injury - 50% chance of playing"}
+{"at": "2026-10-08T20:35:14.395975+00:00", "element": 465, "name": "Osula", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-08T20:35:14.395975+00:00", "element": 465, "name": "Osula", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
+{"at": "2026-10-08T20:35:14.395975+00:00", "element": 465, "name": "Osula", "field": "news", "from": "Foot injury - Unknown return date", "to": "Foot injury - 50% chance of playing"}
+{"at": "2026-10-08T20:35:14.395975+00:00", "element": 593, "name": "Dedi\u0107", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-08T20:35:14.395975+00:00", "element": 593, "name": "Dedi\u0107", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
+{"at": "2026-10-08T20:35:14.395975+00:00", "element": 593, "name": "Dedi\u0107", "field": "news", "from": "Unspecified injury - Unknown return date", "to": "Unspecified injury - 50% chance of playing"}
