@@ -2279,3 +2279,17 @@
 {"at": "2026-10-09T20:15:52.285480+00:00", "element": 370, "name": "Chiesa", "field": "status", "from": "i", "to": "d"}
 {"at": "2026-10-09T20:15:52.285480+00:00", "element": 370, "name": "Chiesa", "field": "chance_of_playing_next_round", "from": 0, "to": 25}
 {"at": "2026-10-09T20:15:52.285480+00:00", "element": 370, "name": "Chiesa", "field": "news", "from": "Back injury - Unknown return date", "to": "Back injury - 25% chance of playing"}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 10, "name": "White", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 29, "name": "M.Bizot", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 29, "name": "M.Bizot", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 29, "name": "M.Bizot", "field": "news", "from": "Back injury - Expected back 10 Oct", "to": "Back injury - 75% chance of playing"}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 70, "name": "Kluivert", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 134, "name": "Oriola", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 190, "name": "Tchaouna", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 584, "name": "Hamer", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 569, "name": "Gonzalo", "field": "now_cost", "from": 60, "to": 61}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 313, "name": "Clarke", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 316, "name": "Emersonn", "field": "now_cost", "from": 55, "to": 56}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 375, "name": "Nyoni", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 547, "name": "Mundle", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-10T00:14:52.709777+00:00", "element": 550, "name": "Jocelin.T", "field": "now_cost", "from": 50, "to": 49}
