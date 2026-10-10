@@ -8,7 +8,7 @@
     {
       "element": 426,
       "buy_price": 120,
-      "selling_price": 120
+      "selling_price": 119
     },
     {
       "element": 346,
@@ -48,7 +48,7 @@
     {
       "element": 368,
       "buy_price": 70,
-      "selling_price": 70
+      "selling_price": 69
     },
     {
       "element": 427,
@@ -78,6 +78,6 @@
   ],
   "transfers": {
     "bank": 0,
-    "limit": 1
+    "limit": 2
   }
 }
