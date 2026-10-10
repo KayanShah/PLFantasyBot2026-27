@@ -5,3 +5,5 @@ __pycache__/
 data/live_decisions.jsonl
 .vercel
 .env*
+.DS_Store
+data/.DS_Store
