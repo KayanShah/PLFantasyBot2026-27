@@ -31,7 +31,8 @@ from pathlib import Path
 import train_model
 from generate_live_strategies import (
     backfill_element_ids, live_player_entry, load_shadow_state, next_planning_gameweek,
-    provisionally_finished_gws, save_shadow_state, score_gameweek_entry, squad_bank,
+    provisionally_finished_gws, save_shadow_state, save_shadow_state_from_entry,
+    score_gameweek_entry, squad_bank,
 )
 from live_pipeline import (
     DATA_DIR, SEASON, build_predictions,
@@ -68,6 +69,7 @@ def main() -> None:
         live_results_by_gw[finished_gw] = {e["id"]: e["stats"] for e in live["elements"]}
 
     code_to_element = {e["code"]: e["id"] for e in bootstrap["elements"]}
+    now_cost = {e["id"]: e["now_cost"] for e in bootstrap["elements"]}
 
     print(f"Syncing {SEASON} -> {DATA_DIR / SEASON}")
     sync_season(bootstrap, fixtures, finished)
@@ -100,9 +102,25 @@ def main() -> None:
         if g.get("season_total") is not None:
             prior_season_total = g["season_total"]
 
+    # See generate_live_strategies.py's module docstring: state only ever
+    # rolls forward using a gameweek's own already-scored squad, never from
+    # a fresh plan_transfers() call made while it's still just a
+    # pre-deadline recommendation -- otherwise repeated refreshes of the
+    # same unplayed gameweek silently compound real transfers that the site
+    # only ever displays as one.
     state = load_shadow_state(KEY)
-    current = state if state else None
+    state_gw = state.get("gw", 0) if state else 0
     free_transfers = state["transfers"]["limit"] if state else 1
+    for g in sorted(gameweeks_history, key=lambda g: g["gw"]):
+        if g["gw"] in finished and g["gw"] > state_gw:
+            used_free = min(g["transfers"], free_transfers)
+            free_transfers = min(5, (free_transfers - used_free) + 1)
+            state = save_shadow_state_from_entry(KEY, g, now_cost, free_transfers, state)
+            state_gw = g["gw"]
+            print(f"  Rolled shadow state forward to GW{g['gw']} "
+                  f"({g['transfers']} transfer(s), {free_transfers} free transfer(s) next)")
+
+    current = state if state else None
     bank = state["transfers"]["bank"] if state else 0
     unlimited = current is not None and not finished and now < deadline
 
@@ -135,12 +153,10 @@ def main() -> None:
         "gameweeks": gameweeks_history,
     }, indent=2), encoding="utf-8")
 
+    # Only the GW1-style free rebuild persists state straight from this
+    # run's `choice` -- see generate_live_strategies.py's matching comment.
     if current is None or unlimited:
-        next_free_transfers = free_transfers
-    else:
-        used_free = min(choice["transfers"], free_transfers)
-        next_free_transfers = min(5, (free_transfers - used_free) + 1)
-    save_shadow_state(KEY, choice, next_free_transfers, state)
+        save_shadow_state(KEY, choice, free_transfers, state)
 
     manifest_path = OUT_DIR / "strategies_manifest_2026-27.json"
     manifest = (
