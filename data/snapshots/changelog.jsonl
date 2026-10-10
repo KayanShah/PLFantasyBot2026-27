@@ -2426,3 +2426,15 @@
 {"at": "2026-10-10T17:43:50.106470+00:00", "element": 541, "name": "Meunier", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-10T17:43:50.106470+00:00", "element": 541, "name": "Meunier", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-10-10T17:43:50.106470+00:00", "element": 541, "name": "Meunier", "field": "news", "from": "", "to": "Groin injury - 75% chance of playing"}
+{"at": "2026-10-10T21:23:41.857336+00:00", "element": 51, "name": "George Hemmings", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-10T21:23:41.857336+00:00", "element": 51, "name": "George Hemmings", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-10T21:23:41.857336+00:00", "element": 51, "name": "George Hemmings", "field": "news", "from": "", "to": "Knee injury - 75% chance of playing"}
+{"at": "2026-10-10T21:23:41.857336+00:00", "element": 596, "name": "Ruggeri", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-10T21:23:41.857336+00:00", "element": 596, "name": "Ruggeri", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-10T21:23:41.857336+00:00", "element": 596, "name": "Ruggeri", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-10-10T21:23:41.857336+00:00", "element": 93, "name": "Schuster", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-10T21:23:41.857336+00:00", "element": 93, "name": "Schuster", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-10T21:23:41.857336+00:00", "element": 93, "name": "Schuster", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-10-10T21:23:41.857336+00:00", "element": 516, "name": "Bentancur", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-10-10T21:23:41.857336+00:00", "element": 516, "name": "Bentancur", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-10-10T21:23:41.857336+00:00", "element": 516, "name": "Bentancur", "field": "news", "from": "", "to": "Suspended until 7 Nov"}
