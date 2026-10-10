@@ -13,12 +13,26 @@ current-squad state has to live somewhere between runs:
 
 Before any gameweek is played there is no state yet, so every strategy starts
 from the same from-scratch 15-man build live_pipeline.py itself uses for GW1
-(see choose_team()'s current=None branch). Re-running this after a gameweek
-has been played rolls each strategy's shadow squad forward the same way
-plan_transfers() already does for the real team -- what it does NOT yet do is
-score a past gameweek's held squad against the real result to build a running
-total; that needs real 2026-27 results to exist first; wiring it in is the
-next piece once GW1 has actually been played.
+(see choose_team()'s current=None branch).
+
+live_state_{key}.json is only ever rewritten once a gameweek actually
+FINISHES, using that gameweek's own locked squad (the one already sitting in
+live_squads_{key}.json, scored for real) -- never from a fresh plan_transfers()
+call made while that gameweek is still just a pre-deadline recommendation.
+This is deliberate, not an oversight: refresh-dashboard.yml re-runs this
+script on a schedule, so a single still-unplayed gameweek routinely gets
+re-planned several times before its deadline (prices move, injury flags
+change). Persisting state on every one of those re-plans -- as an earlier
+version of this file did -- treats each provisional pick as if it had already
+been bought, so a later re-plan quietly starts from the PREVIOUS re-plan's
+guess instead of from the actually-held squad, and silently compounds
+multiple real transfers into whatever the site only ever displays as one
+(see plan.md for the worked example: a 20-day refresh gap left one strategy's
+state holding a goalkeeper nobody ever actually finished a gameweek with,
+charged as 0 of the 2 transfers it actually represented). Re-running this
+any number of times before a gameweek's deadline must always re-plan from
+the same last-FINISHED squad and get the same answer, modulo live price/
+injury changes -- never from whatever the last refresh happened to guess.
 
 Output, in the shape build_site.py already reads from the backtest
 (model/run_all_strategies.py):
@@ -254,6 +268,38 @@ def squad_bank(choice: dict) -> int:
     return choice["budget"] - int(choice["squad"][cost_col].sum())
 
 
+def save_shadow_state_from_entry(
+    key: str, entry: dict, now_cost: dict[int, int],
+    free_transfers_next: int, prior_state: dict | None,
+) -> dict:
+    """
+    Rolls a strategy's shadow state forward using the squad `entry` was
+    already scored with -- never a fresh plan_transfers() call -- so
+    repeated pre-deadline refreshes of a still-unplayed gameweek can never
+    compound into this file (see the module docstring for why that matters).
+    Returns the new state dict so the caller can thread it into the next
+    gameweek's roll-forward without a redundant disk read.
+    """
+    path = OUT_DIR / f"live_state_{key}.json"
+    prior_buy_price = {
+        p["element"]: p.get("buy_price", p.get("selling_price"))
+        for p in (prior_state["picks"] if prior_state else [])
+    }
+    picks = []
+    for p in entry["starting_xi"] + entry["bench"]:
+        e = p["element"]
+        v = now_cost.get(e)
+        buy_price = prior_buy_price.get(e, v)
+        picks.append({"element": e, "buy_price": buy_price, "selling_price": sell_value(buy_price, v)})
+    state = {
+        "gw": entry["gw"],
+        "picks": picks,
+        "transfers": {"bank": round(entry["bank"] * 10), "limit": free_transfers_next},
+    }
+    path.write_text(json.dumps(state, indent=2), encoding="utf-8")
+    return state
+
+
 def save_shadow_state(
     key: str, choice: dict, free_transfers_next: int, prior_state: dict | None = None,
 ) -> None:
@@ -308,6 +354,7 @@ def main() -> None:
     # to live_player_entry()'s output only have `photo_code` to identify a
     # player by.
     code_to_element = {e["code"]: e["id"] for e in bootstrap["elements"]}
+    now_cost = {e["id"]: e["now_cost"] for e in bootstrap["elements"]}
 
     # The whole season's calendar, not just the next deadline -- the website
     # shows this as a browsable dropdown so a manager can see what's coming,
@@ -381,8 +428,25 @@ def main() -> None:
                 prior_season_total = g["season_total"]
 
         state = load_shadow_state(key)
-        current = state if state else None
+        state_gw = state.get("gw", 0) if state else 0
         free_transfers = (state["transfers"]["limit"] if state else 1)
+
+        # Roll the shadow state forward through every finished gameweek this
+        # strategy's state hasn't absorbed yet (normally just the one that
+        # finished since the last run), using each one's own already-scored
+        # squad -- never a fresh plan_transfers() call. See the module
+        # docstring: persisting a provisional pre-deadline re-plan here is
+        # exactly the bug this replaced.
+        for g in sorted(gameweeks_history, key=lambda g: g["gw"]):
+            if g["gw"] in finished and g["gw"] > state_gw:
+                used_free = min(g["transfers"], free_transfers)
+                free_transfers = min(5, (free_transfers - used_free) + 1)
+                state = save_shadow_state_from_entry(key, g, now_cost, free_transfers, state)
+                state_gw = g["gw"]
+                print(f"  Rolled shadow state forward to GW{g['gw']} "
+                      f"({g['transfers']} transfer(s), {free_transfers} free transfer(s) next)")
+
+        current = state if state else None
         bank = (state["transfers"]["bank"] if state else 0)
         # Unlimited-rebuild eligibility ends at GW1's own deadline, not just
         # whenever FPL happens to mark GW1 "finished" (which can be days
@@ -427,16 +491,20 @@ def main() -> None:
             "gameweeks": gameweeks_history,
         }, indent=2), encoding="utf-8")
 
-        # Mirrors simulate_season.simulate()'s exact roll-forward rule: a full
-        # rebuild (GW1, or the unlimited pre-deadline rebuild) doesn't touch
-        # the free-transfer count at all; otherwise only the free transfers
-        # actually spent are deducted before next week's top-up.
+        # Only the GW1-style free rebuild persists state straight from this
+        # run's `choice` -- that window is explicitly "re-pick anything for
+        # free until the deadline", so repeatedly overwriting state with the
+        # latest guess is the intended behaviour, not the compounding bug
+        # above: hits are always 0 here by construction (free_transfers is
+        # set equal to transfers made), so there is nothing to under-charge.
+        # Once a real squad exists and transfers are limited (current is not
+        # None and not unlimited), this gameweek is still just a
+        # recommendation until its own deadline passes -- state stays
+        # exactly as the roll-forward loop above left it, and the next run
+        # (before or after this gw's deadline) replans from that same
+        # last-finished squad rather than from today's guess.
         if current is None or unlimited:
-            next_free_transfers = free_transfers
-        else:
-            used_free = min(choice["transfers"], free_transfers)
-            next_free_transfers = min(5, (free_transfers - used_free) + 1)
-        save_shadow_state(key, choice, next_free_transfers, state)
+            save_shadow_state(key, choice, free_transfers, state)
 
         manifest["strategies"].append({
             "key": key, "label": cfg["label"], "short": cfg["short"],
