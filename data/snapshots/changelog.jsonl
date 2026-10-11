@@ -2438,3 +2438,24 @@
 {"at": "2026-10-10T21:23:41.857336+00:00", "element": 516, "name": "Bentancur", "field": "status", "from": "a", "to": "s"}
 {"at": "2026-10-10T21:23:41.857336+00:00", "element": 516, "name": "Bentancur", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-10-10T21:23:41.857336+00:00", "element": 516, "name": "Bentancur", "field": "news", "from": "", "to": "Suspended until 7 Nov"}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 4, "name": "Gabriel", "field": "now_cost", "from": 80, "to": 79}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 13, "name": "Rice", "field": "now_cost", "from": 74, "to": 73}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 26, "name": "Havertz", "field": "now_cost", "from": 76, "to": 75}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 50, "name": "Burrowes", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 124, "name": "Gro\u00df", "field": "now_cost", "from": 59, "to": 60}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 153, "name": "Disasi", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 643, "name": "Chilwell", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 647, "name": "Osorio", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 574, "name": "Hjert\u00f8-Dahl", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 589, "name": "Gourna-Douath", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 648, "name": "Bahoya", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 360, "name": "Bradley", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 379, "name": "Isak", "field": "now_cost", "from": 91, "to": 90}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 391, "name": "Gvardiol", "field": "now_cost", "from": 57, "to": 58}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 398, "name": "Foden", "field": "now_cost", "from": 69, "to": 68}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 587, "name": "Rulli", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 464, "name": "Wissa", "field": "now_cost", "from": 62, "to": 63}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 532, "name": "Ballard", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 544, "name": "Xhaka", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 545, "name": "Sadiki", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-11T00:22:35.358233+00:00", "element": 548, "name": "Rigg", "field": "now_cost", "from": 49, "to": 48}
