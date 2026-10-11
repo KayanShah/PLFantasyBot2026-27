@@ -2459,3 +2459,12 @@
 {"at": "2026-10-11T00:22:35.358233+00:00", "element": 544, "name": "Xhaka", "field": "now_cost", "from": 55, "to": 54}
 {"at": "2026-10-11T00:22:35.358233+00:00", "element": 545, "name": "Sadiki", "field": "now_cost", "from": 49, "to": 48}
 {"at": "2026-10-11T00:22:35.358233+00:00", "element": 548, "name": "Rigg", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-11T13:19:50.738096+00:00", "element": 21, "name": "N\u00f8rgaard", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-11T13:19:50.738096+00:00", "element": 21, "name": "N\u00f8rgaard", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-10-11T13:19:50.738096+00:00", "element": 21, "name": "N\u00f8rgaard", "field": "news", "from": "Groin injury - 50% chance of playing", "to": ""}
+{"at": "2026-10-11T13:19:50.738096+00:00", "element": 246, "name": "R\u00f6hl", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-11T13:19:50.738096+00:00", "element": 246, "name": "R\u00f6hl", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-10-11T13:19:50.738096+00:00", "element": 246, "name": "R\u00f6hl", "field": "news", "from": "Unspecified injury - 50% chance of playing", "to": ""}
+{"at": "2026-10-11T13:19:50.738096+00:00", "element": 469, "name": "N.Williams", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-11T13:19:50.738096+00:00", "element": 469, "name": "N.Williams", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-10-11T13:19:50.738096+00:00", "element": 469, "name": "N.Williams", "field": "news", "from": "Illness - 50% chance of playing", "to": ""}
