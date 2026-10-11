@@ -2468,3 +2468,21 @@
 {"at": "2026-10-11T13:19:50.738096+00:00", "element": 469, "name": "N.Williams", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-10-11T13:19:50.738096+00:00", "element": 469, "name": "N.Williams", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
 {"at": "2026-10-11T13:19:50.738096+00:00", "element": 469, "name": "N.Williams", "field": "news", "from": "Illness - 50% chance of playing", "to": ""}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 368, "name": "Szoboszlai", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 368, "name": "Szoboszlai", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 368, "name": "Szoboszlai", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 370, "name": "Chiesa", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 370, "name": "Chiesa", "field": "chance_of_playing_next_round", "from": 25, "to": 100}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 370, "name": "Chiesa", "field": "news", "from": "Back injury - 25% chance of playing", "to": ""}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 371, "name": "Gravenberch", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 371, "name": "Gravenberch", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 371, "name": "Gravenberch", "field": "news", "from": "", "to": "Suspended until 25 Oct"}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 387, "name": "O'Reilly", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 387, "name": "O'Reilly", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 387, "name": "O'Reilly", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 397, "name": "Semenyo", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 397, "name": "Semenyo", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 397, "name": "Semenyo", "field": "news", "from": "Ankle injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 398, "name": "Foden", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 398, "name": "Foden", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-11T18:21:16.674422+00:00", "element": 398, "name": "Foden", "field": "news", "from": "Suspended until 17 Oct", "to": ""}
