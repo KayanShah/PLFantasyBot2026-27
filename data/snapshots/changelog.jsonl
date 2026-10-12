@@ -2505,3 +2505,27 @@
 {"at": "2026-10-12T01:36:41.191297+00:00", "element": 417, "name": "Dalot", "field": "now_cost", "from": 49, "to": 48}
 {"at": "2026-10-12T01:36:41.191297+00:00", "element": 559, "name": "Bamba", "field": "now_cost", "from": 49, "to": 48}
 {"at": "2026-10-12T01:36:41.191297+00:00", "element": 487, "name": "Dominguez", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 9, "name": "Hincapie", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 9, "name": "Hincapie", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 9, "name": "Hincapie", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 19, "name": "Zubimendi", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 19, "name": "Zubimendi", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 19, "name": "Zubimendi", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 175, "name": "van Ewijk", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 175, "name": "van Ewijk", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 175, "name": "van Ewijk", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 448, "name": "Burn", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 448, "name": "Burn", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 448, "name": "Burn", "field": "news", "from": "Ankle injury - Expected back 12 Oct", "to": ""}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 458, "name": "Joelinton", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 458, "name": "Joelinton", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 458, "name": "Joelinton", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 459, "name": "L.Miley", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 459, "name": "L.Miley", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 459, "name": "L.Miley", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 465, "name": "Osula", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 465, "name": "Osula", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 465, "name": "Osula", "field": "news", "from": "Foot injury - 50% chance of playing", "to": ""}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 593, "name": "Dedi\u0107", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 593, "name": "Dedi\u0107", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-10-12T18:47:48.350120+00:00", "element": 593, "name": "Dedi\u0107", "field": "news", "from": "Unspecified injury - 50% chance of playing", "to": ""}
