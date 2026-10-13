@@ -2529,3 +2529,21 @@
 {"at": "2026-10-12T18:47:48.350120+00:00", "element": 593, "name": "Dedi\u0107", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-10-12T18:47:48.350120+00:00", "element": 593, "name": "Dedi\u0107", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
 {"at": "2026-10-12T18:47:48.350120+00:00", "element": 593, "name": "Dedi\u0107", "field": "news", "from": "Unspecified injury - 50% chance of playing", "to": ""}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 596, "name": "Ruggeri", "field": "chance_of_playing_next_round", "from": 75, "to": 25}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 596, "name": "Ruggeri", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - 25% chance of playing"}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 138, "name": "Kostoulas", "field": "now_cost", "from": 56, "to": 57}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 600, "name": "Osman", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 175, "name": "van Ewijk", "field": "now_cost", "from": 40, "to": 39}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 492, "name": "Awoniyi", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 492, "name": "Awoniyi", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 492, "name": "Awoniyi", "field": "news", "from": "Suspended until 19 Oct", "to": ""}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 415, "name": "Dorgu", "field": "now_cost", "from": 58, "to": 57}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 423, "name": "Shaw", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 423, "name": "Shaw", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 423, "name": "Shaw", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 432, "name": "Mainoo", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 432, "name": "Mainoo", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 432, "name": "Mainoo", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 461, "name": "Tour\u00e9", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 461, "name": "Tour\u00e9", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-13T01:10:29.121107+00:00", "element": 461, "name": "Tour\u00e9", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
