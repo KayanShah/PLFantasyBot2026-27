@@ -2547,3 +2547,12 @@
 {"at": "2026-10-13T01:10:29.121107+00:00", "element": 461, "name": "Tour\u00e9", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-13T01:10:29.121107+00:00", "element": 461, "name": "Tour\u00e9", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-10-13T01:10:29.121107+00:00", "element": 461, "name": "Tour\u00e9", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-13T16:18:23.280603+00:00", "element": 557, "name": "Tzolis", "field": "news", "from": "Hamstring injury - Expected back 24 Oct", "to": "Hamstring injury - Expected back 1 Nov"}
+{"at": "2026-10-13T16:18:23.280603+00:00", "element": 596, "name": "Ruggeri", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-13T16:18:23.280603+00:00", "element": 596, "name": "Ruggeri", "field": "chance_of_playing_next_round", "from": 25, "to": 0}
+{"at": "2026-10-13T16:18:23.280603+00:00", "element": 596, "name": "Ruggeri", "field": "news", "from": "Hamstring injury - 25% chance of playing", "to": "Hamstring injury - Unknown return date"}
+{"at": "2026-10-13T16:18:23.280603+00:00", "element": 103, "name": "Dasilva", "field": "news", "from": "Hamstring injury - Expected back 10 Oct", "to": "Hamstring injury - Unknown return date"}
+{"at": "2026-10-13T16:18:23.280603+00:00", "element": 187, "name": "Eccles", "field": "news", "from": "Unspecified injury - Expected back 12 Oct", "to": "Unspecified injury - Unknown return date"}
+{"at": "2026-10-13T16:18:23.280603+00:00", "element": 416, "name": "De Ligt", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-13T16:18:23.280603+00:00", "element": 416, "name": "De Ligt", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-10-13T16:18:23.280603+00:00", "element": 416, "name": "De Ligt", "field": "news", "from": "Back injury - Unknown return date", "to": "Back injury - 75% chance of playing"}
