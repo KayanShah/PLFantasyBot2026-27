@@ -2566,3 +2566,8 @@
 {"at": "2026-10-14T00:32:33.334911+00:00", "element": 272, "name": "Kusi-Asare", "field": "now_cost", "from": 45, "to": 44}
 {"at": "2026-10-14T00:32:33.334911+00:00", "element": 395, "name": "Lewis", "field": "now_cost", "from": 44, "to": 43}
 {"at": "2026-10-14T00:32:33.334911+00:00", "element": 399, "name": "Cherki", "field": "now_cost", "from": 78, "to": 79}
+{"at": "2026-10-14T11:39:38.919849+00:00", "element": 582, "name": "Madjo", "field": "chance_of_playing_next_round", "from": 75, "to": 50}
+{"at": "2026-10-14T11:39:38.919849+00:00", "element": 582, "name": "Madjo", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Unspecified injury - 50% chance of playing"}
+{"at": "2026-10-14T11:39:38.919849+00:00", "element": 618, "name": "Goretzka", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-14T11:39:38.919849+00:00", "element": 618, "name": "Goretzka", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-10-14T11:39:38.919849+00:00", "element": 618, "name": "Goretzka", "field": "news", "from": "Knee injury - Expected back 17 Oct", "to": "Knee injury - 75% chance of playing"}
