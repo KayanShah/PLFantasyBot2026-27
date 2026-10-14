@@ -2580,3 +2580,6 @@
 {"at": "2026-10-14T16:52:58.807216+00:00", "element": 328, "name": "Struijk", "field": "status", "from": "s", "to": "a"}
 {"at": "2026-10-14T16:52:58.807216+00:00", "element": 328, "name": "Struijk", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
 {"at": "2026-10-14T16:52:58.807216+00:00", "element": 328, "name": "Struijk", "field": "news", "from": "Suspended until 25 Oct", "to": ""}
+{"at": "2026-10-14T20:31:20.290522+00:00", "element": 618, "name": "Goretzka", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-14T20:31:20.290522+00:00", "element": 618, "name": "Goretzka", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-14T20:31:20.290522+00:00", "element": 618, "name": "Goretzka", "field": "news", "from": "Knee injury - 75% chance of playing", "to": ""}
