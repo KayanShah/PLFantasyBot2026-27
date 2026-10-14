@@ -2583,3 +2583,8 @@
 {"at": "2026-10-14T20:31:20.290522+00:00", "element": 618, "name": "Goretzka", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-10-14T20:31:20.290522+00:00", "element": 618, "name": "Goretzka", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-10-14T20:31:20.290522+00:00", "element": 618, "name": "Goretzka", "field": "news", "from": "Knee injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-14T23:47:20.293111+00:00", "element": 103, "name": "Dasilva", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-14T23:47:20.293111+00:00", "element": 422, "name": "Mazraoui", "field": "now_cost", "from": 44, "to": 43}
+{"at": "2026-10-14T23:47:20.293111+00:00", "element": 201, "name": "Mu\u00f1oz", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-14T23:47:20.293111+00:00", "element": 498, "name": "Senesi", "field": "now_cost", "from": 58, "to": 57}
+{"at": "2026-10-14T23:47:20.293111+00:00", "element": 499, "name": "Pedro Porro", "field": "now_cost", "from": 54, "to": 53}
