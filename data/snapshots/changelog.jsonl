@@ -2571,3 +2571,12 @@
 {"at": "2026-10-14T11:39:38.919849+00:00", "element": 618, "name": "Goretzka", "field": "status", "from": "i", "to": "d"}
 {"at": "2026-10-14T11:39:38.919849+00:00", "element": 618, "name": "Goretzka", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
 {"at": "2026-10-14T11:39:38.919849+00:00", "element": 618, "name": "Goretzka", "field": "news", "from": "Knee injury - Expected back 17 Oct", "to": "Knee injury - 75% chance of playing"}
+{"at": "2026-10-14T16:52:58.807216+00:00", "element": 70, "name": "Kluivert", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-14T16:52:58.807216+00:00", "element": 70, "name": "Kluivert", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-10-14T16:52:58.807216+00:00", "element": 70, "name": "Kluivert", "field": "news", "from": "Unspecified injury - Unknown return date", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-14T16:52:58.807216+00:00", "element": 77, "name": "Adli", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-14T16:52:58.807216+00:00", "element": 77, "name": "Adli", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-10-14T16:52:58.807216+00:00", "element": 77, "name": "Adli", "field": "news", "from": "Calf injury - Unknown return date", "to": "Calf injury - 75% chance of playing"}
+{"at": "2026-10-14T16:52:58.807216+00:00", "element": 328, "name": "Struijk", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-10-14T16:52:58.807216+00:00", "element": 328, "name": "Struijk", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-14T16:52:58.807216+00:00", "element": 328, "name": "Struijk", "field": "news", "from": "Suspended until 25 Oct", "to": ""}
