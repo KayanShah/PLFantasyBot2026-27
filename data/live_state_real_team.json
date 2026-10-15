@@ -1,64 +1,24 @@
 {
   "picks": [
     {
-      "element": 384,
-      "buy_price": 55,
-      "selling_price": 55
-    },
-    {
-      "element": 61,
-      "buy_price": 54,
-      "selling_price": 54
-    },
-    {
-      "element": 229,
-      "buy_price": 61,
-      "selling_price": 61
-    },
-    {
-      "element": 356,
-      "buy_price": 65,
-      "selling_price": 65
-    },
-    {
-      "element": 426,
-      "buy_price": 119,
-      "selling_price": 119
-    },
-    {
-      "element": 368,
-      "buy_price": 70,
-      "selling_price": 70
-    },
-    {
-      "element": 124,
-      "buy_price": 58,
-      "selling_price": 58
-    },
-    {
-      "element": 481,
-      "buy_price": 63,
-      "selling_price": 63
+      "element": 15,
+      "buy_price": 68,
+      "selling_price": 68
     },
     {
       "element": 26,
       "buy_price": 76,
-      "selling_price": 76
+      "selling_price": 75
     },
     {
-      "element": 346,
-      "buy_price": 60,
-      "selling_price": 60
+      "element": 115,
+      "buy_price": 51,
+      "selling_price": 51
     },
     {
-      "element": 449,
-      "buy_price": 53,
-      "selling_price": 53
-    },
-    {
-      "element": 412,
-      "buy_price": 49,
-      "selling_price": 49
+      "element": 124,
+      "buy_price": 58,
+      "selling_price": 59
     },
     {
       "element": 165,
@@ -66,18 +26,58 @@
       "selling_price": 77
     },
     {
-      "element": 15,
-      "buy_price": 68,
-      "selling_price": 68
+      "element": 229,
+      "buy_price": 61,
+      "selling_price": 61
+    },
+    {
+      "element": 346,
+      "buy_price": 60,
+      "selling_price": 60
+    },
+    {
+      "element": 356,
+      "buy_price": 65,
+      "selling_price": 65
+    },
+    {
+      "element": 368,
+      "buy_price": 70,
+      "selling_price": 69
+    },
+    {
+      "element": 384,
+      "buy_price": 55,
+      "selling_price": 55
     },
     {
       "element": 388,
       "buy_price": 60,
       "selling_price": 60
+    },
+    {
+      "element": 412,
+      "buy_price": 49,
+      "selling_price": 49
+    },
+    {
+      "element": 426,
+      "buy_price": 119,
+      "selling_price": 119
+    },
+    {
+      "element": 449,
+      "buy_price": 53,
+      "selling_price": 53
+    },
+    {
+      "element": 481,
+      "buy_price": 63,
+      "selling_price": 63
     }
   ],
   "transfers": {
-    "bank": 12,
+    "bank": 16,
     "limit": 1
   }
 }
