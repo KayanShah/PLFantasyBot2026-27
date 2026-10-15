@@ -2608,3 +2608,6 @@
 {"at": "2026-10-15T18:31:48.162831+00:00", "element": 553, "name": "Isidor", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-15T18:31:48.162831+00:00", "element": 553, "name": "Isidor", "field": "chance_of_playing_next_round", "from": null, "to": 50}
 {"at": "2026-10-15T18:31:48.162831+00:00", "element": 553, "name": "Isidor", "field": "news", "from": "", "to": "Knock - 50% chance of playing"}
+{"at": "2026-10-15T22:01:08.858222+00:00", "element": 643, "name": "Chilwell", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-10-15T22:01:08.858222+00:00", "element": 643, "name": "Chilwell", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-10-15T22:01:08.858222+00:00", "element": 643, "name": "Chilwell", "field": "news", "from": "", "to": "Unspecified injury - Unknown return date"}
