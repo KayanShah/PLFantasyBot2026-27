@@ -1,5 +1,5 @@
 {
-  "gw": 5,
+  "gw": 6,
   "picks": [
     {
       "element": 226,
@@ -7,19 +7,14 @@
       "selling_price": 55
     },
     {
+      "element": 115,
+      "buy_price": 51,
+      "selling_price": 51
+    },
+    {
       "element": 229,
       "buy_price": 62,
       "selling_price": 62
-    },
-    {
-      "element": 388,
-      "buy_price": 60,
-      "selling_price": 60
-    },
-    {
-      "element": 391,
-      "buy_price": 57,
-      "selling_price": 57
     },
     {
       "element": 356,
@@ -32,11 +27,6 @@
       "selling_price": 119
     },
     {
-      "element": 368,
-      "buy_price": 69,
-      "selling_price": 69
-    },
-    {
       "element": 236,
       "buy_price": 66,
       "selling_price": 66
@@ -47,6 +37,11 @@
       "selling_price": 78
     },
     {
+      "element": 388,
+      "buy_price": 60,
+      "selling_price": 60
+    },
+    {
       "element": 68,
       "buy_price": 61,
       "selling_price": 61
@@ -54,17 +49,7 @@
     {
       "element": 26,
       "buy_price": 76,
-      "selling_price": 76
-    },
-    {
-      "element": 346,
-      "buy_price": 60,
-      "selling_price": 60
-    },
-    {
-      "element": 61,
-      "buy_price": 54,
-      "selling_price": 54
+      "selling_price": 75
     },
     {
       "element": 569,
@@ -72,13 +57,28 @@
       "selling_price": 61
     },
     {
-      "element": 412,
-      "buy_price": 49,
-      "selling_price": 49
+      "element": 368,
+      "buy_price": 69,
+      "selling_price": 69
+    },
+    {
+      "element": 391,
+      "buy_price": 57,
+      "selling_price": 57
+    },
+    {
+      "element": 346,
+      "buy_price": 60,
+      "selling_price": 60
+    },
+    {
+      "element": 350,
+      "buy_price": 55,
+      "selling_price": 55
     }
   ],
   "transfers": {
-    "bank": 8,
+    "bank": 7,
     "limit": 1
   }
 }
