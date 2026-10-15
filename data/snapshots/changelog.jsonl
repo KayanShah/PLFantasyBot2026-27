@@ -2588,3 +2588,5 @@
 {"at": "2026-10-14T23:47:20.293111+00:00", "element": 201, "name": "Mu\u00f1oz", "field": "now_cost", "from": 54, "to": 53}
 {"at": "2026-10-14T23:47:20.293111+00:00", "element": 498, "name": "Senesi", "field": "now_cost", "from": 58, "to": 57}
 {"at": "2026-10-14T23:47:20.293111+00:00", "element": 499, "name": "Pedro Porro", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-15T09:05:00.909753+00:00", "element": 123, "name": "Hinshelwood", "field": "chance_of_playing_next_round", "from": 50, "to": 75}
+{"at": "2026-10-15T09:05:00.909753+00:00", "element": 123, "name": "Hinshelwood", "field": "news", "from": "Ankle injury - 50% chance of playing", "to": "Ankle injury - 75% chance of playing"}
