@@ -2614,3 +2614,18 @@
 {"at": "2026-10-16T00:37:36.991562+00:00", "element": 557, "name": "Tzolis", "field": "now_cost", "from": 63, "to": 62}
 {"at": "2026-10-16T00:37:36.991562+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "now_cost", "from": 70, "to": 69}
 {"at": "2026-10-16T00:37:36.991562+00:00", "element": 491, "name": "Igor Jesus", "field": "now_cost", "from": 58, "to": 57}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 142, "name": "James", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 142, "name": "James", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 142, "name": "James", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Knee injury - Unknown return date"}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 177, "name": "Kesler-Hayden", "field": "chance_of_playing_next_round", "from": 50, "to": 75}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 177, "name": "Kesler-Hayden", "field": "news", "from": "Hamstring injury - 50% chance of playing", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 187, "name": "Eccles", "field": "news", "from": "Unspecified injury - Unknown return date", "to": "Ankle injury - Unknown return date"}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 367, "name": "Gakpo", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 367, "name": "Gakpo", "field": "chance_of_playing_next_round", "from": 0, "to": 25}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 367, "name": "Gakpo", "field": "news", "from": "Ankle injury - Unknown return date", "to": "Ankle injury - 25% chance of playing"}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 368, "name": "Szoboszlai", "field": "chance_of_playing_next_round", "from": 75, "to": 25}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 368, "name": "Szoboszlai", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - 25% chance of playing"}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 379, "name": "Isak", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 379, "name": "Isak", "field": "chance_of_playing_next_round", "from": 0, "to": 25}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 379, "name": "Isak", "field": "news", "from": "Thigh injury - Unknown return date", "to": "Thigh injury - 25% chance of playing"}
+{"at": "2026-10-16T11:02:58.666136+00:00", "element": 454, "name": "Elanga", "field": "news", "from": "Unspecified injury - Unknown return date", "to": "Unspecified injury - Expected back 25 Oct"}
