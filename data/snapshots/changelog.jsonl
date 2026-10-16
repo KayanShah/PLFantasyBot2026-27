@@ -2672,3 +2672,9 @@
 {"at": "2026-10-16T18:57:54.470591+00:00", "element": 480, "name": "Gibbs-White", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-16T18:57:54.470591+00:00", "element": 480, "name": "Gibbs-White", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-10-16T18:57:54.470591+00:00", "element": 480, "name": "Gibbs-White", "field": "news", "from": "", "to": "Muscular injury - 75% chance of playing"}
+{"at": "2026-10-16T22:00:00.704512+00:00", "element": 9, "name": "Hincapie", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-16T22:00:00.704512+00:00", "element": 9, "name": "Hincapie", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-10-16T22:00:00.704512+00:00", "element": 9, "name": "Hincapie", "field": "news", "from": "Ankle injury - 75% chance of playing", "to": "Ankle injury - Expected back 24 Oct"}
+{"at": "2026-10-16T22:00:00.704512+00:00", "element": 198, "name": "Henderson", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-16T22:00:00.704512+00:00", "element": 198, "name": "Henderson", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
+{"at": "2026-10-16T22:00:00.704512+00:00", "element": 198, "name": "Henderson", "field": "news", "from": "Foot injury - Expected back 18 Oct", "to": "Foot injury - 50% chance of playing"}
