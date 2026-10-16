@@ -2611,3 +2611,6 @@
 {"at": "2026-10-15T22:01:08.858222+00:00", "element": 643, "name": "Chilwell", "field": "status", "from": "a", "to": "i"}
 {"at": "2026-10-15T22:01:08.858222+00:00", "element": 643, "name": "Chilwell", "field": "chance_of_playing_next_round", "from": null, "to": 0}
 {"at": "2026-10-15T22:01:08.858222+00:00", "element": 643, "name": "Chilwell", "field": "news", "from": "", "to": "Unspecified injury - Unknown return date"}
+{"at": "2026-10-16T00:37:36.991562+00:00", "element": 557, "name": "Tzolis", "field": "now_cost", "from": 63, "to": 62}
+{"at": "2026-10-16T00:37:36.991562+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "now_cost", "from": 70, "to": 69}
+{"at": "2026-10-16T00:37:36.991562+00:00", "element": 491, "name": "Igor Jesus", "field": "now_cost", "from": 58, "to": 57}
