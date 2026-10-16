@@ -2629,3 +2629,15 @@
 {"at": "2026-10-16T11:02:58.666136+00:00", "element": 379, "name": "Isak", "field": "chance_of_playing_next_round", "from": 0, "to": 25}
 {"at": "2026-10-16T11:02:58.666136+00:00", "element": 379, "name": "Isak", "field": "news", "from": "Thigh injury - Unknown return date", "to": "Thigh injury - 25% chance of playing"}
 {"at": "2026-10-16T11:02:58.666136+00:00", "element": 454, "name": "Elanga", "field": "news", "from": "Unspecified injury - Unknown return date", "to": "Unspecified injury - Expected back 25 Oct"}
+{"at": "2026-10-16T15:27:47.215349+00:00", "element": 266, "name": "Cairney", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-16T15:27:47.215349+00:00", "element": 266, "name": "Cairney", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-10-16T15:27:47.215349+00:00", "element": 266, "name": "Cairney", "field": "news", "from": "Knee injury - Expected back 17 Oct", "to": "Knee injury - 75% chance of playing"}
+{"at": "2026-10-16T15:27:47.215349+00:00", "element": 586, "name": "Mendy", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-10-16T15:27:47.215349+00:00", "element": 586, "name": "Mendy", "field": "chance_of_playing_next_round", "from": 100, "to": 0}
+{"at": "2026-10-16T15:27:47.215349+00:00", "element": 586, "name": "Mendy", "field": "news", "from": "", "to": "Groin injury - Expected back 31 Oct"}
+{"at": "2026-10-16T15:27:47.215349+00:00", "element": 589, "name": "Gourna-Douath", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-10-16T15:27:47.215349+00:00", "element": 589, "name": "Gourna-Douath", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-10-16T15:27:47.215349+00:00", "element": 589, "name": "Gourna-Douath", "field": "news", "from": "", "to": "Calf injury - Expected back 25 Oct"}
+{"at": "2026-10-16T15:27:47.215349+00:00", "element": 471, "name": "Milenkovi\u0107", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-16T15:27:47.215349+00:00", "element": 471, "name": "Milenkovi\u0107", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-10-16T15:27:47.215349+00:00", "element": 471, "name": "Milenkovi\u0107", "field": "news", "from": "Knee injury - Unknown return date", "to": "Knee injury - 75% chance of playing"}
