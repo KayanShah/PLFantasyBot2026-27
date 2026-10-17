@@ -2678,3 +2678,30 @@
 {"at": "2026-10-16T22:00:00.704512+00:00", "element": 198, "name": "Henderson", "field": "status", "from": "i", "to": "d"}
 {"at": "2026-10-16T22:00:00.704512+00:00", "element": 198, "name": "Henderson", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
 {"at": "2026-10-16T22:00:00.704512+00:00", "element": 198, "name": "Henderson", "field": "news", "from": "Foot injury - Expected back 18 Oct", "to": "Foot injury - 50% chance of playing"}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 11, "name": "Mosquera", "field": "now_cost", "from": 53, "to": 52}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 52, "name": "Alysson", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 78, "name": "Kroupi.Jr", "field": "now_cost", "from": 74, "to": 73}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 79, "name": "Evanilson", "field": "now_cost", "from": 60, "to": 61}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 83, "name": "Valdimarsson", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 96, "name": "Damsgaard", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 565, "name": "M.Sangar\u00e9", "field": "now_cost", "from": 56, "to": 55}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 115, "name": "De Cuyper", "field": "now_cost", "from": 51, "to": 52}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 124, "name": "Gro\u00df", "field": "now_cost", "from": 60, "to": 61}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 179, "name": "Latibeaudiere", "field": "now_cost", "from": 40, "to": 39}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 556, "name": "Targett", "field": "now_cost", "from": 40, "to": 39}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 309, "name": "N\u00fa\u00f1ez", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 357, "name": "Frimpong", "field": "now_cost", "from": 53, "to": 52}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 366, "name": "Wirtz", "field": "now_cost", "from": 73, "to": 72}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 368, "name": "Szoboszlai", "field": "now_cost", "from": 69, "to": 68}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 411, "name": "Haaland", "field": "now_cost", "from": 156, "to": 157}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 43, "name": "Tielemans", "field": "now_cost", "from": 58, "to": 57}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 426, "name": "B.Fernandes", "field": "now_cost", "from": 119, "to": 118}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 427, "name": "Mbeumo", "field": "now_cost", "from": 79, "to": 78}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 454, "name": "Elanga", "field": "now_cost", "from": 61, "to": 60}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 462, "name": "Steur", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 464, "name": "Wissa", "field": "now_cost", "from": 63, "to": 62}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 167, "name": "Delap", "field": "now_cost", "from": 56, "to": 55}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 468, "name": "John", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 474, "name": "Jair Cunha", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 476, "name": "O.Richards", "field": "now_cost", "from": 40, "to": 39}
+{"at": "2026-10-17T00:20:54.227967+00:00", "element": 515, "name": "Maddison", "field": "now_cost", "from": 63, "to": 62}
