@@ -2880,3 +2880,8 @@
 {"at": "2026-10-17T23:52:45.658461+00:00", "element": 473, "name": "Aina", "field": "now_cost", "from": 44, "to": 43}
 {"at": "2026-10-17T23:52:45.658461+00:00", "element": 514, "name": "Tel", "field": "now_cost", "from": 57, "to": 56}
 {"at": "2026-10-17T23:52:45.658461+00:00", "element": 516, "name": "Bentancur", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-10-18T03:52:36.286570+00:00", "element": 102, "name": "Yarmoliuk", "field": "news", "from": "Suspended until 8 Nov", "to": "Suspended until 23 Nov"}
+{"at": "2026-10-18T03:52:36.286570+00:00", "element": 28, "name": "Martinez", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-18T03:52:36.286570+00:00", "element": 28, "name": "Martinez", "field": "chance_of_playing_next_round", "from": 25, "to": 0}
+{"at": "2026-10-18T03:52:36.286570+00:00", "element": 28, "name": "Martinez", "field": "news", "from": "Head injury - 25% chance of playing", "to": "Head injury - Unknown return date"}
+{"at": "2026-10-18T03:52:36.286570+00:00", "element": 269, "name": "Sessegnon", "field": "news", "from": "Suspended until 7 Nov", "to": "Suspended until 21 Nov"}
