@@ -2901,3 +2901,22 @@
 {"at": "2026-10-18T13:05:57.156728+00:00", "element": 521, "name": "Kulusevski", "field": "status", "from": "i", "to": "d"}
 {"at": "2026-10-18T13:05:57.156728+00:00", "element": 521, "name": "Kulusevski", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
 {"at": "2026-10-18T13:05:57.156728+00:00", "element": 521, "name": "Kulusevski", "field": "news", "from": "Knee injury - Unknown return date", "to": "Knee injury - 75% chance of playing"}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 19, "name": "Zubimendi", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 19, "name": "Zubimendi", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 19, "name": "Zubimendi", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 121, "name": "Mitoma", "field": "news", "from": "Hamstring injury - Expected back 18 Oct", "to": "Hamstring injury - Expected back 31 Oct"}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 135, "name": "Yohanna", "field": "news", "from": "Unspecified injury - Expected back 18 Oct", "to": "Unspecified injury - Expected back 31 Oct"}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 139, "name": "Ferguson", "field": "news", "from": "Ankle injury - Expected back 18 Oct", "to": "Ankle injury - Unknown return date"}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 652, "name": "Azeez", "field": "news", "from": "Hamstring injury - Expected back 18 Oct", "to": "Hamstring injury - Expected back 31 Oct"}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 153, "name": "Disasi", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 153, "name": "Disasi", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 153, "name": "Disasi", "field": "news", "from": "Suspended until 25 Oct", "to": ""}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 419, "name": "Martinez", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 419, "name": "Martinez", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 419, "name": "Martinez", "field": "news", "from": "", "to": "Thigh injury - 75% chance of playing"}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 471, "name": "Milenkovi\u0107", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 471, "name": "Milenkovi\u0107", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 471, "name": "Milenkovi\u0107", "field": "news", "from": "Knee injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 501, "name": "Danso", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 501, "name": "Danso", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-10-18T16:44:53.775727+00:00", "element": 501, "name": "Danso", "field": "news", "from": "", "to": "Suspended until 31 Oct"}
