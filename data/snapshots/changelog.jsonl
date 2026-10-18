@@ -2885,3 +2885,19 @@
 {"at": "2026-10-18T03:52:36.286570+00:00", "element": 28, "name": "Martinez", "field": "chance_of_playing_next_round", "from": 25, "to": 0}
 {"at": "2026-10-18T03:52:36.286570+00:00", "element": 28, "name": "Martinez", "field": "news", "from": "Head injury - 25% chance of playing", "to": "Head injury - Unknown return date"}
 {"at": "2026-10-18T03:52:36.286570+00:00", "element": 269, "name": "Sessegnon", "field": "news", "from": "Suspended until 7 Nov", "to": "Suspended until 21 Nov"}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 223, "name": "Mateta", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 223, "name": "Mateta", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 223, "name": "Mateta", "field": "news", "from": "Hamstring injury - Expected back 18 Oct", "to": ""}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 422, "name": "Mazraoui", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 422, "name": "Mazraoui", "field": "chance_of_playing_next_round", "from": 25, "to": 100}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 422, "name": "Mazraoui", "field": "news", "from": "Back injury - 25% chance of playing", "to": ""}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 403, "name": "S\u00e1vio", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 403, "name": "S\u00e1vio", "field": "chance_of_playing_next_round", "from": 100, "to": 0}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 403, "name": "S\u00e1vio", "field": "news", "from": "", "to": "Muscular injury - Expected back 7 Nov"}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 499, "name": "Pedro Porro", "field": "news", "from": "Hamstring injury - Unknown return date", "to": "Hamstring injury - Expected back 24 Oct"}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 520, "name": "Bergvall", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 520, "name": "Bergvall", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 520, "name": "Bergvall", "field": "news", "from": "", "to": "Knee injury - Expected back 7 Nov"}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 521, "name": "Kulusevski", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 521, "name": "Kulusevski", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-10-18T13:05:57.156728+00:00", "element": 521, "name": "Kulusevski", "field": "news", "from": "Knee injury - Unknown return date", "to": "Knee injury - 75% chance of playing"}
