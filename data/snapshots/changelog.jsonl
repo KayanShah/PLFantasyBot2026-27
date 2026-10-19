@@ -2933,3 +2933,7 @@
 {"at": "2026-10-19T00:01:13.358492+00:00", "element": 464, "name": "Wissa", "field": "now_cost", "from": 62, "to": 61}
 {"at": "2026-10-19T00:01:13.358492+00:00", "element": 480, "name": "Gibbs-White", "field": "now_cost", "from": 80, "to": 79}
 {"at": "2026-10-19T00:01:13.358492+00:00", "element": 490, "name": "Wood", "field": "now_cost", "from": 58, "to": 57}
+{"at": "2026-10-19T11:06:10.836156+00:00", "element": 520, "name": "Bergvall", "field": "news", "from": "Knee injury - Expected back 7 Nov", "to": "Knee injury - Expected back 31 Oct"}
+{"at": "2026-10-19T11:06:10.836156+00:00", "element": 552, "name": "Brobbey", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-19T11:06:10.836156+00:00", "element": 552, "name": "Brobbey", "field": "chance_of_playing_next_round", "from": 100, "to": 50}
+{"at": "2026-10-19T11:06:10.836156+00:00", "element": 552, "name": "Brobbey", "field": "news", "from": "", "to": "Hamstring injury - 50% chance of playing"}
