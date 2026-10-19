@@ -2937,3 +2937,28 @@
 {"at": "2026-10-19T11:06:10.836156+00:00", "element": 552, "name": "Brobbey", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-19T11:06:10.836156+00:00", "element": 552, "name": "Brobbey", "field": "chance_of_playing_next_round", "from": 100, "to": 50}
 {"at": "2026-10-19T11:06:10.836156+00:00", "element": 552, "name": "Brobbey", "field": "news", "from": "", "to": "Hamstring injury - 50% chance of playing"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 102, "name": "Yarmoliuk", "field": "news", "from": "Suspended until 23 Nov", "to": "Suspended until 8 Nov"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 170, "name": "Emegha", "field": "news", "from": "Hamstring injury - Expected back 17 Oct", "to": "Hamstring injury - Unknown return date"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 577, "name": "Tomiyasu", "field": "news", "from": "Calf injury - Expected back 18 Oct", "to": "Calf injury - Expected back 25 Oct"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 269, "name": "Sessegnon", "field": "news", "from": "Suspended until 21 Nov", "to": "Suspended until 7 Nov"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 267, "name": "Luki\u0107", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 267, "name": "Luki\u0107", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 267, "name": "Luki\u0107", "field": "news", "from": "", "to": "Groin injury - 75% chance of playing"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 387, "name": "O'Reilly", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 387, "name": "O'Reilly", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 387, "name": "O'Reilly", "field": "news", "from": "", "to": "Back injury - 75% chance of playing"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 389, "name": "Matheus N.", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 389, "name": "Matheus N.", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 389, "name": "Matheus N.", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 397, "name": "Semenyo", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 397, "name": "Semenyo", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 397, "name": "Semenyo", "field": "news", "from": "Knee injury - 75% chance of playing", "to": "Knee injury - Unknown return date"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 406, "name": "Kova\u010di\u0107", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 406, "name": "Kova\u010di\u0107", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 406, "name": "Kova\u010di\u0107", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 411, "name": "Haaland", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 411, "name": "Haaland", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 411, "name": "Haaland", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 439, "name": "\u0160e\u0161ko", "field": "news", "from": "Shin injury - Expected back 18 Oct", "to": "Shin injury - Expected back 31 Oct"}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 552, "name": "Brobbey", "field": "chance_of_playing_next_round", "from": 50, "to": 75}
+{"at": "2026-10-19T17:40:13.414024+00:00", "element": 552, "name": "Brobbey", "field": "news", "from": "Hamstring injury - 50% chance of playing", "to": "Hamstring injury - 75% chance of playing"}
