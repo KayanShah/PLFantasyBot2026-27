@@ -2990,3 +2990,10 @@
 {"at": "2026-10-20T01:09:53.532647+00:00", "element": 506, "name": "Udogie", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-20T01:09:53.532647+00:00", "element": 506, "name": "Udogie", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-10-20T01:09:53.532647+00:00", "element": 506, "name": "Udogie", "field": "news", "from": "", "to": "Knee injury - 75% chance of playing"}
+{"at": "2026-10-20T16:48:34.662018+00:00", "element": 36, "name": "Maatsen", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-20T16:48:34.662018+00:00", "element": 36, "name": "Maatsen", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-10-20T16:48:34.662018+00:00", "element": 36, "name": "Maatsen", "field": "news", "from": "Ankle injury - Unknown return date", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-10-20T16:48:34.662018+00:00", "element": 596, "name": "Ruggeri", "field": "news", "from": "Hamstring injury - Unknown return date", "to": "Hamstring injury - Expected back 2 Jan"}
+{"at": "2026-10-20T16:48:34.662018+00:00", "element": 611, "name": "Wan-Bissaka", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-20T16:48:34.662018+00:00", "element": 611, "name": "Wan-Bissaka", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-10-20T16:48:34.662018+00:00", "element": 611, "name": "Wan-Bissaka", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - Expected back 21 Nov"}
