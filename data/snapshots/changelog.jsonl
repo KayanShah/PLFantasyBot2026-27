@@ -2997,3 +2997,21 @@
 {"at": "2026-10-20T16:48:34.662018+00:00", "element": 611, "name": "Wan-Bissaka", "field": "status", "from": "d", "to": "i"}
 {"at": "2026-10-20T16:48:34.662018+00:00", "element": 611, "name": "Wan-Bissaka", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
 {"at": "2026-10-20T16:48:34.662018+00:00", "element": 611, "name": "Wan-Bissaka", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - Expected back 21 Nov"}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 377, "name": "Munoz", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 377, "name": "Munoz", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 377, "name": "Munoz", "field": "news", "from": "", "to": "Knee injury - 75% chance of playing"}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 411, "name": "Haaland", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 411, "name": "Haaland", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 411, "name": "Haaland", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 421, "name": "Heaven", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 421, "name": "Heaven", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 421, "name": "Heaven", "field": "news", "from": "", "to": "Illness - 75% chance of playing"}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 423, "name": "Shaw", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 423, "name": "Shaw", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 423, "name": "Shaw", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Unspecified injury - Unknown return date"}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 429, "name": "Rashford", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 429, "name": "Rashford", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 429, "name": "Rashford", "field": "news", "from": "", "to": "Hip injury - 75% chance of playing"}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 432, "name": "Mainoo", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 432, "name": "Mainoo", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-10-20T20:20:07.514391+00:00", "element": 432, "name": "Mainoo", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Unspecified injury - Expected back 8 Nov"}
