@@ -2968,3 +2968,25 @@
 {"at": "2026-10-19T22:09:33.079742+00:00", "element": 521, "name": "Kulusevski", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-10-19T22:09:33.079742+00:00", "element": 521, "name": "Kulusevski", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-10-19T22:09:33.079742+00:00", "element": 521, "name": "Kulusevski", "field": "news", "from": "Knee injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 115, "name": "De Cuyper", "field": "now_cost", "from": 52, "to": 53}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 124, "name": "Gro\u00df", "field": "now_cost", "from": 61, "to": 62}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 130, "name": "Wieffer", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 40, "name": "Rogers", "field": "now_cost", "from": 79, "to": 80}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 136, "name": "Welbeck", "field": "now_cost", "from": 59, "to": 58}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 104, "name": "Onyeka", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 184, "name": "Grimes", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 243, "name": "Alcaraz", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 576, "name": "Stroud", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 400, "name": "Doku", "field": "now_cost", "from": 74, "to": 75}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 147, "name": "Tosin", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 147, "name": "Tosin", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 147, "name": "Tosin", "field": "news", "from": "", "to": "Calf injury - 75% chance of playing"}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 401, "name": "Marmoush", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 401, "name": "Marmoush", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 401, "name": "Marmoush", "field": "news", "from": "", "to": "Calf injury - 75% chance of playing"}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 502, "name": "Robertson", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 502, "name": "Robertson", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 502, "name": "Robertson", "field": "news", "from": "", "to": "Foot injury - 75% chance of playing"}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 506, "name": "Udogie", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 506, "name": "Udogie", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-20T01:09:53.532647+00:00", "element": 506, "name": "Udogie", "field": "news", "from": "", "to": "Knee injury - 75% chance of playing"}
