@@ -3015,3 +3015,11 @@
 {"at": "2026-10-20T20:20:07.514391+00:00", "element": 432, "name": "Mainoo", "field": "status", "from": "d", "to": "i"}
 {"at": "2026-10-20T20:20:07.514391+00:00", "element": 432, "name": "Mainoo", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
 {"at": "2026-10-20T20:20:07.514391+00:00", "element": 432, "name": "Mainoo", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Unspecified injury - Expected back 8 Nov"}
+{"at": "2026-10-20T23:18:10.943317+00:00", "element": 25, "name": "Gy\u00f6keres", "field": "now_cost", "from": 71, "to": 70}
+{"at": "2026-10-20T23:18:10.943317+00:00", "element": 596, "name": "Ruggeri", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-10-20T23:18:10.943317+00:00", "element": 212, "name": "Hughes", "field": "now_cost", "from": 44, "to": 43}
+{"at": "2026-10-20T23:18:10.943317+00:00", "element": 271, "name": "Muniz", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-20T23:18:10.943317+00:00", "element": 347, "name": "Nmecha", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-20T23:18:10.943317+00:00", "element": 362, "name": "Jacquet", "field": "now_cost", "from": 50, "to": 51}
+{"at": "2026-10-20T23:18:10.943317+00:00", "element": 374, "name": "Endo", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-10-20T23:18:10.943317+00:00", "element": 482, "name": "Hudson-Odoi", "field": "now_cost", "from": 58, "to": 57}
