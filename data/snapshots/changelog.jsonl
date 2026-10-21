@@ -3026,3 +3026,16 @@
 {"at": "2026-10-21T07:19:36.350930+00:00", "element": 9, "name": "Hincapie", "field": "status", "from": "i", "to": "d"}
 {"at": "2026-10-21T07:19:36.350930+00:00", "element": 9, "name": "Hincapie", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
 {"at": "2026-10-21T07:19:36.350930+00:00", "element": 9, "name": "Hincapie", "field": "news", "from": "Ankle injury - Expected back 24 Oct", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-10-21T13:06:18.200690+00:00", "element": 63, "name": "Milosavljevi\u0107", "field": "news", "from": "Thigh injury - Unknown return date", "to": "Thigh injury - Expected back 8 Nov"}
+{"at": "2026-10-21T13:06:18.200690+00:00", "element": 69, "name": "Scott", "field": "news", "from": "Thigh injury - Unknown return date", "to": "Thigh injury - Expected back 8 Nov"}
+{"at": "2026-10-21T13:06:18.200690+00:00", "element": 78, "name": "Kroupi.Jr", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-21T13:06:18.200690+00:00", "element": 78, "name": "Kroupi.Jr", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
+{"at": "2026-10-21T13:06:18.200690+00:00", "element": 78, "name": "Kroupi.Jr", "field": "news", "from": "Foot injury - Expected back 7 Nov", "to": "Foot injury - 50% chance of playing"}
+{"at": "2026-10-21T13:06:18.200690+00:00", "element": 589, "name": "Gourna-Douath", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-21T13:06:18.200690+00:00", "element": 589, "name": "Gourna-Douath", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
+{"at": "2026-10-21T13:06:18.200690+00:00", "element": 589, "name": "Gourna-Douath", "field": "news", "from": "Calf injury - Expected back 25 Oct", "to": "Calf injury - 50% chance of playing"}
+{"at": "2026-10-21T13:06:18.200690+00:00", "element": 617, "name": "Cho", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-21T13:06:18.200690+00:00", "element": 617, "name": "Cho", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
+{"at": "2026-10-21T13:06:18.200690+00:00", "element": 617, "name": "Cho", "field": "news", "from": "Unspecified injury - Expected back 25 Oct", "to": "Unspecified injury - 50% chance of playing"}
+{"at": "2026-10-21T13:06:18.200690+00:00", "element": 637, "name": "Vaz", "field": "chance_of_playing_next_round", "from": 50, "to": 75}
+{"at": "2026-10-21T13:06:18.200690+00:00", "element": 637, "name": "Vaz", "field": "news", "from": "Achilles injury - 50% chance of playing", "to": "Achilles injury - 75% chance of playing"}
