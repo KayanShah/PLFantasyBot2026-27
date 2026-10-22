@@ -3060,3 +3060,14 @@
 {"at": "2026-10-21T21:54:46.354346+00:00", "element": 12, "name": "Saka", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-21T21:54:46.354346+00:00", "element": 12, "name": "Saka", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-10-21T21:54:46.354346+00:00", "element": 12, "name": "Saka", "field": "news", "from": "", "to": "Thigh injury - 75% chance of playing"}
+{"at": "2026-10-22T00:30:44.627190+00:00", "element": 12, "name": "Saka", "field": "chance_of_playing_next_round", "from": 75, "to": 50}
+{"at": "2026-10-22T00:30:44.627190+00:00", "element": 12, "name": "Saka", "field": "news", "from": "Thigh injury - 75% chance of playing", "to": "Thigh injury - 50% chance of playing"}
+{"at": "2026-10-22T00:30:44.627190+00:00", "element": 577, "name": "Tomiyasu", "field": "news", "from": "Calf injury - Expected back 25 Oct", "to": "Calf injury - Expected back 8 Nov"}
+{"at": "2026-10-22T00:30:44.627190+00:00", "element": 643, "name": "Chilwell", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-10-22T00:30:44.627190+00:00", "element": 643, "name": "Chilwell", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-22T00:30:44.627190+00:00", "element": 643, "name": "Chilwell", "field": "news", "from": "Unspecified injury - Unknown return date", "to": ""}
+{"at": "2026-10-22T00:30:44.627190+00:00", "element": 644, "name": "Timber", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-22T00:30:44.627190+00:00", "element": 644, "name": "Timber", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-22T00:30:44.627190+00:00", "element": 644, "name": "Timber", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-10-22T00:30:44.627190+00:00", "element": 570, "name": "Palacios", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-22T00:30:44.627190+00:00", "element": 346, "name": "Calvert-Lewin", "field": "now_cost", "from": 60, "to": 61}
