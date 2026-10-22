@@ -3074,3 +3074,7 @@
 {"at": "2026-10-22T15:59:39.494252+00:00", "element": 267, "name": "Luki\u0107", "field": "status", "from": "d", "to": "i"}
 {"at": "2026-10-22T15:59:39.494252+00:00", "element": 267, "name": "Luki\u0107", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
 {"at": "2026-10-22T15:59:39.494252+00:00", "element": 267, "name": "Luki\u0107", "field": "news", "from": "Groin injury - 75% chance of playing", "to": "Groin injury - Expected back 23 Oct"}
+{"at": "2026-10-22T23:14:18.912839+00:00", "element": 154, "name": "Palmer", "field": "now_cost", "from": 97, "to": 98}
+{"at": "2026-10-22T23:14:18.912839+00:00", "element": 338, "name": "Ampadu", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-22T23:14:18.912839+00:00", "element": 418, "name": "Maguire", "field": "now_cost", "from": 48, "to": 47}
+{"at": "2026-10-22T23:14:18.912839+00:00", "element": 427, "name": "Mbeumo", "field": "now_cost", "from": 78, "to": 79}
