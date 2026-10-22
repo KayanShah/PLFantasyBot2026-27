@@ -32,7 +32,7 @@
   {
     "gw": 7,
     "deadline": "2026-10-17T10:00:00Z",
-    "finished": false
+    "finished": true
   },
   {
     "gw": 8,
@@ -61,12 +61,12 @@
   },
   {
     "gw": 13,
-    "deadline": "2026-12-02T18:30:00Z",
+    "deadline": "2026-12-01T18:30:00Z",
     "finished": false
   },
   {
     "gw": 14,
-    "deadline": "2026-12-05T13:30:00Z",
+    "deadline": "2026-12-05T11:00:00Z",
     "finished": false
   },
   {
@@ -76,7 +76,7 @@
   },
   {
     "gw": 16,
-    "deadline": "2026-12-19T13:30:00Z",
+    "deadline": "2026-12-19T11:00:00Z",
     "finished": false
   },
   {
