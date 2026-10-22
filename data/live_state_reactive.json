@@ -1,55 +1,10 @@
 {
-  "gw": 6,
+  "gw": 7,
   "picks": [
     {
-      "element": 412,
-      "buy_price": 49,
-      "selling_price": 49
-    },
-    {
-      "element": 4,
-      "buy_price": 79,
-      "selling_price": 79
-    },
-    {
-      "element": 115,
-      "buy_price": 50,
-      "selling_price": 50
-    },
-    {
-      "element": 229,
-      "buy_price": 62,
-      "selling_price": 62
-    },
-    {
-      "element": 426,
-      "buy_price": 119,
-      "selling_price": 119
-    },
-    {
-      "element": 427,
-      "buy_price": 79,
-      "selling_price": 79
-    },
-    {
-      "element": 236,
-      "buy_price": 66,
-      "selling_price": 66
-    },
-    {
-      "element": 453,
-      "buy_price": 61,
-      "selling_price": 61
-    },
-    {
-      "element": 305,
-      "buy_price": 40,
-      "selling_price": 40
-    },
-    {
-      "element": 249,
-      "buy_price": 57,
-      "selling_price": 57
+      "element": 384,
+      "buy_price": 55,
+      "selling_price": 55
     },
     {
       "element": 388,
@@ -57,9 +12,44 @@
       "selling_price": 60
     },
     {
-      "element": 368,
-      "buy_price": 69,
-      "selling_price": 69
+      "element": 4,
+      "buy_price": 79,
+      "selling_price": 79
+    },
+    {
+      "element": 112,
+      "buy_price": 49,
+      "selling_price": 49
+    },
+    {
+      "element": 115,
+      "buy_price": 50,
+      "selling_price": 51
+    },
+    {
+      "element": 426,
+      "buy_price": 119,
+      "selling_price": 118
+    },
+    {
+      "element": 124,
+      "buy_price": 62,
+      "selling_price": 62
+    },
+    {
+      "element": 427,
+      "buy_price": 79,
+      "selling_price": 78
+    },
+    {
+      "element": 453,
+      "buy_price": 61,
+      "selling_price": 61
+    },
+    {
+      "element": 79,
+      "buy_price": 61,
+      "selling_price": 61
     },
     {
       "element": 379,
@@ -67,18 +57,28 @@
       "selling_price": 90
     },
     {
-      "element": 346,
-      "buy_price": 60,
-      "selling_price": 60
+      "element": 236,
+      "buy_price": 66,
+      "selling_price": 66
     },
     {
-      "element": 384,
-      "buy_price": 55,
-      "selling_price": 55
+      "element": 249,
+      "buy_price": 57,
+      "selling_price": 57
+    },
+    {
+      "element": 229,
+      "buy_price": 62,
+      "selling_price": 62
+    },
+    {
+      "element": 412,
+      "buy_price": 49,
+      "selling_price": 49
     }
   ],
   "transfers": {
     "bank": 0,
-    "limit": 3
+    "limit": 1
   }
 }
