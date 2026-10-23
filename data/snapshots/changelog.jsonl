@@ -3153,3 +3153,81 @@
 {"at": "2026-10-23T17:47:47.720987+00:00", "element": 515, "name": "Maddison", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-23T17:47:47.720987+00:00", "element": 515, "name": "Maddison", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-10-23T17:47:47.720987+00:00", "element": 515, "name": "Maddison", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 9, "name": "Hincapie", "field": "chance_of_playing_this_round", "from": 0, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 12, "name": "Saka", "field": "chance_of_playing_this_round", "from": null, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 19, "name": "Zubimendi", "field": "chance_of_playing_this_round", "from": 75, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 36, "name": "Maatsen", "field": "chance_of_playing_this_round", "from": 0, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 38, "name": "A.Garc\u00eda", "field": "chance_of_playing_this_round", "from": null, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 46, "name": "Barkley", "field": "chance_of_playing_this_round", "from": 75, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 51, "name": "George Hemmings", "field": "chance_of_playing_this_round", "from": 75, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 53, "name": "Manzambi", "field": "chance_of_playing_this_round", "from": 100, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 582, "name": "Madjo", "field": "chance_of_playing_this_round", "from": 50, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 611, "name": "Wan-Bissaka", "field": "chance_of_playing_this_round", "from": null, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 76, "name": "T\u00f3th.A", "field": "chance_of_playing_this_round", "from": null, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 78, "name": "Kroupi.Jr", "field": "chance_of_playing_this_round", "from": 0, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 84, "name": "Collins", "field": "chance_of_playing_this_round", "from": 50, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 94, "name": "Schade", "field": "chance_of_playing_this_round", "from": 75, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 96, "name": "Damsgaard", "field": "chance_of_playing_this_round", "from": 75, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 98, "name": "Janelt", "field": "chance_of_playing_this_round", "from": null, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 102, "name": "Yarmoliuk", "field": "chance_of_playing_this_round", "from": null, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 122, "name": "Minteh", "field": "chance_of_playing_this_round", "from": 0, "to": 50}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 130, "name": "Wieffer", "field": "chance_of_playing_this_round", "from": 0, "to": 25}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 28, "name": "Martinez", "field": "chance_of_playing_this_round", "from": null, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 144, "name": "Gusto", "field": "chance_of_playing_this_round", "from": null, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 583, "name": "Chavarria", "field": "chance_of_playing_this_round", "from": null, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 177, "name": "Kesler-Hayden", "field": "chance_of_playing_this_round", "from": 75, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 153, "name": "Disasi", "field": "chance_of_playing_this_round", "from": 0, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 222, "name": "Strand Larsen", "field": "chance_of_playing_this_round", "from": null, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 223, "name": "Mateta", "field": "chance_of_playing_this_round", "from": 0, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 643, "name": "Chilwell", "field": "chance_of_playing_this_round", "from": 0, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 644, "name": "Timber", "field": "chance_of_playing_this_round", "from": null, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 230, "name": "Branthwaite", "field": "chance_of_playing_this_round", "from": 75, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 233, "name": "Mykolenko", "field": "chance_of_playing_this_round", "from": 50, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 254, "name": "Robinson", "field": "chance_of_playing_this_round", "from": 75, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 262, "name": "Smith Rowe", "field": "chance_of_playing_this_round", "from": null, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 266, "name": "Cairney", "field": "chance_of_playing_this_round", "from": 75, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 269, "name": "Sessegnon", "field": "chance_of_playing_this_round", "from": 100, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 635, "name": "Larsson", "field": "chance_of_playing_this_round", "from": 25, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 589, "name": "Gourna-Douath", "field": "chance_of_playing_this_round", "from": 0, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 617, "name": "Cho", "field": "chance_of_playing_this_round", "from": 0, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 637, "name": "Vaz", "field": "chance_of_playing_this_round", "from": null, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 267, "name": "Luki\u0107", "field": "chance_of_playing_this_round", "from": null, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 267, "name": "Luki\u0107", "field": "news", "from": "Groin injury - Expected back 23 Oct", "to": "Groin injury - Unknown return date"}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 335, "name": "Stach", "field": "chance_of_playing_this_round", "from": null, "to": 50}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 336, "name": "Okafor", "field": "chance_of_playing_this_round", "from": null, "to": 50}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 343, "name": "James", "field": "chance_of_playing_this_round", "from": 50, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 346, "name": "Calvert-Lewin", "field": "chance_of_playing_this_round", "from": null, "to": 50}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 357, "name": "Frimpong", "field": "chance_of_playing_this_round", "from": null, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 367, "name": "Gakpo", "field": "chance_of_playing_this_round", "from": 25, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 368, "name": "Szoboszlai", "field": "chance_of_playing_this_round", "from": 25, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 371, "name": "Gravenberch", "field": "chance_of_playing_this_round", "from": 0, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 377, "name": "Munoz", "field": "chance_of_playing_this_round", "from": null, "to": 25}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 379, "name": "Isak", "field": "chance_of_playing_this_round", "from": 25, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 387, "name": "O'Reilly", "field": "chance_of_playing_this_round", "from": 100, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 389, "name": "Matheus N.", "field": "chance_of_playing_this_round", "from": 100, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 397, "name": "Semenyo", "field": "chance_of_playing_this_round", "from": 100, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 406, "name": "Kova\u010di\u0107", "field": "chance_of_playing_this_round", "from": null, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 411, "name": "Haaland", "field": "chance_of_playing_this_round", "from": null, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 414, "name": "Heaton", "field": "chance_of_playing_this_round", "from": 0, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 419, "name": "Martinez", "field": "chance_of_playing_this_round", "from": 100, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 421, "name": "Heaven", "field": "chance_of_playing_this_round", "from": null, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 422, "name": "Mazraoui", "field": "chance_of_playing_this_round", "from": 25, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 423, "name": "Shaw", "field": "chance_of_playing_this_round", "from": 75, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 429, "name": "Rashford", "field": "chance_of_playing_this_round", "from": 100, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 432, "name": "Mainoo", "field": "chance_of_playing_this_round", "from": 75, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 454, "name": "Elanga", "field": "chance_of_playing_this_round", "from": 0, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 461, "name": "Tour\u00e9", "field": "chance_of_playing_this_round", "from": 75, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 634, "name": "Fernandez-Pardo", "field": "chance_of_playing_this_round", "from": null, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 471, "name": "Milenkovi\u0107", "field": "chance_of_playing_this_round", "from": 75, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 480, "name": "Gibbs-White", "field": "chance_of_playing_this_round", "from": 75, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 147, "name": "Tosin", "field": "chance_of_playing_this_round", "from": null, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 401, "name": "Marmoush", "field": "chance_of_playing_this_round", "from": null, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 403, "name": "S\u00e1vio", "field": "chance_of_playing_this_round", "from": 100, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 499, "name": "Pedro Porro", "field": "chance_of_playing_this_round", "from": 0, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 502, "name": "Robertson", "field": "chance_of_playing_this_round", "from": null, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 506, "name": "Udogie", "field": "chance_of_playing_this_round", "from": 100, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 515, "name": "Maddison", "field": "chance_of_playing_this_round", "from": 100, "to": 75}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 520, "name": "Bergvall", "field": "chance_of_playing_this_round", "from": null, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 521, "name": "Kulusevski", "field": "chance_of_playing_this_round", "from": 0, "to": 100}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 501, "name": "Danso", "field": "chance_of_playing_this_round", "from": null, "to": 0}
+{"at": "2026-10-23T21:12:45.670038+00:00", "element": 552, "name": "Brobbey", "field": "chance_of_playing_this_round", "from": 100, "to": 75}
