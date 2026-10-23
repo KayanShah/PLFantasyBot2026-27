@@ -3078,3 +3078,21 @@
 {"at": "2026-10-22T23:14:18.912839+00:00", "element": 338, "name": "Ampadu", "field": "now_cost", "from": 54, "to": 53}
 {"at": "2026-10-22T23:14:18.912839+00:00", "element": 418, "name": "Maguire", "field": "now_cost", "from": 48, "to": 47}
 {"at": "2026-10-22T23:14:18.912839+00:00", "element": 427, "name": "Mbeumo", "field": "now_cost", "from": 78, "to": 79}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 63, "name": "Milosavljevi\u0107", "field": "news", "from": "Thigh injury - Expected back 8 Nov", "to": "Thigh injury - Expected back 31 Oct"}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 76, "name": "T\u00f3th.A", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 76, "name": "T\u00f3th.A", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 76, "name": "T\u00f3th.A", "field": "news", "from": "", "to": "Hamstring injury - Unknown return date"}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 78, "name": "Kroupi.Jr", "field": "chance_of_playing_next_round", "from": 50, "to": 75}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 78, "name": "Kroupi.Jr", "field": "news", "from": "Foot injury - 50% chance of playing", "to": "Foot injury - 75% chance of playing"}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 122, "name": "Minteh", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 122, "name": "Minteh", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 122, "name": "Minteh", "field": "news", "from": "Leg injury - Expected back 28 Nov", "to": "Leg injury - 50% chance of playing"}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 130, "name": "Wieffer", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 130, "name": "Wieffer", "field": "chance_of_playing_next_round", "from": 0, "to": 25}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 130, "name": "Wieffer", "field": "news", "from": "Knee injury - Unknown return date", "to": "Knee injury - 25% chance of playing"}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 262, "name": "Smith Rowe", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 262, "name": "Smith Rowe", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 262, "name": "Smith Rowe", "field": "news", "from": "", "to": "Knock - 75% chance of playing"}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 635, "name": "Larsson", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 635, "name": "Larsson", "field": "chance_of_playing_next_round", "from": 25, "to": 100}
+{"at": "2026-10-23T12:47:16.656908+00:00", "element": 635, "name": "Larsson", "field": "news", "from": "Groin injury - 25% chance of playing", "to": ""}
