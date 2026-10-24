@@ -3254,3 +3254,6 @@
 {"at": "2026-10-23T23:56:20.024055+00:00", "element": 525, "name": "Fernandes", "field": "now_cost", "from": 57, "to": 56}
 {"at": "2026-10-23T23:56:20.024055+00:00", "element": 549, "name": "Talbi", "field": "now_cost", "from": 53, "to": 52}
 {"at": "2026-10-23T23:56:20.024055+00:00", "element": 553, "name": "Isidor", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-10-24T04:20:44.693750+00:00", "element": 469, "name": "N.Williams", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-24T04:20:44.693750+00:00", "element": 469, "name": "N.Williams", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-24T04:20:44.693750+00:00", "element": 469, "name": "N.Williams", "field": "news", "from": "", "to": "Arm injury - 75% chance of playing"}
