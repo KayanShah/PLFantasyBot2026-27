@@ -3284,3 +3284,12 @@
 {"at": "2026-10-24T17:16:22.268159+00:00", "element": 515, "name": "Maddison", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-10-24T17:16:22.268159+00:00", "element": 515, "name": "Maddison", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-10-24T17:16:22.268159+00:00", "element": 515, "name": "Maddison", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-24T19:41:01.189205+00:00", "element": 8, "name": "Calafiori", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-24T19:41:01.189205+00:00", "element": 8, "name": "Calafiori", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-24T19:41:01.189205+00:00", "element": 8, "name": "Calafiori", "field": "news", "from": "", "to": "Hip injury - 75% chance of playing"}
+{"at": "2026-10-24T19:41:01.189205+00:00", "element": 233, "name": "Mykolenko", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-24T19:41:01.189205+00:00", "element": 233, "name": "Mykolenko", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-24T19:41:01.189205+00:00", "element": 233, "name": "Mykolenko", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-24T19:41:01.189205+00:00", "element": 515, "name": "Maddison", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-24T19:41:01.189205+00:00", "element": 515, "name": "Maddison", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-24T19:41:01.189205+00:00", "element": 515, "name": "Maddison", "field": "news", "from": "", "to": "Groin injury - 75% chance of playing"}
