@@ -3323,3 +3323,30 @@
 {"at": "2026-10-25T14:31:09.138340+00:00", "element": 456, "name": "J.Ramsey", "field": "status", "from": "i", "to": "a"}
 {"at": "2026-10-25T14:31:09.138340+00:00", "element": 456, "name": "J.Ramsey", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
 {"at": "2026-10-25T14:31:09.138340+00:00", "element": 456, "name": "J.Ramsey", "field": "news", "from": "Thigh injury - Unknown return date", "to": ""}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 98, "name": "Janelt", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 98, "name": "Janelt", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 98, "name": "Janelt", "field": "news", "from": "Suspended until 31 Oct", "to": ""}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 113, "name": "F.Kad\u0131o\u011flu", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 113, "name": "F.Kad\u0131o\u011flu", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 113, "name": "F.Kad\u0131o\u011flu", "field": "news", "from": "", "to": "Hip injury - 75% chance of playing"}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 639, "name": "Andr\u00e9s", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 639, "name": "Andr\u00e9s", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 639, "name": "Andr\u00e9s", "field": "news", "from": "", "to": "Thigh injury - 75% chance of playing"}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 335, "name": "Stach", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 335, "name": "Stach", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 335, "name": "Stach", "field": "news", "from": "Foot injury - 50% chance of playing", "to": ""}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 336, "name": "Okafor", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 336, "name": "Okafor", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 336, "name": "Okafor", "field": "news", "from": "Thigh injury - 50% chance of playing", "to": ""}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 346, "name": "Calvert-Lewin", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 346, "name": "Calvert-Lewin", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 346, "name": "Calvert-Lewin", "field": "news", "from": "Foot injury - 50% chance of playing", "to": ""}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 598, "name": "Elvedi", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 598, "name": "Elvedi", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 598, "name": "Elvedi", "field": "news", "from": "", "to": "Illness - 75% chance of playing"}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 366, "name": "Wirtz", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 366, "name": "Wirtz", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 366, "name": "Wirtz", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 552, "name": "Brobbey", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 552, "name": "Brobbey", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-25T18:16:19.834898+00:00", "element": 552, "name": "Brobbey", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": ""}
