@@ -3350,3 +3350,6 @@
 {"at": "2026-10-25T18:16:19.834898+00:00", "element": 552, "name": "Brobbey", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-10-25T18:16:19.834898+00:00", "element": 552, "name": "Brobbey", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-10-25T18:16:19.834898+00:00", "element": 552, "name": "Brobbey", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-25T21:07:48.269968+00:00", "element": 501, "name": "Danso", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-10-25T21:07:48.269968+00:00", "element": 501, "name": "Danso", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-25T21:07:48.269968+00:00", "element": 501, "name": "Danso", "field": "news", "from": "Suspended until 31 Oct", "to": ""}
