@@ -3375,3 +3375,17 @@
 {"at": "2026-10-27T10:50:13.115976+00:00", "element": 208, "name": "Sarr", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-27T10:50:13.115976+00:00", "element": 208, "name": "Sarr", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-10-27T10:50:13.115976+00:00", "element": 208, "name": "Sarr", "field": "news", "from": "", "to": "Groin injury - 75% chance of playing"}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 122, "name": "Minteh", "field": "chance_of_playing_next_round", "from": 50, "to": 75}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 122, "name": "Minteh", "field": "news", "from": "Leg injury - 50% chance of playing", "to": "Leg injury - 75% chance of playing"}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 130, "name": "Wieffer", "field": "chance_of_playing_next_round", "from": 25, "to": 75}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 130, "name": "Wieffer", "field": "news", "from": "Knee injury - 25% chance of playing", "to": "Knee injury - 75% chance of playing"}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 639, "name": "Andr\u00e9s", "field": "news", "from": "Thigh injury - 75% chance of playing", "to": "Hip injury - 75% chance of playing"}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 165, "name": "Jo\u00e3o Pedro", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 165, "name": "Jo\u00e3o Pedro", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 165, "name": "Jo\u00e3o Pedro", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Thigh injury - Unknown return date"}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 170, "name": "Emegha", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 170, "name": "Emegha", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 170, "name": "Emegha", "field": "news", "from": "Hamstring injury - Unknown return date", "to": ""}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 459, "name": "L.Miley", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 459, "name": "L.Miley", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-27T16:17:36.947141+00:00", "element": 459, "name": "L.Miley", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
