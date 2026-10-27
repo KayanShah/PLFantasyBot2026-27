@@ -3372,3 +3372,6 @@
 {"at": "2026-10-27T00:01:25.022401+00:00", "element": 412, "name": "Lammens", "field": "now_cost", "from": 49, "to": 48}
 {"at": "2026-10-27T00:01:25.022401+00:00", "element": 464, "name": "Wissa", "field": "now_cost", "from": 61, "to": 60}
 {"at": "2026-10-27T00:01:25.022401+00:00", "element": 541, "name": "Meunier", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-10-27T10:50:13.115976+00:00", "element": 208, "name": "Sarr", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-27T10:50:13.115976+00:00", "element": 208, "name": "Sarr", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-27T10:50:13.115976+00:00", "element": 208, "name": "Sarr", "field": "news", "from": "", "to": "Groin injury - 75% chance of playing"}
