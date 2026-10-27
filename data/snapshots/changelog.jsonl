@@ -3389,3 +3389,12 @@
 {"at": "2026-10-27T16:17:36.947141+00:00", "element": 459, "name": "L.Miley", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-27T16:17:36.947141+00:00", "element": 459, "name": "L.Miley", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-10-27T16:17:36.947141+00:00", "element": 459, "name": "L.Miley", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-27T20:52:03.240840+00:00", "element": 89, "name": "Henry", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-10-27T20:52:03.240840+00:00", "element": 89, "name": "Henry", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-10-27T20:52:03.240840+00:00", "element": 89, "name": "Henry", "field": "news", "from": "", "to": "Hip injury - Unknown return date"}
+{"at": "2026-10-27T20:52:03.240840+00:00", "element": 328, "name": "Struijk", "field": "chance_of_playing_next_round", "from": 75, "to": 50}
+{"at": "2026-10-27T20:52:03.240840+00:00", "element": 328, "name": "Struijk", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - 50% chance of playing"}
+{"at": "2026-10-27T20:52:03.240840+00:00", "element": 198, "name": "Henderson", "field": "chance_of_playing_next_round", "from": 50, "to": 75}
+{"at": "2026-10-27T20:52:03.240840+00:00", "element": 198, "name": "Henderson", "field": "news", "from": "Foot injury - 50% chance of playing", "to": "Foot injury - 75% chance of playing"}
+{"at": "2026-10-27T20:52:03.240840+00:00", "element": 222, "name": "Strand Larsen", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-10-27T20:52:03.240840+00:00", "element": 459, "name": "L.Miley", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Muscular injury - 75% chance of playing"}
