@@ -3415,3 +3415,9 @@
 {"at": "2026-10-28T00:20:19.346577+00:00", "element": 428, "name": "Cunha", "field": "now_cost", "from": 79, "to": 78}
 {"at": "2026-10-28T00:20:19.346577+00:00", "element": 429, "name": "Rashford", "field": "now_cost", "from": 69, "to": 68}
 {"at": "2026-10-28T00:20:19.346577+00:00", "element": 581, "name": "Diomande", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-10-28T19:01:00.778849+00:00", "element": 122, "name": "Minteh", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-28T19:01:00.778849+00:00", "element": 122, "name": "Minteh", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-28T19:01:00.778849+00:00", "element": 122, "name": "Minteh", "field": "news", "from": "Leg injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-28T19:01:00.778849+00:00", "element": 130, "name": "Wieffer", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-28T19:01:00.778849+00:00", "element": 130, "name": "Wieffer", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-28T19:01:00.778849+00:00", "element": 130, "name": "Wieffer", "field": "news", "from": "Knee injury - 75% chance of playing", "to": ""}
