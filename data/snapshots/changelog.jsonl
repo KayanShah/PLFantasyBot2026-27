@@ -3421,3 +3421,15 @@
 {"at": "2026-10-28T19:01:00.778849+00:00", "element": 130, "name": "Wieffer", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-10-28T19:01:00.778849+00:00", "element": 130, "name": "Wieffer", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-10-28T19:01:00.778849+00:00", "element": 130, "name": "Wieffer", "field": "news", "from": "Knee injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-28T23:25:57.717349+00:00", "element": 200, "name": "Lacroix", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-28T23:25:57.717349+00:00", "element": 200, "name": "Lacroix", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-10-28T23:25:57.717349+00:00", "element": 200, "name": "Lacroix", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-10-28T23:25:57.717349+00:00", "element": 198, "name": "Henderson", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-28T23:25:57.717349+00:00", "element": 198, "name": "Henderson", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-28T23:25:57.717349+00:00", "element": 198, "name": "Henderson", "field": "news", "from": "Foot injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-28T23:25:57.717349+00:00", "element": 366, "name": "Wirtz", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-28T23:25:57.717349+00:00", "element": 366, "name": "Wirtz", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-28T23:25:57.717349+00:00", "element": 366, "name": "Wirtz", "field": "news", "from": "Ankle injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-28T23:25:57.717349+00:00", "element": 541, "name": "Meunier", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-28T23:25:57.717349+00:00", "element": 541, "name": "Meunier", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-28T23:25:57.717349+00:00", "element": 541, "name": "Meunier", "field": "news", "from": "Groin injury - 75% chance of playing", "to": ""}
