@@ -3467,3 +3467,21 @@
 {"at": "2026-10-29T16:46:08.183012+00:00", "element": 483, "name": "Ndoye", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-29T16:46:08.183012+00:00", "element": 483, "name": "Ndoye", "field": "chance_of_playing_next_round", "from": null, "to": 50}
 {"at": "2026-10-29T16:46:08.183012+00:00", "element": 483, "name": "Ndoye", "field": "news", "from": "", "to": "Hamstring injury - 50% chance of playing"}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 121, "name": "Mitoma", "field": "news", "from": "Hamstring injury - Expected back 31 Oct", "to": "Hamstring injury - Expected back 22 Nov"}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 135, "name": "Yohanna", "field": "news", "from": "Unspecified injury - Expected back 31 Oct", "to": "Unspecified injury - Expected back 22 Nov"}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 652, "name": "Azeez", "field": "news", "from": "Hamstring injury - Expected back 31 Oct", "to": "Hamstring injury - Expected back 8 Nov"}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 233, "name": "Mykolenko", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 233, "name": "Mykolenko", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 233, "name": "Mykolenko", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 238, "name": "Grealish", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 238, "name": "Grealish", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 238, "name": "Grealish", "field": "news", "from": "Illness - 75% chance of playing", "to": ""}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 415, "name": "Dorgu", "field": "news", "from": "Hamstring injury - Expected back 25 Oct", "to": "Hamstring injury - Unknown return date"}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 450, "name": "Livramento", "field": "news", "from": "Knee injury - Expected back 7 Nov", "to": "Knee injury - Unknown return date"}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 147, "name": "Tosin", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 147, "name": "Tosin", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 147, "name": "Tosin", "field": "news", "from": "", "to": "Calf injury - 75% chance of playing"}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 403, "name": "S\u00e1vio", "field": "news", "from": "Muscular injury - Expected back 7 Nov", "to": "Muscular injury - Expected back 21 Nov"}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 533, "name": "Mukiele", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 533, "name": "Mukiele", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-29T21:40:57.812401+00:00", "element": 533, "name": "Mukiele", "field": "news", "from": "", "to": "Knock - 75% chance of playing"}
