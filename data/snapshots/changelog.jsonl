@@ -3438,3 +3438,32 @@
 {"at": "2026-10-29T09:40:12.005389+00:00", "element": 650, "name": "Affengruber", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-10-29T09:40:12.005389+00:00", "element": 650, "name": "Affengruber", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-10-29T09:40:12.005389+00:00", "element": 650, "name": "Affengruber", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 328, "name": "Struijk", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 328, "name": "Struijk", "field": "chance_of_playing_next_round", "from": 50, "to": 0}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 328, "name": "Struijk", "field": "news", "from": "Hamstring injury - 50% chance of playing", "to": "Hamstring injury - Expected back 8 Nov"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 173, "name": "Thomas", "field": "chance_of_playing_next_round", "from": 75, "to": 50}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 173, "name": "Thomas", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Calf injury - 50% chance of playing"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 208, "name": "Sarr", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 208, "name": "Sarr", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 208, "name": "Sarr", "field": "news", "from": "Groin injury - 75% chance of playing", "to": "Groin injury - Expected back 8 Nov"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 274, "name": "Butland", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 274, "name": "Butland", "field": "chance_of_playing_next_round", "from": 0, "to": 50}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 274, "name": "Butland", "field": "news", "from": "Arm injury - Unknown return date", "to": "Arm injury - 50% chance of playing"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 586, "name": "Mendy", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 586, "name": "Mendy", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 586, "name": "Mendy", "field": "news", "from": "Groin injury - Expected back 31 Oct", "to": ""}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 335, "name": "Stach", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 335, "name": "Stach", "field": "chance_of_playing_next_round", "from": 100, "to": 50}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 335, "name": "Stach", "field": "news", "from": "", "to": "Foot injury - 50% chance of playing"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 598, "name": "Elvedi", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 598, "name": "Elvedi", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 598, "name": "Elvedi", "field": "news", "from": "Illness - 75% chance of playing", "to": ""}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 432, "name": "Mainoo", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 432, "name": "Mainoo", "field": "chance_of_playing_next_round", "from": 0, "to": 25}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 432, "name": "Mainoo", "field": "news", "from": "Unspecified injury - Expected back 8 Nov", "to": "Unspecified injury - 25% chance of playing"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 469, "name": "N.Williams", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 469, "name": "N.Williams", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 469, "name": "N.Williams", "field": "news", "from": "Arm injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 483, "name": "Ndoye", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 483, "name": "Ndoye", "field": "chance_of_playing_next_round", "from": null, "to": 50}
+{"at": "2026-10-29T16:46:08.183012+00:00", "element": 483, "name": "Ndoye", "field": "news", "from": "", "to": "Hamstring injury - 50% chance of playing"}
