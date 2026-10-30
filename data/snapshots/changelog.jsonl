@@ -3550,3 +3550,15 @@
 {"at": "2026-10-30T15:13:20.020384+00:00", "element": 515, "name": "Maddison", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-10-30T15:13:20.020384+00:00", "element": 515, "name": "Maddison", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-10-30T15:13:20.020384+00:00", "element": 515, "name": "Maddison", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-30T20:01:32.899341+00:00", "element": 144, "name": "Gusto", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-10-30T20:01:32.899341+00:00", "element": 144, "name": "Gusto", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-10-30T20:01:32.899341+00:00", "element": 144, "name": "Gusto", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-10-30T20:01:32.899341+00:00", "element": 561, "name": "Anselmino", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-10-30T20:01:32.899341+00:00", "element": 561, "name": "Anselmino", "field": "chance_of_playing_next_round", "from": 100, "to": 0}
+{"at": "2026-10-30T20:01:32.899341+00:00", "element": 561, "name": "Anselmino", "field": "news", "from": "", "to": "Unspecified injury - Unknown return date"}
+{"at": "2026-10-30T20:01:32.899341+00:00", "element": 230, "name": "Branthwaite", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-30T20:01:32.899341+00:00", "element": 230, "name": "Branthwaite", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-30T20:01:32.899341+00:00", "element": 230, "name": "Branthwaite", "field": "news", "from": "", "to": "Concussion - 75% chance of playing"}
+{"at": "2026-10-30T20:01:32.899341+00:00", "element": 267, "name": "Luki\u0107", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-10-30T20:01:32.899341+00:00", "element": 267, "name": "Luki\u0107", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-10-30T20:01:32.899341+00:00", "element": 267, "name": "Luki\u0107", "field": "news", "from": "Groin injury - Unknown return date", "to": "Groin injury - 75% chance of playing"}
