@@ -3674,3 +3674,9 @@
 {"at": "2026-10-31T20:11:50.446023+00:00", "element": 535, "name": "Alderete", "field": "status", "from": "a", "to": "s"}
 {"at": "2026-10-31T20:11:50.446023+00:00", "element": 535, "name": "Alderete", "field": "chance_of_playing_next_round", "from": 100, "to": 0}
 {"at": "2026-10-31T20:11:50.446023+00:00", "element": 535, "name": "Alderete", "field": "news", "from": "", "to": "Suspended until 21 Nov"}
+{"at": "2026-10-31T23:35:03.203614+00:00", "element": 32, "name": "Cash", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-10-31T23:35:03.203614+00:00", "element": 32, "name": "Cash", "field": "chance_of_playing_next_round", "from": 100, "to": 0}
+{"at": "2026-10-31T23:35:03.203614+00:00", "element": 32, "name": "Cash", "field": "news", "from": "", "to": "Suspended until 21 Nov"}
+{"at": "2026-10-31T23:35:03.203614+00:00", "element": 269, "name": "Sessegnon", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-10-31T23:35:03.203614+00:00", "element": 269, "name": "Sessegnon", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-31T23:35:03.203614+00:00", "element": 269, "name": "Sessegnon", "field": "news", "from": "Suspended until 7 Nov", "to": ""}
