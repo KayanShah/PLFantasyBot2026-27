@@ -3653,3 +3653,24 @@
 {"at": "2026-10-31T16:14:58.841972+00:00", "element": 553, "name": "Isidor", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-10-31T16:14:58.841972+00:00", "element": 553, "name": "Isidor", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
 {"at": "2026-10-31T16:14:58.841972+00:00", "element": 553, "name": "Isidor", "field": "news", "from": "Knock - 50% chance of playing", "to": ""}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 102, "name": "Yarmoliuk", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 102, "name": "Yarmoliuk", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 102, "name": "Yarmoliuk", "field": "news", "from": "Suspended until 8 Nov", "to": ""}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 223, "name": "Mateta", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 223, "name": "Mateta", "field": "chance_of_playing_next_round", "from": 100, "to": 0}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 223, "name": "Mateta", "field": "news", "from": "", "to": "Suspended until 2 Dec"}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 289, "name": "Crooks", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 289, "name": "Crooks", "field": "chance_of_playing_next_round", "from": 100, "to": 0}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 289, "name": "Crooks", "field": "news", "from": "", "to": "Suspended until 22 Nov"}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 336, "name": "Okafor", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 336, "name": "Okafor", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 336, "name": "Okafor", "field": "news", "from": "", "to": "Thigh injury - 75% chance of playing"}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 431, "name": "Amad", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 431, "name": "Amad", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 431, "name": "Amad", "field": "news", "from": "", "to": "Calf injury - 75% chance of playing"}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 516, "name": "Bentancur", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 516, "name": "Bentancur", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 516, "name": "Bentancur", "field": "news", "from": "Suspended until 7 Nov", "to": ""}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 535, "name": "Alderete", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 535, "name": "Alderete", "field": "chance_of_playing_next_round", "from": 100, "to": 0}
+{"at": "2026-10-31T20:11:50.446023+00:00", "element": 535, "name": "Alderete", "field": "news", "from": "", "to": "Suspended until 21 Nov"}
