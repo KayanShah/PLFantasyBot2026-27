@@ -3698,3 +3698,21 @@
 {"at": "2026-11-01T11:58:15.504985+00:00", "element": 543, "name": "Diarra", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-11-01T11:58:15.504985+00:00", "element": 543, "name": "Diarra", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-11-01T11:58:15.504985+00:00", "element": 543, "name": "Diarra", "field": "news", "from": "", "to": "Muscular injury - 75% chance of playing"}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 8, "name": "Calafiori", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 8, "name": "Calafiori", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 8, "name": "Calafiori", "field": "news", "from": "Hip injury - 75% chance of playing", "to": ""}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 13, "name": "Rice", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 13, "name": "Rice", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 13, "name": "Rice", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": ""}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 16, "name": "Madueke", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 16, "name": "Madueke", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 16, "name": "Madueke", "field": "news", "from": "Ankle injury - 50% chance of playing", "to": ""}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 557, "name": "Tzolis", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 557, "name": "Tzolis", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 557, "name": "Tzolis", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": ""}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 368, "name": "Szoboszlai", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 368, "name": "Szoboszlai", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 368, "name": "Szoboszlai", "field": "news", "from": "Hamstring injury - 50% chance of playing", "to": ""}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 377, "name": "Munoz", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 377, "name": "Munoz", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-11-01T17:52:54.333052+00:00", "element": 377, "name": "Munoz", "field": "news", "from": "Knee injury - 50% chance of playing", "to": ""}
