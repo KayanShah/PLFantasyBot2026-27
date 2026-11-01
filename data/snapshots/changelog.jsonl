@@ -3680,3 +3680,17 @@
 {"at": "2026-10-31T23:35:03.203614+00:00", "element": 269, "name": "Sessegnon", "field": "status", "from": "s", "to": "a"}
 {"at": "2026-10-31T23:35:03.203614+00:00", "element": 269, "name": "Sessegnon", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
 {"at": "2026-10-31T23:35:03.203614+00:00", "element": 269, "name": "Sessegnon", "field": "news", "from": "Suspended until 7 Nov", "to": ""}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 166, "name": "N.Jackson", "field": "now_cost", "from": 69, "to": 70}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 68, "name": "Tavernier", "field": "now_cost", "from": 65, "to": 66}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 79, "name": "Evanilson", "field": "now_cost", "from": 63, "to": 64}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 107, "name": "Furo", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 115, "name": "De Cuyper", "field": "now_cost", "from": 53, "to": 54}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 165, "name": "Jo\u00e3o Pedro", "field": "now_cost", "from": 78, "to": 77}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 268, "name": "King", "field": "now_cost", "from": 56, "to": 55}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 286, "name": "Belloumi", "field": "now_cost", "from": 52, "to": 53}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 379, "name": "Isak", "field": "now_cost", "from": 91, "to": 92}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 399, "name": "Cherki", "field": "now_cost", "from": 80, "to": 79}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 469, "name": "N.Williams", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 491, "name": "Igor Jesus", "field": "now_cost", "from": 57, "to": 56}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 112, "name": "Van Hecke", "field": "now_cost", "from": 49, "to": 50}
+{"at": "2026-11-01T05:19:44.312228+00:00", "element": 532, "name": "Ballard", "field": "now_cost", "from": 48, "to": 47}
