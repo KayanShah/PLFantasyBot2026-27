@@ -3694,3 +3694,7 @@
 {"at": "2026-11-01T05:19:44.312228+00:00", "element": 491, "name": "Igor Jesus", "field": "now_cost", "from": 57, "to": 56}
 {"at": "2026-11-01T05:19:44.312228+00:00", "element": 112, "name": "Van Hecke", "field": "now_cost", "from": 49, "to": 50}
 {"at": "2026-11-01T05:19:44.312228+00:00", "element": 532, "name": "Ballard", "field": "now_cost", "from": 48, "to": 47}
+{"at": "2026-11-01T11:58:15.504985+00:00", "element": 533, "name": "Mukiele", "field": "news", "from": "Knock - 75% chance of playing", "to": "Concussion - 75% chance of playing"}
+{"at": "2026-11-01T11:58:15.504985+00:00", "element": 543, "name": "Diarra", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-01T11:58:15.504985+00:00", "element": 543, "name": "Diarra", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-01T11:58:15.504985+00:00", "element": 543, "name": "Diarra", "field": "news", "from": "", "to": "Muscular injury - 75% chance of playing"}
