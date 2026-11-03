@@ -3902,3 +3902,15 @@
 {"at": "2026-11-03T16:54:49.532226+00:00", "fixture": 372, "name": "AVL v TOT (GW38)", "field": "team_h_difficulty", "from": 2, "to": 3}
 {"at": "2026-11-03T16:54:49.532226+00:00", "fixture": 375, "name": "CRY v LEE (GW38)", "field": "team_a_difficulty", "from": 3, "to": 2}
 {"at": "2026-11-03T16:54:49.532226+00:00", "fixture": 379, "name": "MUN v FUL (GW38)", "field": "team_a_difficulty", "from": 4, "to": 3}
+{"at": "2026-11-03T22:14:21.211780+00:00", "element": 6, "name": "Saliba", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-11-03T22:14:21.211780+00:00", "element": 6, "name": "Saliba", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-11-03T22:14:21.211780+00:00", "element": 6, "name": "Saliba", "field": "news", "from": "Back injury - Unknown return date", "to": "Back injury - 75% chance of playing"}
+{"at": "2026-11-03T22:14:21.211780+00:00", "element": 371, "name": "Gravenberch", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-03T22:14:21.211780+00:00", "element": 371, "name": "Gravenberch", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-03T22:14:21.211780+00:00", "element": 371, "name": "Gravenberch", "field": "news", "from": "", "to": "Foot injury - 75% chance of playing"}
+{"at": "2026-11-03T22:14:21.211780+00:00", "element": 131, "name": "Baleba", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-03T22:14:21.211780+00:00", "element": 131, "name": "Baleba", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-03T22:14:21.211780+00:00", "element": 131, "name": "Baleba", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-11-03T22:14:21.211780+00:00", "element": 431, "name": "Amad", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-03T22:14:21.211780+00:00", "element": 431, "name": "Amad", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-11-03T22:14:21.211780+00:00", "element": 431, "name": "Amad", "field": "news", "from": "Calf injury - 75% chance of playing", "to": ""}
