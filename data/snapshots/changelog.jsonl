@@ -3719,3 +3719,15 @@
 {"at": "2026-11-02T01:22:36.403341+00:00", "element": 7, "name": "Lewis-Skelly", "field": "now_cost", "from": 54, "to": 53}
 {"at": "2026-11-02T01:22:36.403341+00:00", "element": 285, "name": "McNair", "field": "now_cost", "from": 40, "to": 39}
 {"at": "2026-11-02T01:22:36.403341+00:00", "element": 361, "name": "Lucky", "field": "now_cost", "from": 40, "to": 39}
+{"at": "2026-11-03T01:28:39.847997+00:00", "element": 11, "name": "Mosquera", "field": "now_cost", "from": 52, "to": 51}
+{"at": "2026-11-03T01:28:39.847997+00:00", "element": 568, "name": "Barco", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-11-03T01:28:39.847997+00:00", "element": 230, "name": "Branthwaite", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-03T01:28:39.847997+00:00", "element": 230, "name": "Branthwaite", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-11-03T01:28:39.847997+00:00", "element": 230, "name": "Branthwaite", "field": "news", "from": "Concussion - 75% chance of playing", "to": ""}
+{"at": "2026-11-03T01:28:39.847997+00:00", "element": 569, "name": "Gonzalo", "field": "now_cost", "from": 60, "to": 59}
+{"at": "2026-11-03T01:28:39.847997+00:00", "element": 456, "name": "J.Ramsey", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-11-03T01:28:39.847997+00:00", "element": 456, "name": "J.Ramsey", "field": "chance_of_playing_next_round", "from": 100, "to": 0}
+{"at": "2026-11-03T01:28:39.847997+00:00", "element": 456, "name": "J.Ramsey", "field": "news", "from": "", "to": "Suspended until 21 Nov"}
+{"at": "2026-11-03T01:28:39.847997+00:00", "element": 465, "name": "Osula", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-03T01:28:39.847997+00:00", "element": 465, "name": "Osula", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-11-03T01:28:39.847997+00:00", "element": 465, "name": "Osula", "field": "news", "from": "Ankle injury - 50% chance of playing", "to": ""}
