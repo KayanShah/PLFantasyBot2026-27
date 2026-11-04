@@ -3926,3 +3926,5 @@
 {"at": "2026-11-04T02:35:25.100658+00:00", "element": 403, "name": "S\u00e1vio", "field": "now_cost", "from": 65, "to": 64}
 {"at": "2026-11-04T02:35:25.100658+00:00", "element": 512, "name": "Kudus", "field": "now_cost", "from": 65, "to": 66}
 {"at": "2026-11-04T02:35:25.100658+00:00", "element": 646, "name": "Fofana", "field": "now_cost", "from": 55, "to": 54}
+{"at": "2026-11-04T10:40:26.989994+00:00", "element": 131, "name": "Baleba", "field": "chance_of_playing_next_round", "from": 75, "to": 50}
+{"at": "2026-11-04T10:40:26.989994+00:00", "element": 131, "name": "Baleba", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - 50% chance of playing"}
