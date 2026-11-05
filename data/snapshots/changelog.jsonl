@@ -3935,3 +3935,15 @@
 {"at": "2026-11-05T00:13:20.149684+00:00", "element": 418, "name": "Maguire", "field": "now_cost", "from": 47, "to": 46}
 {"at": "2026-11-05T00:13:20.149684+00:00", "element": 480, "name": "Gibbs-White", "field": "now_cost", "from": 79, "to": 78}
 {"at": "2026-11-05T00:13:20.149684+00:00", "element": 668, "name": "Tutierov", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-11-05T15:42:51.383384+00:00", "element": 104, "name": "Onyeka", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-05T15:42:51.383384+00:00", "element": 104, "name": "Onyeka", "field": "chance_of_playing_next_round", "from": 100, "to": 50}
+{"at": "2026-11-05T15:42:51.383384+00:00", "element": 104, "name": "Onyeka", "field": "news", "from": "", "to": "Groin injury - 50% chance of playing"}
+{"at": "2026-11-05T15:42:51.383384+00:00", "element": 329, "name": "Rodon", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-11-05T15:42:51.383384+00:00", "element": 329, "name": "Rodon", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-11-05T15:42:51.383384+00:00", "element": 329, "name": "Rodon", "field": "news", "from": "Hamstring injury - Expected back 21 Nov", "to": ""}
+{"at": "2026-11-05T15:42:51.383384+00:00", "element": 487, "name": "Dominguez", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-11-05T15:42:51.383384+00:00", "element": 487, "name": "Dominguez", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-11-05T15:42:51.383384+00:00", "element": 487, "name": "Dominguez", "field": "news", "from": "Muscular injury - 75% chance of playing", "to": "Muscular injury - Expected back 30 Dec"}
+{"at": "2026-11-05T15:42:51.383384+00:00", "element": 491, "name": "Igor Jesus", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-11-05T15:42:51.383384+00:00", "element": 491, "name": "Igor Jesus", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-11-05T15:42:51.383384+00:00", "element": 491, "name": "Igor Jesus", "field": "news", "from": "Calf injury - Unknown return date", "to": "Calf injury - 75% chance of playing"}
