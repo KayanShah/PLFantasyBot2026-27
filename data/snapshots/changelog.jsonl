@@ -3928,3 +3928,10 @@
 {"at": "2026-11-04T02:35:25.100658+00:00", "element": 646, "name": "Fofana", "field": "now_cost", "from": 55, "to": 54}
 {"at": "2026-11-04T10:40:26.989994+00:00", "element": 131, "name": "Baleba", "field": "chance_of_playing_next_round", "from": 75, "to": 50}
 {"at": "2026-11-04T10:40:26.989994+00:00", "element": 131, "name": "Baleba", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - 50% chance of playing"}
+{"at": "2026-11-05T00:13:20.149684+00:00", "element": 6, "name": "Saliba", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-05T00:13:20.149684+00:00", "element": 6, "name": "Saliba", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-11-05T00:13:20.149684+00:00", "element": 6, "name": "Saliba", "field": "news", "from": "Back injury - 75% chance of playing", "to": ""}
+{"at": "2026-11-05T00:13:20.149684+00:00", "element": 329, "name": "Rodon", "field": "now_cost", "from": 43, "to": 42}
+{"at": "2026-11-05T00:13:20.149684+00:00", "element": 418, "name": "Maguire", "field": "now_cost", "from": 47, "to": 46}
+{"at": "2026-11-05T00:13:20.149684+00:00", "element": 480, "name": "Gibbs-White", "field": "now_cost", "from": 79, "to": 78}
+{"at": "2026-11-05T00:13:20.149684+00:00", "element": 668, "name": "Tutierov", "field": "now_cost", "from": 50, "to": 49}
