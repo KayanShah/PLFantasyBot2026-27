@@ -4103,3 +4103,21 @@
 {"at": "2026-11-07T02:13:48.989475+00:00", "element": 167, "name": "Delap", "field": "now_cost", "from": 54, "to": 53}
 {"at": "2026-11-07T02:13:48.989475+00:00", "element": 533, "name": "Mukiele", "field": "now_cost", "from": 54, "to": 53}
 {"at": "2026-11-07T02:13:48.989475+00:00", "element": 544, "name": "Xhaka", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 589, "name": "Gourna-Douath", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 589, "name": "Gourna-Douath", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 589, "name": "Gourna-Douath", "field": "news", "from": "Calf injury - 75% chance of playing", "to": ""}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 336, "name": "Okafor", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 336, "name": "Okafor", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 336, "name": "Okafor", "field": "news", "from": "Thigh injury - 50% chance of playing", "to": ""}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 346, "name": "Calvert-Lewin", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 346, "name": "Calvert-Lewin", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 346, "name": "Calvert-Lewin", "field": "news", "from": "Foot injury - 75% chance of playing", "to": ""}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 450, "name": "Livramento", "field": "status", "from": "i", "to": "a"}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 450, "name": "Livramento", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 450, "name": "Livramento", "field": "news", "from": "Knee injury - Unknown return date", "to": ""}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 459, "name": "L.Miley", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 459, "name": "L.Miley", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 459, "name": "L.Miley", "field": "news", "from": "Muscular injury - 50% chance of playing", "to": ""}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 634, "name": "Fernandez-Pardo", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 634, "name": "Fernandez-Pardo", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-11-07T15:50:49.507275+00:00", "element": 634, "name": "Fernandez-Pardo", "field": "news", "from": "Illness - 75% chance of playing", "to": ""}
