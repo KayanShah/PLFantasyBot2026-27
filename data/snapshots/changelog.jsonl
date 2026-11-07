@@ -4136,3 +4136,9 @@
 {"at": "2026-11-07T20:01:18.904613+00:00", "element": 514, "name": "Tel", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-11-07T20:01:18.904613+00:00", "element": 514, "name": "Tel", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-11-07T20:01:18.904613+00:00", "element": 514, "name": "Tel", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-11-07T23:49:33.225060+00:00", "element": 388, "name": "Gu\u00e9hi", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-07T23:49:33.225060+00:00", "element": 388, "name": "Gu\u00e9hi", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-11-07T23:49:33.225060+00:00", "element": 388, "name": "Gu\u00e9hi", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-11-07T23:49:33.225060+00:00", "element": 391, "name": "Gvardiol", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-07T23:49:33.225060+00:00", "element": 391, "name": "Gvardiol", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-11-07T23:49:33.225060+00:00", "element": 391, "name": "Gvardiol", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
