@@ -4121,3 +4121,18 @@
 {"at": "2026-11-07T15:50:49.507275+00:00", "element": 634, "name": "Fernandez-Pardo", "field": "status", "from": "d", "to": "a"}
 {"at": "2026-11-07T15:50:49.507275+00:00", "element": 634, "name": "Fernandez-Pardo", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
 {"at": "2026-11-07T15:50:49.507275+00:00", "element": 634, "name": "Fernandez-Pardo", "field": "news", "from": "Illness - 75% chance of playing", "to": ""}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 268, "name": "King", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 268, "name": "King", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 268, "name": "King", "field": "news", "from": "", "to": "Groin injury - 75% chance of playing"}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 289, "name": "Crooks", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 289, "name": "Crooks", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 289, "name": "Crooks", "field": "news", "from": "Suspended until 22 Nov", "to": ""}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 456, "name": "J.Ramsey", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 456, "name": "J.Ramsey", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 456, "name": "J.Ramsey", "field": "news", "from": "Suspended until 21 Nov", "to": ""}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 491, "name": "Igor Jesus", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 491, "name": "Igor Jesus", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 491, "name": "Igor Jesus", "field": "news", "from": "Calf injury - 75% chance of playing", "to": ""}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 514, "name": "Tel", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 514, "name": "Tel", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-11-07T20:01:18.904613+00:00", "element": 514, "name": "Tel", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
