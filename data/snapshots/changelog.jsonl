@@ -4142,3 +4142,14 @@
 {"at": "2026-11-07T23:49:33.225060+00:00", "element": 391, "name": "Gvardiol", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-11-07T23:49:33.225060+00:00", "element": 391, "name": "Gvardiol", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-11-07T23:49:33.225060+00:00", "element": 391, "name": "Gvardiol", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-11-08T05:23:49.782843+00:00", "element": 12, "name": "Saka", "field": "now_cost", "from": 95, "to": 94}
+{"at": "2026-11-08T05:23:49.782843+00:00", "element": 166, "name": "N.Jackson", "field": "now_cost", "from": 70, "to": 71}
+{"at": "2026-11-08T05:23:49.782843+00:00", "element": 68, "name": "Tavernier", "field": "now_cost", "from": 66, "to": 67}
+{"at": "2026-11-08T05:23:49.782843+00:00", "element": 200, "name": "Lacroix", "field": "now_cost", "from": 59, "to": 58}
+{"at": "2026-11-08T05:23:49.782843+00:00", "element": 585, "name": "Herrington", "field": "now_cost", "from": 40, "to": 39}
+{"at": "2026-11-08T05:23:49.782843+00:00", "element": 349, "name": "Mateo Joseph", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-11-08T05:23:49.782843+00:00", "element": 417, "name": "Dalot", "field": "now_cost", "from": 48, "to": 47}
+{"at": "2026-11-08T05:23:49.782843+00:00", "element": 426, "name": "B.Fernandes", "field": "now_cost", "from": 117, "to": 116}
+{"at": "2026-11-08T05:23:49.782843+00:00", "element": 442, "name": "Pope", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-11-08T05:23:49.782843+00:00", "element": 634, "name": "Fernandez-Pardo", "field": "now_cost", "from": 59, "to": 58}
+{"at": "2026-11-08T05:23:49.782843+00:00", "element": 201, "name": "Mu\u00f1oz", "field": "now_cost", "from": 53, "to": 52}
