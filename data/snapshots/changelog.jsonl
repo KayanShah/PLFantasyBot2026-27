@@ -4227,3 +4227,6 @@
 {"at": "2026-11-10T18:30:56.894178+00:00", "element": 552, "name": "Brobbey", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-11-10T18:30:56.894178+00:00", "element": 552, "name": "Brobbey", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-11-10T18:30:56.894178+00:00", "element": 552, "name": "Brobbey", "field": "news", "from": "", "to": "Muscular injury - 75% chance of playing"}
+{"at": "2026-11-10T23:56:48.937239+00:00", "element": 286, "name": "Belloumi", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-10T23:56:48.937239+00:00", "element": 286, "name": "Belloumi", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-11-10T23:56:48.937239+00:00", "element": 286, "name": "Belloumi", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
