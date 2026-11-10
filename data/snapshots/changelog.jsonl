@@ -4224,3 +4224,6 @@
 {"at": "2026-11-10T02:39:13.343273+00:00", "element": 268, "name": "King", "field": "news", "from": "Groin injury - 75% chance of playing", "to": ""}
 {"at": "2026-11-10T02:39:13.343273+00:00", "element": 260, "name": "Wilson", "field": "now_cost", "from": 62, "to": 61}
 {"at": "2026-11-10T02:39:13.343273+00:00", "element": 481, "name": "Anderson", "field": "now_cost", "from": 63, "to": 62}
+{"at": "2026-11-10T18:30:56.894178+00:00", "element": 552, "name": "Brobbey", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-10T18:30:56.894178+00:00", "element": 552, "name": "Brobbey", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-10T18:30:56.894178+00:00", "element": 552, "name": "Brobbey", "field": "news", "from": "", "to": "Muscular injury - 75% chance of playing"}
