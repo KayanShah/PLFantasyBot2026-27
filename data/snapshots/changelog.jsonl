@@ -4236,3 +4236,6 @@
 {"at": "2026-11-11T05:54:32.685186+00:00", "element": 418, "name": "Maguire", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-11-11T05:54:32.685186+00:00", "element": 418, "name": "Maguire", "field": "news", "from": "", "to": "Back injury - 75% chance of playing"}
 {"at": "2026-11-11T05:54:32.685186+00:00", "element": 424, "name": "Amass", "field": "now_cost", "from": 40, "to": 39}
+{"at": "2026-11-11T13:52:03.383177+00:00", "element": 222, "name": "Strand Larsen", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-11T13:52:03.383177+00:00", "element": 222, "name": "Strand Larsen", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-11T13:52:03.383177+00:00", "element": 222, "name": "Strand Larsen", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
