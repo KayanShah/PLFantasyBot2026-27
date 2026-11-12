@@ -4239,3 +4239,4 @@
 {"at": "2026-11-11T13:52:03.383177+00:00", "element": 222, "name": "Strand Larsen", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-11-11T13:52:03.383177+00:00", "element": 222, "name": "Strand Larsen", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-11-11T13:52:03.383177+00:00", "element": 222, "name": "Strand Larsen", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-11-12T02:24:38.835817+00:00", "element": 462, "name": "Steur", "field": "now_cost", "from": 48, "to": 47}
