@@ -4244,3 +4244,12 @@
 {"at": "2026-11-12T18:30:38.790254+00:00", "element": 53, "name": "Manzambi", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-11-12T18:30:38.790254+00:00", "element": 53, "name": "Manzambi", "field": "news", "from": "", "to": "Calf injury - 75% chance of playing"}
 {"at": "2026-11-14T01:38:10.990281+00:00", "element": 529, "name": "Roefs", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-11-14T15:39:58.865367+00:00", "element": 614, "name": "Hadjam", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-14T15:39:58.865367+00:00", "element": 614, "name": "Hadjam", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-11-14T15:39:58.865367+00:00", "element": 614, "name": "Hadjam", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-11-14T15:39:58.865367+00:00", "element": 639, "name": "Andr\u00e9s", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-14T15:39:58.865367+00:00", "element": 639, "name": "Andr\u00e9s", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-14T15:39:58.865367+00:00", "element": 639, "name": "Andr\u00e9s", "field": "news", "from": "", "to": "Hip injury - 75% chance of playing"}
+{"at": "2026-11-14T15:39:58.865367+00:00", "element": 415, "name": "Dorgu", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-14T15:39:58.865367+00:00", "element": 415, "name": "Dorgu", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-14T15:39:58.865367+00:00", "element": 415, "name": "Dorgu", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
