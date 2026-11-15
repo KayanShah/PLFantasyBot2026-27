@@ -4256,3 +4256,6 @@
 {"at": "2026-11-15T00:53:09.722110+00:00", "element": 31, "name": "Konsa", "field": "now_cost", "from": 48, "to": 49}
 {"at": "2026-11-15T00:53:09.722110+00:00", "element": 111, "name": "Steele", "field": "now_cost", "from": 40, "to": 39}
 {"at": "2026-11-15T00:53:09.722110+00:00", "element": 357, "name": "Frimpong", "field": "now_cost", "from": 52, "to": 51}
+{"at": "2026-11-15T15:29:35.210989+00:00", "element": 32, "name": "Cash", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-15T15:29:35.210989+00:00", "element": 32, "name": "Cash", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-15T15:29:35.210989+00:00", "element": 32, "name": "Cash", "field": "news", "from": "", "to": "Concussion - 75% chance of playing"}
