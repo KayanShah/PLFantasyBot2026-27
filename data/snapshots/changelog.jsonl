@@ -4263,3 +4263,18 @@
 {"at": "2026-11-15T20:31:16.723349+00:00", "element": 558, "name": "Schlager", "field": "chance_of_playing_next_round", "from": null, "to": 75}
 {"at": "2026-11-15T20:31:16.723349+00:00", "element": 558, "name": "Schlager", "field": "news", "from": "", "to": "Thigh injury - 75% chance of playing"}
 {"at": "2026-11-16T00:52:05.970414+00:00", "element": 584, "name": "Hamer", "field": "now_cost", "from": 53, "to": 52}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 19, "name": "Zubimendi", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 19, "name": "Zubimendi", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 19, "name": "Zubimendi", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 71, "name": "Cook", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 84, "name": "Collins", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 84, "name": "Collins", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 84, "name": "Collins", "field": "news", "from": "", "to": "Knee injury - 75% chance of playing"}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 207, "name": "Mingueza", "field": "now_cost", "from": 43, "to": 42}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 586, "name": "Mendy", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 586, "name": "Mendy", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 586, "name": "Mendy", "field": "news", "from": "", "to": "Knee injury - 75% chance of playing"}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 434, "name": "J.Fletcher", "field": "now_cost", "from": 49, "to": 48}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 469, "name": "N.Williams", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 469, "name": "N.Williams", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-17T01:58:07.549379+00:00", "element": 469, "name": "N.Williams", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
