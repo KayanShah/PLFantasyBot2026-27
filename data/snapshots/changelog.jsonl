@@ -4278,3 +4278,6 @@
 {"at": "2026-11-17T01:58:07.549379+00:00", "element": 469, "name": "N.Williams", "field": "status", "from": "a", "to": "d"}
 {"at": "2026-11-17T01:58:07.549379+00:00", "element": 469, "name": "N.Williams", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
 {"at": "2026-11-17T01:58:07.549379+00:00", "element": 469, "name": "N.Williams", "field": "news", "from": "", "to": "Ankle injury - 75% chance of playing"}
+{"at": "2026-11-17T19:40:55.323178+00:00", "element": 90, "name": "Hickey", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-17T19:40:55.323178+00:00", "element": 90, "name": "Hickey", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-11-17T19:40:55.323178+00:00", "element": 90, "name": "Hickey", "field": "news", "from": "", "to": "Hamstring injury - 75% chance of playing"}
