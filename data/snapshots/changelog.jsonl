@@ -4512,3 +4512,30 @@
 {"at": "2026-11-21T14:53:18.447830+00:00", "element": 535, "name": "Alderete", "field": "chance_of_playing_this_round", "from": 0, "to": 100}
 {"at": "2026-11-21T14:53:18.447830+00:00", "element": 544, "name": "Xhaka", "field": "chance_of_playing_this_round", "from": null, "to": 0}
 {"at": "2026-11-21T14:53:18.447830+00:00", "element": 552, "name": "Brobbey", "field": "chance_of_playing_this_round", "from": 100, "to": 0}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 1, "name": "Raya", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 1, "name": "Raya", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 1, "name": "Raya", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 159, "name": "Caicedo", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 159, "name": "Caicedo", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 159, "name": "Caicedo", "field": "news", "from": "", "to": "Back injury - 75% chance of playing"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 492, "name": "Awoniyi", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 492, "name": "Awoniyi", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 492, "name": "Awoniyi", "field": "news", "from": "", "to": "Leg injury - 75% chance of playing"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 207, "name": "Mingueza", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 207, "name": "Mingueza", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 207, "name": "Mingueza", "field": "news", "from": "", "to": "Thigh injury - 75% chance of playing"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 211, "name": "Yeremy", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 211, "name": "Yeremy", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 211, "name": "Yeremy", "field": "news", "from": "", "to": "Suspended until 2 Dec"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 305, "name": "Davis", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 305, "name": "Davis", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 305, "name": "Davis", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 449, "name": "Hall", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 449, "name": "Hall", "field": "chance_of_playing_next_round", "from": null, "to": 75}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 449, "name": "Hall", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 403, "name": "S\u00e1vio", "field": "status", "from": "a", "to": "d"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 403, "name": "S\u00e1vio", "field": "chance_of_playing_next_round", "from": 100, "to": 75}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 403, "name": "S\u00e1vio", "field": "news", "from": "", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 501, "name": "Danso", "field": "status", "from": "a", "to": "n"}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 501, "name": "Danso", "field": "chance_of_playing_next_round", "from": 100, "to": 0}
+{"at": "2026-11-21T20:50:04.627048+00:00", "element": 501, "name": "Danso", "field": "news", "from": "", "to": "Ineligible to face parent club - Expected back 2 Dec"}
