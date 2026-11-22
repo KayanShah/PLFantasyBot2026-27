@@ -4539,3 +4539,26 @@
 {"at": "2026-11-21T20:50:04.627048+00:00", "element": 501, "name": "Danso", "field": "status", "from": "a", "to": "n"}
 {"at": "2026-11-21T20:50:04.627048+00:00", "element": 501, "name": "Danso", "field": "chance_of_playing_next_round", "from": 100, "to": 0}
 {"at": "2026-11-21T20:50:04.627048+00:00", "element": 501, "name": "Danso", "field": "news", "from": "", "to": "Ineligible to face parent club - Expected back 2 Dec"}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 1, "name": "Raya", "field": "news", "from": "Unspecified injury - 75% chance of playing", "to": "Shoulder injury - 75% chance of playing"}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 20, "name": "Dowman", "field": "status", "from": "s", "to": "a"}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 20, "name": "Dowman", "field": "chance_of_playing_next_round", "from": 0, "to": 100}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 20, "name": "Dowman", "field": "news", "from": "Suspended until 29 Nov", "to": ""}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 79, "name": "Evanilson", "field": "now_cost", "from": 65, "to": 66}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 93, "name": "Schuster", "field": "now_cost", "from": 45, "to": 44}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 565, "name": "M.Sangar\u00e9", "field": "now_cost", "from": 54, "to": 53}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 134, "name": "Oriola", "field": "now_cost", "from": 44, "to": 43}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 135, "name": "Yohanna", "field": "now_cost", "from": 48, "to": 47}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 40, "name": "Rogers", "field": "now_cost", "from": 82, "to": 83}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 189, "name": "Shepherd", "field": "now_cost", "from": 44, "to": 43}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 190, "name": "Tchaouna", "field": "now_cost", "from": 53, "to": 52}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 221, "name": "Drakes-Thomas", "field": "now_cost", "from": 44, "to": 43}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 241, "name": "McNeil", "field": "now_cost", "from": 53, "to": 52}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 286, "name": "Belloumi", "field": "now_cost", "from": 53, "to": 52}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 306, "name": "Greaves", "field": "now_cost", "from": 39, "to": 38}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 309, "name": "N\u00fa\u00f1ez", "field": "now_cost", "from": 48, "to": 47}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 347, "name": "Nmecha", "field": "now_cost", "from": 53, "to": 52}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 385, "name": "Trafford", "field": "now_cost", "from": 50, "to": 51}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 358, "name": "Kerkez", "field": "now_cost", "from": 53, "to": 52}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 237, "name": "Ndiaye", "field": "now_cost", "from": 58, "to": 57}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 397, "name": "Semenyo", "field": "now_cost", "from": 82, "to": 81}
+{"at": "2026-11-22T01:03:52.421691+00:00", "element": 112, "name": "Van Hecke", "field": "now_cost", "from": 51, "to": 52}
