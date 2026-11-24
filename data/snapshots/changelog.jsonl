@@ -4608,3 +4608,29 @@
 {"at": "2026-11-23T12:14:37.542653+00:00", "element": 340, "name": "Gelhardt", "field": "status", "from": "a", "to": "i"}
 {"at": "2026-11-23T12:14:37.542653+00:00", "element": 340, "name": "Gelhardt", "field": "chance_of_playing_next_round", "from": 100, "to": 0}
 {"at": "2026-11-23T12:14:37.542653+00:00", "element": 340, "name": "Gelhardt", "field": "news", "from": "", "to": "Thigh injury - Unknown return date"}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 1, "name": "Raya", "field": "chance_of_playing_next_round", "from": 75, "to": 50}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 1, "name": "Raya", "field": "news", "from": "Shoulder injury - 75% chance of playing", "to": "Shoulder injury - 50% chance of playing"}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 32, "name": "Cash", "field": "status", "from": "i", "to": "d"}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 32, "name": "Cash", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 32, "name": "Cash", "field": "news", "from": "Concussion - Expected back 28 Nov", "to": "Concussion - 75% chance of playing"}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 63, "name": "Milosavljevi\u0107", "field": "news", "from": "Thigh injury - Expected back 31 Oct", "to": "Thigh injury - Unknown return date"}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 68, "name": "Tavernier", "field": "now_cost", "from": 67, "to": 68}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 100, "name": "Carvalho", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 100, "name": "Carvalho", "field": "chance_of_playing_next_round", "from": 75, "to": 100}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 100, "name": "Carvalho", "field": "news", "from": "Knock - 75% chance of playing", "to": ""}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 605, "name": "Yalcouy\u00e9", "field": "status", "from": "a", "to": "i"}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 605, "name": "Yalcouy\u00e9", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 605, "name": "Yalcouy\u00e9", "field": "news", "from": "", "to": "Unspecified injury - Unknown return date"}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 183, "name": "Rudoni", "field": "now_cost", "from": 49, "to": 50}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 229, "name": "Tarkowski", "field": "status", "from": "a", "to": "s"}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 229, "name": "Tarkowski", "field": "chance_of_playing_next_round", "from": null, "to": 0}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 229, "name": "Tarkowski", "field": "news", "from": "", "to": "Suspended until 13 Dec"}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 240, "name": "Iroegbunam", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 240, "name": "Iroegbunam", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 240, "name": "Iroegbunam", "field": "news", "from": "Hamstring injury - 75% chance of playing", "to": "Hamstring injury - Unknown return date"}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 277, "name": "Egan", "field": "now_cost", "from": 41, "to": 40}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 352, "name": "Woodman", "field": "now_cost", "from": 40, "to": 39}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 389, "name": "Matheus N.", "field": "status", "from": "d", "to": "a"}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 389, "name": "Matheus N.", "field": "chance_of_playing_next_round", "from": 50, "to": 100}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 389, "name": "Matheus N.", "field": "news", "from": "Unspecified injury - 50% chance of playing", "to": ""}
+{"at": "2026-11-24T00:13:57.633571+00:00", "element": 490, "name": "Wood", "field": "now_cost", "from": 57, "to": 56}
