@@ -4645,3 +4645,9 @@
 {"at": "2026-11-24T20:47:38.171969+00:00", "element": 423, "name": "Shaw", "field": "status", "from": "i", "to": "d"}
 {"at": "2026-11-24T20:47:38.171969+00:00", "element": 423, "name": "Shaw", "field": "chance_of_playing_next_round", "from": 0, "to": 75}
 {"at": "2026-11-24T20:47:38.171969+00:00", "element": 423, "name": "Shaw", "field": "news", "from": "Unspecified injury - Unknown return date", "to": "Unspecified injury - 75% chance of playing"}
+{"at": "2026-11-25T04:01:06.889372+00:00", "element": 17, "name": "Merino", "field": "now_cost", "from": 57, "to": 56}
+{"at": "2026-11-25T04:01:06.889372+00:00", "element": 60, "name": "Hill", "field": "now_cost", "from": 56, "to": 57}
+{"at": "2026-11-25T04:01:06.889372+00:00", "element": 89, "name": "Henry", "field": "now_cost", "from": 44, "to": 43}
+{"at": "2026-11-25T04:01:06.889372+00:00", "element": 184, "name": "Grimes", "field": "now_cost", "from": 48, "to": 47}
+{"at": "2026-11-25T04:01:06.889372+00:00", "element": 162, "name": "Andrey Santos", "field": "now_cost", "from": 47, "to": 46}
+{"at": "2026-11-25T04:01:06.889372+00:00", "element": 558, "name": "Schlager", "field": "now_cost", "from": 50, "to": 49}
