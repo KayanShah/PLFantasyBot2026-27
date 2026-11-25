@@ -4651,3 +4651,9 @@
 {"at": "2026-11-25T04:01:06.889372+00:00", "element": 184, "name": "Grimes", "field": "now_cost", "from": 48, "to": 47}
 {"at": "2026-11-25T04:01:06.889372+00:00", "element": 162, "name": "Andrey Santos", "field": "now_cost", "from": 47, "to": 46}
 {"at": "2026-11-25T04:01:06.889372+00:00", "element": 558, "name": "Schlager", "field": "now_cost", "from": 50, "to": 49}
+{"at": "2026-11-25T14:49:34.989505+00:00", "element": 367, "name": "Gakpo", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-11-25T14:49:34.989505+00:00", "element": 367, "name": "Gakpo", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-11-25T14:49:34.989505+00:00", "element": 367, "name": "Gakpo", "field": "news", "from": "Calf injury - 75% chance of playing", "to": "Calf injury - Expected back 2 Dec"}
+{"at": "2026-11-25T14:49:34.989505+00:00", "element": 371, "name": "Gravenberch", "field": "status", "from": "d", "to": "i"}
+{"at": "2026-11-25T14:49:34.989505+00:00", "element": 371, "name": "Gravenberch", "field": "chance_of_playing_next_round", "from": 75, "to": 0}
+{"at": "2026-11-25T14:49:34.989505+00:00", "element": 371, "name": "Gravenberch", "field": "news", "from": "Foot injury - 75% chance of playing", "to": "Foot injury - Unknown return date"}
